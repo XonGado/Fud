@@ -1,0 +1,88 @@
+page-login {
+	ion-content{ 
+		background: linear-gradient(#e42c57, #1e98ed)!important;
+		display: flex!important;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	} 
+
+	.fud-logo{
+		height: 50px;
+		width: 50px;
+		display: block;
+		margin: unset auto;
+		transform: scale(1, 0.95); 
+	}
+
+	.fud-header{
+		// font-family: "Century Gothic";
+		color: white;
+		text-align: center;
+		margin-top: 0;
+		font-weight: 500;
+	}
+
+	.login-header{
+		font-size: 1.5em;
+		text-align: center;
+		color: #fff5;
+	}
+
+	ion-input{
+		flex: unset;
+	}
+
+	input[type="text"],
+	input[type="password"]{
+		font-family: Roboto;
+		border-radius: 1.5em;
+		margin: 0.5em 0 0 0;
+		border: 2px solid white;
+		background-color: transparent;
+		color: white;
+		display: block;
+		padding: 0.5em 1em;
+		width: 100%;
+	}
+
+	input[type="text"]::placeholder,
+	input[type="password"]::placeholder{
+		color: #fff8;
+	}
+
+	.login-btn{
+		margin-top: 1em;
+		background-color: rgba(255,255,255,0.9); 
+		color: #1e98ed;
+		border-radius: 1.5em;
+	}
+
+	.login-btn:hover{
+		background-color: rgba(255,255,255,1); 
+		text-shadow: 0px 0px 0px rgba(0,0,0,0.5);
+		// color: white;
+	}
+
+	.register-btn{
+		color: white;
+		background-color: transparent;
+		box-shadow: none;
+		text-shadow: 0px 0px 0px rgba(0,0,0,0.5);
+		transition: 0.2s;
+	}
+
+	.register-btn:hover{
+		background-color: transparent!important;
+		text-shadow: 0px 2px 3px rgba(0,0,0,0.5);
+		transform: translate(0, -2px);
+	}
+
+	.or{
+		color: #FFF8;
+		display: block;
+		text-align: center;
+		margin-top: 1em;
+	}
+
+}

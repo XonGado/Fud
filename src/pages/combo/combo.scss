@@ -1,0 +1,247 @@
+page-combo {
+    .combo-list{
+        padding: 5px 10px;
+        list-style: none;
+    }
+
+    .combo-container{
+        box-shadow: $light-shadow;
+        border-bottom: 10px;
+        margin-bottom: 10px;
+        display: grid;
+        grid-template-areas: "name price" "items count";
+
+        .name{
+            grid-area: name;
+            display: block;
+            // color: $red;
+            color: #555;
+            font-weight: bold;
+            font-size: $regular;
+            padding: 5px 10px;
+        }
+
+        .price{
+            grid-area: price;
+            font-size: $regular;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-right: 10px;
+        }
+
+        .price::after{
+            content: "php";
+            color: $green;
+            margin-left: 5px;
+        }
+
+        .count{
+            grid-area: count;
+            border-top: 1px solid #DDD;
+            font-size: $regular;
+            text-align: right;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-right: 10px;
+        }
+
+        .count::after{
+            content: "items";
+            color: $red;
+            margin-left: 5px;
+        }
+
+        ul{
+            grid-area: items;
+            border-top: 1px solid #DDD;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0;
+            padding: 5px 10px;
+
+            li{
+                display: block;
+                width: 1.5em;
+                height: 1.5em;
+                background-color: $red;
+                border-radius: 50%;
+                overflow: hidden;
+                margin-right: 5px;
+                color: $red;
+            }
+        }
+    }
+
+// .modal #buttons a{
+//   display: block; 
+//   /*margin: 0.5em;*/
+//   margin: 10px auto;
+//   font-size: 1em;
+//   padding: 0px;
+// }  
+// #confirmlogout{
+//   height: 197px;
+// }
+// #header{
+//   font-size: 1.5em;
+//   text-align: center;
+// }
+// .container {
+//   background-color: #111115; }
+//   .container .username {
+//     color: white;
+//     text-align: center;
+//     font-size: 1.25em;
+//     margin-top: 0.5em;
+//     margin-bottom: 0.25em;
+//     font-weight: 500; }
+//   .container .email {
+//     text-align: center;
+//     color: #888;
+//     font-size: 1.1em;
+//     font-style: italic;
+//     display: block; }
+//   .container h2.combos {
+//     display: inline-block;
+//     color: #AAA;
+//     margin-bottom: 0;
+//     margin-top: 2em;
+//     font-size: 1.5em;
+//     font-weight: 500; }
+//   .container a.icon i.material-icons{
+//     position: relative;
+//     display: inline-block;
+//     margin-top: 0.25em;
+//     margin-left: 30%;
+//     color: white;
+//     font-size: 1.25em;
+//   }
+//   .container .header {
+//     color: #DDD;
+//     font-size: 1em;
+//     display: flex;
+//     align-items: center;
+//     font-weight: 500;
+//     margin-bottom: 0.5em; }
+//     .container .header + ul, .container .header + ol {
+//       color: #888;
+//       display: flex;
+//       flex-wrap: wrap; }
+//       .container .header + ul li, .container .header + ol li {
+//         padding-top: calc(31% - 1em);
+//         width: 31%;
+//         margin: 1%;
+//         background-color: #333;
+//         text-align: center;
+//         border-radius: 4px; }
+//     .container .header .material-icons {
+//       margin-right: 0.5em; }
+
+// .reach {
+//   display: flex;
+//   flex-direction: column;
+//   margin-top: 1em;
+//   color: #555;
+//   border: 1px solid #222;
+//   border-width: 1px 0 1px 0;
+//   padding: 0.5em 0em 0.3em 0em; }
+//   .reach h5 {
+//     display: flex;
+//     align-items: center; }
+//     .reach * :first-child {
+//       margin-right: 0.2em; }
+//   .reach ul.header {
+//       /*width: 100%;*/
+//       color: #999; }
+//     .reach ul.header li.title{
+//       /*width: 90%;*/
+//     }
+//     .reach ul.header li.icon .material-icons {
+//       position: relative;
+//       font-size: 1.25em;
+//       color: white; 
+//     }
+// .details {
+//   padding: 1em 1em 0em 1em; }
+
+// .combo-list {
+//   margin: 0.5em; 
+//   width: 90%;
+//   margin: 1em auto;
+// }
+// #combos{
+//   margin: 0 auto;
+//   text-decoration: none;
+// }
+// .collection .collection-item{
+//   margin: 0px;
+//   text-decoration: none;
+// }
+// .collection-item span.name{
+//   font-weight: bold;
+//   text-decoration: none;
+// }
+// .collection-item a{
+//   font-size: 1em;
+//   color: black; 
+//   text-decoration: none;
+//   }
+//   .collection-item a i{
+//     font-size: 1.25em;
+//     float: right;
+//     text-decoration: none;
+//   }
+// .collection ol{
+//   padding-left: 1em;
+//   text-decoration: none;
+// }
+
+// .combo_container{
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+//   grid-template-areas: "c_name d_name"
+//                        "items  items";
+// }
+
+// .combo_name{ grid-area: c_name; }
+// .diner_name{ grid-area: d_name; }
+// .food_items{ grid-area: items; }
+
+// .combo_container{
+//   border: 1px solid rgba(255,255,255,0.3);
+//   padding: 0.5rem;
+//   border-radius: 4px;
+//   margin-bottom: 0.5rem;
+// }
+
+// .combo_name{
+//   margin-top: 0;
+//   font-size: 1.2em;
+//   display: flex;
+//   align-items: center;
+//   justify-content: flex-start;
+// }
+
+// .diner_name{
+//   margin-top: 0;
+//   font-size: 1em;
+//   color: rgba(255,255,255,0.5);
+//   display: flex;
+//   align-items: center;
+//   justify-content: flex-end;
+// }
+
+// .food_items{
+//   margin-bottom: 0;
+// }
+
+// .item_container{
+//   margin-bottom: 0.5rem;
+// }
+/*# sourceMappingURL=profile.css.map */
+
+}

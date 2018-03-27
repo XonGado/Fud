@@ -1,0 +1,126 @@
+page-cust-profile {
+    .container{
+        padding-top: 2.5em!important;
+    }
+
+    .display-image{
+        margin: 0 auto;
+        border-radius: 50%;
+        min-height: unset;
+        height: 7.5em;
+        width: 7.5em;
+        border: 3px solid white;
+        box-shadow: $light-shadow;
+        padding-bottom: 0;
+    }
+
+    .email, .reach{
+        font-size: $regular;
+    }
+
+    .username{
+        padding: 0 10px;
+        display: block;
+        // color: $red;
+        margin: 10px 0 0 0;
+        text-align: center;
+    }
+
+    .email{
+        padding: 0 10px;
+        display: block;
+        color: rgba(0,0,0,0.8);
+        text-align: center;
+    }
+
+    .reach{
+        padding: 10px 20px;
+        margin: 0.5em 0 0 0;
+        display: flex;
+        flex-direction: column;
+        color: rgba(0,0,0,0.8);
+    }
+
+    .reach ion-icon{
+        color: $red;
+    }
+
+    .milestones{
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+        padding: 5px 0;
+        border-top: 1px dashed $blue;
+        border-bottom: 1px dashed $blue;
+    }
+
+    .milestones > *{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row-reverse;
+        width: 30%;
+    }
+
+    .milestones > * > :nth-child(2){
+        font-size: 1.75em;
+        color: #555;
+    }
+
+    .milestones .count{
+        color: $red;
+        font-size: 1.75em;
+        margin-left: 0.25em;
+    }
+
+    .header{
+        padding: 10px 20px;
+        color: #555;
+        border-top: 1px solid #DDD;
+        margin: 0;
+        font-size: $regular;
+    }
+
+    .header + ul{
+        display: flex;
+        // flex-wrap: wrap;
+        justify-content: flex-start;
+        padding: 10px 10px 10px 20px;
+        margin: 0;
+        overflow-x: auto;
+
+        li{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100%;
+            margin-right: 5px;
+            // box-shadow: $light-shadow;
+
+            .image{
+                margin-right: 10px;
+                height: 4em;
+                width: 4em;
+                display: flex;
+                border-radius: 50%;
+                align-items: center;
+                justify-content: center;
+                background-color: $red;
+            }
+
+            .name{
+                display: none;
+                width: 5em;
+                height: 1em;
+                margin-top: 3px;
+                color: #555;
+                font-size: $regular;
+                text-align: center;
+                width: 100%;
+                white-space: nowrap;
+            }
+        }
+    }
+
+}

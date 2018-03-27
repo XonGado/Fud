@@ -1,0 +1,111 @@
+page-order {
+	h1{
+		color: #555;
+		font-size: 1.5em;
+		padding: 0.25em 10px;
+		font-weight: normal;
+		margin: 0;
+	}
+
+	#order-details-options{
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		background-color: white;
+		box-shadow: $dark-shadow;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+
+		#bill{
+			font-size: $regular;
+			margin-left: 10px;
+			color: $green;
+		}		
+
+		#order-btn{
+			padding: 0.5em 1em;
+			font-size: $regular;
+			color: white;
+			background-color: $green;
+		}
+	}
+
+	#item-container{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		.category-name{
+			color: #555;
+			display: block;
+			text-align: left;
+			width: calc(100% - 10px);
+			border-top: 1px solid #DDD;
+			padding-top: 10px; 
+			margin-bottom: 5px;
+		}
+
+		.item{
+			margin-top: 5px;
+			width: calc(100% - 10px);
+			box-shadow: $light-shadow;
+			display: flex;
+			align-items: center;
+			position: relative;
+			padding: none;
+			min-height: unset;
+
+			.add-btn, .remove-btn{
+				width: 50%;
+				position: absolute;
+				color: white;
+				top: 0;
+				height: 100%;
+				opacity: 0;
+				transition: 0.2s;
+				font-size: 2em;
+				padding: 0 10px;
+			}
+
+			.add-btn{
+				background: linear-gradient(right, $green, transparent);
+				// background-color: $green;
+				text-align: right;
+				right: 0;
+			}
+
+			.remove-btn{
+				background: linear-gradient(left, $red, transparent);
+				// background-color: $red;
+				text-align: left;
+				left: 0;
+			}
+
+			.add-btn:active,
+			.remove-btn:active{
+				opacity: 1;
+			}
+
+			.image{
+				height: 2.5em;
+				width: 2.5em;
+				object-fit: cover;
+				object-position: center;
+			}
+
+			.name{
+				color: #555;
+				padding-left: 10px;
+			}
+
+			.price{
+				color: $green;
+				margin-left: auto;
+				padding-right: 10px;
+			}
+		}
+	}
+}

@@ -1,0 +1,85 @@
+<!--
+  Generated template for the OrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cafe Diem</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content ng-app="order" ng-controller="orderController">
+	<h1>Order</h1>
+	<div id="order-details">
+		
+	</div>
+	<div class="search-template" id="item-search">
+		<input type="text" id="item-search-input" name="keyword" placeholder="Search">
+		<button type="button"><ion-icon name="search"></ion-icon></button>
+	</div>
+
+	<div id="item-container">
+		<h5 class="category-name">Waffles</h5>
+		<div class="item" *ngFor="let item of itemList">
+			<button type="button" class="add-btn"><ion-icon name="add"></ion-icon></button>
+			<button type="button" class="remove-btn"><ion-icon name="remove"></ion-icon></button>
+			<img class="image" src="assets/imgs/{{item.image}}" alt="item_image">
+			<span class="name">{{item.name}}</span>
+			<span class="price">{{item.price}}</span>
+		</div>
+	</div>
+
+	<div id="order-details-options">
+		<span id="bill"><ion-icon name="cash"></ion-icon> 100</span>
+		<button type="button" id="order-btn" (click)="confirmQR()">Order <ion-icon name="checkmark"></ion-icon></button>
+	</div>
+	<!-- <div class="container">
+		<div class="details overflow-auto">
+			<h1 class="order">Order</h1>
+			<span class="cafe">at Cafe Diem</span>
+			<h2 class="header"><i class="material-icons tiny">local_dining</i> Appetizers</h2>
+			<ul>
+				<li><span class="name truncate"><span class="price">65</span> Hotdog</span></li>
+				<li><span class="name truncate"><span class="price">55</span> Bacon</span></li>
+				<li><span class="name truncate"><span class="price">55</span> Tapa</span></li>
+				<li><span class="name truncate"><span class="price">90</span> Hungarian</span></li>
+				<li><span class="name truncate"><span class="price">75</span> Chicken Nuggets</span></li>
+				<li><span class="name truncate"><span class="price">65</span> Hotchick</span></li>
+			</ul>
+			<h2 class="header"><i class="material-icons tiny">local_cafe</i> House Drinks</h2>
+			<ul>
+				<li><span class="name truncate"><span class="price">85</span> Irish Cream</span></li>
+				<li><span class="name truncate"><span class="price">85</span> Hazelnut</span></li>
+				<li><span class="name truncate"><span class="price">85</span> Macadamia</span></li>
+				<li><span class="name truncate"><span class="price">80</span> Choco Obama</span></li>
+				<li><span class="name truncate"><span class="price">75</span> Toffee</span></li>
+				<li><span class="name truncate"><span class="price">65</span> Caramel</span></li>
+			</ul>
+			<h2 class="header"><i class="material-icons tiny">cake</i> Desert</h2>
+			<ul>
+				<li><span class="truncate"><span class="price">100</span> Choco Chip Waffle</span></li>
+				<li><span class="truncate"><span class="price">85</span> Plain Waffle</span></li>
+				<li><span class="truncate"><span class="price">60</span> Caramel Waffle</span></li>
+				<li><span class="truncate"><span class="price">70</span> Cream Cheese Waffle</span></li>
+				<li><span class="truncate"><span class="price">100</span> Triple Choco Waffle</span></li>
+				<li><span class="truncate"><span class="price">100</span> Blueberry Waffle</span></li>
+			</ul>
+			<button class="btn right">Order</button>
+
+		</div>
+	</div> -->
+
+</ion-content>
+
+<script>
+	var order = angular.module('order', []);
+
+	order.controller('orderController', function($scope) {
+	    $scope.names = ["Emil", "Tobias", "Linus"];
+	});
+</script>

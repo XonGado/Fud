@@ -1,0 +1,90 @@
+<!--
+  Generated template for the HomeCustPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+	<ion-toolbar>
+		<button ion-button menuToggle icon-only>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Home</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-menu id="side-menu" type="overlay" [content]="content">
+	<ion-header>
+		<img class="sidemenu-pp" src="assets/imgs/samplePP.jpg" (click)="openProfile()">
+		<ion-toolbar>
+			<ion-title class="name" (click)="openProfile()">Clyde Joshua Delgado</ion-title>
+			<span class="email">cndelgado@up.edu.ph</span>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content>
+		<ion-list>
+			<button ion-item (click)="openProfile()">
+				<ion-icon name="person"></ion-icon> Profile
+				<ion-icon name="arrow-round-forward"></ion-icon>
+			</button>
+			<button ion-item (click)="openCombo()">
+				<ion-icon name="pizza"></ion-icon> Combo
+				<ion-icon name="arrow-round-forward"></ion-icon>
+			</button>
+			<button ion-item (click)="order()">
+				<ion-icon name="cart"></ion-icon> Order
+				<ion-icon name="arrow-round-forward"></ion-icon>
+			</button>
+			<button ion-item (click)="openMenus()">
+				<ion-icon name="paper"></ion-icon> Menus
+				<ion-icon name="arrow-round-forward"></ion-icon>
+			</button>
+			<button ion-item (click)="logout()">
+				<ion-icon name="log-out"></ion-icon> Logout
+				<ion-icon name="arrow-round-forward"></ion-icon>
+			</button>
+		</ion-list>
+	</ion-content>
+</ion-menu>
+
+<ion-nav #content [root]="rootPage"></ion-nav>
+
+<ion-content>
+	<div id="search" class="search-template">
+		<input type="text" id="search-input" name="keyword" placeholder="Search">
+		<button id="search-btn" type="button"><ion-icon name="search"></ion-icon></button>
+	</div>
+	<div id="diner-container">
+		<div class="diner">
+			<img class="display-image" src="assets/imgs/samplePP.jpg">
+			<h2 class="name">Cafe Diem</h2>
+			<span class="distance"><ion-icon name="map"></ion-icon> 1km</span>
+			<span class="capacity"><ion-icon name="people"></ion-icon> 20</span>
+			<span class="capacity-bar">
+				<i class="bar"></i>
+			</span>
+		</div>
+		<div class="diner">
+			<img class="display-image" src="assets/imgs/samplePP.jpg">
+			<h2 class="name">Cafe Diem</h2>
+			<span class="distance"><ion-icon name="map"></ion-icon> 1km</span>
+			<span class="capacity"><ion-icon name="people"></ion-icon> 20</span>
+			<span class="capacity-bar">
+				<i class="bar"></i>
+			</span>
+		</div>
+		<div class="diner">
+			<img class="display-image" src="assets/imgs/samplePP.jpg">
+			<h2 class="name">Cafe Diem</h2>
+			<span class="distance"><ion-icon name="map"></ion-icon> 1km</span>
+			<span class="capacity"><ion-icon name="people"></ion-icon> 20</span>
+			<span class="capacity-bar">
+				<i class="bar"></i>
+			</span>
+		</div>
+	</div>
+
+	<div id="map">
+		<h1>Display map here</h1>
+	</div>
+</ion-content>

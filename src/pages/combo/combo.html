@@ -1,0 +1,59 @@
+<!--
+  Generated template for the ComboPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>combo</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content>
+	<div class="container">
+		<div id="toolbar">
+			<button class="back-button-custom" (click)="closePage()">
+				<ion-icon name="arrow-back"></ion-icon>
+			</button>
+			<h2 class="page_name">Combos</h2>
+			<button class="add-button" (click)="openAddComboModal()">
+				<ion-icon name="add"></ion-icon>
+			</button>
+		</div>
+		<ul class="combo-list" id="combos">
+			<li class="combo-container">
+				<span class="name">Combo 1</span>
+				<span class="price">100</span>
+				<ul>
+					<li>Blueberry Pancake</li>
+					<li>Milk Tea</li>
+				</ul>
+				<span class="count">2</span>
+			</li>
+			<li class="combo-container">
+				<span class="name">Combo 2</span>
+				<span class="price">100</span>
+				<ul>
+					<li>Bacon</li>
+					<li>Oreo Smoothie</li>
+				</ul>
+				<span class="count">2</span>
+			</li>
+			<li class="combo-container">
+				<span class="name">Combo 3</span>
+				<span class="price">100</span>
+				<ul>
+					<li>Choco Obama</li>
+					<li>3 Blind Mice</li>
+					<li>Penne and Sausage</li>
+				</ul>
+				<span class="count">3</span>
+			</li>
+		</ul>
+	</div>
+</ion-content>

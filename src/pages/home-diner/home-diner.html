@@ -1,0 +1,130 @@
+<!--
+  Generated template for the HomeDinerPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>homeDiner</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+<ion-header>
+	<ion-toolbar>
+		<button ion-button menuToggle icon-only>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Home</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-menu id="side-menu" type="overlay" [content]="content">
+	<ion-header>
+		<img class="sidemenu-pp" src="assets/imgs/samplePP.jpg" (click)="openProfile()">
+		<ion-toolbar>
+			<ion-title class="name" (click)="openProfile()">Cafe Diem</ion-title>
+			<span class="email">cafeDiem@gmail.com</span>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content>
+		<ion-list>
+			<button ion-item (click)="openProfile()">
+				<ion-icon name="person"></ion-icon> Profile
+				<ion-icon name="arrow-round-forward"></ion-icon>
+			</button>
+			<button ion-item (click)="openMenus()">
+				<ion-icon name="paper"></ion-icon> Menu
+				<ion-icon name="arrow-round-forward"></ion-icon>
+			</button>
+			<button ion-item (click)="logout()">
+				<ion-icon name="log-out"></ion-icon> Logout
+				<ion-icon name="arrow-round-forward"></ion-icon>
+			</button>
+		</ion-list>
+	</ion-content>
+</ion-menu>
+
+<ion-nav #content [root]="rootPage"></ion-nav>
+
+<ion-content padding>
+	<div class="container">
+		<h1 class="page_name">Orders</h1>
+		<ul id="order-types">
+			<li class="active">All <span class="count">2</span></li>
+			<li>Dine-in <span class="count">2</span></li>
+			<li>Take-out</li>
+			<li>Deliver</li>
+		</ul>
+		<section id="orders">
+			<div class="order_container take-out">
+				<header class="order_details">
+					<img class="customer_img" alt="user-image" src="assets/imgs/samplePP.jpg">
+					<span class="customer_name">Clyde Joshua Delgado</span>
+					<span class="table_number" title="Table number">1</span>
+					<ion-icon name="arrow-down" class="down"></ion-icon>
+				</header>
+				<ul class="customer_orders">
+					<li class="order_item">
+						<span class="item_quantity">1</span>
+						<img class="item_image" alt="food-image" src="assets/imgs/1.jpg">
+						<span class="item_name">Blueberry Shake</span>
+						<span class="item_price">100</span>
+					</li>
+					<li class="order_item">
+						<span class="item_quantity">1</span>
+						<img class="item_image" alt="food-image" src="assets/imgs/2.jpg">
+						<span class="item_name">Irish Cream</span>
+						<span class="item_price">85</span>
+					</li>
+					<li class="order_item">
+						<span class="item_quantity">1</span>
+						<img class="item_image" alt="food-image" src="assets/imgs/3.jpg">
+						<span class="item_name">Maple Syrup</span>
+						<span class="item_price">15</span>
+					</li>
+				</ul>
+				<footer class="order_footer">
+					<span class="order_total_text">TOTAL</span>
+					<span class="order_total">200</span>
+					<button class="finished_btn" onclick="finishOrder()"><ion-icon name="check-mark"></ion-icon> Finished</button>
+				</footer>
+			</div>
+			<div class="order_container">
+				<header class="order_details">
+					<img class="customer_img" alt="user-image" src="assets/imgs/samplePP.jpg">
+					<span class="customer_name">Clyde Joshua Delgado</span>
+					<span class="table_number" title="Table number">2</span>
+					<ion-icon name="arrow-down" class="down"></ion-icon>
+				</header>
+				<ul class="customer_orders">
+					<li class="order_item">
+						<span class="item_quantity">1</span>
+						<img class="item_image" alt="food-image" src="assets/imgs/1.jpg">
+						<span class="item_name">Blueberry Shake</span>
+						<span class="item_price">100</span>
+					</li>
+					<li class="order_item">
+						<span class="item_quantity">1</span>
+						<img class="item_image" alt="food-image" src="assets/imgs/2.jpg">
+						<span class="item_name">Irish Cream</span>
+						<span class="item_price">85</span>
+					</li>
+					<li class="order_item">
+						<span class="item_quantity">1</span>
+						<img class="item_image" alt="food-image" src="assets/imgs/3.jpg">
+						<span class="item_name">Maple Syrup</span>
+						<span class="item_price">15</span>
+					</li>
+				</ul>
+				<footer class="order_footer">
+					<span class="order_total_text">TOTAL</span>
+					<span class="order_total">200</span>
+					<button class="finished_btn" onclick="finishOrder()"><ion-icon class="material-icons"></ion-icon> Finished</button>
+				</footer>
+			</div>
+		</section>
+	</div>
+</ion-content>
