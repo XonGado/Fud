@@ -16,10 +16,18 @@
 <ion-content padding>
 	<div class="container centered-content">
 		<h1 class="fud-header"><img class="fud-logo" src="assets/imgs/fud_logo_w_tn.png"> Fud</h1>
-		<input type="text" name="username" placeholder="Username" #username>
-		<input type="password" name="password" placeholder="Password" #password>
-		<button ion-button block class="login-btn" (click)="authenticateLogin()">Login</button>
-		<span class="or">or</span>
-		<button ion-button block class="register-btn" (click)="openRegisterPage()">Create an Account</button>
+		<ion-icon name="person-add" title="Create Account" class="register-btn" (click)="openRegisterPage()"></ion-icon>
+		<form autocomplete="off">
+			<div class="input-holder"> 
+				<input type="text" name="username" placeholder="Username" value="XonGado" #username>
+				<ion-icon name="person"></ion-icon>
+			</div>
+			<div class="input-holder">
+				<input type="password" name="password" placeholder="Password" value="password" #password>
+				<ion-icon name="lock"></ion-icon>
+			</div>
+
+			<button class="login-btn" (click)="authenticateLogin()">Log in</button>
+		</form>
 	</div>
 </ion-content>

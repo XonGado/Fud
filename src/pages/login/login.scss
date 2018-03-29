@@ -1,91 +1,129 @@
 page-login {
 	ion-content{ 
-		background: linear-gradient(#e42c57, #1e98ed)!important;
+		background: $gradient-background-primary;
 		display: flex!important;
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
 	} 
 
+	.container{
+		width: 90%;
+		margin: auto!important;
+	}
+
 	.fud-logo{
-		height: 40px;
-		width: 40px;
+		height: 80px;
+		width: 80px;
 		display: block;
 		margin: unset auto;
 		transform: scale(1, 0.95); 
+		margin-bottom: 10px;
+		transform: translate(-0.25em, 0);
 	}
 
 	.fud-header{
-		font-family: "Raleway";
 		color: white;
 		text-align: center;
 		margin-top: 0;
 		font-weight: 500;
 		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.login-header{
-		font-size: 1.5em;
-		text-align: center;
-		color: #fff5;
-	}
-
-	ion-input{
-		flex: unset;
-	}
-
-	input[type="text"],
-	input[type="password"]{
-		font-family: Roboto;
-		border-radius: 1.5em;
-		margin: 0.5em 0 0 0;
-		border: 2px solid white;
-		background-color: transparent;
-		color: white;
-		display: block;
-		padding: 0.5em 1em;
+		justify-content: flex-start;
 		width: 100%;
-	}
-
-	input[type="text"]::placeholder,
-	input[type="password"]::placeholder{
-		color: #fff8;
-	}
-
-	.login-btn{
-		margin-top: 1em;
-		background-color: rgba(255,255,255,0.9); 
-		color: #1e98ed;
-		border-radius: 1.5em;
-	}
-
-	.login-btn:hover{
-		background-color: rgba(255,255,255,1); 
-		text-shadow: 0px 0px 0px rgba(0,0,0,0.5);
-		// color: white;
+		align-items: center;
+		font-size: $regular;
+		margin-bottom: 3em;
+		flex-direction: column;
+		text-transform: uppercase;
+		font-weight: bold;
+		letter-spacing: 0.5em;
+		transform: translate(0.25em, 0);
 	}
 
 	.register-btn{
+		position: fixed;
+		top: 0.5em;
+		right: 0.5em;
+		font-size: $medium;
 		color: white;
-		background-color: transparent;
-		box-shadow: none;
-		text-shadow: 0px 0px 0px rgba(0,0,0,0.5);
 		transition: 0.2s;
+		background-color: rgba(255,255,255,0);
+		box-shadow: 0 0 0px rgba(255,255,255,0.5);
 	}
 
 	.register-btn:hover{
-		background-color: transparent!important;
-		text-shadow: 0px 2px 3px rgba(0,0,0,0.5);
-		transform: translate(0, -2px);
+		background-color: rgba(255,255,255,0.3);
+		box-shadow: 0 0 25px rgba(255,255,255,1);
+		cursor: pointer;
 	}
 
-	.or{
-		color: #FFF8;
-		display: block;
+	form{
+		width: 100%;
+	}
+
+	.input-holder{
+		display: flex;
+		flex-direction: row-reverse;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 0.5em;
+		background-color: rgba(255,255,255,0.2);
+		padding: 0.5em 0;
+	}
+
+	ion-icon{
+		box-sizing: border-box;
+		color: white;
+		font-size: $medium;
+		padding: 0 0.25em;
+		margin: 0 0.25em;
+		width: 1em;
+		height: 1em;
 		text-align: center;
-		margin-top: 1em;
+		// border: 1px solid white;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: 0.2s;
+		background-color: rgba(255,255,255,0);
+		box-shadow: 0 0 0px rgba(255,255,255,0.5);
 	}
 
+	input{
+		display: block;
+		width: 100%;
+		background-color: transparent;
+		color: white;
+		border: none;
+		border-left: 2px solid white;
+		font-size: 1em;
+		padding-left: 0.5em;
+	}
+
+	input:focus + ion-icon{
+		background-color: rgba(255,255,255,0.3);
+		box-shadow: 0 0 25px rgba(255,255,255,1);
+	}
+
+	input::placeholder{
+		color: rgba(255,255,255,0.8);
+		text-transform: uppercase;
+		letter-spacing: 0.15em;
+	}
+
+	.login-btn{
+		margin-top: 2em;
+		display: block;
+		background-color: white;
+		color: $violet;
+		text-transform: uppercase;
+		box-shadow: $light-shadow;
+		width: 100%;
+		padding: 1em 1em;
+		font-size: $regular;
+		font-weight: 1000;
+		letter-spacing: 0.05em;
+		// border: 1px solid white;
+	}
 }
