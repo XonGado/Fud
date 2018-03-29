@@ -39,7 +39,7 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-    this.navCtrl.push(HomeDinerPage);
+    this.navCtrl.push(RegisterPage);
   }
 }
 

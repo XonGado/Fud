@@ -26,6 +26,9 @@ $violet	: #AB47BC;
 $light-shadow: 0 1px 5px rgba(0,0,0,0.25);
 $dark-shadow: 0 1px 10px rgba(0,0,0,0.4);
 
+$gradient-background: linear-gradient(to right, $red, $blue);
+$gradient-background-secondary: linear-gradient(to left, $red, $blue);
+
 // Text size values
 $regular: 1.3em;
 $medium : 2.5em;
