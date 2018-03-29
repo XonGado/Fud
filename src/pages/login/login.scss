@@ -8,19 +8,22 @@ page-login {
 	} 
 
 	.fud-logo{
-		height: 50px;
-		width: 50px;
+		height: 40px;
+		width: 40px;
 		display: block;
 		margin: unset auto;
 		transform: scale(1, 0.95); 
 	}
 
 	.fud-header{
-		// font-family: "Century Gothic";
+		font-family: "Raleway";
 		color: white;
 		text-align: center;
 		margin-top: 0;
 		font-weight: 500;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.login-header{
