@@ -44,14 +44,27 @@ page-login {
 		position: fixed;
 		top: 0.5em;
 		right: 0.5em;
-		font-size: $medium;
+		display: inline-flex;
+		align-items: center;
+		background-color: transparent;
+		color: white;
+		font-size: $regular;
+	}
+
+	.register-btn ion-icon{
+		height: 1em;
+		width: 1em;
+		font-size: 1.25em;
 		color: white;
 		transition: 0.2s;
 		background-color: rgba(255,255,255,0);
 		box-shadow: 0 0 0px rgba(255,255,255,0.5);
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
 	}
 
-	.register-btn:hover{
+	.register-btn:hover ion-icon{
 		background-color: rgba(255,255,255,0.3);
 		box-shadow: 0 0 25px rgba(255,255,255,1);
 		cursor: pointer;

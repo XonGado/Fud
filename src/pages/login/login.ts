@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { RegisterPage } from '../register/register';
@@ -18,8 +18,8 @@ import { MenusPage } from '../menus/menus';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-	@ViewChild('username') username;
-	@ViewChild('password') password;
+	@ViewChild('username') username: ElementRef;
+	@ViewChild('password') password: ElementRef;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -29,8 +29,8 @@ export class LoginPage {
   }
 
   authenticateLogin() {
-    var username = this.username.value;
-    var password = this.password.value;
+    var username = this.username.nativeElement.value;
+    var password = this.password.nativeElement.value;
 
     console.log("Username: " + username + "; Password: " + password);
     this.navCtrl.push(HomeDinerPage);
@@ -38,6 +38,7 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
+    console.log(this.username.nativeElement.value);
     console.log('ionViewDidLoad LoginPage');
     // this.navCtrl.push(RegisterPage);
   }
