@@ -57,14 +57,12 @@ export class RegisterPage {
   createCustomer(registerCustomer: RegisterCustomer) {
   	// console.log(registerCustomer);
   	this.fire.auth.createUserWithEmailAndPassword(this.cust_email.value, this.cust_password.value)
-
   	.then((data) => {
   		console.log("Data: ", data);
   	})
   	.catch(error => {
   		console.log("Error: ", error);
   	})
-
 
   	this.registerCustomerRef$.push({
   		cust_name: this.registerCustomer.cust_name,
@@ -77,6 +75,14 @@ export class RegisterPage {
 
   createDiner(registerDiner: RegisterDiner){
   	// console.log(registerDiner);
+  	this.fire.auth.createUserWithEmailAndPassword(this.dine_email.value, this.dine_password.value)
+  	.then((data) => {
+  		console.log("Data: ", data);
+  	})
+  	.catch(error => {
+  		console.log("Error: ", error);
+  	})
+  	
   	this.registerDinerRef$.push({
   		dine_name: this.registerDiner.dine_name,
   		dine_owner_name: this.registerDiner.dine_owner_name,

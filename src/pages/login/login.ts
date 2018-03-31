@@ -5,6 +5,10 @@ import { RegisterPage } from '../register/register';
 import { HomeCustPage } from '../home-cust/home-cust';
 import { HomeDinerPage } from '../home-diner/home-diner';
 import { MenusPage } from '../menus/menus';
+
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -18,10 +22,10 @@ import { MenusPage } from '../menus/menus';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-	@ViewChild('username') username;
+	@ViewChild('email') email;
 	@ViewChild('password') password;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fire: AngularFireAuth, private database: AngularFireDatabase) {
   }
 
   openRegisterPage() {
@@ -29,11 +33,18 @@ export class LoginPage {
   }
 
   authenticateLogin() {
-    var username = this.username.value;
-    var password = this.password.value;
+    console.log("Handle login here");
+    console.log(this.email.value);
+    this.fire.auth.signInAndRetrieveDataWithEmailAndPassword(this.email.value, this.password.value)
+    .then( data => {
+      console.log("User logged in: ", this.fire.auth.currentUser);
+      // this.navCtrl.setRoot(TempHomePage);
+    })
+    .catch( error => {
+      console.log("Error: ", error);
+    })
 
-    console.log("Username: " + username + "; Password: " + password);
-    this.navCtrl.push(HomeDinerPage);
+    // this.navCtrl.push(HomeDinerPage);
     // this.navCtrl.push(HomeCustPage);
   }
 
