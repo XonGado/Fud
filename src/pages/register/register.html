@@ -21,23 +21,27 @@
 		<ion-slide padding>
 			<div class="container" id="customer-form">
 				<h2>Customer</h2>
-				<ion-input type="text" placeholder="Name" #cust_name></ion-input>				
-				<ion-input type="text" placeholder="Username" #cust_username></ion-input>
-				<ion-input type="email" placeholder="Email" #cust_email></ion-input>
-				<ion-input type="password" placeholder="Password" #cust_password></ion-input>
-				<ion-input type="password" placeholder="Retype Password" #cust_retypePassword></ion-input>
-				<button ion-button block class="register-btn">Create!</button>
+				<ion-input type="text" placeholder="Name" [(ngModel)]="registerCustomer.cust_name" #cust_name></ion-input>
+				<ion-input type="text" placeholder="Username" [(ngModel)]="registerCustomer.cust_username" #cust_username></ion-input>
+				<ion-input type="email" placeholder="Email" [(ngModel)]="registerCustomer.cust_email" #cust_email></ion-input>
+				<ion-input type="password" placeholder="Password" [(ngModel)]="registerCustomer.cust_password" #cust_password></ion-input>
+				<ion-input type="password" placeholder="Retype Password" [(ngModel)]="registerCustomer.cust_retypePassword" #cust_retypePassword></ion-input>
+				<button ion-button block class="register-btn" (click)="createCustomer(registerCustomer)">Create!</button>
 			</div>
 		</ion-slide>
 		<ion-slide padding>
 			<div class="container" id="diner-form">
 				<h2>Diner</h2>
-				<ion-input type="text" placeholder="Name" #dine_name></ion-input>				
-				<ion-input type="text" placeholder="Username" #dine_username></ion-input>
-				<ion-input type="email" placeholder="Email" #dine_email></ion-input>
-				<ion-input type="password" placeholder="Password" #dine_password></ion-input>
-				<ion-input type="password" placeholder="Retype Password" #dine_retypePassword></ion-input>
-				<button ion-button block class="register-btn">Create!</button>
+				<ion-input type="text" placeholder="Diner Name" [(ngModel)]="registerDiner.dine_name" #dine_name></ion-input>
+				<ion-input type="text" placeholder="Owner Name" [(ngModel)]="registerDiner.dine_owner_name" #dine_owner_name></ion-input>				
+				<ion-input type="text" placeholder="Username" [(ngModel)]="registerDiner.dine_username" #dine_username></ion-input>
+				<ion-input type="email" placeholder="Email" [(ngModel)]="registerDiner.dine_email" #dine_email></ion-input>
+				<ion-input type="text" placeholder="Website Link (optional)" [(ngModel)]="registerDiner.dine_weblink" #dine_weblink></ion-input>
+				<ion-input type="text" placeholder="Delivery Number" [(ngModel)]="registerDiner.dine_number" #dine_number></ion-input>
+				<ion-input type="text" placeholder="Address" [(ngModel)]="registerDiner.dine_address" #dine_address></ion-input>
+				<ion-input type="password" placeholder="Password" [(ngModel)]="registerDiner.dine_password" #dine_password></ion-input>
+				<ion-input type="password" placeholder="Retype Password" [(ngModel)]="registerDiner.dine_retypePassword" #dine_retypePassword></ion-input>
+				<button ion-button block class="register-btn" (click)="createDiner(registerDiner)">Create!</button>
 			</div>
 		</ion-slide>
 	</ion-slides>

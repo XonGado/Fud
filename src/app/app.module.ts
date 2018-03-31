@@ -20,6 +20,12 @@ import { MenuPage } from '../pages/menu/menu';
 import { MenusPage } from '../pages/menus/menus';
 import { OrderPage } from '../pages/order/order';
 
+// firebase & angularfire2
+import { AngularFireModule } from 'angularfire2'
+import { AngularFireDatabaseModule } from 'angularfire2/database'
+import { AngularFireAuthModule } from 'angularfire2/auth'
+import { FIREBASE_CONFIG } from './firebase.config';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -39,7 +45,10 @@ import { OrderPage } from '../pages/order/order';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
