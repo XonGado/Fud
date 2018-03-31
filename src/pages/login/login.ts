@@ -33,13 +33,17 @@ export class LoginPage {
     var password = this.password.nativeElement.value;
 
     console.log("Username: " + username + "; Password: " + password);
-    this.navCtrl.push(HomeDinerPage);
-    // this.navCtrl.push(HomeCustPage);
+    if (username == "XonGado" && password == "password") {
+      this.navCtrl.push(HomeDinerPage);
+    } else {
+      console.log("Invalid credentials");
+    }
   }
 
   ionViewDidLoad() {
     console.log(this.username.nativeElement.value);
-    console.log('ionViewDidLoad LoginPage');
+    console.log(this.password.nativeElement.value);
+    console.log('Loaded LoginPage');
     // this.navCtrl.push(RegisterPage);
   }
 }
