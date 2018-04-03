@@ -1,13 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { RegisterPage } from '../register/register';
-import { HomeCustPage } from '../home-cust/home-cust';
-import { HomeDinerPage } from '../home-diner/home-diner';
-import { MenusPage } from '../menus/menus';
+// import { HomeCustPage } from '../home-cust/home-cust';
+// import { HomeDinerPage } from '../home-diner/home-diner';
+// import { MenusPage } from '../menus/menus';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import firebase from 'firebase';
 
 /**
  * Generated class for the LoginPage page.
@@ -22,35 +23,25 @@ import { AngularFireDatabase } from 'angularfire2/database';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-	@ViewChild('email') email;
-	@ViewChild('password') password;
+	@ViewChild('email') email: ElementRef;
+	@ViewChild('password') password: ElementRef;
+
+  customerList = firebase.database().ref('customers/')
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fire: AngularFireAuth, private database: AngularFireDatabase) {
   }
 
   openRegisterPage() {
-    this.navCtrl.push(RegisterPage);
+    this.navCtrl.push(RegisterPage)
   }
 
   authenticateLogin() {
-    console.log("Handle login here");
-    console.log(this.email.value);
-    this.fire.auth.signInAndRetrieveDataWithEmailAndPassword(this.email.value, this.password.value)
-    .then( data => {
-      console.log("User logged in: ", this.fire.auth.currentUser);
-      // this.navCtrl.setRoot(TempHomePage);
-    })
-    .catch( error => {
-      console.log("Error: ", error);
-    })
-
-    // this.navCtrl.push(HomeDinerPage);
-    // this.navCtrl.push(HomeCustPage);
+    var user = this.fire.auth.signInAndRetrieveDataWithEmailAndPassword(this.email.nativeElement.value, this.password.nativeElement.value)
+    console.log("Customers: ", this.customerList)
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-    // this.navCtrl.push(RegisterPage);
+    console.log('Loaded LoginPage');
   }
 }
 

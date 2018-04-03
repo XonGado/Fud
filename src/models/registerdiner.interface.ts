@@ -1,4 +1,5 @@
 export interface RegisterDiner {
+	uid: string;
 	dine_name: string;
 	dine_owner_name: string;
 	dine_username: string;
@@ -6,6 +7,4 @@ export interface RegisterDiner {
 	dine_weblink: string;
 	dine_number: string;
 	dine_address: string;
-	dine_password: string;
-	dine_retypePassword: string;
 }
