@@ -3,6 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { Camera } from '@ionic-native/camera';
+import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -19,6 +21,7 @@ import { HomeDinerPage } from '../pages/home-diner/home-diner';
 import { MenuPage } from '../pages/menu/menu';
 import { MenusPage } from '../pages/menus/menus';
 import { OrderPage } from '../pages/order/order';
+import { DinerScanPage } from '../pages/diner-scan/diner-scan';
 
 // firebase & angularfire2
 import { AngularFireModule } from 'angularfire2'
@@ -41,7 +44,8 @@ import { FIREBASE_CONFIG } from './firebase.config';
     HomeDinerPage,
     MenuPage,
     MenusPage,
-    OrderPage
+    OrderPage,
+    DinerScanPage
   ],
   imports: [
     BrowserModule,
@@ -65,9 +69,12 @@ import { FIREBASE_CONFIG } from './firebase.config';
     HomeDinerPage,
     MenuPage,
     MenusPage,
-    OrderPage
+    OrderPage,
+    DinerScanPage
   ],
   providers: [
+    Camera,
+    QRScanner,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

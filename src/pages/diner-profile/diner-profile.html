@@ -7,12 +7,22 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>dinerProfile</ion-title>
+    <ion-title>profile</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+	<button class="back-button-custom" (click)="closePage()">
+		<ion-icon name="arrow-back"></ion-icon>
+	</button>
+
+	<img src="assets/imgs/6.jpg">
+	<h2>Cafe Diem</h2>
+	<h3>cafediem@gmail.com</h3>
+	
+	<span class="address"><ion-icon name="map"></ion-icon> Tajanlangit Street, Miagao, Iloilo</span>
+	<span class="phone"><ion-icon name="phone"></ion-icon>09156024528</span>
 
 </ion-content>

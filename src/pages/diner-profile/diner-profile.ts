@@ -22,4 +22,8 @@ export class DinerProfilePage {
     console.log('ionViewDidLoad DinerProfilePage');
   }
 
+  closePage(){
+  	this.navCtrl.pop();
+  }
+
 }

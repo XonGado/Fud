@@ -5,6 +5,8 @@ import { RegisterPage } from '../register/register';
 import { HomeCustPage } from '../home-cust/home-cust';
 import { HomeDinerPage } from '../home-diner/home-diner';
 import { MenusPage } from '../menus/menus';
+import { DinerProfilePage } from '../diner-profile/diner-profile';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -44,7 +46,7 @@ export class LoginPage {
     console.log(this.username.nativeElement.value);
     console.log(this.password.nativeElement.value);
     console.log('Loaded LoginPage');
-    // this.navCtrl.push(RegisterPage);
+    this.navCtrl.push(DinerProfilePage);
   }
 }
 
