@@ -2,10 +2,13 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { RegisterPage } from '../register/register';
-import { HomeCustPage } from '../home-cust/home-cust';
-import { HomeDinerPage } from '../home-diner/home-diner';
-import { MenusPage } from '../menus/menus';
-import { DinerProfilePage } from '../diner-profile/diner-profile';
+// import { HomeCustPage } from '../home-cust/home-cust';
+// import { HomeDinerPage } from '../home-diner/home-diner';
+// import { MenusPage } from '../menus/menus';
+
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import firebase from 'firebase';
 
 /**
  * Generated class for the LoginPage page.
@@ -20,33 +23,25 @@ import { DinerProfilePage } from '../diner-profile/diner-profile';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-	@ViewChild('username') username: ElementRef;
+	@ViewChild('email') email: ElementRef;
 	@ViewChild('password') password: ElementRef;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  customerList = firebase.database().ref('customers/')
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fire: AngularFireAuth, private database: AngularFireDatabase) {
   }
 
   openRegisterPage() {
-    this.navCtrl.push(RegisterPage);
+    this.navCtrl.push(RegisterPage)
   }
 
   authenticateLogin() {
-    var username = this.username.nativeElement.value;
-    var password = this.password.nativeElement.value;
-
-    console.log("Username: " + username + "; Password: " + password);
-    if (username == "XonGado" && password == "password") {
-      this.navCtrl.push(HomeDinerPage);
-    } else {
-      console.log("Invalid credentials");
-    }
+    var user = this.fire.auth.signInAndRetrieveDataWithEmailAndPassword(this.email.nativeElement.value, this.password.nativeElement.value)
+    console.log("Customers: ", this.customerList)
   }
 
   ionViewDidLoad() {
-    console.log(this.username.nativeElement.value);
-    console.log(this.password.nativeElement.value);
     console.log('Loaded LoginPage');
-    this.navCtrl.push(DinerProfilePage);
   }
 }
 
