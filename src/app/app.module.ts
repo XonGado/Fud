@@ -9,7 +9,6 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { HomeCustPage } from '../pages/home-cust/home-cust'; 
-
 import { ComboPage } from '../pages/combo/combo';
 import { CustProfilePage } from '../pages/cust-profile/cust-profile';
 import { DinerProfilePage } from '../pages/diner-profile/diner-profile';
@@ -23,8 +22,9 @@ import { OrderPage } from '../pages/order/order';
 // firebase & angularfire2
 import { AngularFireModule } from 'angularfire2'
 import { AngularFireDatabaseModule } from 'angularfire2/database'
+import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore'
 import { AngularFireAuthModule } from 'angularfire2/auth'
-import { FIREBASE_CONFIG } from './firebase.config';
+import { FIREBASE_CONFIG } from './firebase.config'
 
 @NgModule({
   declarations: [
@@ -48,7 +48,8 @@ import { FIREBASE_CONFIG } from './firebase.config';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFirestoreModule.enablePersistence()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -70,6 +71,7 @@ import { FIREBASE_CONFIG } from './firebase.config';
   providers: [
     StatusBar,
     SplashScreen,
+    AngularFirestore,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
