@@ -1,0 +1,33 @@
+<!--
+  Generated template for the ItemEditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>item_edit</ion-title>
+  </ion-navbar>
+
+</ion-header>
+ -->
+
+<ion-content padding>
+	<button class="back-button-custom" (click)="closePage()">
+		<ion-icon name="arrow-back"></ion-icon>
+	</button>
+
+	<div class="item-image">
+		<button class="upload-image">Choose another picture<ion-icon name="select"></ion-icon></button>
+		<img src="assets/imgs/1.jpg">
+	</div>
+	<input type="text" class="name" name="item-name" value="Blue Berry Frappe">
+	<input type="text" class="type" name="item-type" value="Frappes">
+	<input type="text" class="price" name="item-price" value="120">
+	<input type="checkbox" class="availability" name="availability" checked>
+	<input type="checkbox" class="visibility" name="visibility" checked>
+	<textarea class="description">
+		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	</textarea>
+</ion-content>

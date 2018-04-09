@@ -2,6 +2,10 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { RegisterPage } from '../register/register';
+import { MenuCreatePage } from '../menu-create/menu-create';
+// import { ItemEditPage } from '../item-edit/item-edit';
+// import { ItemPage } from '../item/item';
+
 // import { HomeCustPage } from '../home-cust/home-cust';
 // import { HomeDinerPage } from '../home-diner/home-diner';
 // import { MenusPage } from '../menus/menus';
@@ -42,6 +46,7 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('Loaded LoginPage');
+    this.navCtrl.push(MenuCreatePage);
   }
 }
 
