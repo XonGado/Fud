@@ -22,12 +22,12 @@
 		<button class="upload-image">Choose another picture<ion-icon name="select"></ion-icon></button>
 		<img src="assets/imgs/1.jpg">
 	</div>
-	<input type="text" class="name" name="item-name" value="Blue Berry Frappe">
-	<input type="text" class="type" name="item-type" value="Frappes">
-	<input type="text" class="price" name="item-price" value="120">
+	<input type="text" class="name" name="item-name" value="Blue Berry Frappe" #item_name>
+	<input type="text" class="type" name="item-type" value="Frappes" #item_type>
+	<input type="text" class="price" name="item-price" value="120" #item_price>
 	<!-- <input type="checkbox" class="availability" name="availability" checked> -->
 	<!-- <input type="checkbox" class="visibility" name="visibility" checked> -->
-	<textarea class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+	<textarea class="description" #item_description>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 	</textarea>
 	<button type="button" class="add-item-button" (click)="addItem()">
 		Add <ion-icon name="add"></ion-icon>

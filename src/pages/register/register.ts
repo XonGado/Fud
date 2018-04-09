@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CustomerDetails } from '../../models/customerdetails.interface';
 import { DinerDetails } from '../../models/dinerdetails.interface';
 import { UserType } from '../../models/usertype.interface';
+import { Item } from '../../models/item.model';
 
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -105,7 +106,7 @@ export class RegisterPage {
             dine_email: that.dine_email.value,
             dine_weblink: that.dine_weblink.value,
             dine_number: that.dine_number.value,
-            dine_address: that.dine_address.value
+            dine_address: that.dine_address.value,
           })
           that.firestore.doc('users/'+that.uid).set({
             type: 'diners'

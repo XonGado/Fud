@@ -2,21 +2,12 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { RegisterPage } from '../register/register';
-
 import { HomeCustPage } from '../home-cust/home-cust';
 import { HomeDinerPage } from '../home-diner/home-diner';
-import { MenusPage } from '../menus/menus';
-
-// For front-end purposes.
-import { ItemAddPage } from '../item-add/item-add';
-
-import { CustomerDetails } from '../../models/customerdetails.interface';
-import { DinerDetails } from '../../models/dinerdetails.interface';
-import { UserType } from '../../models/usertype.interface';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { AngularFirestoreModule, AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFirestore } from 'angularfire2/firestore'
 
 /**
  * Generated class for the LoginPage page.
@@ -36,7 +27,7 @@ export class LoginPage {
 
   uid: string
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fire: AngularFireAuth, private database: AngularFireDatabase, private firestore: AngularFirestore) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private fire: AngularFireAuth, private firestore: AngularFirestore) {
   }
 
   openRegisterPage() {
@@ -47,7 +38,6 @@ export class LoginPage {
     let that = this
     this.fire.auth.signInAndRetrieveDataWithEmailAndPassword(this.email.nativeElement.value, this.password.nativeElement.value)
     .then(function (data){
-      console.log("Data ", data)
       that.uid = that.fire.auth.currentUser.uid
       that.firestore.collection('users').doc(that.uid).ref.get()
       .then(doc => {
@@ -68,7 +58,6 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('Loaded LoginPage');
-    this.navCtrl.push(ItemAddPage);
   }
 }
 
