@@ -1,5 +1,4 @@
-export interface RegisterDiner {
-	uid: string;
+export interface DinerDetails {
 	dine_name: string;
 	dine_owner_name: string;
 	dine_username: string;
