@@ -7,6 +7,9 @@ import { HomeCustPage } from '../home-cust/home-cust';
 import { HomeDinerPage } from '../home-diner/home-diner';
 import { MenusPage } from '../menus/menus';
 
+// For front-end purposes.
+import { ItemAddPage } from '../item-add/item-add';
+
 import { CustomerDetails } from '../../models/customerdetails.interface';
 import { DinerDetails } from '../../models/dinerdetails.interface';
 import { UserType } from '../../models/usertype.interface';
@@ -65,7 +68,7 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('Loaded LoginPage');
-    this.navCtrl.push(MenuCreatePage);
+    this.navCtrl.push(ItemAddPage);
   }
 }
 

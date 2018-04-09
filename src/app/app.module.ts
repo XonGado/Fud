@@ -23,6 +23,7 @@ import { OrderPage } from '../pages/order/order';
 import { DinerScanPage } from '../pages/diner-scan/diner-scan';
 import { ItemPage } from '../pages/item/item';
 import { ItemEditPage } from '../pages/item-edit/item-edit';
+import { ItemAddPage } from '../pages/item-add/item-add';
 import { MenuCreatePage } from '../pages/menu-create/menu-create';
 
 // firebase & angularfire2
@@ -50,6 +51,7 @@ import { FIREBASE_CONFIG } from './firebase.config'
     OrderPage,
     DinerScanPage,
     ItemPage,
+    ItemAddPage,
     ItemEditPage,
     MenuCreatePage
   ],
@@ -80,6 +82,7 @@ import { FIREBASE_CONFIG } from './firebase.config'
     DinerScanPage,
     ItemPage,
     ItemEditPage,
+    ItemAddPage,
     MenuCreatePage
   ],
   providers: [

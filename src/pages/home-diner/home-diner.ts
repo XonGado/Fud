@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { MenusPage } from '../menus/menus';
+import { DinerMenuPage } from'../diner-menu/diner-menu';
 import { DinerScanPage } from '../diner-scan/diner-scan';
 import { DinerProfilePage } from '../diner-profile/diner-profile';
 
@@ -33,8 +33,8 @@ export class HomeDinerPage {
   	this.navCtrl.push(DinerProfilePage);
   }
 
-  openMenus(){
-  	this.navCtrl.push(MenusPage);
+  openMenu(){
+  	this.navCtrl.push(DinerMenuPage);
   }
 
   openScanner(){

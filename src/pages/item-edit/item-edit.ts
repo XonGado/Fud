@@ -15,14 +15,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ItemEditPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+	id: string;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ItemEditPage');
-  }
+	constructor(public navCtrl: NavController, public navParams: NavParams) {
+		this.id = navParams.get('data');
+	}
 
-  closePage(){
-  	this.navCtrl.pop();
-  }
+	ionViewDidLoad() {
+		console.log('ionViewDidLoad ItemEditPage');
+		console.log('Editing item of with ' + this.id + ' as ID.');
+	}
+
+	closePage(){
+		this.navCtrl.pop();
+	}
 }

@@ -1,4 +1,4 @@
-page-item-edit {
+page-item-add {
 	.item-image{
 		position: relative;
 		max-height: 15em;
@@ -49,8 +49,8 @@ page-item-edit {
 		padding: 0.25em 0.5em;
 	}
 
-	.edit-item-button{
-		background-color: $yellow;
+	.add-item-button{
+		background-color: $green;
 		color: white;
 		font-size: $regular;
 		width: 100%;
@@ -59,7 +59,7 @@ page-item-edit {
 		margin-top: 0.5em;
 	}
 
-	.edit-item-button ion-icon{
+	.add-item-button ion-icon{
 		font-size: $regular;
 	}
 }
