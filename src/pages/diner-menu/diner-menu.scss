@@ -1,3 +1,9 @@
 page-diner-menu {
-
+	.price{
+		position: absolute;
+		right: 1em;
+		top: 50%;
+		transform: translate(0, -50%);
+		color: $green;
+	}
 }

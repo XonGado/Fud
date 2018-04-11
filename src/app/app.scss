@@ -35,16 +35,18 @@ $regular: 1.3em;
 $medium : 2em;
 $large  : 3em;
 
+// $toast-ios-background: $red;
+// $toast-md-background: $red;
 
 // Customized font
-@font-face {
-	font-family: Raleway;
-	src: url("../assets/fonts/Raleway-Regular.ttf");
-}
+// @font-face {
+// 	font-family: Raleway;
+// 	src: url("../assets/fonts/Raleway-Regular.ttf");
+// }
 
-*:not(ion-icon){
-	font-family: Raleway!important;
-}
+// *:not(ion-icon){
+// 	font-family: Raleway!important;
+// }
 
 /* width */
 ::-webkit-scrollbar {
@@ -66,16 +68,34 @@ $large  : 3em;
     background: #555; 
 }
 
-.input-wrapper,
-.item-inner,
+// .input-wrapper,
+// .item-inner,
+// ion-label.label{
+// 	min-height: unset;
+// 	max-height: unset;
+// 	padding: unset;
+// 	margin: unset;
+// 	height: unset;
+// 	width: unset;
+// 	display: unset;
+// }
+
 ion-label.label{
-	min-height: unset;
-	max-height: unset;
-	padding: unset;
-	margin: unset;
-	height: unset;
-	width: unset;
-	display: unset;
+	margin: 10px 8px 10px 0;
+}
+
+ion-item-sliding ion-item-options button{
+	min-width: 62px;	
+	width: 62px;
+}
+
+// ion-item-sliding ion-item-options button .button-inner{
+// 	display: inline-flex;
+// 	align-items: center;
+// }
+
+ion-item-sliding ion-item-options ion-icon{
+	font-size: 2em;
 }
 
 img{
@@ -121,12 +141,16 @@ img{
 	flex-direction: column;
 }
 
-ion-navbar{
-	background-color: red;
-}
+// ion-navbar{
+// 	background-color: red;
+// }
 
 ion-title{
 	color: white;
+}
+
+ion-navbar .bar-button-md[icon-only] ion-icon{
+	font-size: 2.5em;
 }
 
 .sidemenu-pp{
