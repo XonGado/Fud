@@ -18,9 +18,10 @@
 // Color values
 $red	: #E91E63;
 $yellow	: #FDD835;
-$green	: #CDDC39;
+$green	: #acdc39;
 $blue	: #00BCD4;
 $violet	: #AB47BC;
+$dark-yellow	: #facc2e;
 
 // Shadow values
 $light-shadow: 0 1px 5px rgba(0,0,0,0.25);
@@ -54,19 +55,19 @@ $large  : 3em;
 }
 
 /* Track */
-::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-}
+// ::-webkit-scrollbar-track {
+//     background: #f1f1f1; 
+// }
 
 /* Handle */
-::-webkit-scrollbar-thumb {
-    background: #888; 
-}
+// ::-webkit-scrollbar-thumb {
+//     background: #888; 
+// }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-}
+// ::-webkit-scrollbar-thumb:hover {
+//     background: #555; 
+// }
 
 // .input-wrapper,
 // .item-inner,
@@ -96,12 +97,26 @@ ion-item-sliding ion-item-options button{
 
 ion-item-sliding ion-item-options ion-icon{
 	font-size: 2em;
+	transform: translate(0, 0.15em);
 }
 
 img{
     object-fit: cover;
     object-position: center;
 }
+
+// ion-toggle{
+// 	transform: translate(-1em, -1em);
+// }
+
+// .toggle-md{
+// 	contain: unset;
+// }
+
+// .toggle-md .toggle-icon{
+// 	top: -8px;
+// }
+
 
 .search-template{
 	display: flex;
@@ -151,6 +166,16 @@ ion-title{
 
 ion-navbar .bar-button-md[icon-only] ion-icon{
 	font-size: 2.5em;
+}
+
+.warning{
+	background-color: $yellow;
+	color: white;
+}
+
+.warning:hover,
+.warning:focus{
+	background-color: $dark-yellow;
 }
 
 .sidemenu-pp{
@@ -252,46 +277,22 @@ ion-navbar .bar-button-md[icon-only] ion-icon{
 	text-align: left;
 }
 
-#side-menu .email{
-	padding-left: 10px;
-	color: rgba(0,0,0,0.5);
-}
+// #side-menu .email{
+// 	padding-left: 10px;
+// 	color: rgba(0,0,0,0.5);
+// }
 
-#side-menu button{
-	border-bottom: 1px solid #DDD;
-}
+// #side-menu button ion-icon{
+// 	color: $red;
+// }
 
-#side-menu button{
-	color: #555;
-}
+// #side-menu button:hover ion-icon[name="arrow-round-forward"]{
+// 	right: 10px;
+// }
 
-#side-menu button ion-icon{
-	color: $red;
-}
+// page-cust-profile{
 
-#side-menu button ion-icon[name="arrow-round-forward"]{
-	color: white;
-	position: absolute;
-	right: 15px;
-	transition: 0.5s;
-}
-
-#side-menu button:hover{
-	background-color: $red;
-	color: white;
-}
-
-#side-menu button:hover ion-icon{
-	color: white;
-}
-
-#side-menu button:hover ion-icon[name="arrow-round-forward"]{
-	right: 10px;
-}
-
-page-cust-profile{
-
-}
+// }
 
 // Start of main code.
 
@@ -323,36 +324,6 @@ nav{
 	align-items: center;
 	margin: 0;
 	z-index: 100;
-}
-
-#load_cover{
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100vh;
-	width: 100vw;
-	background-color: #111;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 1000;
-	opacity: 1;
-	transition: 0.4s;
-}
-
-.spinner{
-	display: block;
-	height: 2em;
-	width: 2em;
-	border: 0.15em solid #fff;
-	border-radius: 50%;
-	border-color: #fff #fff #fff transparent;
-	animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin{
-	0%{transform: rotate(0deg);}
-	100%{transform: rotate(360deg);};
 }
 
 nav{
@@ -393,163 +364,7 @@ nav{
 	min-width: unset!important;
 }
 
-// .hamburger-icon{
-// 	height: 1em;
-// 	width: 1em;
-// 	display: block;
-// 	transform: scale(1.2, 1); 
-// 	display: flex;
-// 	align-items: center;
-// 	flex-direction: column;
-// }
-
-// .hamburger-icon > *{
-// 	display: block;
-// 	height: 0.1em;
-// 	width: 1em;
-// 	background-color: white;
-// }
-
-// .hamburger-icon > *:nth-child(2){
-// 	margin: auto;
-// }
-
-/* .hamburger-icon > *:nth-child(2),
-.hamburger-icon > *:last-child{
-	margin-top: 20%;
-}
- */
-.modal{
-	display: none;
-}
-
-.image{
-	overflow: hidden;
-}
-
-.circle{
-	@extend .image;
-	border-radius: 50%;
-}
-
-.smooth{
-	@extend .image;
-	border-radius: 1em;
-}
-
-.onebyone{
-	@extend .image;
-	width: 100%;
-	padding-bottom: 100%;
-	position: relative;
-}
-
-.onebyone > img{
-	@extend .image;
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-
-#side-nav{
-	width: calc(100vw - 4em);
-	position: fixed;
-	left: -100%;
-	top: 0;
-	background-color: #111115;
-	height: 100%;
-	z-index: 501;
-	padding: 1em;
-	overflow-y: auto;
-	// display: none;
-	transition: 0.5s;
-	box-shadow: 0 0 0 rgba(0,0,0,0.0);
-
-	.shade{
-		width: 3em;
-		position: fixed;
-		height: 100%;
-		right: 100vw;
-		top: 0;
-		transition: 0.5s;
-		text-align: center;
-		padding-top: 0.5em; 
-		cursor: pointer;
-		display: flex;
-		justify-content: center;
-
-		.material-icons{
-			color: white;
-		}
-
-		@media screen and (min-width: $break-small) {
-			display: none;
-		}
-	}
-
-	@media screen and (min-width: $break-small) {
-		width: 15em;
-	}
-}
 
 
-#side-nav{
-	.display-picture{
-		
-	}
 
-	.username{
-		color: white;
-		text-decoration: none;
-	}
-
-	.username > :first-child{
-		font-size: 1.25em;
-		font-weight: 500;
-		margin-top: 0.75em;
-		margin-bottom: 0.25em;
-		// background-color: rgba(255,255,255,0.2);
-	}
-
-	span.email{
-		color: #555;
-		opacity: 1;
-	}
-
-	.options{
-		margin-top: 0.5em;
-		border-top: 1px solid #222;
-	}
-	
-	.options li a{
-		display: flex;
-		align-items: center; 
-		padding: 0.5em 0;
-		color: #AAA;
-		text-decoration: none;
-	}
-
-	.options li a .material-icons{
-		margin-right: 0.5em;
-		font-size: 1.25em;
-	}
-
-	.options li a{
-		.badge{
-			margin-left: auto;
-			width: unset;
-			min-width: 22px;
-		}
-
-		.new:after{
-			content: "";
-		}
-	}
-}
-
-.overflow-auto{
-	overflow: auto;
-}
 
