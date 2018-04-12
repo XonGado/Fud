@@ -31,21 +31,21 @@
 	</ion-header>
 	<ion-content>
 		<ion-list>
-			<button ion-item (click)="openProfile()">
-				<ion-icon name="person"></ion-icon> Profile
-				<ion-icon name="arrow-round-forward"></ion-icon>
+			<button ion-item icon-start (click)="openProfile()">
+				<ion-icon name="person" color="secondary"></ion-icon> 
+				Profile
 			</button>
-			<button ion-item (click)="openMenu()">
-				<ion-icon name="paper"></ion-icon> Menu
-				<ion-icon name="arrow-round-forward"></ion-icon>
+			<button ion-item icon-start (click)="openMenu()">
+				<ion-icon name="paper" color="secondary"></ion-icon> 
+				Menu
 			</button>
-			<button ion-item (click)="logout()">
-				<ion-icon name="log-out"></ion-icon> Logout
-				<ion-icon name="arrow-round-forward"></ion-icon>
+			<button ion-item icon-start (click)="logout()">
+				<ion-icon name="log-out" color="secondary"></ion-icon> 
+				Logout
 			</button>
-			<button ion-item (click)="openScanner()">
-				<ion-icon name="scan"></ion-icon> QRScan
-				<ion-icon name="arrow-round-forward"></ion-icon>
+			<button ion-item icon-start (click)="openScanner()">
+				<ion-icon name="scan" color="secondary"></ion-icon> 
+				QRScan
 			</button>
 		</ion-list>
 	</ion-content>
@@ -56,12 +56,33 @@
 <ion-content padding>
 	<div class="container">
 		<h1 class="page_name">Orders</h1>
-		<ul id="order-types">
+
+		<ion-header>
+			<ion-toolbar>
+				<ion-segment [(ngModel)]="ordersFilter" color="secondary">
+					<ion-segment-button value="all">All</ion-segment-button>
+					<ion-segment-button value="dine-in">Dine-in</ion-segment-button>
+					<ion-segment-button value="take-out">Take-out</ion-segment-button>
+					<ion-segment-button value="delivery">Delivery</ion-segment-button>
+				</ion-segment>
+			</ion-toolbar>
+		</ion-header>	
+
+		<ion-segment [(ngModel)]="relationship" color="primary" (ionChange)="segmentChanged($event)">
+		<ion-segment-button value="friends">
+		Friends
+		</ion-segment-button>
+		<ion-segment-button value="enemies">
+		Enemies
+		</ion-segment-button>
+		</ion-segment>
+
+		<!-- <ul id="order-types">
 			<li class="active">All <span class="count">2</span></li>
 			<li>Dine-in <span class="count">2</span></li>
 			<li>Take-out</li>
 			<li>Deliver</li>
-		</ul>
+		</ul> -->
 		<section id="orders">
 			<div class="order_container take-out">
 				<header class="order_details">

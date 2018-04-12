@@ -6,7 +6,7 @@ page-item-edit {
 		width: 100%;
 		border-radius: 50%;
 		overflow: hidden;
-		margin: 0 auto;
+		margin: 0 auto 10px auto;
 	}
 
 	.item-image img{
@@ -29,37 +29,49 @@ page-item-edit {
 		opacity: 1;
 	}
 
-	input[type="text"]{
-		display: block;
-		border-radius: 5px;
-		width: 100%;
-		border: 1px solid #DDD;
-		font-size: $regular;
-		margin: 10px 0;
-		padding: 0.25em 0.5em;
-	}
-
 	textarea{
 		display: block;
-		border-radius: 5px;
-		width: 100%;
 		resize: vertical;
-		font-size: $regular;
-		border: 1px solid #DDD;
-		padding: 0.25em 0.5em;
+		background-color: rgba(255,255,255,0.1)!important;
+		min-height: 3em;
+		margin-top: 0!important;
+		margin-right: 0!important;
+		margin-left: 0!important;
+		width: 97.5%!important;
+		border-radius: 4px;
 	}
 
-	.edit-item-button{
-		background-color: $yellow;
-		color: white;
-		font-size: $regular;
-		width: 100%;
-		border-radius: 5px;
-		padding: 0.5em 1em;
-		margin-top: 0.5em;
-	}
+	// input[type="text"]{
+	// 	display: block;
+	// 	border-radius: 5px;
+	// 	width: 100%;
+	// 	border: 1px solid #DDD;
+	// 	font-size: $regular;
+	// 	margin: 10px 0;
+	// 	padding: 0.25em 0.5em;
+	// }
 
-	.edit-item-button ion-icon{
-		font-size: $regular;
-	}
+	// textarea{
+	// 	display: block;
+	// 	border-radius: 5px;
+	// 	width: 100%;
+	// 	resize: vertical;
+	// 	font-size: $regular;
+	// 	border: 1px solid #DDD;
+	// 	padding: 0.25em 0.5em;
+	// }
+
+	// .edit-item-button{
+	// 	background-color: $yellow;
+	// 	color: white;
+	// 	font-size: $regular;
+	// 	width: 100%;
+	// 	border-radius: 5px;
+	// 	padding: 0.5em 1em;
+	// 	margin-top: 0.5em;
+	// }
+
+	// .edit-item-button ion-icon{
+	// 	font-size: $regular;
+	// }
 }

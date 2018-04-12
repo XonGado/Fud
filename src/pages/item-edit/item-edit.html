@@ -4,30 +4,71 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<!-- <ion-header>
+<ion-header>
 
   <ion-navbar>
-    <ion-title>item_edit</ion-title>
+    <ion-title>Blue Berry Frappe</ion-title>
   </ion-navbar>
 
 </ion-header>
- -->
+
 
 <ion-content padding>
-	<button class="back-button-custom" (click)="closePage()">
-		<ion-icon name="arrow-back"></ion-icon>
-	</button>
 
 	<div class="item-image">
 		<button class="upload-image">Choose another picture<ion-icon name="select"></ion-icon></button>
 		<img src="assets/imgs/1.jpg">
 	</div>
-	<input type="text" class="name" name="item-name" value="Blue Berry Frappe">
+
+	<ion-list>
+		<ion-item>
+			<ion-label color="light" inline>Name</ion-label>
+			<ion-input value="Blue Berry Frappe"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="light" inline>Type</ion-label>
+			<ion-input value="Frappes"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="light" inline>Price</ion-label>
+			<ion-input value="120"></ion-input>
+		</ion-item>
+	</ion-list>
+
+	<ion-list no-lines>
+		<ion-item>
+			<ion-label color="light">Description</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-textarea></ion-textarea>
+		</ion-item>
+	</ion-list>
+
+
+	<ion-list>
+		<ion-item>
+			<ion-label inline>Visibility</ion-label>
+			<ion-checkbox color="secondary"></ion-checkbox>
+		</ion-item>
+	</ion-list>
+	<ion-list>
+		<ion-item>
+			<ion-label inline>Availability</ion-label>
+			<ion-checkbox color="secondary"></ion-checkbox>
+		</ion-item>
+	</ion-list>
+
+	<button ion-button block icon-start class="warning">
+		<ion-icon name="check"></ion-icon>
+		Edit
+	</button>
+
+	<!-- <input type="text" class="name" name="item-name" value="Blue Berry Frappe">
 	<input type="text" class="type" name="item-type" value="Frappes">
 	<input type="text" class="price" name="item-price" value="120">
-	<!-- <input type="checkbox" class="availability" name="availability" checked>
-	<input type="checkbox" class="visibility" name="visibility" checked> -->
+	<input type="checkbox" class="availability" name="availability" checked>
+	<input type="checkbox" class="visibility" name="visibility" checked>
 	<textarea class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 	</textarea>
-	<button class="edit-item-button">Edit <ion-icon name="edit"></ion-icon></button>
+	<button class="edit-item-button">Edit <ion-icon name="edit"></ion-icon></button> -->
 </ion-content>
