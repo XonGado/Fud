@@ -29,26 +29,27 @@ import * as firebase from 'firebase';
 export class RegisterPage {
 
 	// Customer form variables
-  @ViewChild('cust_name') cust_name;
-  @ViewChild('cust_username') cust_username;
+	@ViewChild('cust_name') cust_name;
+	@ViewChild('cust_username') cust_username;
 	@ViewChild('cust_email') cust_email;
 	@ViewChild('cust_password') cust_password;
 	@ViewChild('cust_retypePassword') cust_retypePassword;
 
 	// Diner form variables
-  @ViewChild('dine_name') dine_name;
-  @ViewChild('dine_username') dine_username;
-  @ViewChild('dine_owner_name') dine_owner_name;
+	@ViewChild('dine_name') dine_name;
+	@ViewChild('dine_username') dine_username;
+	@ViewChild('dine_owner_name') dine_owner_name;
 	@ViewChild('dine_email') dine_email;
-  @ViewChild('dine_weblink') dine_weblink;
-  @ViewChild('dine_number') dine_number;
-  @ViewChild('dine_address') dine_address;
+	@ViewChild('dine_weblink') dine_weblink;
+	@ViewChild('dine_number') dine_number;
+	@ViewChild('dine_address') dine_address;
 	@ViewChild('dine_password') dine_password;
 	@ViewChild('dine_retypePassword') dine_retypePassword;
 
-  uid: string;
+  	uid: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private firestore: AngularFirestore, private database: AngularFireDatabase, private fire: AngularFireAuth) {
+  	this.acctype = "customer";
   }
 
   ionViewDidLoad() {
