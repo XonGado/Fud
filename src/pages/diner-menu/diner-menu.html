@@ -21,17 +21,6 @@
 
 
 <ion-content>
-	<!-- <div id="toolbar">
-		<button class="back-button-custom" (click)="closePage()">
-			<ion-icon name="arrow-back"></ion-icon>
-		</button>
-		<h2 class="page_name">Your Menu</h2>
-		<button class="add-button" (click)="addItem()">
-			<ion-icon name="add"></ion-icon>
-		</button>
-	</div> -->
-	<!-- <h2>Tacoyz's Menu</h2> -->
-
 	<ion-searchbar
 		[(ngModel)]="myInput"
 		[showCancelButton]="shouldShowCancel"
@@ -60,18 +49,4 @@
 			</ion-item-options>
 		</ion-item-sliding>
 	</ion-list>
-
-	
-
-	<!-- <ul>
-		<li class="item" *ngFor="let item of itemList">
-			<button class="button" (click)="editItem(item.id)">Edit</button>
-			<button class="button" (click)="deleteItem(item.id, item.name)">Delete</button>
-			<img class="image"  alt="item_image" style="height: 2.5em; width: 2.5em">
-			<span class="name">{{item.name}}</span>
-			<span class="price">{{item.price}}</span>
-		</li>
-	</ul> -->
-
-
 </ion-content>
