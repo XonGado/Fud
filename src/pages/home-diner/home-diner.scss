@@ -1,5 +1,15 @@
 page-home-diner {
 
+  .order-list{
+    p, ion-badge{
+      display: inline-block;
+      float: left;
+    }
+    p{
+      padding: 3px 8px 0 8px;
+    }
+  }
+
 .order_container{
   display: grid;
   grid-template-rows: minmax(2em, auto);

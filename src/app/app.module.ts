@@ -25,6 +25,7 @@ import { ItemPage } from '../pages/item/item';
 import { ItemEditPage } from '../pages/item-edit/item-edit';
 import { ItemAddPage } from '../pages/item-add/item-add';
 import { MenuCreatePage } from '../pages/menu-create/menu-create';
+import { OrderDetailsPage } from '../pages/order-details/order-details';
 
 // firebase & angularfire2
 import { AngularFireModule } from 'angularfire2'
@@ -53,6 +54,7 @@ import { FIREBASE_CONFIG } from './firebase.config'
     ItemPage,
     ItemAddPage,
     ItemEditPage,
+    OrderDetailsPage,
     MenuCreatePage
   ],
   imports: [
@@ -83,6 +85,7 @@ import { FIREBASE_CONFIG } from './firebase.config'
     ItemPage,
     ItemEditPage,
     ItemAddPage,
+    OrderDetailsPage,
     MenuCreatePage
   ],
   providers: [

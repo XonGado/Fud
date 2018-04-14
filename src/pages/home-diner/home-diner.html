@@ -17,7 +17,15 @@
 		<button ion-button menuToggle icon-only>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-		<ion-title>Home</ion-title>
+		<ion-title>Orders</ion-title>
+	</ion-toolbar>
+	<ion-toolbar>
+		<ion-segment [(ngModel)]="orderFilter" color="secondary">
+			<ion-segment-button value="all">All</ion-segment-button>
+			<ion-segment-button value="dine-in">Dine-in</ion-segment-button>
+			<ion-segment-button value="take-out">Take-out</ion-segment-button>
+			<ion-segment-button value="delivery">Delivery</ion-segment-button>
+		</ion-segment>
 	</ion-toolbar>
 </ion-header>
 
@@ -54,28 +62,15 @@
 <ion-nav #content [root]="rootPage"></ion-nav>
 
 <ion-content padding>
-	<div class="container">
-		<h1 class="page_name">Orders</h1>
 
-		<ion-header>
-			<ion-toolbar>
-				<ion-segment [(ngModel)]="ordersFilter" color="secondary">
-					<ion-segment-button value="all">All</ion-segment-button>
-					<ion-segment-button value="dine-in">Dine-in</ion-segment-button>
-					<ion-segment-button value="take-out">Take-out</ion-segment-button>
-					<ion-segment-button value="delivery">Delivery</ion-segment-button>
-				</ion-segment>
-			</ion-toolbar>
-		</ion-header>	
-
-		<ion-segment [(ngModel)]="relationship" color="primary" (ionChange)="segmentChanged($event)">
+		<!-- <ion-segment [(ngModel)]="relationship" color="primary" (ionChange)="segmentChanged($event)">
 		<ion-segment-button value="friends">
 		Friends
 		</ion-segment-button>
 		<ion-segment-button value="enemies">
 		Enemies
 		</ion-segment-button>
-		</ion-segment>
+		</ion-segment> -->
 
 		<!-- <ul id="order-types">
 			<li class="active">All <span class="count">2</span></li>
@@ -83,7 +78,19 @@
 			<li>Take-out</li>
 			<li>Deliver</li>
 		</ul> -->
-		<section id="orders">
+
+		<ion-list class="order-list" (click)="openOrderDetails(1)">
+			<ion-item>
+				<ion-avatar item-start>
+					<img src="assets/imgs/samplePP.jpg">
+				</ion-avatar>
+				<h2>Clyde Joshua Delgado</h2>
+				<ion-badge color="secondary">145</ion-badge>
+				<p>3 items</p>
+			</ion-item>
+		</ion-list>
+
+		<!-- <section id="orders">
 			<div class="order_container take-out">
 				<header class="order_details">
 					<img class="customer_img" alt="user-image" src="assets/imgs/samplePP.jpg">
@@ -150,6 +157,6 @@
 					<button class="finished_btn" onclick="finishOrder()"><ion-icon class="material-icons"></ion-icon> Finished</button>
 				</footer>
 			</div>
-		</section>
-	</div>
+		</section> -->
+
 </ion-content>
