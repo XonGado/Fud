@@ -1,4 +1,4 @@
-page-diner-menu {
+page-order-details {
 	.price{
 		text-align: right;
 		width: 2.5em;
@@ -8,9 +8,5 @@ page-diner-menu {
 		transform: translate(0, -50%);
 		color: #32db64;
 		background: linear-gradient(to left, #222, #222, rgba(0,0,0,0));
-	}
-	
-	ion-navbar .bar-button-md[icon-only] ion-icon{
-		font-size: 2.5em;
 	}
 }

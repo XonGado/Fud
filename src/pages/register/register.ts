@@ -47,6 +47,7 @@ export class RegisterPage {
 	@ViewChild('dine_retypePassword') dine_retypePassword;
 
   	uid: string;
+  	acctype: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private firestore: AngularFirestore, private database: AngularFireDatabase, private fire: AngularFireAuth) {
   }

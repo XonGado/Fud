@@ -22,8 +22,8 @@ import { AngularFirestore } from 'angularfire2/firestore'
   templateUrl: 'login.html',
 })
 export class LoginPage {
-	@ViewChild('email') email: ElementRef;
-	@ViewChild('password') password: ElementRef;
+	@ViewChild('email') email;
+	@ViewChild('password') password;
 
   uid: string
 
@@ -43,7 +43,8 @@ export class LoginPage {
   authenticateLogin() {
 
     let loading = this.loadingCtrl.create({
-      content: ``
+      dismissOnPageChange: true,
+      content: `<ion-spinner name="cresent"></ion-spinner>`
     });
 
     loading.onDidDismiss(() => {
@@ -52,34 +53,19 @@ export class LoginPage {
 
     loading.present();
 
-    var email = this.email.nativeElement.value; 
-    var password = this.password.nativeElement.value;
-
-    // console.log(this.email.nativeElement.value);
-    // console.log(this.password.nativeElement.value);
-
-    console.log(email);
-    console.log(password);
-
-    console.log(email != '');
-    console.log(password != '');
-    console.log(email != '' && password != '');
-    
-    // console.log(this.email);
-    // console.log(this.password);
+    var email = this.email.value; 
+    var password = this.password.value;
 
     if (email != '' && password != '') {
       let that = this
-      this.fire.auth.signInAndRetrieveDataWithEmailAndPassword(this.email.nativeElement.value, this.password.nativeElement.value)
+      this.fire.auth.signInAndRetrieveDataWithEmailAndPassword(this.email.value, this.password.value)
       .then(function (data){
         that.uid = that.fire.auth.currentUser.uid
         that.firestore.collection('users').doc(that.uid).ref.get()
         .then(doc => {
           if(doc.data().type == 'diners'){
-            loading.dismiss();
             that.navCtrl.push(HomeDinerPage)
           }else{
-            loading.dismiss();
             that.navCtrl.push(HomeCustPage)
           }
         })
@@ -111,6 +97,8 @@ export class LoginPage {
     if (message == "auth/wrong-password") {
       message = "Hhmm. You are entering a wrong password.";
     } else if (message == "auth/invalid-email") {
+      message = "Email is wrong. Correct it?";
+    } else if (message == "auth/user-not-found") {
       message = "The email isn't a registered user in Fud.";
     } 
 

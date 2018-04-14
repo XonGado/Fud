@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { DinerMenuPage } from'../diner-menu/diner-menu';
 import { DinerScanPage } from '../diner-scan/diner-scan';
 import { DinerProfilePage } from '../diner-profile/diner-profile';
+import { OrderDetailsPage } from '../order-details/order-details';
 
 /**
  * Generated class for the HomeDinerPage page.
@@ -18,7 +19,7 @@ import { DinerProfilePage } from '../diner-profile/diner-profile';
 })
 export class HomeDinerPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
@@ -39,6 +40,16 @@ export class HomeDinerPage {
 
   openScanner(){
   	this.navCtrl.push(DinerScanPage);
+  }
+
+  openOrderDetails(id){
+    let profileModal = this.modalCtrl.create(OrderDetailsPage, { itemID: id });
+
+    profileModal.onDidDismiss(data => {
+      console.log(data);
+    });  
+
+    profileModal.present();
   }
 
 }
