@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { AngularFirestore, AngularFirestoreModule, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable'
+
+import { Item } from '../../models/item.model';
+
 /**
  * Generated class for the ItemEditPage page.
  *
@@ -14,16 +19,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'item-edit.html',
 })
 export class ItemEditPage {
+	item_id: string;
 
-	id: string;
-
+	
 	constructor(public navCtrl: NavController, public navParams: NavParams) {
-		this.id = navParams.get('data');
+		this.item_id = navParams.get('data');
 	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad ItemEditPage');
-		console.log('Editing item of with ' + this.id + ' as ID.');
 	}
 
 	closePage(){

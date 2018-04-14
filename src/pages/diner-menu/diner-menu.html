@@ -29,21 +29,21 @@
 	</ion-searchbar>
 
 	<ion-list>
-		<ion-item-sliding *ngFor="let item of itemList">
+		<ion-item-sliding *ngFor="let item of items | async">
 			<ion-item>
-				<ion-avatar item-start>
+				<!-- <ion-avatar item-start>
 					<img src="assets/imgs/{{item.image}}">
-				</ion-avatar>
-				<h2>{{item.name}}</h2>
-				<p class="price">{{item.price}}</p>
+				</ion-avatar> -->
+				<h2>{{item.item_name}}</h2>
+				<p class="price">{{item.item_price}}</p>
 			</ion-item>
 			<ion-item-options side="left">
-				<button ion-button color="dark" (click)="editItem(item.id)">
+				<button ion-button color="dark" (click)="editItem(item.item_id)">
 					<ion-icon name="reorder"></ion-icon>
 				</button>
 			</ion-item-options>
 			<ion-item-options side="right">
-				<button ion-button color="danger" (click)="deleteItem(item.id, item.name)">
+				<button ion-button color="danger" (click)="deleteItem(item.item_id)">
 					<ion-icon name="trash"></ion-icon>
 				</button>
 			</ion-item-options>

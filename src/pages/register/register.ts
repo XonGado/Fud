@@ -49,7 +49,6 @@ export class RegisterPage {
   	uid: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private firestore: AngularFirestore, private database: AngularFireDatabase, private fire: AngularFireAuth) {
-  	this.acctype = "customer";
   }
 
   ionViewDidLoad() {

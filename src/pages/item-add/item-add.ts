@@ -20,10 +20,10 @@ import { Observable } from 'rxjs/Observable';
   templateUrl: 'item-add.html',
 })
 export class ItemAddPage {
-  @ViewChild('item_name') item_name: ElementRef;
-  @ViewChild('item_type') item_type: ElementRef;
-  @ViewChild('item_price') item_price: ElementRef;
-  @ViewChild('item_description') item_description: ElementRef;
+  @ViewChild('item_name') item_name;
+  @ViewChild('item_type') item_type;
+  @ViewChild('item_price') item_price;
+  @ViewChild('item_description') item_description;
 
   items: Observable<Item[]>;
   itemsCollectionRef: AngularFirestoreCollection<Item>;
@@ -40,15 +40,13 @@ export class ItemAddPage {
   }
 
   addItem(){
-    let item_name = this.item_name.nativeElement.value
-    let item_type = this.item_type.nativeElement.value
-    let item_description = this.item_description.nativeElement.value
-
-    this.itemsCollectionRef.add({
-      item_name: this.item_name.nativeElement.value,
-      item_description: this.item_description.nativeElement.value,
-      item_price: this.item_price.nativeElement.value,
-      item_type: this.item_type.nativeElement.value
+    let id = this.firestore.createId();
+    this.itemsCollectionRef.doc(id).set({
+      item_id: id,
+      item_name: this.item_name.value,
+      item_description: this.item_description.value,
+      item_price: this.item_price.value,
+      item_type: this.item_type.value
     }).then(function (data){
       console.log("Data: ", data)
     }).catch(function (error){
