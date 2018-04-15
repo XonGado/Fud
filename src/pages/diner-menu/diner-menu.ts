@@ -37,6 +37,7 @@ export class DinerMenuPage {
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad DinerMenuPage');
+		console.log(this.itemsCollectionRef)
 	}
 
 	getItems(ev: any) {
@@ -61,7 +62,6 @@ export class DinerMenuPage {
 
 	deleteItem(item_id){
 		console.log("Id: " + item_id);
-
 		let confirm = this.alertCtrl.create({
 	      title: 'Farewell delicious food',
 	      message: 'Do you want to remove from the menu?',
@@ -70,19 +70,17 @@ export class DinerMenuPage {
 	          text: 'Remove',
 	          handler: () => {
 	            console.log('Disagree clicked');
-	            // Insert database queries here.
+	            this.itemsCollectionRef.doc(item_id).delete();
 	          }
 	        },
 	        {
 	          text: 'No!',
 	          handler: () => {
 	            console.log('Agree clicked');
-	            // Insert database queries here.
 	          }
 	        }
 	      ]
 	    });
-
 	    confirm.present();
 	}
 
@@ -100,4 +98,8 @@ interface Diner{
 
 interface Menu{
 	id: string
+}
+
+interface Category{
+	name: string
 }
