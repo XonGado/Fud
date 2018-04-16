@@ -1,5 +1,5 @@
 import { Component, ViewChild, Injectable } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
 import { CustomerDetails } from '../../models/customerdetails.interface';
 import { DinerDetails } from '../../models/dinerdetails.interface';
@@ -46,10 +46,16 @@ export class RegisterPage {
 	@ViewChild('dine_password') dine_password;
 	@ViewChild('dine_retypePassword') dine_retypePassword;
 
-  	uid: string;
-  	acctype: string;
+  uid: string;
+  acctype: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private firestore: AngularFirestore, private database: AngularFireDatabase, private fire: AngularFireAuth) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams, 
+              private firestore: AngularFirestore, 
+              private database: AngularFireDatabase, 
+              private fire: AngularFireAuth, 
+              public toastCtrl: ToastController) {
+  	this.acctype = "customer";
   }
 
   ionViewDidLoad() {
@@ -72,21 +78,25 @@ export class RegisterPage {
           that.firestore.doc('users/'+that.uid).set({
             type: 'customers'
           })
+          that.showToast("You have successfully created an account!");
         })
         .catch(function (error){
+          that.showToast(error.message);
           console.log("Error: ", error)
         })
       })
       .catch(function (error) {
+        that.showToast(error.message);
         console.log("Error: ", error)
       })
     }
     else{
       if (this.cust_password.value != this.cust_retypePassword.value){
+        this.showToast("Passwords do not match.");
         console.log("Passwords do not match.")
       }
       if (this.cust_password.value.length < 8 || this.cust_password.value.length > 20){
-       
+        this.showToast("Password should be 8 characters.");
         console.log("Password should be 8 characters.");
       }
     }
@@ -112,23 +122,48 @@ export class RegisterPage {
           that.firestore.doc('users/'+that.uid).set({
             type: 'diners'
           })
+
+          that.showToast("You have successfully created an account!");
         })
         .catch( function (error){
+          that.showToast(error.message)
           console.log("Error: ", error)
         })
       })
       .catch(error => {
+        that.showToast(error.message)
         console.log("Error: ", error)
       })
     }
     else{
       if (this.dine_password.value != this.dine_retypePassword.value){
+        this.showToast("Passwords do not match.")
         console.log("Passwords do not match.")
       }
       if (this.dine_password.value.length < 8 || this.dine_retypePassword.value.length > 20 ){
+        this.showToast("Password should be 8 characters.");
         console.log("Password should be 8 characters.");
       }
     }
+  }
+
+  showToast(message) {
+
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 5000,
+      position: 'top',
+      cssClass: 'danger',
+      showCloseButton: true,
+      closeButtonText: 'X',
+      dismissOnPageChange: true
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed error');
+    });
+
+    toast.present();
   }
 
   closePage(){

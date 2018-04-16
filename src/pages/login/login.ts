@@ -70,21 +70,21 @@ export class LoginPage {
           }
         })
         .catch(error => {
-          console.log(error.code);
-          that.showError(error.code);
+          console.log(error.message);
+          that.showError(error.message);
           loading.dismiss();
         })
       })
       .catch(function (error){
-        console.log(error.code);
-        that.showError(error.code);
+        console.log(error.message);
+        that.showError(error.message);
         loading.dismiss();
       })
     } else if (email == '' && password != '') {
-      this.showError("You forgot to enter your email!");
+      this.showError("Please enter your email.");
       loading.dismiss();
     } else if (email != '' && password == '') {
-      this.showError("Haha. You need to enter your password.");
+      this.showError("Please enter you password.");
       loading.dismiss();
     } else {
       this.showError("Enter your credentials first.");
@@ -94,14 +94,6 @@ export class LoginPage {
   }
 
   showError(message) {
-    if (message == "auth/wrong-password") {
-      message = "Hhmm. You are entering a wrong password.";
-    } else if (message == "auth/invalid-email") {
-      message = "Email is wrong. Correct it?";
-    } else if (message == "auth/user-not-found") {
-      message = "The email isn't a registered user in Fud.";
-    } 
-
     let toast = this.toastCtrl.create({
       message: message,
       duration: 5000,
@@ -121,6 +113,7 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('Loaded LoginPage');
+    this.authenticateLogin();
   }
 }
 
