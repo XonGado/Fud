@@ -30,30 +30,35 @@
 </ion-header>
 
 <ion-menu id="side-menu" type="overlay" [content]="content">
-	<ion-header>
-		<img class="sidemenu-pp" src="assets/imgs/samplePP.jpg" (click)="openProfile()">
-		<ion-toolbar>
-			<ion-title class="name" (click)="openProfile()">Cafe Diem</ion-title>
-			<span class="email">cafeDiem@gmail.com</span>
-		</ion-toolbar>
+	<ion-header no-lines>
+		<ion-item>
+			<ion-avatar item-start>
+				<img src="assets/imgs/samplePP.jpg" (click)="openProfile()">
+			</ion-avatar>
+			<h2 text-nowrap (click)="openProfile()" color="secondary">Cafe Diem</h2>
+			<p text-nowrap>cafeDiem@gmail.com</p>
+		</ion-item>
+			
+		<!-- <ion-toolbar>
+		</ion-toolbar> -->
 	</ion-header>
 	<ion-content>
 		<ion-list>
 			<button ion-item icon-start (click)="openProfile()">
-				<ion-icon name="person" color="secondary"></ion-icon> 
+				<ion-icon name="person" color="fudGreen"></ion-icon> 
 				Profile
 			</button>
 			<button ion-item icon-start (click)="openMenu()">
-				<ion-icon name="paper" color="secondary"></ion-icon> 
+				<ion-icon name="paper" color="fudGreen"></ion-icon> 
 				Menu
 			</button>
-			<button ion-item icon-start (click)="logout()">
-				<ion-icon name="log-out" color="secondary"></ion-icon> 
-				Logout
-			</button>
 			<button ion-item icon-start (click)="openScanner()">
-				<ion-icon name="scan" color="secondary"></ion-icon> 
+				<ion-icon name="qr-scanner" color="fudGreen"></ion-icon> 
 				QRScan
+			</button>
+			<button ion-item icon-start (click)="logout()">
+				<ion-icon name="log-out" color="danger"></ion-icon> 
+				Logout
 			</button>
 		</ion-list>
 	</ion-content>

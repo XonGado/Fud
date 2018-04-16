@@ -50,6 +50,21 @@ ion-spinner {
 	}
 }
 
+.bubble-badge{
+	font-family: "Roboto Light";
+	font-size: 0.6em;
+	border-radius: 50%;
+	height: 2rem!important;
+	width: 2rem!important;
+	border: 2px solid #222;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
 // $toast-ios-background: $red;
 // $toast-md-background: $red;
 

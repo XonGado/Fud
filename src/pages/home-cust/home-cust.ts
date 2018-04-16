@@ -26,6 +26,7 @@ export class HomeCustPage {
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage');
+		this.orderHere();
 	}
 
 	openProfile(){
@@ -36,7 +37,7 @@ export class HomeCustPage {
 		this.navCtrl.push(ComboPage);
 	}
 
-	order(){
+	orderHere(){
 		this.navCtrl.push(OrderPage);
 	}
 

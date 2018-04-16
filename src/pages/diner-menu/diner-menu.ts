@@ -20,6 +20,7 @@ export class DinerMenuPage {
 
 	searchQuery: string = '';
   	itemList: Item[];
+  	categoryList: Category[] = [];
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
 		this.initializeItems();
@@ -41,6 +42,7 @@ export class DinerMenuPage {
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad DinerMenuPage');
 		// this.testCreateItem("10", "samplePP.jpg", "Item", "This description", "100", "Nothing");
+		this.initalizeCategories();
 	}
 
 	initializeItems(){
@@ -107,17 +109,69 @@ export class DinerMenuPage {
 		];
 	}
 
+	initalizeCategories(){
+		var list = this.getCategoryList();
+
+		console.log("Got category list");
+
+		for (var i = list.length - 1; i >= 0; i--) {
+			this.createCategory(list[i], this.getItemsUnderCategory(list[i]));
+		}
+	}
+
 	getItems(ev: any) {
 	    this.initializeItems();
 
 	    let val = ev.target.value;
 
 	    if (val && val.trim() != '') {
-	      this.itemList = this.itemList.filter((item) => {
-	        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-	      })
+			this.itemList = this.itemList.filter((item) => {
+				return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+			})
 	    }
-	  }
+	}
+
+	getCategoryList(){
+		var categories: any[] = [];
+
+		for (var i = this.itemList.length - 1; i >= 0; i--) {
+			if(!(categories.includes(this.itemList[i].type))){
+				console.log(this.itemList[i].type);
+				categories.push(this.itemList[i].type);
+			}
+		}
+
+		// console.log(categories);
+		return categories;
+	}
+
+	getItemsUnderCategory(category){
+		this.initializeItems();
+
+		var content: any[] = [];
+
+	    if (category && category.trim() != '') {
+			this.itemList = this.itemList.filter((item) => {
+				if(item.type.toLowerCase().indexOf(category.toLowerCase()) > -1){
+					content.push(item);
+				}
+			})
+	    }
+
+	    return content;
+	}
+
+	createCategory(title, items){
+
+		this.categoryList.push({
+			title: title,
+			items: items
+		});
+
+		console.log("Created category: " + title);
+		console.log("has the following items: ");
+		console.log(items);
+	}
 
 	addItem(){
 		this.navCtrl.push(ItemAddPage);
@@ -178,6 +232,11 @@ interface Item{
 	description: string,
 	price: string,
 	type: string
+}
+
+interface Category{
+	title: string,
+	items: any[]
 }
 
 interface Menu{

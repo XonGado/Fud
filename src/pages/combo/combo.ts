@@ -21,11 +21,7 @@ export class ComboPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ComboPage');
   }
-
-  closePage(){
-  	this.navCtrl.pop();
-  }
-
+  
   openAddComboModal(){
   	console.log("Oppening add combo modal.");
   }

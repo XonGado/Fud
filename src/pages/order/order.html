@@ -14,7 +14,28 @@
 
 
 <ion-content ng-app="order" ng-controller="orderController">
-	<h1>Order</h1>
+	<ion-searchbar
+		[(ngModel)]="myInput"
+		[showCancelButton]="shouldShowCancel"
+		(ionInput)="getItems($event)"
+		(ionCancel)="getItems($event)">
+	</ion-searchbar>
+
+	<ion-list *ngFor="let category of categoryList">
+		<ion-list-header>
+			{{category.title}}
+		</ion-list-header>
+		<ion-item *ngFor="let item of category.items" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)">
+			<ion-avatar item-start>
+				<img src="assets/imgs/{{item.image}}">
+			</ion-avatar>
+			<h2>{{item.name}}</h2>
+			<p>{{item.ordered}}</p>
+			<p class="price">{{item.price}}</p>
+		</ion-item>
+	</ion-list>
+	
+	<!-- <h1>Order</h1>
 	<div id="order-details">
 		
 	</div>
@@ -37,49 +58,17 @@
 	<div id="order-details-options">
 		<span id="bill"><ion-icon name="cash"></ion-icon> 100</span>
 		<button type="button" id="order-btn" (click)="confirmQR()">Order <ion-icon name="checkmark"></ion-icon></button>
-	</div>
-	<!-- <div class="container">
-		<div class="details overflow-auto">
-			<h1 class="order">Order</h1>
-			<span class="cafe">at Cafe Diem</span>
-			<h2 class="header"><i class="material-icons tiny">local_dining</i> Appetizers</h2>
-			<ul>
-				<li><span class="name truncate"><span class="price">65</span> Hotdog</span></li>
-				<li><span class="name truncate"><span class="price">55</span> Bacon</span></li>
-				<li><span class="name truncate"><span class="price">55</span> Tapa</span></li>
-				<li><span class="name truncate"><span class="price">90</span> Hungarian</span></li>
-				<li><span class="name truncate"><span class="price">75</span> Chicken Nuggets</span></li>
-				<li><span class="name truncate"><span class="price">65</span> Hotchick</span></li>
-			</ul>
-			<h2 class="header"><i class="material-icons tiny">local_cafe</i> House Drinks</h2>
-			<ul>
-				<li><span class="name truncate"><span class="price">85</span> Irish Cream</span></li>
-				<li><span class="name truncate"><span class="price">85</span> Hazelnut</span></li>
-				<li><span class="name truncate"><span class="price">85</span> Macadamia</span></li>
-				<li><span class="name truncate"><span class="price">80</span> Choco Obama</span></li>
-				<li><span class="name truncate"><span class="price">75</span> Toffee</span></li>
-				<li><span class="name truncate"><span class="price">65</span> Caramel</span></li>
-			</ul>
-			<h2 class="header"><i class="material-icons tiny">cake</i> Desert</h2>
-			<ul>
-				<li><span class="truncate"><span class="price">100</span> Choco Chip Waffle</span></li>
-				<li><span class="truncate"><span class="price">85</span> Plain Waffle</span></li>
-				<li><span class="truncate"><span class="price">60</span> Caramel Waffle</span></li>
-				<li><span class="truncate"><span class="price">70</span> Cream Cheese Waffle</span></li>
-				<li><span class="truncate"><span class="price">100</span> Triple Choco Waffle</span></li>
-				<li><span class="truncate"><span class="price">100</span> Blueberry Waffle</span></li>
-			</ul>
-			<button class="btn right">Order</button>
-
-		</div>
 	</div> -->
 
 </ion-content>
 
-<script>
-	var order = angular.module('order', []);
-
-	order.controller('orderController', function($scope) {
-	    $scope.names = ["Emil", "Tobias", "Linus"];
-	});
-</script>
+<ion-footer>
+	<button ion-button icon-only float-left color="dark" (click)="viewItems()">
+		<ion-icon item-start name="basket"></ion-icon>
+		<ion-badge class="bubble-badge">10</ion-badge>
+	</button>
+	<button ion-button icon-start float-right color="secondary" (click)="placeOrder()">
+		<ion-icon name="checkmark"></ion-icon>
+		Order 
+	</button>
+</ion-footer>

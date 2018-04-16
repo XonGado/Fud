@@ -14,34 +14,36 @@
 </ion-header>
 
 <ion-menu id="side-menu" type="overlay" [content]="content">
-	<ion-header>
-		<img class="sidemenu-pp" src="assets/imgs/samplePP.jpg" (click)="openProfile()">
-		<ion-toolbar>
-			<ion-title class="name" (click)="openProfile()">Clyde Joshua Delgado</ion-title>
-			<span class="email">cndelgado@up.edu.ph</span>
-		</ion-toolbar>
+	<ion-header no-lines>
+		<ion-item>
+			<ion-avatar item-start>
+				<img src="assets/imgs/samplePP.jpg" (click)="openProfile()">
+			</ion-avatar>
+			<h2 text-nowrap (click)="openProfile()" color="secondary">Clyde Joshua Delgado</h2>
+			<p text-nowrap>cndelgado@gmail.com</p>
+		</ion-item>
 	</ion-header>
 	<ion-content>
 		<ion-list>
 			<button ion-item (click)="openProfile()">
-				<ion-icon name="person"></ion-icon> Profile
-				<ion-icon name="arrow-round-forward"></ion-icon>
+				<ion-icon color="fudGreen" name="person"></ion-icon> 
+				Profile
 			</button>
 			<button ion-item (click)="openCombo()">
-				<ion-icon name="pizza"></ion-icon> Combo
-				<ion-icon name="arrow-round-forward"></ion-icon>
+				<ion-icon color="fudGreen" name="pizza"></ion-icon> 
+				Combo
 			</button>
 			<button ion-item (click)="order()">
-				<ion-icon name="cart"></ion-icon> Order
-				<ion-icon name="arrow-round-forward"></ion-icon>
+				<ion-icon color="fudGreen" name="cart"></ion-icon> 
+				Order
 			</button>
 			<button ion-item (click)="openMenus()">
-				<ion-icon name="paper"></ion-icon> Menus
-				<ion-icon name="arrow-round-forward"></ion-icon>
+				<ion-icon color="fudGreen" name="paper"></ion-icon> 
+				Menus
 			</button>
 			<button ion-item (click)="logout()">
-				<ion-icon name="log-out"></ion-icon> Logout
-				<ion-icon name="arrow-round-forward"></ion-icon>
+				<ion-icon color="fudGreen" name="log-out"></ion-icon> 
+				Logout
 			</button>
 		</ion-list>
 	</ion-content>
@@ -49,42 +51,59 @@
 
 <ion-nav #content [root]="rootPage"></ion-nav>
 
-<ion-content>
-	<div id="search" class="search-template">
+<ion-content padding>
+	<!-- <div id="search" class="search-template">
 		<input type="text" id="search-input" name="keyword" placeholder="Search">
 		<button id="search-btn" type="button"><ion-icon name="search"></ion-icon></button>
-	</div>
-	<div id="diner-container">
-		<div class="diner">
-			<img class="display-image" src="assets/imgs/samplePP.jpg">
-			<h2 class="name">Cafe Diem</h2>
-			<span class="distance"><ion-icon name="map"></ion-icon> 1km</span>
-			<span class="capacity"><ion-icon name="people"></ion-icon> 20</span>
-			<span class="capacity-bar">
-				<i class="bar"></i>
-			</span>
-		</div>
-		<div class="diner">
-			<img class="display-image" src="assets/imgs/samplePP.jpg">
-			<h2 class="name">Cafe Diem</h2>
-			<span class="distance"><ion-icon name="map"></ion-icon> 1km</span>
-			<span class="capacity"><ion-icon name="people"></ion-icon> 20</span>
-			<span class="capacity-bar">
-				<i class="bar"></i>
-			</span>
-		</div>
-		<div class="diner">
-			<img class="display-image" src="assets/imgs/samplePP.jpg">
-			<h2 class="name">Cafe Diem</h2>
-			<span class="distance"><ion-icon name="map"></ion-icon> 1km</span>
-			<span class="capacity"><ion-icon name="people"></ion-icon> 20</span>
-			<span class="capacity-bar">
-				<i class="bar"></i>
-			</span>
-		</div>
-	</div>
+	</div> -->
+	<ion-list>
+		<ion-item (click)="orderHere()">
+			<ion-avatar item-left>
+				<img src="assets/imgs/6.jpg">
+			</ion-avatar>
+			<h2>Cafe Diem</h2>
+			<p>
+				<ion-icon name="map" color="secondary" margin-right></ion-icon>
+				1km
+			</p>
+			<p>
+				<ion-icon name="people" color="secondary" margin-right></ion-icon>
+				20
+			</p>
+		</ion-item>
+	</ion-list>
 
-	<div id="map">
-		<h1>Display map here</h1>
+	<!-- <div id="diner-container">
+		<div class="diner">
+			<img class="display-image" src="assets/imgs/samplePP.jpg">
+			<h2 class="name">Cafe Diem</h2>
+			<span class="distance"><ion-icon name="map"></ion-icon> 1km</span>
+			<span class="capacity"><ion-icon name="people"></ion-icon> 20</span>
+			<span class="capacity-bar">
+				<i class="bar"></i>
+			</span>
+		</div>
+		<div class="diner">
+			<img class="display-image" src="assets/imgs/samplePP.jpg">
+			<h2 class="name">Cafe Diem</h2>
+			<span class="distance"><ion-icon name="map"></ion-icon> 1km</span>
+			<span class="capacity"><ion-icon name="people"></ion-icon> 20</span>
+			<span class="capacity-bar">
+				<i class="bar"></i>
+			</span>
+		</div>
+		<div class="diner">
+			<img class="display-image" src="assets/imgs/samplePP.jpg">
+			<h2 class="name">Cafe Diem</h2>
+			<span class="distance"><ion-icon name="map"></ion-icon> 1km</span>
+			<span class="capacity"><ion-icon name="people"></ion-icon> 20</span>
+			<span class="capacity-bar">
+				<i class="bar"></i>
+			</span>
+		</div>
 	</div>
+ -->
+	<!-- <div id="map">
+		<h1>Display map here</h1>
+	</div> -->
 </ion-content>
