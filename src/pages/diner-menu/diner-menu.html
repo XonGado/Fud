@@ -21,17 +21,6 @@
 
 
 <ion-content>
-	<!-- <div id="toolbar">
-		<button class="back-button-custom" (click)="closePage()">
-			<ion-icon name="arrow-back"></ion-icon>
-		</button>
-		<h2 class="page_name">Your Menu</h2>
-		<button class="add-button" (click)="addItem()">
-			<ion-icon name="add"></ion-icon>
-		</button>
-	</div> -->
-	<!-- <h2>Tacoyz's Menu</h2> -->
-
 	<ion-searchbar
 		[(ngModel)]="myInput"
 		[showCancelButton]="shouldShowCancel"
@@ -39,30 +28,30 @@
 		(ionCancel)="getItems($event)">
 	</ion-searchbar>
 
-		<ion-list *ngFor="let category of categoryList">
-			<ion-list-header>
-				{{category.title}}
-			</ion-list-header>
-			<ion-item-sliding *ngFor="let item of category.items">
-				<ion-item>
-					<ion-avatar item-start>
-						<img src="assets/imgs/{{item.image}}">
-					</ion-avatar>
-					<h2>{{item.name}}</h2>
-					<p class="price">{{item.price}}</p>
-				</ion-item>
-				<ion-item-options side="left">
-					<button ion-button color="dark" (click)="editItem(item.id)">
-						<ion-icon name="reorder"></ion-icon>
-					</button>
-				</ion-item-options>
-				<ion-item-options side="right">
-					<button ion-button color="danger" (click)="deleteItem(item.id, item.name)">
-						<ion-icon name="trash"></ion-icon>
-					</button>
-				</ion-item-options>
-			</ion-item-sliding>
-		</ion-list>
+	<ion-list *ngFor="let category of categoryList">
+		<ion-list-header>
+			{{category.title}}
+		</ion-list-header>
+		<ion-item-sliding *ngFor="let item of category.items">
+			<ion-item>
+				<ion-avatar item-start>
+					<img src="assets/imgs/{{item.image}}">
+				</ion-avatar>
+				<h2>{{item.name}}</h2>
+				<p class="price">{{item.price}}</p>
+			</ion-item>
+			<ion-item-options side="left">
+				<button ion-button color="dark" (click)="editItem(item.id)">
+					<ion-icon name="reorder"></ion-icon>
+				</button>
+			</ion-item-options>
+			<ion-item-options side="right">
+				<button ion-button color="danger" (click)="deleteItem(item.id, item.name)">
+					<ion-icon name="trash"></ion-icon>
+				</button>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
 
 	
 
@@ -75,6 +64,4 @@
 			<span class="price">{{item.price}}</span>
 		</li>
 	</ul> -->
-
-
 </ion-content>

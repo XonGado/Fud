@@ -4,6 +4,12 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { ItemEditPage } from "../item-edit/item-edit";
 import { ItemAddPage } from "../item-add/item-add";
 
+import { AngularFirestore, AngularFirestoreModule, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Observable } from 'rxjs/Observable';
+
+import { Item } from '../../models/item.model'
+
 /**
  * Generated class for the DinerMenuPage page.
  *
@@ -17,30 +23,29 @@ import { ItemAddPage } from "../item-add/item-add";
   templateUrl: 'diner-menu.html',
 })
 export class DinerMenuPage {
-
+	uid: string;
 	searchQuery: string = '';
+<<<<<<< HEAD
   	itemList: Item[];
   	categoryList: Category[] = [];
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
 		this.initializeItems();
+=======
+	item: Item[];
+  	items: Observable<Item[]>;
+  	itemsCollectionRef: AngularFirestoreCollection<Item>
+
+	constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private fire: AngularFireAuth, private firestore: AngularFirestore) {
+		this.uid = fire.auth.currentUser.uid
+		this.itemsCollectionRef = this.firestore.collection('diners').doc(this.uid).collection('items')
+		this.items = this.itemsCollectionRef.valueChanges()
+>>>>>>> 2b524b895dea6fe19538c561830e2df63890d85f
 	}
-
-	// testCreateItem(id, imageurl, name, description, price, type){
-	// 	this.itemList.push({ 
-	// 		id: id, 
-	// 		name: name, 
-	// 		image: imageurl, 
-	// 		description: description, 
-	// 		price: price, 	
-	// 		type: type
-	// 	});
-
-	// 	console.log("Created " + name + ".");
-	// }
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad DinerMenuPage');
+<<<<<<< HEAD
 		// this.testCreateItem("10", "samplePP.jpg", "Item", "This description", "100", "Nothing");
 		this.initalizeCategories();
 	}
@@ -107,6 +112,9 @@ export class DinerMenuPage {
 			{ id:'3', name:'Iced Tea', 						image:'samplePP.jpg', description: '', price:'15', 	type:'Drinks'},
 			{ id:'3', name:'Pinneaple Juice', 				image:'samplePP.jpg', description: '', price:'15', 	type:'Drinks'}
 		];
+=======
+		console.log(this.itemsCollectionRef)
+>>>>>>> 2b524b895dea6fe19538c561830e2df63890d85f
 	}
 
 	initalizeCategories(){
@@ -120,11 +128,9 @@ export class DinerMenuPage {
 	}
 
 	getItems(ev: any) {
-	    this.initializeItems();
-
-	    let val = ev.target.value;
-
+		let val = ev.target.value;
 	    if (val && val.trim() != '') {
+<<<<<<< HEAD
 			this.itemList = this.itemList.filter((item) => {
 				return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
 			})
@@ -172,43 +178,46 @@ export class DinerMenuPage {
 		console.log("has the following items: ");
 		console.log(items);
 	}
+=======
+	      this.item = this.item.filter((item) => {
+	        return (item.item_name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+	      })
+	    }
+	 }
+>>>>>>> 2b524b895dea6fe19538c561830e2df63890d85f
 
 	addItem(){
 		this.navCtrl.push(ItemAddPage);
 	}
 
-	editItem(id, name){
-		console.log("Editing item.");
+	editItem(item_id){
+		console.log(item_id)
 		this.navCtrl.push(ItemEditPage, {
-			data: id
+			data: item_id
 		});
 	}
 
-	deleteItem(id, name){
-		console.log("Tried to delete " + name + ".");
-		console.log("The id of the item is " + id + ".");
-
+	deleteItem(item_id){
+		console.log("Id: " + item_id);
 		let confirm = this.alertCtrl.create({
 	      title: 'Farewell delicious food',
-	      message: 'Do you want to remove ' + name + ' from the menu?',
+	      message: 'Do you want to remove from the menu?',
 	      buttons: [
 	        {
 	          text: 'Remove',
 	          handler: () => {
 	            console.log('Disagree clicked');
-	            // Insert database queries here.
+	            this.itemsCollectionRef.doc(item_id).delete();
 	          }
 	        },
 	        {
 	          text: 'No!',
 	          handler: () => {
 	            console.log('Agree clicked');
-	            // Insert database queries here.
 	          }
 	        }
 	      ]
 	    });
-
 	    confirm.present();
 	}
 
@@ -218,27 +227,25 @@ export class DinerMenuPage {
 }
 
 interface Diner{
-	id: string,
 	name: string,
 	phone: string
 	address: string, 
 	description: string,
 }
 
-interface Item{
-	id: string,
-	image: string,
-	name: string,
-	description: string,
-	price: string,
-	type: string
+interface Menu{
+	id: string
 }
 
 interface Category{
+<<<<<<< HEAD
 	title: string,
 	items: any[]
 }
 
 interface Menu{
 	id: string,
+=======
+	name: string
+>>>>>>> 2b524b895dea6fe19538c561830e2df63890d85f
 }

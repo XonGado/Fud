@@ -46,8 +46,8 @@ export class RegisterPage {
 	@ViewChild('dine_password') dine_password;
 	@ViewChild('dine_retypePassword') dine_retypePassword;
 
-  	uid: string;
-  	acctype: string;
+  uid: string;
+  acctype: string;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
