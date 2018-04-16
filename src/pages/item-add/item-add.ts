@@ -40,7 +40,7 @@ export class ItemAddPage {
   }
 
   addItem(){
-    let id = this.firestore.createId();
+    let id = this.firestore.createId()
     this.itemsCollectionRef.doc(id).set({
       item_id: id,
       item_name: this.item_name.value,
@@ -52,5 +52,6 @@ export class ItemAddPage {
     }).catch(function (error){
       console.log("Error: ", error.code)
     })
+    this.navCtrl.pop()
   }
 }
