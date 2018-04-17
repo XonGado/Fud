@@ -19,7 +19,7 @@ import { DinerMenuPage } from '../pages/diner-menu/diner-menu';
 import { HomeDinerPage } from '../pages/home-diner/home-diner';
 import { MenuPage } from '../pages/menu/menu';
 import { MenusPage } from '../pages/menus/menus';
-import { OrderPage } from '../pages/order/order';
+// import { OrderPage } from '../pages/order/order';
 import { BasketPage } from '../pages/basket/basket';
 import { DinerScanPage } from '../pages/diner-scan/diner-scan';
 import { ItemPage } from '../pages/item/item';
@@ -50,7 +50,7 @@ import { FIREBASE_CONFIG } from './firebase.config'
     HomeDinerPage,
     MenuPage,
     MenusPage,
-    OrderPage,
+    // OrderPage,
     BasketPage,
     DinerScanPage,
     ItemPage,
@@ -82,7 +82,7 @@ import { FIREBASE_CONFIG } from './firebase.config'
     HomeDinerPage,
     MenuPage,
     MenusPage,
-    OrderPage,
+    // OrderPage,
     BasketPage,
     DinerScanPage,
     ItemPage,
