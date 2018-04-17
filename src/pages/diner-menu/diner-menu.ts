@@ -26,7 +26,6 @@ export class DinerMenuPage {
 	uid: string;
 	searchQuery: string = '';
   	categoryList: Category[] = [];
-  	itemList: Item[];
   	items: Observable<Item[]>;
   	itemsCollectionRef: AngularFirestoreCollection<Item>
   	loading = this.loadingCtrl.create({
@@ -45,7 +44,6 @@ export class DinerMenuPage {
 		this.uid = fire.auth.currentUser.uid
 		this.itemsCollectionRef = this.firestore.collection('diners').doc(this.uid).collection('items')
 		this.items = this.itemsCollectionRef.valueChanges()
-		// this.itemList = this.listOfItems()
 		this.retrieveMenu();
 	}
 
