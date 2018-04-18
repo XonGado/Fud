@@ -4,11 +4,12 @@ import { IonicPage, NavController, NavParams, AlertController, LoadingController
 import { ItemEditPage } from "../item-edit/item-edit";
 import { ItemAddPage } from "../item-add/item-add";
 
-import { AngularFirestore, AngularFirestoreModule, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreModule, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 
 import { Item } from '../../models/item.model'
+import { DinerDetails } from '../../models/dinerdetails.interface'
 
 /**
  * Generated class for the DinerMenuPage page.
@@ -24,8 +25,9 @@ import { Item } from '../../models/item.model'
 })
 export class DinerMenuPage {
 	uid: string;
+	dinername: string;
 	searchQuery: string = '';
-
+	diner: AngularFirestoreDocument<DinerDetails>;
   	categoryList: Category[] = [];
   	itemList: Item[];
   	items: Observable<Item[]>;
@@ -46,12 +48,14 @@ export class DinerMenuPage {
 	    this.loading.present();
 
 		this.uid = fire.auth.currentUser.uid
+		this.diner = this.firestore.collection('diners').doc(this.uid)
 		this.itemsCollectionRef = this.firestore.collection('diners').doc(this.uid).collection('items')
 		this.items = this.itemsCollectionRef.valueChanges()
 		this.retrieveMenu();
 	}
 
 	ionViewDidLoad() {
+		this.getDiner()
 		console.log('ionViewDidLoad DinerMenuPage');
 	}
 
@@ -136,6 +140,14 @@ export class DinerMenuPage {
 	      ]
 	    });
 	    confirm.present();
+	}
+
+	getDiner() {
+		let that = this
+		this.diner.ref.get()
+		.then(doc => {
+			that.dinername = doc.data().dine_name + "'s Menu"
+		})
 	}
 
 	closePage(){

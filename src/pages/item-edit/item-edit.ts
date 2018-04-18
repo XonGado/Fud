@@ -26,7 +26,6 @@ export class ItemEditPage {
 	item_price: string;
 	item_description: string;
 
-	items: Observable<Item[]>
 	itemsCollectionRef: AngularFirestoreCollection<Item>
 
 	@ViewChild('name') name;

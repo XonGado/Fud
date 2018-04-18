@@ -56,40 +56,40 @@
 		<ion-list>
 		<ion-item>
 			<ion-label color="secondary" stacked>Diner Name</ion-label>
-			<ion-input type="text" value="Cafe Kapi" #dine_name></ion-input>
+			<ion-input type="text" #dine_name></ion-input>
 		</ion-item>
 		<ion-item>
 			<ion-label color="secondary" stacked>Owner Name</ion-label>
-			<ion-input type="text" value="Relyn Dela Cruz" #dine_owner_name></ion-input>				
+			<ion-input type="text" #dine_owner_name></ion-input>				
 		</ion-item>
 		<ion-item>
 			<ion-label color="secondary" stacked>Username</ion-label>
-			<ion-input type="text" value="relyn" #dine_username></ion-input>
+			<ion-input type="text" #dine_username></ion-input>
 		</ion-item>
 		<ion-item>
 			<ion-label color="secondary" stacked>Email</ion-label>
-			<ion-input type="email" value="relbdc13@gmail.com" #dine_email></ion-input>
+			<ion-input type="email" #dine_email></ion-input>
 		</ion-item>
 		<ion-item>
 			<ion-label color="secondary" stacked>Website</ion-label>
 			<p>optional</p>
-			<ion-input type="text" value=" " #dine_weblink></ion-input>
+			<ion-input type="text" value="" #dine_weblink></ion-input>
 		</ion-item>
 		<ion-item>
 			<ion-label color="secondary" stacked>Delivery Number</ion-label>
-			<ion-input type="text" value="09123456789" #dine_number></ion-input>
+			<ion-input type="text" #dine_number></ion-input>
 		</ion-item>
 		<ion-item>
 			<ion-label color="secondary" stacked>Address</ion-label>
-			<ion-input type="text" value="Iloilo" #dine_address></ion-input>
+			<ion-input type="text" #dine_address></ion-input>
 		</ion-item>
 		<ion-item>
 			<ion-label color="secondary" stacked>Password</ion-label>
-			<ion-input type="password" value="qwerty123" #dine_password></ion-input>
+			<ion-input type="password" #dine_password></ion-input>
 		</ion-item>
 		<ion-item>
 			<ion-label color="secondary" stacked>Retype Password</ion-label>
-			<ion-input type="password" value="qwerty123" #dine_retypePassword></ion-input>
+			<ion-input type="password" #dine_retypePassword></ion-input>
 		</ion-item>
 		</ion-list>
 		<button ion-button block color="secondary" (click)="createDiner(dinerDetails)">Create!</button>
