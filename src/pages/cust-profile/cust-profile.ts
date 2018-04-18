@@ -43,12 +43,9 @@ export class CustProfilePage {
 			}
 		})
 		.catch(error => {
+			console.log(error.code)
 			console.log(error.message)
 		})
-		
-	}
-
-	async retrieveUser(){
 		
 	}
 

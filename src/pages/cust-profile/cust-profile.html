@@ -8,7 +8,8 @@
 
   <ion-navbar>
     <ion-title>
-    	<ion-icon name="person"></ion-icon>
+    	<ion-icon icon-start name="person"></ion-icon>
+    	Profile
     </ion-title>
   </ion-navbar>
 
@@ -17,9 +18,9 @@
 
 <ion-content padding>
 	<img src="assets/imgs/samplePP.jpg">
-	<h1 text-center>{{user.cust_name}}</h1>
-	<h2 text-center color="secondary">{{user.cust_username}}</h2>
-	<h3 text-center color="dark">{{user.cust_email}}</h3>
+	<h2 ion-text text-center text-nowrap >{{user?.cust_name}}</h2>
+	<h3 ion-text text-center text-nowrap color="secondary">{{user?.cust_username}}</h3>
+	<h4 ion-text text-center text-nowrap color="dark">{{user?.cust_email}}</h4>
 
 	<!-- <div class="container">
 		<button class="back-button-custom" (click)="closePage()">
