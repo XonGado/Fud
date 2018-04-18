@@ -28,7 +28,7 @@
 		(ionCancel)="getItems($event)">
 	</ion-searchbar>
 
-	<ion-list>
+	<!-- <ion-list>
 		<ion-item-sliding *ngFor="let item of itemList">
 			<ion-item>
 				<ion-avatar item-start>
@@ -48,7 +48,7 @@
 				</button>
 			</ion-item-options>
 		</ion-item-sliding>
-	</ion-list>
+	</ion-list> -->
 
 	<ion-list *ngFor="let category of categoryList">
 		<ion-list-header>
@@ -57,7 +57,8 @@
 		<ion-item-sliding *ngFor="let item of category.items">
 			<ion-item>
 				<ion-avatar item-start>
-					<img src="assets/imgs/{{item.image}}">
+					<img src="assets/imgs/6.jpg">
+					<!-- <img src="assets/imgs/{{item.image}}"> -->
 				</ion-avatar>
 				<h2>{{item.item_name}}</h2>
 				<p class="price">{{item.item_price}}</p>

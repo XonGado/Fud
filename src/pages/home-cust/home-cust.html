@@ -57,11 +57,11 @@
 		<button id="search-btn" type="button"><ion-icon name="search"></ion-icon></button>
 	</div> -->
 	<ion-list>
-		<ion-item (click)="orderHere()">
+		<ion-item *ngFor="let diner of dinerList" (click)="orderHere(diner.dine_email)">
 			<ion-avatar item-left>
 				<img src="assets/imgs/6.jpg">
 			</ion-avatar>
-			<h2>Cafe Diem</h2>
+			<h2>{{diner.dine_name}}</h2>
 			<p>
 				<ion-icon name="map" color="secondary" margin-right></ion-icon>
 				1km
