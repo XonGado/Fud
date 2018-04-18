@@ -57,7 +57,7 @@ export class DinerMenuPage {
 			console.log("Menu was retrieved!");
 
 			console.log("Item list:")
-			for (var item in items) {
+			for (var item of items) {
 				console.log(item.item_type);
 			}
 
