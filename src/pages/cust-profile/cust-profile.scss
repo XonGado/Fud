@@ -1,4 +1,38 @@
 page-cust-profile {
+    .profile-header{
+        background-color: rgba(255,255,255,0.025);
+        width: calc(100% + 32px);
+        transform: translate(-16px, -16px);
+        padding: 16px;
+
+        img{
+            border-radius: 50%;
+            width: 7.5em;
+            display: block;
+            margin: auto;
+            border: 2px solid white;
+        }
+
+        h3{
+            font-family: 'Raleway';
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 1em;
+            margin-bottom: 0.25em;
+            // margin-top: 0.25em;
+        }
+
+        h4{
+            font-size: 1em;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        p{
+            margin-top: 0;
+        }
+
+    }
     // .container{
     //     padding-top: 2.5em!important;
     // }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular'
 
 import { AngularFirestore, AngularFirestoreModule, AngularFirestoreCollection } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
@@ -21,30 +21,49 @@ import { Customer } from '../../models/customer.model'
 })
 export class CustProfilePage {
 	uid: string
-	user: Customer
 	customerCollectionRef: AngularFirestoreCollection<Customer>
+	user: Customer = {
+		cust_name: '',
+		cust_email: '',
+		cust_username: ''
+	}
 
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams,
+				public loadingCtrl: LoadingController,
 				private fire: AngularFireAuth,
 				private firestore: AngularFirestore) {
 
-		this.uid = fire.auth.currentUser.uid
-		this.customerCollectionRef = this.firestore.collection('customers')
-
 		let that = this
-		this.firestore.collection('customers').doc(this.uid).ref.get()
-		.then(function(doc){
-			if (doc.exists) {
-				that.user = doc.data()
-				console.log(that.user)
-			} else {
-				console.log("No such user with this ID.")
-			}
-		})
-		.catch(error => {
-			console.log(error.code)
-			console.log(error.message)
+
+		let loading = this.loadingCtrl.create({
+			dismissOnPageChange: true,
+			content: `<ion-spinner name="cresent"></ion-spinner>`
+	    });
+
+		loading.present()
+		.then(function(){
+			that.uid = fire.auth.currentUser.uid
+			that.customerCollectionRef = that.firestore.collection('customers')
+
+			that.firestore.collection('customers').doc(that.uid).ref.get()
+			.then(function(doc){
+				if (doc.exists) {
+					that.user.cust_name = doc.data().cust_name
+					that.user.cust_email = doc.data().cust_email
+					that.user.cust_username = doc.data().cust_username
+					console.log(that.user)
+					loading.dismiss();
+				} else {
+					console.log("No such user with this ID.")
+					loading.dismiss();
+				}
+			})
+			.catch(error => {
+				console.log(error.code)
+				console.log(error.message)
+				loading.dismiss();
+			})
 		})
 		
 	}

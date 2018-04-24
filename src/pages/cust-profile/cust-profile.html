@@ -17,10 +17,12 @@
 
 
 <ion-content padding>
-	<img src="assets/imgs/samplePP.jpg">
-	<h2 ion-text text-center text-nowrap >{{user?.cust_name}}</h2>
-	<h3 ion-text text-center text-nowrap color="secondary">{{user?.cust_username}}</h3>
-	<h4 ion-text text-center text-nowrap color="dark">{{user?.cust_email}}</h4>
+	<div class="profile-header">
+		<img src="assets/imgs/samplePP.jpg">
+		<h3 ion-text text-center text-nowrap >{{user?.cust_name}}</h3>
+		<h4 ion-text text-center text-nowrap color="secondary">{{user?.cust_username}}</h4>
+		<p ion-text text-center text-nowrap color="dark">{{user?.cust_email}}</p>
+	</div>
 
 	<!-- <div class="container">
 		<button class="back-button-custom" (click)="closePage()">
