@@ -27,8 +27,8 @@ import { Diner } from '../../models/diner.model'
 export class HomeCustPage {
 	uid: string
 	dinerList: Diner[];
-	diners: Observable<Diner[]>
   	dinersCollectionRef: AngularFirestoreCollection<Diner>
+  	diner_ids: any[] = []
 
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
@@ -39,25 +39,25 @@ export class HomeCustPage {
 
 		this.uid = fire.auth.currentUser.uid
 		this.dinersCollectionRef = this.firestore.collection('diners')
-		this.diners = this.dinersCollectionRef.valueChanges()
 		this.dinerList = this.retrieveDiners()
 	}
 
 	retrieveDiners(){
 		let _diners: any[] = []
+		let that = this
 		this.dinersCollectionRef.ref.get()
 		.then(function(querySnapshot){
 			querySnapshot.forEach(function(doc){
-				_diners.push(doc.data());
+				_diners.push(doc.data())
+				that.diner_ids.push(doc.id)
 			})
 		})
-
 		return _diners
 	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage')
-		this.orderHere()
+		// this.orderHere()
 	}
 
 	openProfile(){
@@ -68,8 +68,11 @@ export class HomeCustPage {
 		this.navCtrl.push(ComboPage)
 	}
 
-	orderHere(){
-		this.navCtrl.push(OrderPage)
+	orderHere(index){
+		let that = this
+		this.navCtrl.push(OrderPage, {
+			data: that.diner_ids[index]
+		})
 	}
 
 	openMenus(){

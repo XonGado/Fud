@@ -113,7 +113,7 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('Loaded LoginPage');
-    // this.authenticateLogin();
+    this.authenticateLogin();
   }
 }
 

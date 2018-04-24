@@ -57,7 +57,7 @@
 		<button id="search-btn" type="button"><ion-icon name="search"></ion-icon></button>
 	</div> -->
 	<ion-list>
-		<ion-item *ngFor="let diner of dinerList" (click)="orderHere(diner.dine_email)">
+		<ion-item *ngFor="let diner of dinerList; let i = index" (click)="orderHere(i)">
 			<ion-avatar item-left>
 				<img src="assets/imgs/6.jpg">
 			</ion-avatar>
