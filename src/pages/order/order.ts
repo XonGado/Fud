@@ -127,13 +127,13 @@ export class OrderPage {
 		}
 		return _items;
 	}
-	
-	placeOrder(){
 
+	placeOrder(){
+		// Saving to database
 	}
 
 	viewItems(){
-		this.gatherOrder();
+		this.orderedItemsList =  this.gatherOrder();
 		console.log("Create modal to view items.");
 		console.log("Customer ordered the following.");
 		console.log(this.orderedItemsList);
@@ -169,24 +169,33 @@ export class OrderPage {
 		var width = this.platform.width();
 
 		if (e.center.x >= width/2) {
+			item.item_count += 5;
 		  	item.item_ordered++;
 		} else if (e.center.x < width/2 && item.item_ordered > 0) {
+			item.item_count -= 5;
 		  	item.item_ordered--;
 		}
+
+		if (item.item_ordered < 0) {
+			item.item_ordered = 0;
+		}		
 	}
 
 	gatherOrder(){
-		this.orderedItemsList = []
+		// this.orderedItemsList = []
+		var _list: Item[] = []
 
 		for (var category of this.categoryList) {
 			console.log(category.items);
 
 			for (var item of category.items) {
 				if (item.item_ordered > 0) {
-				  	this.orderedItemsList.push(item);
+				  	_list.push(item);
 				}
 			}
 		}
+
+		return _list
 	}
 
 	clearItem(){
