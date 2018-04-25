@@ -52,12 +52,14 @@ export class OrderPage {
       querySnapshot.forEach(function(doc) {
         items.push(doc.data())
       })
-      let categories: string[] = that.getAllCategories(items);
+      console.log(items)
+      let categories: string[] = that.getCategories(items);
+      console.log(categories)
       that.initializeCategories(categories, items);
     })
   }
 
-  getAllCategories(items){
+  getCategories(items){
     let _categoryList: string[] = [];
 
     for (var item of items) {
@@ -92,6 +94,7 @@ export class OrderPage {
   }
 
   ionViewDidLoad() {
+    this.getItems()
 	  console.log('ionViewDidLoad OrderPage');
   }
 
