@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Events, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events, ModalController. Platform } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreModule, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -40,6 +40,7 @@ export class OrderPage {
 				public alertCtrl: AlertController, 
 				public events: Events,
 				public modalCtrl: ModalController,
+				public platform: Platform,
 	      		private fire: AngularFireAuth,
 	     		private firestore: AngularFirestore) {
 		this.diner_id = this.navParams.get('data')
@@ -72,9 +73,9 @@ export class OrderPage {
 		var categories: any[] = [];
 
 		for (var i = this.itemList.length - 1; i >= 0; i--) {
-			if(!(categories.includes(this.itemList[i].type))){
-				console.log(this.itemList[i].type)
-				categories.push(this.itemList[i].type)
+			if(!(categories.includes(this.itemList[i].item_type))){
+				console.log(this.itemList[i].item_type)
+				categories.push(this.itemList[i].item_type)
 			}
 		}
 
@@ -119,14 +120,31 @@ export class OrderPage {
 		this.itemCollectionRef.ref.get()
 		.then(function(querySnapshot) {
 		  querySnapshot.forEach(function(doc) {
-		    items.push(doc.data())
+		  	// console.log("Before assignment: " + doc.data().item_ordered)
+		  	// doc.data().item_ordered = 0
+		  	// console.log("After assignment: " + doc.data().item_ordered)
+		  	// doc.data().item_count = 0
+			var _item = doc.data()
+
+			_item.item_ordered = 0
+			_item.item_count = 0
+
+		    items.push(_item)
+		    // items.push(that.createItem(doc.data()))
 		  })
-		  console.log(items)
 		  let categories: string[] = that.getCategories(items);
-		  console.log(categories)
 		  that.initializeCategories(categories, items);
 		})
 	}
+
+	// createItem(item){
+	// 	var _item: Item
+
+	// 	_item.item_name = item.item_name
+	// 	_item.item_count
+
+	// 	return _item;
+	// }
 
 	getCategories(items){
 		let _categoryList: string[] = [];
@@ -188,41 +206,44 @@ export class OrderPage {
 
 	itemPanned(e, item){
 		console.log(e);
-		console.log(item.name + ": " + item.count);
+		console.log(item.item_name + ": " + item.item_count);
 
 		if (e.additionalEvent == "panright"){
-			item.count++;
+			item.item_count++;
 			console.log("Counting for add");
-			console.log("Adding " + item.name + "to items.");
+			console.log("Adding " + item.item_name + " to items.");
 		} else if (e.additionalEvent == "panleft"){
-			item.count--;
+			item.item_count--;
 			console.log("Counting for remove");
-			console.log("Removing " + item.name + "to items.");
+			console.log("Removing " + item.item_name + " to items.");
 		}
 
-		if (item.count < 0) {
-			item.count = 0;
+		if (item.item_count < 0) {
+			item.item_count = 0;
 		}
 
-		item.ordered = Math.floor(item.count/5);
+		item.item_ordered = Math.floor(item.item_count/5);
 	}
 
 	itemTapped(e, item){
 		console.log(e.center);
+		var width = this.platform.width();
 
-		if (e.center.x >= 150) {
-		  	item.ordered++;
-		} else if (e.center.x < 150 && item.ordered > 0) {
-		  	item.ordered--;
+		if (e.center.x >= width/2) {
+		  	item.item_ordered++;
+		} else if (e.center.x < width/2 && item.item_ordered > 0) {
+		  	item.item_ordered--;
 		}
 	}
 
 	gatherOrder(){
+		this.orderedItemsList = []
+
 		for (var category of this.categoryList) {
 			console.log(category.items);
 
 			for (var item of category.items) {
-				if (item.ordered > 0) {
+				if (item.item_ordered > 0) {
 				  	this.orderedItemsList.push(item);
 				}
 			}

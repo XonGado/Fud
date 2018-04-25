@@ -26,11 +26,12 @@
 		</ion-list-header>
 		<ion-item *ngFor="let item of category.items" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)">
 			<ion-avatar item-start>
-				<img src="assets/imgs/{{item.image}}">
+				<!-- <img src="assets/imgs/{{item.item_image}}"> -->
+				<img src="assets/imgs/6.jpg">
 			</ion-avatar>
-			<h2>{{item.name}}</h2>
-			<p>{{item.ordered}}</p>
-			<p class="price">{{item.price}}</p>
+			<h2>{{item.item_name}}</h2>
+			<p>{{item.item_ordered}}</p>
+			<p class="price">{{item.item_price}}</p>
 		</ion-item>
 	</ion-list>
 </ion-content>
