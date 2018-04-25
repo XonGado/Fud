@@ -47,28 +47,6 @@ export class OrderPage {
 		this.itemCollectionRef = this.firestore.collection('diners').doc(this.diner_id).collection('items')
 	}
 
-	// initalizeCategories(){
-	// 	var list = this.getCategoryList();
-
-	// 	console.log("Got category list");
-
-	// 	for (var i = list.length - 1; i >= 0; i--) {
-	// 		this.createCategory(list[i], this.getItemsUnderCategory(list[i]));
-	// 	}
-	// }
-
-	// getItems(ev: any) {
-	// 	this.initializeItems();
-
-	// 	let val = ev.target.value;
-
-	// 	if (val && val.trim() != '') {
-	// 		this.itemList = this.itemList.filter((item) => {
-	// 			return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-	// 		})
-	// 	}
-	// }
-
 	getCategoryList(){
 		var categories: any[] = [];
 
@@ -81,22 +59,6 @@ export class OrderPage {
 
 		return categories;
 	}
-
-	// getItemsUnderCategory(category){
-	// 	// this.initializeItems();
-
-	// 	var content: any[] = [];
-
-	// 	if (category && category.trim() != '') {
-	// 		this.itemList = this.itemList.filter((item) => {
-	// 		if(item.type.toLowerCase().indexOf(category.toLowerCase()) > -1){
-	// 		  	content.push(item);
-	// 		}
-	// 		})
-	// 	}
-
-	// 	return content;
-	// }
 
 	createCategory(title, items){
 
@@ -120,31 +82,17 @@ export class OrderPage {
 		this.itemCollectionRef.ref.get()
 		.then(function(querySnapshot) {
 		  querySnapshot.forEach(function(doc) {
-		  	// console.log("Before assignment: " + doc.data().item_ordered)
-		  	// doc.data().item_ordered = 0
-		  	// console.log("After assignment: " + doc.data().item_ordered)
-		  	// doc.data().item_count = 0
 			var _item = doc.data()
 
 			_item.item_ordered = 0
 			_item.item_count = 0
 
 		    items.push(_item)
-		    // items.push(that.createItem(doc.data()))
 		  })
 		  let categories: string[] = that.getCategories(items);
 		  that.initializeCategories(categories, items);
 		})
 	}
-
-	// createItem(item){
-	// 	var _item: Item
-
-	// 	_item.item_name = item.item_name
-	// 	_item.item_count
-
-	// 	return _item;
-	// }
 
 	getCategories(items){
 		let _categoryList: string[] = [];
@@ -179,21 +127,12 @@ export class OrderPage {
 		}
 		return _items;
 	}
-
-	addItemToOrder(){
-		console.log("Added item to order.");
-	}
-
-	subtractItemFromOrder(){
-		console.log("Subtract item from order.");
-	}
-
+	
 	placeOrder(){
 
 	}
 
 	viewItems(){
-		// Create a modal and pass values.
 		this.gatherOrder();
 		console.log("Create modal to view items.");
 		console.log("Customer ordered the following.");
