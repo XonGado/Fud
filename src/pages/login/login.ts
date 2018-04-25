@@ -47,10 +47,6 @@ export class LoginPage {
       content: `<ion-spinner name="cresent"></ion-spinner>`
     });
 
-    loading.onDidDismiss(() => {
-      console.log('Dismissed loading');
-    });
-
     loading.present();
 
     var email = this.email.value; 

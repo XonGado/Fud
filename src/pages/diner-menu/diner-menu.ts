@@ -29,7 +29,6 @@ export class DinerMenuPage {
 	searchQuery: string = '';
 	diner: AngularFirestoreDocument<DinerDetails>;
   	categoryList: Category[] = [];
-  	itemList: Item[];
   	items: Observable<Item[]>;
   	itemsCollectionRef: AngularFirestoreCollection<Item>
   	
