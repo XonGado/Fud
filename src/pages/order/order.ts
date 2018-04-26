@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, Events, ModalController. Platform } from 'ionic-angular';
 
-import { AngularFirestore, AngularFirestoreModule, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 
-import { DinerDetails } from '../../models/dinerdetails.interface'
+// import { DinerDetails } from '../../models/dinerdetails.interface'
 import { Item } from '../../models/item.model'
 
 import { BasketPage } from '../basket/basket';
@@ -30,7 +30,6 @@ export class OrderPage {
 	categoryList: Category[] = [];
 	orderedItemsList: any[] = [];
 	items: Observable<Item[]>;
-	itemsCollectionRef: AngularFirestoreCollection<Item>
 	diner: string;
 	diner_id: string;
 	itemCollectionRef: AngularFirestoreCollection<Item>
@@ -41,7 +40,7 @@ export class OrderPage {
 				public events: Events,
 				public modalCtrl: ModalController,
 				public platform: Platform,
-	      		private fire: AngularFireAuth,
+	      		// private fire: AngularFireAuth,
 	     		private firestore: AngularFirestore) {
 		this.diner_id = this.navParams.get('data')
 		this.itemCollectionRef = this.firestore.collection('diners').doc(this.diner_id).collection('items')
