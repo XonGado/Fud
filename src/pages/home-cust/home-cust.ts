@@ -57,7 +57,7 @@ export class HomeCustPage {
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage')
-		// this.orderHere()
+		this.openCombo()
 	}
 
 	openProfile(){
