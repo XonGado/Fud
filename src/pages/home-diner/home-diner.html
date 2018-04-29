@@ -38,9 +38,6 @@
 			<h2 text-nowrap (click)="openProfile()" color="secondary">Cafe Diem</h2>
 			<p text-nowrap>cafeDiem@gmail.com</p>
 		</ion-item>
-			
-		<!-- <ion-toolbar>
-		</ion-toolbar> -->
 	</ion-header>
 	<ion-content>
 		<ion-list>
@@ -67,101 +64,14 @@
 <ion-nav #content [root]="rootPage"></ion-nav>
 
 <ion-content padding>
-
-		<!-- <ion-segment [(ngModel)]="relationship" color="primary" (ionChange)="segmentChanged($event)">
-		<ion-segment-button value="friends">
-		Friends
-		</ion-segment-button>
-		<ion-segment-button value="enemies">
-		Enemies
-		</ion-segment-button>
-		</ion-segment> -->
-
-		<!-- <ul id="order-types">
-			<li class="active">All <span class="count">2</span></li>
-			<li>Dine-in <span class="count">2</span></li>
-			<li>Take-out</li>
-			<li>Deliver</li>
-		</ul> -->
-
-		<ion-list class="order-list" (click)="openOrderDetails(1)">
-			<ion-item>
-				<ion-avatar item-start>
-					<img src="assets/imgs/samplePP.jpg">
-				</ion-avatar>
-				<h2>Clyde Joshua Delgado</h2>
-				<ion-badge color="secondary">145</ion-badge>
-				<p>3 items</p>
-			</ion-item>
-		</ion-list>
-
-		<!-- <section id="orders">
-			<div class="order_container take-out">
-				<header class="order_details">
-					<img class="customer_img" alt="user-image" src="assets/imgs/samplePP.jpg">
-					<span class="customer_name">Clyde Joshua Delgado</span>
-					<span class="table_number" title="Table number">1</span>
-					<ion-icon name="arrow-down" class="down"></ion-icon>
-				</header>
-				<ul class="customer_orders">
-					<li class="order_item">
-						<span class="item_quantity">1</span>
-						<img class="item_image" alt="food-image" src="assets/imgs/1.jpg">
-						<span class="item_name">Blueberry Shake</span>
-						<span class="item_price">100</span>
-					</li>
-					<li class="order_item">
-						<span class="item_quantity">1</span>
-						<img class="item_image" alt="food-image" src="assets/imgs/2.jpg">
-						<span class="item_name">Irish Cream</span>
-						<span class="item_price">85</span>
-					</li>
-					<li class="order_item">
-						<span class="item_quantity">1</span>
-						<img class="item_image" alt="food-image" src="assets/imgs/3.jpg">
-						<span class="item_name">Maple Syrup</span>
-						<span class="item_price">15</span>
-					</li>
-				</ul>
-				<footer class="order_footer">
-					<span class="order_total_text">TOTAL</span>
-					<span class="order_total">200</span>
-					<button class="finished_btn" onclick="finishOrder()"><ion-icon name="check-mark"></ion-icon> Finished</button>
-				</footer>
-			</div>
-			<div class="order_container">
-				<header class="order_details">
-					<img class="customer_img" alt="user-image" src="assets/imgs/samplePP.jpg">
-					<span class="customer_name">Clyde Joshua Delgado</span>
-					<span class="table_number" title="Table number">2</span>
-					<ion-icon name="arrow-down" class="down"></ion-icon>
-				</header>
-				<ul class="customer_orders">
-					<li class="order_item">
-						<span class="item_quantity">1</span>
-						<img class="item_image" alt="food-image" src="assets/imgs/1.jpg">
-						<span class="item_name">Blueberry Shake</span>
-						<span class="item_price">100</span>
-					</li>
-					<li class="order_item">
-						<span class="item_quantity">1</span>
-						<img class="item_image" alt="food-image" src="assets/imgs/2.jpg">
-						<span class="item_name">Irish Cream</span>
-						<span class="item_price">85</span>
-					</li>
-					<li class="order_item">
-						<span class="item_quantity">1</span>
-						<img class="item_image" alt="food-image" src="assets/imgs/3.jpg">
-						<span class="item_name">Maple Syrup</span>
-						<span class="item_price">15</span>
-					</li>
-				</ul>
-				<footer class="order_footer">
-					<span class="order_total_text">TOTAL</span>
-					<span class="order_total">200</span>
-					<button class="finished_btn" onclick="finishOrder()"><ion-icon class="material-icons"></ion-icon> Finished</button>
-				</footer>
-			</div>
-		</section> -->
-
+<ion-list *ngFor="let order of ordersList">
+		<ion-item>
+			<ion-avatar item-start>
+				<img src="assets/imgs/samplePP.jpg">
+			</ion-avatar>
+			<h2>{{order.customer_name}}</h2>
+			<ion-badge color="secondary">{{order.order_cost}}</ion-badge>
+			<p>{{itemCount}} items</p>
+		</ion-item>
+	</ion-list>
 </ion-content>

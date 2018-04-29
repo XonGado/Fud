@@ -5,8 +5,8 @@ import { ItemEditPage } from "../item-edit/item-edit";
 import { ItemAddPage } from "../item-add/item-add";
 
 import { AngularFirestore, AngularFirestoreModule, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from 'angularfire2/auth'
+import { Observable } from 'rxjs/Observable'
 
 import { Item } from '../../models/item.model'
 import { DinerDetails } from '../../models/dinerdetails.interface'
