@@ -19,14 +19,11 @@ export class BasketPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   	this.itemList = navParams.get('orderedItems');
-  	console.log(navParams.get('orderedItems'));
-  	console.log(this.itemList);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BasketPage');
   }
-
 }
 
 interface Item{

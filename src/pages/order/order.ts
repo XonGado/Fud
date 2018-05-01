@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Events, ModalController. Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events, ModalController, Platform } from 'ionic-angular';
 
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 
-// import { DinerDetails } from '../../models/dinerdetails.interface'
+
+import { DinerDetails } from '../../models/dinerdetails.interface'
+import { CustomerDetails } from '../../models/customerdetails.interface'
 import { Item } from '../../models/item.model'
+import { Order } from '../../models/order.interface'
 
 import { BasketPage } from '../basket/basket';
 
@@ -23,8 +26,6 @@ import { BasketPage } from '../basket/basket';
   templateUrl: 'order.html',
 })
 export class OrderPage {
-
-
 	searchQuery: string = '';
 	itemList: Item[];
 	categoryList: Category[] = [];
@@ -33,6 +34,9 @@ export class OrderPage {
 	diner: string;
 	diner_id: string;
 	itemCollectionRef: AngularFirestoreCollection<Item>
+	ordersCollectionRef: AngularFirestoreCollection<Order>
+	dinerCollectionRef: AngularFirestoreCollection<DinerDetails>
+	customerDocRef: AngularFirestoreDocument<CustomerDetails>
 
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams, 
@@ -40,10 +44,13 @@ export class OrderPage {
 				public events: Events,
 				public modalCtrl: ModalController,
 				public platform: Platform,
-	      		// private fire: AngularFireAuth,
+	      		private fire: AngularFireAuth,
 	     		private firestore: AngularFirestore) {
 		this.diner_id = this.navParams.get('data')
-		this.itemCollectionRef = this.firestore.collection('diners').doc(this.diner_id).collection('items')
+		this.dinerCollectionRef = this.firestore.collection('diners')
+		this.itemCollectionRef = this.dinerCollectionRef.doc(this.diner_id).collection('items')
+		this.ordersCollectionRef = this.dinerCollectionRef.doc(this.diner_id).collection('orders')
+		this.customerDocRef = this.firestore.collection('customers').doc(this.fire.auth.currentUser.uid)
 	}
 
 	getCategoryList(){
@@ -127,48 +134,57 @@ export class OrderPage {
 		return _items;
 	}
 
-	placeOrder(){
-		// Saving to database
-	}
-
 	viewItems(){
 		this.orderedItemsList =  this.gatherOrder();
-		console.log("Create modal to view items.");
-		console.log("Customer ordered the following.");
-		console.log(this.orderedItemsList);
-
-
 		let basket = this.modalCtrl.create(BasketPage, { orderedItems: this.orderedItemsList });
 		basket.present();
 	}
 
-	itemPanned(e, item){
-		console.log(e);
-		console.log(item.item_name + ": " + item.item_count);
+	placeOrder(){
+		// Saving to database
+		let customer_name: string
+		let customer_id: string
+		let that = this
+		let price: number = 0
 
+		this.orderedItemsList =  this.gatherOrder();
+		this.orderedItemsList.forEach(doc => {
+			price = price + Number(doc.item_price)
+		})
+
+		console.log(price)
+
+		this.customerDocRef.ref.get()
+		.then(doc => {
+			customer_name = doc.data().cust_name
+			customer_id = doc.id
+			console.log(customer_id)
+			let id = that.firestore.createId()
+			that.ordersCollectionRef.doc(id).set({
+				customer_id: customer_id,
+				customer_name: customer_name,
+				order_cost: price,
+				items: that.orderedItemsList
+			})
+		})
+	}
+
+	itemPanned(e, item){
 		if (e.additionalEvent == "panright"){
 			item.item_count++;
-			console.log("Counting for add");
-			console.log("Adding " + item.item_name + " to items.");
 		} else if (e.additionalEvent == "panleft"){
 			item.item_count--;
-			console.log("Counting for remove");
-			console.log("Removing " + item.item_name + " to items.");
 		}
-
 		if (item.item_count < 0) {
 			item.item_count = 0;
 		}
 
 		this.itemIsOrdered(e, item)
-
 		item.item_ordered = Math.floor(item.item_count/5);
 	}
 
 	itemTapped(e, item){
-		console.log(e.center);
 		var width = this.platform.width();
-
 		if (e.center.x >= width/2) {
 			item.item_count += 5;
 		  	item.item_ordered++;
@@ -195,19 +211,14 @@ export class OrderPage {
 	}
 
 	gatherOrder(){
-		// this.orderedItemsList = []
 		var _list: Item[] = []
-
 		for (var category of this.categoryList) {
-			console.log(category.items);
-
 			for (var item of category.items) {
 				if (item.item_ordered > 0) {
 				  	_list.push(item);
 				}
 			}
 		}
-
 		return _list
 	}
 
@@ -217,7 +228,7 @@ export class OrderPage {
 
 	ionViewDidLoad() {
 		this.getItems()
-	  	console.log('ionViewDidLoad OrderPage');
+		console.log('ionViewDidLoad OrderPage');
 	}
 
 }
