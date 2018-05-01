@@ -69,6 +69,17 @@ ion-spinner {
 	color: #888;
 }
 
+.float-text-right{
+	text-align: right;
+	// width: 2.5em;
+	position: absolute;
+	right: 1em;
+	top: 50%;
+	transform: translate(0, -50%);
+	// color: #32db64;
+	background: linear-gradient(to left, #222, #222, rgba(0,0,0,0));
+}
+
 // $toast-ios-background: $red;
 // $toast-md-background: $red;
 

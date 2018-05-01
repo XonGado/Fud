@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ComboSelectDinerPage } from '../combo-select-diner/combo-select-diner'
 
 /**
  * Generated class for the ComboPage page.
@@ -15,15 +16,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ComboPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+    constructor(public navCtrl: NavController, 
+                public navParams: NavParams) {
+       
+    }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ComboPage');
-  }
+    ionViewDidLoad() {
+        console.log('ionViewDidLoad ComboPage');
+    }
   
-  openAddComboModal(){
-  	console.log("Oppening add combo modal.");
-  }
+    /* 
+    openAddComboModal() will open the menu of the selected menu.
+    Parameters such as diner ID is passed here to be used to
+    query the diner's menu.    
+    */
+    openAddComboModal(){
+        this.navCtrl.push(ComboSelectDinerPage)
+        console.log("Opening add combo modal.");
+    }
 
 }

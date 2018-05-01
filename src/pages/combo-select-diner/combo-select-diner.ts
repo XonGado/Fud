@@ -1,19 +1,13 @@
-import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular'
-
-import { CustProfilePage } from '../cust-profile/cust-profile'
-import { MenusPage } from '../menus/menus'
-import { OrderPage } from '../order/order'
-import { ComboPage } from '../combo/combo'
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ComboAddPage } from '../combo-add/combo-add'
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
-// import { Observable } from 'rxjs/Observable'
-
 import { Diner } from '../../models/diner.model'
 
 /**
- * Generated class for the HomeCustPage page.
+ * Generated class for the ComboSelectDinerPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -21,30 +15,35 @@ import { Diner } from '../../models/diner.model'
 
 @IonicPage()
 @Component({
-  selector: 'page-home-cust',
-  templateUrl: 'home-cust.html',
+  selector: 'page-combo-select-diner',
+  templateUrl: 'combo-select-diner.html',
 })
-export class HomeCustPage {
+export class ComboSelectDinerPage {
+
 	uid: string
 	dinerList: Diner[];
   	dinersCollectionRef: AngularFirestoreCollection<Diner>
   	diner_ids: any[] = []
 
+	// constructor(public navCtrl: NavController, public navParams: NavParams) {
+		
+	// Query all the diners here. Ignore the distance first.
+	// Is it necessary to include the number of items in the menu?
+	// Exclude the item count of the menu if unnecessary.
+        
+	// }
+
 	constructor(public navCtrl: NavController, 
-				public navParams: NavParams, 
-				public menu: MenuController,
+				public navParams: NavParams,
 				private fire: AngularFireAuth, 
 				private firestore: AngularFirestore) {
-		menu.enable(true)
-
 		this.uid = fire.auth.currentUser.uid
 		this.dinersCollectionRef = this.firestore.collection('diners')
 		this.dinerList = this.retrieveDiners()
 	}
 
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad HomeCustPage')
-		this.openCombo()
+		console.log('ionViewDidLoad ComboSelectDinerPage');
 	}
 
 	retrieveDiners(){
@@ -60,28 +59,11 @@ export class HomeCustPage {
 		return _diners
 	}
 
-	orderHere(index){
+	loadDinerMenu(index){
 		let that = this
-		this.navCtrl.push(OrderPage, {
+		this.navCtrl.push(ComboAddPage, {
 			data: that.diner_ids[index]
 		})
-	}
-
-	openProfile(){
-		this.navCtrl.push(CustProfilePage)
-	}
-
-	openCombo(){
-		this.navCtrl.push(ComboPage)
-	}
-
-
-	openMenus(){
-		this.navCtrl.push(MenusPage)
-	}
-
-	logout(){
-		this.navCtrl.pop()
 	}
 
 }

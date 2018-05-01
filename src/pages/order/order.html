@@ -24,7 +24,7 @@
 		<ion-list-header>
 			{{category.title}}
 		</ion-list-header>
-		<ion-item *ngFor="let item of category.items" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)">
+		<ion-item *ngFor="let item of category.items" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)" >
 			<ion-avatar item-start>
 				<!-- <img src="assets/imgs/{{item.item_image}}"> -->
 				<img src="assets/imgs/6.jpg">

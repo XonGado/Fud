@@ -160,6 +160,8 @@ export class OrderPage {
 			item.item_count = 0;
 		}
 
+		this.itemIsOrdered(e, item)
+
 		item.item_ordered = Math.floor(item.item_count/5);
 	}
 
@@ -177,7 +179,19 @@ export class OrderPage {
 
 		if (item.item_ordered < 0) {
 			item.item_ordered = 0;
-		}		
+		} 
+
+		this.itemIsOrdered(e, item)
+	}
+
+	itemIsOrdered(e, item){
+		var className = "item item-block item-md"
+
+		if (item.item_count > 0) {
+			e.target.offsetParent.className = className + " ordered"
+		} else {
+			e.target.offsetParent.className = className
+		}
 	}
 
 	gatherOrder(){

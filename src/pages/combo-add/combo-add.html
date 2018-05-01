@@ -7,12 +7,75 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>combo-add</ion-title>
+    <ion-title>Create Combo</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+	<ion-searchbar
+		[(ngModel)]="myInput"
+		[showCancelButton]="shouldShowCancel"
+		(ionInput)="getItems($event)"
+		(ionCancel)="getItems($event)">
+	</ion-searchbar>
+
+	<ion-list *ngFor="let category of categoryList">
+		<ion-list-header>
+			{{category.title}}
+		</ion-list-header>
+		<ion-item *ngFor="let item of category.items" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)" >
+			<ion-avatar item-start>
+				<!-- <img src="assets/imgs/{{item.item_image}}"> -->
+				<img src="assets/imgs/6.jpg">
+			</ion-avatar>
+			<h2>{{item.item_name}}</h2>
+			<p>{{item.item_ordered}}</p>
+			<p class="price float-text-right">{{item.item_price}}</p>
+		</ion-item>
+	</ion-list>
+	
+	<ion-footer>
+		<button ion-button icon-only float-left color="dark" (click)="viewItems()">
+			<ion-icon item-start name="basket"></ion-icon>
+			<ion-badge class="bubble-badge">10</ion-badge>
+		</button>
+		<button ion-button icon-start float-right color="secondary" (click)="createCombo()">
+			<ion-icon name="add"></ion-icon>
+			Combo 
+		</button>
+	</ion-footer>
 
 </ion-content>
+
+	<!-- <div *ngIf="!dinerIsSet()">
+		
+	</div> -->
+
+	<!-- <div *ngIf="dinerIsSet()"> -->
+	<!-- <h2 text-center>{{dinerName}}</h2>
+	<ion-list>
+		<ion-item>
+			<ion-avatar item-left>
+				<img src="assets/imgs/6.jpg">
+			</ion-avatar>
+			<h2>Milk Tea</h2>
+			<p class="price float-text-right">40</p>
+		</ion-item>
+		<ion-item>
+			<ion-avatar item-left>
+				<img src="assets/imgs/6.jpg">
+			</ion-avatar>
+			<h2>Milk Tea</h2>
+			<p class="price float-text-right">40</p>
+		</ion-item>
+		<ion-item>
+			<ion-avatar item-left>
+				<img src="assets/imgs/6.jpg">
+			</ion-avatar>
+			<h2>Milk Tea</h2>
+			<p class="price float-text-right">40</p>
+		</ion-item>
+	</ion-list> -->
+	<!-- </div> -->
