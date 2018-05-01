@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Events, ModalController. Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events, ModalController, Platform } from 'ionic-angular';
 
-import { AngularFirestore, AngularFirestoreModule, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
+
 
 import { DinerDetails } from '../../models/dinerdetails.interface'
 import { CustomerDetails } from '../../models/customerdetails.interface'
@@ -30,7 +31,6 @@ export class OrderPage {
 	categoryList: Category[] = [];
 	orderedItemsList: any[] = [];
 	items: Observable<Item[]>;
-	itemsCollectionRef: AngularFirestoreCollection<Item>
 	diner: string;
 	diner_id: string;
 	itemCollectionRef: AngularFirestoreCollection<Item>

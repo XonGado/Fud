@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AngularFireAuth } from 'angularfire2/auth'
-import { AngularFirestore, AngularFirestoreModule, AngularFirestoreDocument } from 'angularfire2/firestore'
-import { Observable } from 'rxjs/Observable';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
 
 import { DinerDetails } from '../../models/dinerdetails.interface'
 

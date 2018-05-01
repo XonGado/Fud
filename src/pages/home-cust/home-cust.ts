@@ -6,9 +6,9 @@ import { MenusPage } from '../menus/menus'
 import { OrderPage } from '../order/order'
 import { ComboPage } from '../combo/combo'
 
-import { AngularFirestore, AngularFirestoreModule, AngularFirestoreCollection } from 'angularfire2/firestore'
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
-import { Observable } from 'rxjs/Observable'
+// import { Observable } from 'rxjs/Observable'
 
 import { Diner } from '../../models/diner.model'
 
@@ -57,7 +57,7 @@ export class HomeCustPage {
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage')
-		// this.orderHere()
+		this.openCombo()
 	}
 
 	openProfile(){

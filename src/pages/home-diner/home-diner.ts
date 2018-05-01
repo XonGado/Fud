@@ -86,4 +86,8 @@ export class HomeDinerPage {
   openScanner(){
   	this.navCtrl.push(DinerScanPage);
   }
+
+  openOrderDetails(){
+    this.navCtrl.push(OrderDetailsPage);
+  }
 }

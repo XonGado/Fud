@@ -64,7 +64,7 @@
 <ion-nav #content [root]="rootPage"></ion-nav>
 
 <ion-content padding>
-<ion-list *ngFor="let order of ordersList">
+	<ion-list *ngFor="let order of ordersList" class="order-list" (click)="openOrderDetails(1)">
 		<ion-item>
 			<ion-avatar item-start>
 				<img src="assets/imgs/samplePP.jpg">

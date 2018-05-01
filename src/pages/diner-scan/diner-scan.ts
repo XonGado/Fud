@@ -19,6 +19,7 @@ export class DinerScanPage {
 		this.qrScanner.prepare()
 		.then((status: QRScannerStatus) => {
 			if (status.authorized) {
+				console.log("You have access to the camera.");
 				// camera permission was granted
 
 
@@ -32,24 +33,21 @@ export class DinerScanPage {
 
 				// show camera preview
 				this.qrScanner.show();
+				window.document.querySelector('ion-app').classList.add('transparent-body');
 
 				// wait for user to scan something, then the observable callback will be called
 
 			} else if (status.denied) {
+				console.log("You will no longer be able to access camera.")
 				// camera permission was permanently denied
 				// you must use QRScanner.openSettings() method to guide the user to the settings page
 				// then they can grant the permission from there
 			} else {
+				console.log("Permission denied. Ask again later.")
 				// permission was denied, but not permanently. You can ask for permission again at a later time.
 			}
 		})
 		.catch((e: any) => console.log('Error is', e));
-		/**
-		* Generated class for the DinerScanPage page.
-		*
-		* See https://ionicframework.com/docs/components/#navigation for more info on
-		* Ionic pages and navigation.
-		*/
 	}
 
 }

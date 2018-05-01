@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 
 import { RegisterPage } from '../register/register';
@@ -6,7 +6,6 @@ import { HomeCustPage } from '../home-cust/home-cust';
 import { HomeDinerPage } from '../home-diner/home-diner';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFirestore } from 'angularfire2/firestore'
 
 /**
