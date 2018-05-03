@@ -14,7 +14,7 @@
 			<button ion-button icon-only>
 		        <ion-icon name="search"></ion-icon>
 		    </button>
-		    <button ion-button icon-only>
+		    <button ion-button icon-only (click)="addMarker()">
 		    	<ion-icon name="map"></ion-icon>
 		    </button>
 		</ion-buttons>
@@ -78,4 +78,9 @@
 		</ion-item>
 	</ion-list>
 
+
 </ion-content>
+
+<ion-footer>
+	<div #map id="map"></div>
+</ion-footer>

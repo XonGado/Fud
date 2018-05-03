@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 import { ComboSelectDinerPage } from '../combo-select-diner/combo-select-diner'
+import { ComboEditPage } from '../combo-edit/combo-edit'
 
 /**
  * Generated class for the ComboPage page.
@@ -33,6 +35,12 @@ export class ComboPage {
     openAddComboModal(){
         this.navCtrl.push(ComboSelectDinerPage)
         console.log("Opening add combo modal.");
+    }
+
+
+    openEditComboModal(){
+        this.navCtrl.push(ComboEditPage)
+        console.log("Opening combo edit modal");
     }
 
 }
