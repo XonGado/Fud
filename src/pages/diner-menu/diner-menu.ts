@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { Component } from '@angular/core'
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular'
 
-import { ItemEditPage } from "../item-edit/item-edit";
-import { ItemAddPage } from "../item-add/item-add";
+import { ItemEditPage } from "../item-edit/item-edit"
+import { ItemAddPage } from "../item-add/item-add"
 
 
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs/Observable';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
+import { AngularFireAuth } from 'angularfire2/auth'
+import { Observable } from 'rxjs/Observable'
 
 import { Item } from '../../models/item.model'
 import { DinerDetails } from '../../models/dinerdetails.interface'
@@ -25,18 +25,17 @@ import { DinerDetails } from '../../models/dinerdetails.interface'
   templateUrl: 'diner-menu.html',
 })
 export class DinerMenuPage {
-	uid: string;
-	dinername: string;
-	searchQuery: string = '';
-	diner: AngularFirestoreDocument<DinerDetails>;
-  	categoryList: Category[] = [];
-  	items: Observable<Item[]>;
+	uid: string
+	dinername: string
+	diner: AngularFirestoreDocument<DinerDetails>
+  	categoryList: Category[] = []
+  	items: Observable<Item[]>
   	itemsCollectionRef: AngularFirestoreCollection<Item>
   	
   	loading = this.loadingCtrl.create({
       dismissOnPageChange: true,
       content: `<ion-spinner name="cresent"></ion-spinner>`
-    });
+    })
 
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams,
@@ -44,79 +43,99 @@ export class DinerMenuPage {
 				public alertCtrl: AlertController, 
 				private fire: AngularFireAuth, 
 				private firestore: AngularFirestore) {
-
-	    this.loading.present();
-
+	    this.loading.present()
 		this.uid = fire.auth.currentUser.uid
 		this.diner = this.firestore.collection('diners').doc(this.uid)
 		this.itemsCollectionRef = this.firestore.collection('diners').doc(this.uid).collection('items')
 		this.items = this.itemsCollectionRef.valueChanges()
-		this.retrieveMenu();
+		this.retrieveMenu()
 	}
 
 	ionViewDidLoad() {
 		this.getDiner()
-		console.log('ionViewDidLoad DinerMenuPage');
+		console.log('ionViewDidLoad DinerMenuPage')
+	}
+
+	filter(name, keyword){
+		var _filter = new RegExp(keyword, 'gi');
+
+		if (_filter.test(name)) {
+			return true
+		}
+
+		return false
+	}
+
+	isEmpty(items, keyword){
+		var _filter = new RegExp(keyword, 'gi');
+		
+		for (var item of items) {
+			if (_filter.test(item.item_name)) {
+				return false
+			}
+		}
+
+		return true
 	}
 
 	retrieveMenu(){
-		let items: any[] = [];
+		let items: any[] = []
 		let that = this
 		this.itemsCollectionRef.ref.get()
 		.then(function(querySnapshot){
 			querySnapshot.forEach(function(doc){
-				items.push(doc.data());
+				items.push(doc.data())
 			})
 			
-			let categories: string[] = that.getAllCategories(items);
+			let categories: string[] = that.getAllCategories(items)
 
-			that.initializeCategories(categories, items);
+			that.initializeCategories(categories, items)
 		})
 	}
 
 	getAllCategories(items){
-		let _categoryList: string[] = [];
+		let _categoryList: string[] = []
 
 		for (var item of items) {
 			if (!(_categoryList.includes(item.item_type))) {
-				_categoryList.push(item.item_type);
+				_categoryList.push(item.item_type)
 			}
 		}
 		return _categoryList
 	}
 
 	initializeCategories(categories, items) {
-		var _items: any[] = [];
+		var _items: any[] = []
 		for (var category of categories) {
-			_items = this.getItemsUnderCategory(category, items);
+			_items = this.getItemsUnderCategory(category, items)
 			this.categoryList.push({
 				title: category,
 				items: _items
-			});
+			})
 		}
-		this.loading.dismiss();
+		this.loading.dismiss()
 	}
 
 	getItemsUnderCategory(category, items){
-		let _items: any[] = [];
+		let _items: any[] = []
 	    if (category && category.trim() != '') {
 			items.filter((item) => {
 				if(item.item_type.toLowerCase().indexOf(category.toLowerCase()) > -1){
-					_items.push(item);
+					_items.push(item)
 				}
 			})
 	    }
-	    return _items;
+	    return _items
 	}
 
 	addItem(){
-		this.navCtrl.push(ItemAddPage);
+		this.navCtrl.push(ItemAddPage)
 	}
 
 	editItem(item_id){
 		this.navCtrl.push(ItemEditPage, {
 			data: item_id
-		});
+		})
 	}
 
 	deleteItem(item_id){
@@ -127,19 +146,19 @@ export class DinerMenuPage {
 	        {
 	          text: 'Remove',
 	          handler: () => {
-	            console.log('Disagree clicked');
-	            this.itemsCollectionRef.doc(item_id).delete();
+	            console.log('Disagree clicked')
+	            this.itemsCollectionRef.doc(item_id).delete()
 	          }
 	        },
 	        {
 	          text: 'No!',
 	          handler: () => {
-	            console.log('Agree clicked');
+	            console.log('Agree clicked')
 	          }
 	        }
 	      ]
-	    });
-	    confirm.present();
+	    })
+	    confirm.present()
 	}
 
 	getDiner() {
@@ -151,7 +170,7 @@ export class DinerMenuPage {
 	}
 
 	closePage(){
-		this.navCtrl.pop();
+		this.navCtrl.pop()
 	}
 }
 
