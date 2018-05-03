@@ -10,7 +10,7 @@
   	<ion-navbar>
 	    <ion-title>Combo</ion-title>
 	    <ion-buttons end>
-			<button ion-button icon-only color="secondary" (click)="addCombo()">
+			<button ion-button icon-only color="secondary" (click)="openAddComboModal()">
 				<ion-icon name="add-circle"></ion-icon>
 			</button>
 	    </ion-buttons>
@@ -19,124 +19,25 @@
 </ion-header>
 
 
-<ion-content padding row>
-	<ion-list col-lg-4>
-		<ion-item class="primary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2>Combo name <span class="combo-item-count">3 items</span></h2>
-			<p class="price">100</p>
-		</ion-item>
-		<ion-item class="secondary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2><span class="quantity">2x</span> Item name</h2>
-			<p class="price">20</p>
-		</ion-item>
-		<ion-item class="secondary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2><span class="quantity">1x</span> Item name</h2>
-			<p class="price">40</p>
-		</ion-item>
-	</ion-list>
-
-	<ion-list col-lg-4>
-		<ion-item class="primary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2>Combo name <span class="combo-item-count">3 items</span></h2>
-			<p class="price">100</p>
-		</ion-item>
-		<ion-item class="secondary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2><span class="quantity">2x</span> Item name</h2>
-			<p class="price">20</p>
-		</ion-item>
-		<ion-item class="secondary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2><span class="quantity">1x</span> Item name</h2>
-			<p class="price">40</p>
-		</ion-item>
-	</ion-list>
-
-	<ion-list col-lg-4>
-		<ion-item class="primary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2>Combo name <span class="combo-item-count">3 items</span></h2>
-			<p class="price">100</p>
-		</ion-item>
-		<ion-item class="secondary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2><span class="quantity">2x</span> Item name</h2>
-			<p class="price">20</p>
-		</ion-item>
-		<ion-item class="secondary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2><span class="quantity">1x</span> Item name</h2>
-			<p class="price">40</p>
-		</ion-item>
-	</ion-list>
-
-	<ion-list col-lg-4>
-		<ion-item class="primary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2>Combo name <span class="combo-item-count">3 items</span></h2>
-			<p class="price">100</p>
-		</ion-item>
-		<ion-item class="secondary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2><span class="quantity">2x</span> Item name</h2>
-			<p class="price">20</p>
-		</ion-item>
-		<ion-item class="secondary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2><span class="quantity">1x</span> Item name</h2>
-			<p class="price">40</p>
-		</ion-item>
-	</ion-list>
-
-	<ion-list col-lg-4>
-		<ion-item class="primary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2>Combo name <span class="combo-item-count">3 items</span></h2>
-			<p class="price">100</p>
-		</ion-item>
-		<ion-item class="secondary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2><span class="quantity">2x</span> Item name</h2>
-			<p class="price">20</p>
-		</ion-item>
-		<ion-item class="secondary">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2><span class="quantity">1x</span> Item name</h2>
-			<p class="price">40</p>
-		</ion-item>
-	</ion-list>
+<ion-content padding>
+	<ion-grid fixed>
+		<ion-row>
+			<ion-list ion-col col-12 col-sm-12 col-md-6 col-lg-4 *ngFor = "let combo of combosList; let i = index" (click)="openEditComboModal(i)">
+				<ion-item class="primary">
+					<ion-avatar item-left>
+						<img src="assets/imgs/6.jpg">
+					</ion-avatar>
+					<h2>Combo name <span class="combo-item-count">{{itemCount}} items</span></h2>
+					<p class="price">{{combo.combo_cost}}</p>
+				</ion-item>
+				<ion-item class="secondary" *ngFor = "let item of combo.items">
+					<ion-avatar item-left>
+						<img src="assets/imgs/6.jpg">
+					</ion-avatar>
+					<h2><span class="quantity">{{item.item_ordered}} &times;</span> {{item.item_name}}</h2>
+					<p class="price">{{item.item_price}}</p>
+				</ion-item>
+			</ion-list>
+		</ion-row>
+	</ion-grid>
 </ion-content>

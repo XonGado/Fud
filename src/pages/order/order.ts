@@ -141,13 +141,13 @@ export class OrderPage {
 	}
 
 	placeOrder(){
-		// Saving to database
+		// // Saving to database
+		this.orderedItemsList = this.gatherOrder()
 		let customer_name: string
 		let customer_id: string
 		let that = this
 		let price: number = 0
 
-		this.orderedItemsList =  this.gatherOrder();
 		this.orderedItemsList.forEach(doc => {
 			price = price + Number(doc.item_price)
 		})
@@ -178,6 +178,8 @@ export class OrderPage {
 		if (item.item_count < 0) {
 			item.item_count = 0;
 		}
+
+		this.itemIsOrdered(e, item)
 		item.item_ordered = Math.floor(item.item_count/5);
 	}
 
@@ -193,7 +195,19 @@ export class OrderPage {
 
 		if (item.item_ordered < 0) {
 			item.item_ordered = 0;
-		}		
+		} 
+
+		this.itemIsOrdered(e, item)
+	}
+
+	itemIsOrdered(e, item){
+		var className = "item item-block item-md"
+
+		if (item.item_count > 0) {
+			e.target.offsetParent.className = className + " ordered"
+		} else {
+			e.target.offsetParent.className = className
+		}
 	}
 
 	gatherOrder(){
