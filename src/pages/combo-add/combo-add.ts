@@ -37,6 +37,7 @@ searchQuery: string = '';
 	dinerCollectionRef: AngularFirestoreCollection<DinerDetails>
 	combosCollectionRef: AngularFirestoreCollection<Combo>
 	customerDocRef: AngularFirestoreDocument<CustomerDetails>
+	itemCount: number
 
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams, 
