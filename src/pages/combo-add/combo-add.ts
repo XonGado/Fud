@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ModalController, Events, Platform } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
@@ -26,7 +26,10 @@ import { BasketPage } from '../basket/basket'
   templateUrl: 'combo-add.html',
 })
 export class ComboAddPage {
-searchQuery: string = '';
+	@ViewChild('combo_name') combo_name;
+
+	totalItemCount: number = 0
+	searchQuery: string = '';
 	itemList: Item[];
 	categoryList: Category[] = [];
 	orderedItemsList: any[] = [];
@@ -56,7 +59,6 @@ searchQuery: string = '';
 
 	getCategoryList(){
 		var categories: any[] = [];
-
 		for (var i = this.itemList.length - 1; i >= 0; i--) {
 			if(!(categories.includes(this.itemList[i].item_type))){
 				console.log(this.itemList[i].item_type)
@@ -153,7 +155,10 @@ searchQuery: string = '';
 		let customer_id: string
 		let that = this
 		let cost: number = 0
-
+		let name = this.combo_name.value
+		if (name == ""){
+			name = "Combo"
+		}
 		this.orderedItemsList.forEach(doc => {
 			cost = cost + Number(doc.item_price)
 		})
@@ -163,7 +168,7 @@ searchQuery: string = '';
 			let id = that.firestore.createId()
 			that.combosCollectionRef.doc(id).set({
 				combo_id: id,
-				// combo_name: name,
+				combo_name: name,
 				diner_id: that.diner_id,
 				combo_cost: cost,
 				items: that.orderedItemsList
@@ -183,6 +188,7 @@ searchQuery: string = '';
 
 		this.itemIsOrdered(e, item)
 		item.item_ordered = Math.floor(item.item_count/5);
+		this.totalItemCount = this.totalItemCount + item.item_ordered
 	}
 
 	itemTapped(e, item){

@@ -22,12 +22,7 @@ import { Customer } from '../../models/customer.model'
 export class CustProfilePage {
 	uid: string
 	customerCollectionRef: AngularFirestoreCollection<Customer>
-	user: Customer = {
-		cust_name: '',
-		cust_email: '',
-		cust_username: ''
-	}
-
+	user: Customer
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams,
 				public loadingCtrl: LoadingController,
@@ -45,7 +40,6 @@ export class CustProfilePage {
 		.then(function(){
 			that.uid = fire.auth.currentUser.uid
 			that.customerCollectionRef = that.firestore.collection('customers')
-
 			that.firestore.collection('customers').doc(that.uid).ref.get()
 			.then(function(doc){
 				if (doc.exists) {
