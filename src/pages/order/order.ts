@@ -37,6 +37,7 @@ export class OrderPage {
 	ordersCollectionRef: AngularFirestoreCollection<Order>
 	dinerCollectionRef: AngularFirestoreCollection<DinerDetails>
 	customerDocRef: AngularFirestoreDocument<CustomerDetails>
+	itemCount: number
 
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams, 
@@ -136,6 +137,11 @@ export class OrderPage {
 
 	viewItems(){
 		this.orderedItemsList =  this.gatherOrder();
+		let count: number = 0
+		this.orderedItemsList.forEach(doc => {
+			count = count + Number(doc.item_ordered)
+		})
+		this.itemCount = count
 		let basket = this.modalCtrl.create(BasketPage, { orderedItems: this.orderedItemsList });
 		basket.present();
 	}

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 import { ComboSelectDinerPage } from '../combo-select-diner/combo-select-diner'
 import { ComboEditPage } from '../combo-edit/combo-edit'
-
 import { Combo } from '../../models/combo.interface'
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'

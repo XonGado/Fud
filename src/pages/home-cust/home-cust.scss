@@ -4,6 +4,17 @@ page-home-cust {
 	    display: none; 
 	}
 
+	.ios, .md {
+		.scroll {
+			height: 100%
+		}
+
+		#map {
+			width: 100%;
+			height: 100%;
+		}
+	}
+
 	ion-content{
 		// background: linear-gradient($red, $blue)!important;
 	}

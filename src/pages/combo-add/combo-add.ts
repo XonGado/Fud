@@ -135,7 +135,12 @@ searchQuery: string = '';
 	}
 
 	viewItems(){
+		let count: number = 0
 		this.orderedItemsList =  this.gatherOrder();
+		this.orderedItemsList.forEach(doc => {
+			count = count + Number(doc.item_ordered)
+		})
+		this.itemCount = count
 		let basket = this.modalCtrl.create(BasketPage, { orderedItems: this.orderedItemsList });
 		basket.present();
 	}
