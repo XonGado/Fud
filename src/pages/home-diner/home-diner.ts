@@ -61,14 +61,14 @@ export class HomeDinerPage {
 
   getItems() {
     let that = this
-    let count = 0
+    let count: number = 0
     this.ordersList.forEach(doc => {
       that.itemsList = doc.items
     })
     this.itemsList.forEach(doc => {
-      count+=1
+      count = count + Number(doc.item_ordered)
     })
-    that.itemCount = count
+    this.itemCount = count
   }
 
   logout(){

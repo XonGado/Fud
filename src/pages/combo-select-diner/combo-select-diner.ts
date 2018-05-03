@@ -25,14 +25,6 @@ export class ComboSelectDinerPage {
   	dinersCollectionRef: AngularFirestoreCollection<Diner>
   	diner_ids: any[] = []
 
-	// constructor(public navCtrl: NavController, public navParams: NavParams) {
-		
-	// Query all the diners here. Ignore the distance first.
-	// Is it necessary to include the number of items in the menu?
-	// Exclude the item count of the menu if unnecessary.
-        
-	// }
-
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams,
 				private fire: AngularFireAuth, 

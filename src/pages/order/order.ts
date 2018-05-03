@@ -37,6 +37,7 @@ export class OrderPage {
 	ordersCollectionRef: AngularFirestoreCollection<Order>
 	dinerCollectionRef: AngularFirestoreCollection<DinerDetails>
 	customerDocRef: AngularFirestoreDocument<CustomerDetails>
+	itemCount: number
 
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams, 
@@ -136,18 +137,23 @@ export class OrderPage {
 
 	viewItems(){
 		this.orderedItemsList =  this.gatherOrder();
+		let count: number = 0
+		this.orderedItemsList.forEach(doc => {
+			count = count + Number(doc.item_ordered)
+		})
+		this.itemCount = count
 		let basket = this.modalCtrl.create(BasketPage, { orderedItems: this.orderedItemsList });
 		basket.present();
 	}
 
 	placeOrder(){
-		// Saving to database
+		// // Saving to database
+		this.orderedItemsList = this.gatherOrder()
 		let customer_name: string
 		let customer_id: string
 		let that = this
 		let price: number = 0
 
-		this.orderedItemsList =  this.gatherOrder();
 		this.orderedItemsList.forEach(doc => {
 			price = price + Number(doc.item_price)
 		})
