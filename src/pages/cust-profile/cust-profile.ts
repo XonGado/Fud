@@ -22,17 +22,17 @@ import { Customer } from '../../models/customer.model'
 export class CustProfilePage {
 	uid: string
 	customerCollectionRef: AngularFirestoreCollection<Customer>
-	user: Customer = {
-		cust_name: '',
-		cust_email: '',
-		cust_username: ''
-	}
+	user: Customer
 
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams,
 				public loadingCtrl: LoadingController,
 				private fire: AngularFireAuth,
 				private firestore: AngularFirestore) {
+
+		this.user.cust_name = ''
+		this.user.cust_email = ''
+		this.user.cust_username = ''
 
 		let that = this
 

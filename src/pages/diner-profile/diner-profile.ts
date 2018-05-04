@@ -4,6 +4,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
 
+import { DinerProfileEditPage } from '../diner-profile-edit/diner-profile-edit'
+
 import { DinerDetails } from '../../models/dinerdetails.interface'
 
 /**
@@ -48,8 +50,8 @@ export class DinerProfilePage {
     })
   }
 
-  closePage(){
-  	this.navCtrl.pop();
+  openEditProfile(){
+    this.navCtrl.push(DinerProfileEditPage)
   }
 
 }

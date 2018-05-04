@@ -27,6 +27,7 @@ import { BasketPage } from '../basket/basket'
 })
 export class ComboAddPage {
 searchQuery: string = '';
+	itemCount: number
 	itemList: Item[];
 	categoryList: Category[] = [];
 	orderedItemsList: any[] = [];

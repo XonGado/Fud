@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Events, ModalController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Events, ModalController, Platform, LoadingController } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -39,11 +39,17 @@ export class OrderPage {
 	customerDocRef: AngularFirestoreDocument<CustomerDetails>
 	itemCount: number
 
+	loading = this.loadingCtrl.create({
+      dismissOnPageChange: true,
+      content: `<ion-spinner name="cresent"></ion-spinner>`
+    });
+
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams, 
 				public alertCtrl: AlertController, 
 				public events: Events,
 				public modalCtrl: ModalController,
+				public loadingCtrl: LoadingController,
 				public platform: Platform,
 	      		private fire: AngularFireAuth,
 	     		private firestore: AngularFirestore) {
@@ -148,6 +154,7 @@ export class OrderPage {
 
 	placeOrder(){
 		// // Saving to database
+		this.loading.present()
 		this.orderedItemsList = this.gatherOrder()
 		let customer_name: string
 		let customer_id: string
@@ -171,6 +178,20 @@ export class OrderPage {
 				customer_name: customer_name,
 				order_cost: price,
 				items: that.orderedItemsList
+			})
+			.then(function(){
+				let alert = that.alertCtrl.create({
+					title: "Order Placed!",
+					subTitle: "We'll be preparing your food.",
+					buttons: [{
+						text: "Okay!",
+						handler: () =>{
+							that.navCtrl.pop()
+						}
+					}]
+				});
+				alert.present()
+				that.loading.dismiss()
 			})
 		})
 	}

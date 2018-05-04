@@ -7,12 +7,72 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>diner-profile-edit</ion-title>
+    <ion-title>Edit Profile</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+	<ion-list>
+		<h5 text-uppercase>
+			<ion-icon name="contact" color="secondary" item-left></ion-icon>
+			Owner 
+		</h5>
+		<ion-item>
+			<ion-label color="secondary" stacked>Owner Name</ion-label>
+			<ion-input type="text" value={{owner_name}} #dine_owner_name></ion-input>				
+		</ion-item>
+		<ion-item>
+			<ion-label color="secondary" stacked>Username</ion-label>
+			<ion-input type="text" value="{{username}}" #dine_username></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="secondary" stacked>Email</ion-label>
+			<ion-input type="email" value="{{email}}" #dine_email></ion-input>
+		</ion-item>
+	</ion-list>
+	<ion-list>
+		<h5 text-uppercase>
+			<ion-icon name="restaurant" color="secondary" item-left></ion-icon>
+			Restaurant 
+		</h5>
+		<ion-item>
+			<ion-label color="secondary" stacked>Diner Name</ion-label>
+			<ion-input type="text" value="{{name}}" #dine_name></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="secondary" stacked>Address</ion-label>
+			<ion-input type="text" value="{{address}}" #dine_address></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="secondary" stacked>Delivery Number</ion-label>
+			<ion-input type="text" value="{{number}}" #dine_number></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="secondary" stacked>Website</ion-label>
+			<ion-input type="text" value="{{weblink}}" #dine_weblink></ion-input>
+		</ion-item>
+	</ion-list>
 
+	<ion-list>
+		<h5 text-uppercase>
+			<ion-icon name="lock" color="secondary" item-left></ion-icon>
+			Change Password
+		</h5>
+		<ion-item>
+			<ion-label color="secondary" stacked>Previous Password</ion-label>
+			<ion-input type="password" #dine_password></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="secondary" stacked>New Password</ion-label>
+			<ion-input type="password" #dine_new_password></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label color="secondary" stacked>Retype Password</ion-label>
+			<ion-input type="password" #dine_retypePassword></ion-input>
+		</ion-item>
+	</ion-list>
+
+	<button ion-button block color="secondary" (click)="editCustomer()">Edit Profile</button>
 </ion-content>
