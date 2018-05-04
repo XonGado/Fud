@@ -45,7 +45,6 @@ export class CustProfilePage {
 		.then(function(){
 			that.uid = fire.auth.currentUser.uid
 			that.customerCollectionRef = that.firestore.collection('customers')
-
 			that.firestore.collection('customers').doc(that.uid).ref.get()
 			.then(function(doc){
 				if (doc.exists) {

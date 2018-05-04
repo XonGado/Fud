@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ModalController, Events, Platform } from 'ionic-angular';
 
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 
 import { Item } from '../../models/item.model'
+import { Combo } from '../../models/combo.interface'
 
 import { BasketPage } from '../basket/basket'
 
@@ -23,14 +24,20 @@ import { BasketPage } from '../basket/basket'
 })
 export class ComboEditPage {
 
-  searchQuery: string = '';
+	@ViewChild('combo_name') combo_name;
+
+	searchQuery: string = '';
+	combo_data: Combo
 	itemList: Item[];
 	categoryList: Category[] = [];
 	orderedItemsList: any[] = [];
 	items: Observable<Item[]>;
-	diner: string;
+	customer: string;
+	combo_id: string;
 	diner_id: string;
-	itemCollectionRef: AngularFirestoreCollection<Item>
+	itemsCollectionRef: AngularFirestoreCollection<Item>
+	combosCollectionRef: AngularFirestoreCollection<Combo>
+	comboItems: any[] = []
 
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams, 
@@ -38,19 +45,47 @@ export class ComboEditPage {
 				public events: Events,
 				public modalCtrl: ModalController,
 				public platform: Platform,
-				// private fire: AngularFireAuth,
+				private fire: AngularFireAuth,
 				private firestore: AngularFirestore) {
-		this.diner_id = this.navParams.get('data')
-		this.itemCollectionRef = this.firestore.collection('diners').doc(this.diner_id).collection('items')
+
+		this.combo_data = this.navParams.get('data')
+		this.comboItems = this.combo_data.items
+		this.diner_id = this.combo_data.diner_id
+		this.itemsCollectionRef = this.firestore.collection('diners').doc(this.diner_id).collection('items')
+		this.customer = this.fire.auth.currentUser.uid
+		this.combosCollectionRef = this.firestore.collection('customers').doc(this.customer).collection('combos')
 	}
 
 	ionViewDidLoad() {
+		console.log(this.combo_data)
 		this.getItems()
 		console.log('ionViewDidLoad ComboAddPage');
 	}
 
-	createCombo(){
+	updateCombo(){
 		// Saving to database
+		this.orderedItemsList = this.gatherOrder()
+		
+		let that = this
+		let cost: number = 0
+		let name = this.combo_name.value
+		if (name == ""){
+			name = "Combo"
+		}
+
+		this.orderedItemsList.forEach(doc => {
+			cost = cost + Number(doc.item_price)
+		})
+
+		let combo_id = this.combo_data.combo_id
+		
+		this.combosCollectionRef.doc(combo_id).update({
+			combo_id: combo_id,
+			combo_name: that.combo_name.value,
+			diner_id: that.diner_id,
+			combo_cost: cost,
+			items: that.orderedItemsList
+		})
 	}
 
 	getCategoryList(){
@@ -72,10 +107,6 @@ export class ComboEditPage {
 			title: title,
 			items: items
 		});
-
-		console.log("Created category: " + title);
-		console.log("has the following items: ");
-		console.log(items);
 	}
 
 	confirmQR(){
@@ -85,14 +116,18 @@ export class ComboEditPage {
 	getItems() {
 		let that = this
 		let items: any[] = []
-		this.itemCollectionRef.ref.get()
+		this.itemsCollectionRef.ref.get()
 		.then(function(querySnapshot) {
 			querySnapshot.forEach(function(doc) {
-			var _item = doc.data()
-
-			_item.item_ordered = 0
-			_item.item_count = 0
-
+				var _item = doc.data()
+				_item.item_ordered = 0
+				that.comboItems.forEach(item => {
+					if (_item.item_name == item.item_name){
+						_item.item_ordered = item.item_ordered
+					}
+				})
+				
+				_item.item_count = 0
 				items.push(_item)
 			})
 			let categories: string[] = that.getCategories(items);
@@ -136,27 +171,15 @@ export class ComboEditPage {
 
 	viewItems(){
 		this.orderedItemsList =  this.gatherOrder();
-		console.log("Create modal to view items.");
-		console.log("Customer ordered the following.");
-		console.log(this.orderedItemsList);
-
-
 		let basket = this.modalCtrl.create(BasketPage, { orderedItems: this.orderedItemsList });
 		basket.present();
 	}
 
 	itemPanned(e, item){
-		console.log(e);
-		console.log(item.item_name + ": " + item.item_count);
-
 		if (e.additionalEvent == "panright"){
 			item.item_count++;
-			console.log("Counting for add");
-			console.log("Adding " + item.item_name + " to items.");
 		} else if (e.additionalEvent == "panleft"){
 			item.item_count--;
-			console.log("Counting for remove");
-			console.log("Removing " + item.item_name + " to items.");
 		}
 
 		if (item.item_count < 0) {

@@ -27,7 +27,7 @@
 					<ion-avatar item-left>
 						<img src="assets/imgs/6.jpg">
 					</ion-avatar>
-					<h2>Combo name <span class="combo-item-count">{{itemCount}} items</span></h2>
+					<h2>{{combo.combo_name}} <span class="combo-item-count">{{itemCount}} items</span></h2>
 					<p class="price">{{combo.combo_cost}}</p>
 				</ion-item>
 				<ion-item class="secondary" *ngFor = "let item of combo.items">
