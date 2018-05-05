@@ -25,6 +25,7 @@ export class LoginPage {
 	@ViewChild('password') password;
 
   uid: string
+  enabled: boolean = false
 
   constructor(
     public navCtrl: NavController, 
@@ -106,9 +107,25 @@ export class LoginPage {
     toast.present();
   }
 
+  enableButton(){
+    if (this.email.value != "" && this.password.value.length >= 8) {
+      this.enabled = true
+    }
+
+    this.enabled = false
+  }
+
+  login(email, password){
+
+    this.email.value = email;
+    this.password.value = password;
+
+    this.authenticateLogin();
+  }
+
   ionViewDidLoad() {
     console.log('Loaded LoginPage');
-    this.authenticateLogin();
+    // this.authenticateLogin();
   }
 }
 

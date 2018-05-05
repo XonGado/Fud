@@ -18,7 +18,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding offset-lg-4 col-lg-4>
 	<h1 class="fud-header"><img class="fud-logo" src="assets/imgs/CustAvatar.png"> Fud</h1>
 	<p class="subheading">Hungry?</p>
 	<ion-list>
@@ -33,5 +33,40 @@
 			<ion-input type="password" placeholder="Password" value="qweqwe12" #password></ion-input>
 		</ion-item>
 	</ion-list>
-	<button ion-button block color="fudGreen" (click)="authenticateLogin()">Sign in</button>
+
+	<button ion-button block color="fudGreen" (click)="authenticateLogin()" (input)="enableButton()" [disabled]="enabled">Sign in</button>
+
+	<ion-list class="users">
+		<ion-item (click)="login('cndelgado@gmail.com', 'password1')">
+			<ion-avatar item-left>
+				<img src="assets/imgs/6.jpg">
+			</ion-avatar>
+			<h2>
+				Clyde Joshua Delgado
+				<ion-icon name="person" color="primary" item-right></ion-icon>
+			</h2>
+			<p>cndelgado@gmail.com</p>
+		</ion-item>
+		<ion-item (click)="login('relbdc13@gmail.com', 'qwerty123')">
+			<ion-avatar item-left>
+				<img src="assets/imgs/6.jpg">
+			</ion-avatar>
+			<h2>
+				Relyn Dela Cruz
+				<ion-icon name="restaurant" color="primary" item-right></ion-icon>
+			</h2>
+			<p>relbdc13@gmail.com</p>		
+		</ion-item>
+		<ion-item (click)="login('rbdc13@gmail.com', 'qweqwe12')">
+			<ion-avatar item-left>
+				<img src="assets/imgs/6.jpg">
+			</ion-avatar>
+			<h2>
+				Relyn Dela Cruz
+				<ion-icon name="person" color="primary" item-right></ion-icon>
+			</h2>
+			<p>rbdc13@gmail.com</p>		
+		</ion-item>
+	</ion-list>
+
 </ion-content>

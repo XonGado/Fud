@@ -1,10 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+import { DinerLocatePage } from '../diner-locate/diner-locate'
+
 import { DinerDetails } from '../../models/dinerdetails.interface'
+
+import { Geolocation } from '@ionic-native/geolocation'
 
 /**
  * Generated class for the DinerProfileEditPage page.
@@ -13,12 +17,17 @@ import { DinerDetails } from '../../models/dinerdetails.interface'
  * Ionic pages and navigation.
  */
 
+declare var google
+
 @IonicPage()
 @Component({
   selector: 'page-diner-profile-edit',
   templateUrl: 'diner-profile-edit.html',
 })
 export class DinerProfileEditPage {
+	
+	@ViewChild('map') mapElement: ElementRef
+	map: any
 
 	@ViewChild('dine_name') dine_name;
 	@ViewChild('dine_username') dine_username;
@@ -43,10 +52,13 @@ export class DinerProfileEditPage {
 
 	constructor(public navCtrl: NavController, 
   				public navParams: NavParams,
+  				public modalCtrl: ModalController,
   				private fire: AngularFireAuth,
-  				private firestore: AngularFirestore) {
+  				private firestore: AngularFirestore,
+  				public geolocation: Geolocation) {
   		this.uid = fire.auth.currentUser.uid
   		this.dinerDocRef = this.firestore.collection('diners').doc(this.uid)
+		this.loadMap()
 	}
 
 	ionViewDidLoad() {
@@ -67,6 +79,33 @@ export class DinerProfileEditPage {
 			that.username = doc.data().dine_username
 			that.weblink = doc.data().dine_weblink
 		})
+	}
+
+	mapSettingsModal(){
+		let locateModal = this.modalCtrl.create(DinerLocatePage);
+		locateModal.present();
+	}
+
+	loadMap(){
+ 
+	    this.geolocation.getCurrentPosition().then((position) => {
+ 
+			let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+
+			let mapOptions = {
+				center: latLng,
+				zoom: 15,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+
+			this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
+
+			console.log("map is set")
+
+		}, (err) => {
+			console.log(err)
+	    })
+	 
 	}
 
 }

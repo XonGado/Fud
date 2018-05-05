@@ -6,4 +6,19 @@ page-diner-profile-edit {
 		padding-top: 1em;
 		color: #AAA;
 	}
+
+	.ios, .md {
+		.scroll {
+			height: 100%
+		}
+
+		// #map {
+		// 	width: 100%;
+		// 	height: 100%;
+		// }
+	}
+
+	#map{
+		height: 10em;
+	}
 }

@@ -54,44 +54,60 @@
 		<h5>Diner</h5>
 		<p>Happy when serving food? Then this form will help your advocacy in serving food to the hungry foodies.</p>
 		<ion-list>
-		<ion-item>
-			<ion-label color="secondary" stacked>Diner Name</ion-label>
-			<ion-input type="text" #dine_name></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" stacked>Owner Name</ion-label>
-			<ion-input type="text" #dine_owner_name></ion-input>				
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" stacked>Username</ion-label>
-			<ion-input type="text" #dine_username></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" stacked>Email</ion-label>
-			<ion-input type="email" #dine_email></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" stacked>Website</ion-label>
-			<p>optional</p>
-			<ion-input type="text" value="" #dine_weblink></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" stacked>Delivery Number</ion-label>
-			<ion-input type="text" #dine_number></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" stacked>Address</ion-label>
-			<ion-input type="text" #dine_address></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" stacked>Password</ion-label>
-			<ion-input type="password" #dine_password></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" stacked>Retype Password</ion-label>
-			<ion-input type="password" #dine_retypePassword></ion-input>
-		</ion-item>
+			<h5 text-uppercase>
+				<ion-icon name="contact" color="secondary" item-left></ion-icon>
+				Owner Profile
+			</h5>
+			<ion-item>
+				<ion-label color="secondary" stacked>Owner Name</ion-label>
+				<ion-input type="text" #dine_owner_name></ion-input>				
+			</ion-item>
+			<ion-item>
+				<ion-label color="secondary" stacked>Username</ion-label>
+				<ion-input type="text" #dine_username></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label color="secondary" stacked>Email</ion-label>
+				<ion-input type="email" #dine_email></ion-input>
+			</ion-item>
 		</ion-list>
-		<button ion-button block color="secondary" (click)="createDiner(dinerDetails)">Create!</button>
-	</ion-content>
+		<ion-list>
+			<h5 text-uppercase>
+				<ion-icon name="restaurant" color="secondary" item-left></ion-icon>
+				Diner Profile
+			</h5>
+			<ion-item>
+				<ion-label color="secondary" stacked>Diner Name</ion-label>
+				<ion-input type="text" #dine_name></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label color="secondary" stacked>Address</ion-label>
+				<ion-input type="text" #dine_address></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label color="secondary" stacked>Delivery Number</ion-label>
+				<ion-input type="text" #dine_number></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label color="secondary" stacked>Website</ion-label>
+				<p>optional</p>
+				<ion-input type="text" value="" #dine_weblink></ion-input>
+			</ion-item>
+		</ion-list>
+		<ion-list>
+			<h5 text-uppercase>
+				<ion-icon name="lock" color="secondary" item-left></ion-icon>
+				Password
+			</h5>
+			<ion-item>
+				<ion-label color="secondary" stacked>Password</ion-label>
+				<ion-input type="password" #dine_password></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label color="secondary" stacked>Retype Password</ion-label>
+				<ion-input type="password" #dine_retypePassword></ion-input>
+			</ion-item>
+			</ion-list>
+			<button ion-button block color="secondary" (click)="createDiner(dinerDetails)">Create!</button>
+		</ion-content>
 </ion-content>

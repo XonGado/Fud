@@ -69,14 +69,7 @@ export class HomeCustPage {
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
 
-			// let marker = new google.maps.Marker({
-			//   	map: this.map,
-			//   	animation: google.maps.Animation.DROP,
-			//   	position: latLng
-			// })
-
 			this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
-			// marker.setMap(this.map)	
 
 			console.log("map is set")
 
