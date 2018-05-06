@@ -30,7 +30,7 @@
 		<ion-list-header [class.hidden]="isEmpty(category.items, keyword)">
 			{{category.title}}
 		</ion-list-header>
-		<ion-item-sliding *ngFor="let item of category.items" [class.hidden]="!filter(item.item_name, keyword)">
+		<ion-item-sliding *ngFor="let item of category.items" [class.hidden]="!filter(item.item_name, keyword)" (click)="editItem(item.item_id)">
 			<ion-item>
 				<ion-avatar item-start>
 					<img src="assets/imgs/6.jpg">

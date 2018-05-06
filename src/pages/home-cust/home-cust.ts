@@ -152,7 +152,6 @@ export class HomeCustPage {
 
 	logout(){
 		this.fire.auth.signOut()
-		this.navCtrl.pop()
 	}
 
 }

@@ -25,6 +25,9 @@ export class ItemEditPage {
 	item_price: string;
 	item_description: string;
 
+	availability: boolean;
+	visibility: boolean;
+
 	itemsCollectionRef: AngularFirestoreCollection<Item>
 
 	@ViewChild('name') name;
@@ -51,6 +54,12 @@ export class ItemEditPage {
 			that.item_type = doc.data().item_type
 			that.item_price = doc.data().item_price
 			that.item_description = doc.data().item_description
+			that.visibility = doc.data().item_visibility
+			that.availability = doc.data().item_availability
+
+			console.log("Fetched data:")
+			console.log("Visibility: " + that.visibility)
+			console.log("Availability: " + that.availability)
 		})
 		.catch(error => {
 			console.log("Error: ", error.code)
@@ -58,12 +67,18 @@ export class ItemEditPage {
 	}
 
 	updateItem(){
+		console.log("Updating data:")
+		console.log("Visibility: " + this.visibility)
+		console.log("Availability: " + this.availability)
+
 		this.itemsCollectionRef.doc(this.item_id).update({
 			item_id: this.item_id,
 			item_name: this.name.value,
 			item_type: this.type.value,
 			item_price: this.price.value,
-			item_description: this.description.value
+			item_description: this.description.value,
+			item_visibility: this.visibility,
+			item_availability: this.availability
 		})
 	}
 

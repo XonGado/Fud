@@ -5,5 +5,7 @@ export interface Item{
 	item_price: string,
 	item_type: string,
 	item_count: number,
-	item_ordered: number
+	item_ordered: number,
+	item_availability: boolean,
+	item_visibility: boolean
 }

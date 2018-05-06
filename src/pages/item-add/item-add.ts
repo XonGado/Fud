@@ -46,7 +46,9 @@ export class ItemAddPage {
       item_name: this.item_name.value,
       item_description: this.item_description.value,
       item_price: this.item_price.value,
-      item_type: this.item_type.value
+      item_type: this.item_type.value,
+      item_availability: true,
+      item_visibility: true
     }).then(function (data){
       console.log("Data: ", data)
     }).catch(function (error){

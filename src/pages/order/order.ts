@@ -171,13 +171,13 @@ export class OrderPage {
 		.then(doc => {
 			customer_name = doc.data().cust_name
 			customer_id = doc.id
-			console.log(customer_id)
 			let id = that.firestore.createId()
 			that.ordersCollectionRef.doc(id).set({
 				customer_id: customer_id,
 				customer_name: customer_name,
 				order_cost: price,
-				items: that.orderedItemsList
+				items: that.orderedItemsList,
+				cleared: false
 			})
 			.then(function(){
 				let alert = that.alertCtrl.create({
