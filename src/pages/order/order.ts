@@ -38,6 +38,8 @@ export class OrderPage {
 	dinerCollectionRef: AngularFirestoreCollection<DinerDetails>
 	customerDocRef: AngularFirestoreDocument<CustomerDetails>
 	itemCount: number
+	orderType: any
+	orderTypeText: string
 
 	loading = this.loadingCtrl.create({
       dismissOnPageChange: true,
@@ -152,6 +154,50 @@ export class OrderPage {
 		basket.present();
 	}
 
+	askOrderType(){
+		let that = this
+
+		let alert = this.alertCtrl.create();
+
+		alert.setTitle("Select an option")
+
+	    alert.addInput({
+	    	type: 'radio',
+	    	label: "I'll dine in",
+	    	value: "0",
+	    	checked: true
+	    });
+
+	    alert.addInput({
+	    	type: 'radio',
+	    	label: "I'll take it out",
+	    	value: "1",
+	    	checked: false
+	    });
+
+	    alert.addInput({
+	    	type: 'radio',
+	    	label: "Deliver it to me",
+	    	value: "2",
+	    	checked: false
+	    });
+
+	    alert.addButton('Cancel');
+	    alert.addButton({
+	    	text: "Confirm",
+	    	handler: data => {
+	    		this.orderType = data;
+	    		console.log(this.orderType)
+	    		this.placeOrder()
+	    		// if (this.orderType == 2) {
+	    			// Get location. Tasked to Clyde.
+	    		// }
+	    	}
+	    });
+	    alert.present();
+		this.loading.dismiss()
+	}
+
 	placeOrder(){
 		// // Saving to database
 		this.loading.present()
@@ -177,6 +223,7 @@ export class OrderPage {
 				customer_id: customer_id,
 				customer_name: customer_name,
 				order_cost: price,
+				order_type: that.orderType,
 				items: that.orderedItemsList
 			})
 			.then(function(){
