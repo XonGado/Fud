@@ -199,10 +199,10 @@ export class DinerProfileEditPage {
 			headers: {}
 		}
 
-		fileTransfer.upload(this.imageURI, 'http://192.168.0.7:8100/api/uploadImage', options)
+		fileTransfer.upload(this.imageURI, 'http://172.20.10.7:8100/api/uploadImage', options)
 		.then((data) => {
 			console.log(data+" Uploaded Successfully");
-			this.imageFileName = "http://192.168.0.7:8100/static/images/ionicfile.jpg"
+			this.imageFileName = "http://172.20.10.7:8100/static/images/ionicfile.jpg"
 			loader.dismiss();
 			this.presentToast("Image uploaded successfully");
 		}, (err) => {

@@ -44,6 +44,15 @@ export class DinerLocatePage {
 
 			this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
+			let marker = new google.maps.Marker({
+				draggable: true,
+			  	map: this.map,
+			  	animation: google.maps.Animation.DROP,
+			  	position: latLng
+			})
+
+			marker.setMap(this.map)
+
 			console.log("map is set")
 
 		}, (err) => {

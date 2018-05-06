@@ -8,6 +8,11 @@
 
   <ion-navbar>
     <ion-title text-center>Locate</ion-title>
+    <!-- <ion-buttons end>
+    	<button icon-only ion-button>
+    		<ion-icon name=""
+    	</button>
+    </ion-buttons> -->
   </ion-navbar>
 
 </ion-header>
@@ -15,4 +20,14 @@
 
 <ion-content>
 	<div #map id="map"></div>
+	<div id="confirm-location-div">
+		<p>
+      Is this your restaurant's location? 
+      <span class="secondary">If not, make sure you are located in your restaurant and set it up later.</span>
+    </p>
+		<button ion-button color="secondary">
+			<ion-icon name="checkmark"></ion-icon>
+			Yes, set location here.
+		</button>
+	</div>
 </ion-content>

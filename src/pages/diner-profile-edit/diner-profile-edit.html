@@ -41,7 +41,18 @@
 					Diner 
 				</h5>
 				<ion-item>
-					<button ion-button block color="dark" (click)="takePhoto()"><ion-icon name="image"></ion-icon></button>
+					<button ion-button icon-only block color="dark" (click)="takePhoto()"><ion-icon name="image"></ion-icon></button>
+				</ion-item>
+				<ion-item>
+				    <p>{{imageURI}}</p>
+				    <button ion-button color="secondary" (click)="getImage()">Get Image</button>
+				</ion-item>
+				<ion-item>
+					<h4>Image Preview</h4>
+					<img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />
+				</ion-item>
+				<ion-item>
+					<button ion-button (click)="uploadFile()">Upload</button>
 				</ion-item>
 				<ion-item>
 					<ion-label color="secondary" stacked>Diner Name</ion-label>
