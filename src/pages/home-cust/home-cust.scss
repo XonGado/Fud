@@ -73,15 +73,6 @@ page-home-cust {
 
 	#map{
 		height: 50vh;
-		background-color: $green;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		h1{
-			color: rgba(255,255,255,0.5);
-			font-size: $regular;
-			font-weight: normal;
-		}
+		background-color: #555;
 	}
 }
