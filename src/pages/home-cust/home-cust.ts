@@ -71,22 +71,6 @@ export class HomeCustPage {
 
 			this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-			console.log("map is set")
-
-		}, (err) => {
-			console.log(err)
-	    })
-	 
-	}
-
-	addMarker(){
- 
-		var latLng
-
-		this.geolocation.getCurrentPosition().then((position) => {
-			latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-			console.log(latLng)
-			
 			let marker = new google.maps.Marker({
 			  	map: this.map,
 			  	animation: google.maps.Animation.DROP,
@@ -99,11 +83,39 @@ export class HomeCustPage {
 			marker.setMap(this.map)
 
 			console.log("Marker is set." + latLng)
+
+			var cityCircle = new google.maps.Circle({
+	            strokeColor: '#00FF00',
+	            strokeOpacity: 0.8,
+	            strokeWeight: 2,
+	            fillColor: 'transparent',
+	            map: this.map,
+	            center: latLng,
+	            radius: 1500
+	        })
+
+			console.log("Map is set.")
+
 		}, (err) => {
 			console.log(err)
-		})
-
+	    })
+	 
 	}
+
+	// addMarker(){
+ 
+	// 	var latLng
+
+	// 	this.geolocation.getCurrentPosition().then((position) => {
+	// 		latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+	// 		console.log(latLng)
+			
+
+	// 	}, (err) => {
+	// 		console.log(err)
+	// 	})
+
+	// }
 
 	addInfoWindow(marker, content){
  

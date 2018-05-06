@@ -116,6 +116,10 @@ export class RegisterPage {
             dine_weblink: that.dine_weblink.value,
             dine_number: that.dine_number.value,
             dine_address: that.dine_address.value,
+            dine_location: { 
+              latitude: 0,
+              longitude: 0 
+            }
           })
           that.firestore.doc('users/'+that.uid).set({
             type: 'diners'

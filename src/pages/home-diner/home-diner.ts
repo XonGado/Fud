@@ -31,6 +31,7 @@ export class HomeDinerPage {
   itemsList: any[] = []
   itemCount: number
   diner: AngularFirestoreDocument<DinerDetails>
+  orderFilter: string = "all"
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -57,6 +58,24 @@ export class HomeDinerPage {
       })
       that.getItems()
     })
+  }
+
+  correctOrderType(type){
+    if (this.orderFilter == "all") {
+      return true
+    }
+
+    return this.convertType(type) == this.orderFilter
+  }
+
+  convertType(type){
+    if (type == 0) {
+      return "dine-in"
+    } else if (type == 1) {
+      return "take-out"
+    } else if (type == 2) {
+      return "delivery"
+    }
   }
 
   getItems() {

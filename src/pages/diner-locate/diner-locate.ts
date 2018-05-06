@@ -1,7 +1,13 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+
+import { AngularFireAuth } from 'angularfire2/auth'
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
 
 import { Geolocation } from '@ionic-native/geolocation'
+
+import { DinerDetails } from '../../models/dinerdetails.interface'
+
 /**
  * Generated class for the DinerLocatePage page.
  *
@@ -21,8 +27,20 @@ export class DinerLocatePage {
 
 	@ViewChild('map') mapElement: ElementRef
 	map: any
+	uid: string
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public geolocation: Geolocation) {
+	marker: any
+
+	dinerDocRef: AngularFirestoreDocument<DinerDetails>
+
+	constructor(public navCtrl: NavController, 
+		public navParams: NavParams, 
+		public geolocation: Geolocation, 
+		public alertCtrl: AlertController,
+		private fire: AngularFireAuth,
+		private firestore: AngularFirestore) {
+		this.uid = this.fire.auth.currentUser.uid
+	    this.dinerDocRef = this.firestore.collection('diners').doc(this.uid)
 		this.loadMap()
 	}
 
@@ -44,12 +62,57 @@ export class DinerLocatePage {
 
 			this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
+			this.marker = new google.maps.Marker({
+				draggable: true,
+			  	map: this.map,
+			  	animation: google.maps.Animation.DROP,
+			  	position: latLng
+			})
+
+			this.marker.setMap(this.map)
+
 			console.log("map is set")
 
 		}, (err) => {
 			console.log(err)
 	    })
 	 
+	}
+
+	checkMarkerLocation(){
+		console.log("latitude: " + this.marker.position.lat + ", longitude: " +  this.marker.position.lng)
+	}
+
+	confirmMapSetting(){
+		let confirm = this.alertCtrl.create({
+			title: "Set Location",
+			message: 'Your location will be changed',
+			buttons: [
+			    {
+			    	text: 'No',
+			    	handler: () => {
+			    		confirm.dismiss()
+			    	}
+			    },
+			    {
+			    	text: 'Set',
+			    	handler: () => {
+			        	this.setLocation()
+			    	}
+			    }
+			]
+		})
+
+		confirm.present()
+	}
+
+	setLocation(){
+		this.dinerDocRef.update({
+			dine_location: {
+				latitude: this.marker.getPosition().lat(), 
+				longitude: this.marker.getPosition().lng()
+			}
+		})
 	}
 
 }

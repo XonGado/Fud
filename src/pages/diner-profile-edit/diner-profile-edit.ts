@@ -52,6 +52,7 @@ export class DinerProfileEditPage {
 	weblink: string; 
 	number: string; 
 	address: string;
+	location: any
 	dinerDocRef: AngularFirestoreDocument<DinerDetails>
 	uid:string
 
@@ -72,7 +73,6 @@ export class DinerProfileEditPage {
 		// initializeApp(FIREBASE_CONFIG)
   		this.uid = fire.auth.currentUser.uid
   		this.dinerDocRef = this.firestore.collection('diners').doc(this.uid)
-		this.loadMap()
 	}
 
 	ionViewDidLoad() {
@@ -92,33 +92,41 @@ export class DinerProfileEditPage {
 			that.owner_name = doc.data().dine_owner_name
 			that.username = doc.data().dine_username
 			that.weblink = doc.data().dine_weblink
+			that.location = doc.data().dine_location
+
+			this.loadMap()
 		})
 	}
 
 	mapSettingsModal(){
-		let locateModal = this.modalCtrl.create(DinerLocatePage);
+		let locateModal = this.modalCtrl.create(DinerLocatePage, { userID: this.uid });
 		locateModal.present();
 	}
 
 	loadMap(){
+
+		console.log("Loading map...")
+		console.log(this.location.latitude + " " + this.location.longitude)
+
+		var latLng = new google.maps.LatLng(this.location.latitude, this.location.longitude);
  
-	    this.geolocation.getCurrentPosition().then((position) => {
- 
-			let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+		let mapOptions = {
+			center: latLng,
+			zoom: 15,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
 
-			let mapOptions = {
-				center: latLng,
-				zoom: 15,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			}
+		this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-			this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
+		let marker = new google.maps.Marker({
+		  	map: this.map,
+		  	animation: google.maps.Animation.DROP,
+		  	position: latLng
+		})
 
-			console.log("map is set")
+		marker.setMap(this.map)
 
-		}, (err) => {
-			console.log(err)
-	    })
+		console.log("Map loaded.")
 	 
 	}
 
@@ -199,10 +207,10 @@ export class DinerProfileEditPage {
 			headers: {}
 		}
 
-		fileTransfer.upload(this.imageURI, 'http://192.168.0.7:8100/api/uploadImage', options)
+		fileTransfer.upload(this.imageURI, 'http://172.20.10.7:8100/api/uploadImage', options)
 		.then((data) => {
 			console.log(data+" Uploaded Successfully");
-			this.imageFileName = "http://192.168.0.7:8100/static/images/ionicfile.jpg"
+			this.imageFileName = "http://172.20.10.7:8100/static/images/ionicfile.jpg"
 			loader.dismiss();
 			this.presentToast("Image uploaded successfully");
 		}, (err) => {
