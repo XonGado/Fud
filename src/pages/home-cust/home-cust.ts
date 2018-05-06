@@ -5,11 +5,10 @@ import { CustProfilePage } from '../cust-profile/cust-profile'
 import { MenusPage } from '../menus/menus'
 import { OrderPage } from '../order/order'
 import { ComboPage } from '../combo/combo'
-// import { LoginPage } from '../login/login'
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
-// import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs/Observable'
 
 import { Diner } from '../../models/diner.model'
 
@@ -29,6 +28,7 @@ declare var google
   selector: 'page-home-cust',
   templateUrl: 'home-cust.html',
 })
+
 export class HomeCustPage {
 
 	@ViewChild('map') mapElement: ElementRef
@@ -54,7 +54,6 @@ export class HomeCustPage {
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage')
-		// this.openCombo()
 		this.loadMap()
 	}
 
@@ -70,14 +69,7 @@ export class HomeCustPage {
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			}
 
-			// let marker = new google.maps.Marker({
-			//   	map: this.map,
-			//   	animation: google.maps.Animation.DROP,
-			//   	position: latLng
-			// })
-
 			this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
-			// marker.setMap(this.map)	
 
 			console.log("map is set")
 

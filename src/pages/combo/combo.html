@@ -20,6 +20,10 @@
 
 
 <ion-content padding>
+	<p *ngIf=" combosList.length <= 0 ">
+		You don't have any combos. Create one?
+	</p>
+
 	<ion-grid fixed>
 		<ion-row>
 			<ion-list ion-col col-12 col-sm-12 col-md-6 col-lg-4 *ngFor = "let combo of combosList; let i = index" (click)="openEditComboModal(i)">

@@ -2,8 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 
 import { RegisterPage } from '../register/register';
-import { HomeCustPage } from '../home-cust/home-cust';
 import { HomeDinerPage } from '../home-diner/home-diner';
+import { HomeCustPage } from '../home-cust/home-cust';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore'
@@ -27,6 +27,7 @@ export class LoginPage {
 	@ViewChild('password') password;
 
   uid: string
+  enabled: boolean = false
 
   constructor(
     public navCtrl: NavController, 
@@ -105,6 +106,22 @@ export class LoginPage {
     });
 
     toast.present();
+  }
+
+  enableButton(){
+    if (this.email.value != "" && this.password.value.length >= 8) {
+      this.enabled = true
+    }
+
+    this.enabled = false
+  }
+
+  login(email, password){
+
+    this.email.value = email;
+    this.password.value = password;
+
+    this.authenticateLogin();
   }
 
   ionViewDidLoad() {

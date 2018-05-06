@@ -21,8 +21,10 @@ import { ComboEditPage } from '../pages/combo-edit/combo-edit'
 import { ComboSelectDinerPage } from '../pages/combo-select-diner/combo-select-diner'
 import { CustProfilePage } from '../pages/cust-profile/cust-profile'
 import { DinerProfilePage } from '../pages/diner-profile/diner-profile'
+import { DinerProfileEditPage } from '../pages/diner-profile-edit/diner-profile-edit'
 import { DinerCreateMenuPage } from '../pages/diner-create-menu/diner-create-menu'
 import { DinerMenuPage } from '../pages/diner-menu/diner-menu'
+import { DinerLocatePage } from '../pages/diner-locate/diner-locate'
 import { HomeDinerPage } from '../pages/home-diner/home-diner'
 import { MenuPage } from '../pages/menu/menu'
 import { MenusPage } from '../pages/menus/menus'
@@ -61,6 +63,8 @@ import { AuthProvider } from '../providers/auth/auth';
     DinerCreateMenuPage,
     DinerMenuPage,
     DinerProfilePage,
+    DinerProfileEditPage,
+    DinerLocatePage,
     HomeDinerPage,
     MenuPage,
     MenusPage,
@@ -98,7 +102,9 @@ import { AuthProvider } from '../providers/auth/auth';
     CustProfilePage,
     DinerCreateMenuPage,
     DinerMenuPage,
+    DinerProfileEditPage,
     DinerProfilePage,
+    DinerLocatePage,
     HomeDinerPage,
     MenuPage,
     MenusPage,

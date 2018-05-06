@@ -31,9 +31,17 @@ page-login {
 		transform: translate(0.25em, 0);
 	}
 
-	p{
+	.subheading{
 		color: rgba(255,255,255,0.6);
 		margin-bottom: 3em;
 		text-align: center;
+	}
+
+	.users{
+		margin-top: 2em;
+	}
+
+	.users .icon{
+		margin: 0!important;
 	}
 }

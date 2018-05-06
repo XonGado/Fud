@@ -22,7 +22,8 @@ import { Customer } from '../../models/customer.model'
 export class CustProfilePage {
 	uid: string
 	customerCollectionRef: AngularFirestoreCollection<Customer>
-	user: Customer
+	user: Customer = {} as any
+
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams,
 				public loadingCtrl: LoadingController,
