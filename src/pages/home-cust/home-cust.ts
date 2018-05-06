@@ -8,7 +8,7 @@ import { ComboPage } from '../combo/combo'
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
-// import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs/Observable'
 
 import { Diner } from '../../models/diner.model'
 
@@ -28,6 +28,7 @@ declare var google
   selector: 'page-home-cust',
   templateUrl: 'home-cust.html',
 })
+
 export class HomeCustPage {
 
 	@ViewChild('map') mapElement: ElementRef
@@ -53,7 +54,6 @@ export class HomeCustPage {
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage')
-		// this.openCombo()
 		this.loadMap()
 	}
 
@@ -151,6 +151,7 @@ export class HomeCustPage {
 	}
 
 	logout(){
+		this.fire.auth.signOut()
 		this.navCtrl.pop()
 	}
 

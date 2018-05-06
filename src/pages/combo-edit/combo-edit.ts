@@ -62,6 +62,17 @@ export class ComboEditPage {
 		console.log('ionViewDidLoad ComboAddPage');
 	}
 
+	deleteCombo() {
+		let combo_id = this.combo_data.combo_id
+		this.combosCollectionRef.doc(combo_id).delete()
+		.then(function() {
+			console.log("Combo deleted successfully!")
+		})
+		.catch(error => {
+			console.error("Error deleting the combo. Please try again.")
+		})
+	}
+
 	updateCombo(){
 		// Saving to database
 		this.orderedItemsList = this.gatherOrder()
