@@ -25,17 +25,21 @@ import { DinerProfileEditPage } from '../pages/diner-profile-edit/diner-profile-
 import { DinerCreateMenuPage } from '../pages/diner-create-menu/diner-create-menu'
 import { DinerMenuPage } from '../pages/diner-menu/diner-menu'
 import { DinerLocatePage } from '../pages/diner-locate/diner-locate'
+import { DinerScanPage } from '../pages/diner-scan/diner-scan'
 import { HomeDinerPage } from '../pages/home-diner/home-diner'
 import { MenuPage } from '../pages/menu/menu'
 import { MenusPage } from '../pages/menus/menus'
 import { OrderPage } from '../pages/order/order'
 import { BasketPage } from '../pages/basket/basket'
-import { DinerScanPage } from '../pages/diner-scan/diner-scan'
 import { ItemPage } from '../pages/item/item'
 import { ItemEditPage } from '../pages/item-edit/item-edit'
 import { ItemAddPage } from '../pages/item-add/item-add'
 import { MenuCreatePage } from '../pages/menu-create/menu-create'
 import { OrderDetailsPage } from '../pages/order-details/order-details'
+import { LoadingPage } from '../pages/loading/loading'
+
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer'
+import { File } from '@ionic-native/file'
 
 // Firebase & Angularfire2
 import { AngularFireModule } from 'angularfire2'
@@ -65,6 +69,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerProfileEditPage,
     DinerLocatePage,
     HomeDinerPage,
+    LoadingPage,
     MenuPage,
     MenusPage,
     OrderPage,
@@ -105,6 +110,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerProfilePage,
     DinerLocatePage,
     HomeDinerPage,
+    LoadingPage,
     MenuPage,
     MenusPage,
     OrderPage,
@@ -122,6 +128,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     StatusBar,
     SplashScreen,
     Geolocation,
+    FileTransfer,
+    FileTransferObject,
     BarcodeScanner,
     AngularFirestore,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
