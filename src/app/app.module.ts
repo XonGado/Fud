@@ -44,6 +44,7 @@ import { FIREBASE_CONFIG } from './firebase.config'
 
 // Google Map API
 import { Geolocation } from '@ionic-native/geolocation';
+import { AuthProvider } from '../providers/auth/auth';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     Geolocation,
     BarcodeScanner,
     AngularFirestore,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AuthProvider
   ]
 })
 export class AppModule {}

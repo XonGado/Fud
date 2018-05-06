@@ -45,6 +45,7 @@ export class HomeDinerPage {
   }
 
   ionViewDidLoad() {
+    console.log(this.uid)
     console.log('ionViewDidLoad HomeDinerPage');
   }
 
@@ -72,6 +73,7 @@ export class HomeDinerPage {
   }
 
   logout(){
+    this.fire.auth.signOut();
   	this.navCtrl.pop();
   }
 

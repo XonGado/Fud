@@ -5,6 +5,7 @@ import { CustProfilePage } from '../cust-profile/cust-profile'
 import { MenusPage } from '../menus/menus'
 import { OrderPage } from '../order/order'
 import { ComboPage } from '../combo/combo'
+// import { LoginPage } from '../login/login'
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
@@ -158,6 +159,7 @@ export class HomeCustPage {
 	}
 
 	logout(){
+		this.fire.auth.signOut()
 		this.navCtrl.pop()
 	}
 

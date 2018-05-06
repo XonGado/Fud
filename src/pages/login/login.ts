@@ -8,6 +8,8 @@ import { HomeDinerPage } from '../home-diner/home-diner';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore'
 
+import { AuthProvider } from '../../providers/auth/auth'
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -32,7 +34,8 @@ export class LoginPage {
     private fire: AngularFireAuth, 
     private firestore: AngularFirestore, 
     public loadingCtrl: LoadingController, 
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,
+    private auth: AuthProvider) {
   }
 
   openRegisterPage() {
@@ -65,13 +68,11 @@ export class LoginPage {
           }
         })
         .catch(error => {
-          console.log(error.message);
           that.showError(error.message);
           loading.dismiss();
         })
       })
       .catch(function (error){
-        console.log(error.message);
         that.showError(error.message);
         loading.dismiss();
       })
@@ -108,7 +109,6 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('Loaded LoginPage');
-    this.authenticateLogin();
   }
 }
 

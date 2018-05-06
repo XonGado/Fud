@@ -6,7 +6,6 @@ import { DinerDetails } from '../../models/dinerdetails.interface';
 import { UserType } from '../../models/usertype.interface';
 import { Item } from '../../models/item.model';
 
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 import { AngularFireModule } from 'angularfire2';
@@ -52,7 +51,6 @@ export class RegisterPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               private firestore: AngularFirestore, 
-              private database: AngularFireDatabase, 
               private fire: AngularFireAuth, 
               public toastCtrl: ToastController) {
   	this.acctype = "customer";
