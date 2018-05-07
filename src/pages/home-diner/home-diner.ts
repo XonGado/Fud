@@ -32,6 +32,7 @@ export class HomeDinerPage {
   itemCount: number
   diner: AngularFirestoreDocument<DinerDetails>
   orderFilter: string = "all"
+  order_ids: any[] = []
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -55,6 +56,7 @@ export class HomeDinerPage {
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         that.ordersList.push(doc.data())
+        that.order_ids.push(doc.id)
       })
       that.getItems()
     })
@@ -106,7 +108,10 @@ export class HomeDinerPage {
   	this.navCtrl.push(DinerScanPage);
   }
 
-  openOrderDetails(){
-    this.navCtrl.push(OrderDetailsPage);
+  openOrderDetails(index){
+    let that = this
+    this.navCtrl.push(OrderDetailsPage, {
+      data: that.order_ids[index]
+    });
   }
 }

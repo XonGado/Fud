@@ -22,9 +22,9 @@
 	<ion-toolbar>
 		<ion-segment [(ngModel)]="orderFilter" color="secondary">
 			<ion-segment-button value="all">All</ion-segment-button>
-			<ion-segment-button value="dine-in">Dine-in</ion-segment-button>
-			<ion-segment-button value="take-out">Take-out</ion-segment-button>
-			<ion-segment-button value="delivery">Delivery</ion-segment-button>
+			<ion-segment-button value="dine-in" icon-right>Dine-in <ion-icon name="cafe" color="light"></ion-icon></ion-segment-button>
+			<ion-segment-button value="take-out" icon-right>Take-out <ion-icon name="walk" color="light"></ion-icon></ion-segment-button>
+			<ion-segment-button value="delivery" icon-right>Delivery <ion-icon name="bicycle" color="light" ></ion-icon></ion-segment-button>
 		</ion-segment>
 	</ion-toolbar>
 </ion-header>
@@ -64,14 +64,19 @@
 <ion-nav #content [root]="rootPage"></ion-nav>
 
 <ion-content padding>
-	<ion-list *ngFor="let order of ordersList" class="order-list" (click)="openOrderDetails()">
-		<ion-item>
+	<ion-list>
+		<ion-item *ngFor="let order of ordersList; let i = index" class="order-list" (click)="openOrderDetails(i)" [class.hidden]="!correctOrderType(order.order_type)">
 			<ion-avatar item-start>
 				<img src="assets/imgs/samplePP.jpg">
 			</ion-avatar>
 			<h2>{{order.customer_name}}</h2>
 			<ion-badge color="secondary">{{order.order_cost}}</ion-badge>
-			<p>{{itemCount}} items</p>
+			<p>
+				{{itemCount}} items
+				<ion-icon *ngIf="order.order_type == 0" name="cafe"></ion-icon>
+				<ion-icon *ngIf="order.order_type == 1" name="walk"></ion-icon>
+				<ion-icon *ngIf="order.order_type == 2" name="bicycle"></ion-icon>
+			</p>
 		</ion-item>
 	</ion-list>
 	<p *ngIf=" ordersList.length < 1 ">

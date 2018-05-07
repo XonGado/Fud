@@ -20,7 +20,7 @@
 	    	<ion-avatar item-start>
 	    		<img src="assets/imgs/samplePP.jpg">
 	    	</ion-avatar>
-	    	<h2>Clyde Joshua Delgado</h2>
+	    	<h2>{{customer_name}}</h2>
 	    	<p color="primary">Table: Aisle 1</p>
 	    </ion-item>
 	</ion-toolbar>
@@ -29,39 +29,24 @@
 
 
 <ion-content padding>
-	<ion-list>
+	<ion-list *ngFor="let item of items">
 		<ion-item>
 			<ion-avatar item-start>
 				<img src="assets/imgs/6.jpg">
 			</ion-avatar>
-			<h2>Hash Brown</h2>
-			<p class="price">45</p>
-		</ion-item>
-		<ion-item>
-			<ion-avatar item-start>
-				<img src="assets/imgs/2.jpg">
-			</ion-avatar>
-			<h2>Irish Cream Iced Coffee</h2>
-			<p class="price">85</p>
-		</ion-item>
-		<ion-item>
-			<ion-avatar item-start>
-				<img src="assets/imgs/3.jpg">
-			</ion-avatar>
-			<h2>Maple Syrup</h2>
-			<p class="price">15</p>
+			<h2>{{item.item_name}}</h2>
+			<p class="price">{{item.item_price}}</p>
 		</ion-item>
 	</ion-list>
-
 	<ion-card>
-		<p>TOTAL: 145</p>
+		<p>TOTAL: {{order_cost}}</p>
 	</ion-card>
 </ion-content>
 
 <ion-footer>
 	<ion-toolbar>
 		<ion-buttons right>
-			<button ion-button icon-start color="secondary">
+			<button ion-button icon-start color="secondary" (click)="clearOrder()">
 				<ion-icon name="checkmark-circle-outline"></ion-icon>
 				Clear
 			</button>
