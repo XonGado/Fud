@@ -41,7 +41,7 @@ export class HomeDinerPage {
               private firestore: AngularFirestore) {
     this.uid = this.fire.auth.currentUser.uid
     this.diner = this.firestore.collection('diners').doc(this.uid)
-    this.ordersCollectionRef = this.diner.collection('orders')
+    this.ordersCollectionRef = this.diner.collection('orders', ref => ref.where("cleared", "==", false))
     this.getOrders()
 
   }
@@ -55,8 +55,10 @@ export class HomeDinerPage {
     this.ordersCollectionRef.ref.get()
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-        that.ordersList.push(doc.data())
-        that.order_ids.push(doc.id)
+        if(!doc.data().cleared){
+          that.ordersList.push(doc.data())
+          that.order_ids.push(doc.id)
+        }
       })
       that.getItems()
     })
