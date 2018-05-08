@@ -1,0 +1,38 @@
+<!--
+  Generated template for the DinerLocatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button icon-only ion-button navPop>
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>Locate</ion-title>
+    <ion-buttons end>
+    	<button icon-only ion-button (click)="checkMarkerLocation()">
+    		<ion-icon name="locate"></ion-icon>
+    	</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<div #map id="map"></div>
+	<div id="confirm-location-div">
+		<p>
+      Is this your restaurant's location? 
+      <span class="secondary">If not, make sure you are located in your restaurant and set it up later.</span>
+    </p>
+		<button ion-button color="secondary" (click)="confirmMapSetting()">
+			<ion-icon name="checkmark" item-left></ion-icon>
+			Yes, set location here.
+		</button>
+	</div>
+</ion-content>

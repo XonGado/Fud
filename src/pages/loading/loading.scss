@@ -1,0 +1,33 @@
+page-loading {
+	.scroll{
+		height: 100%;
+	}
+
+	#loading-container{
+		display: flex;
+		height: 100%;
+		width: 100%;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#loading-container img{
+		height: 50px;
+		widows: 50px;
+		animation: float 1s infinite;
+	}
+
+	@keyframes float{
+		0%{
+			transform: translate(0,0);
+		}
+
+		50%{
+			transform: translate(0,-1em);
+		}
+
+		100%{
+			transform: translate(0,0);
+		}
+	}
+}

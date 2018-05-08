@@ -1,0 +1,47 @@
+<!--
+  Generated template for the ComboPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header>
+
+  	<ion-navbar>
+	    <ion-title>Combo</ion-title>
+	    <ion-buttons end>
+			<button ion-button icon-only color="secondary" (click)="openAddComboModal()">
+				<ion-icon name="add-circle"></ion-icon>
+			</button>
+	    </ion-buttons>
+  	</ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<p *ngIf=" combosList.length <= 0 ">
+		You don't have any combos. Create one?
+	</p>
+
+	<ion-grid fixed>
+		<ion-row>
+			<ion-list ion-col col-12 col-sm-12 col-md-6 col-lg-4 *ngFor = "let combo of combosList; let i = index" (click)="openEditComboModal(i)">
+				<ion-item class="primary">
+					<ion-avatar item-left>
+						<img src="assets/imgs/6.jpg">
+					</ion-avatar>
+					<h2>{{combo.combo_name}} <span class="combo-item-count">{{itemCount}} items</span></h2>
+					<p class="price">{{combo.combo_cost}}</p>
+				</ion-item>
+				<ion-item class="secondary" *ngFor = "let item of combo.items">
+					<ion-avatar item-left>
+						<img src="assets/imgs/6.jpg">
+					</ion-avatar>
+					<h2><span class="quantity">{{item.item_ordered}} &times;</span> {{item.item_name}}</h2>
+					<p class="price">{{item.item_price}}</p>
+				</ion-item>
+			</ion-list>
+		</ion-row>
+	</ion-grid>
+</ion-content>

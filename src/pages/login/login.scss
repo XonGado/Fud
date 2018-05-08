@@ -1,0 +1,47 @@
+page-login {
+	// ion-content{ 
+	// 	margin-top: 5em;
+	// } 
+
+	.fud-logo{
+		height: 80px;
+		width: 80px;
+		display: block;
+		margin: unset auto;
+		transform: scale(1, 0.95); 
+		transform: translate(-0.25em, 0);
+		margin-bottom: 1em;
+	}
+
+	.fud-header{
+		color: white;
+		// font-family: Raleway;
+		text-align: center;
+		font-weight: normal;
+		text-transform: uppercase;
+		font-size: $regular;
+		letter-spacing: 0.5em;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		flex-direction: column;
+		
+		width: 100%;
+		margin-bottom: 0.5em;
+		transform: translate(0.25em, 0);
+	}
+
+	.subheading{
+		color: rgba(255,255,255,0.6);
+		margin-bottom: 3em;
+		text-align: center;
+	}
+
+	.users{
+		margin-top: 2em;
+	}
+
+	.users .icon{
+		margin: 0!important;
+	}
+}
