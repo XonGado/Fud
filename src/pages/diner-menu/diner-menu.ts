@@ -48,6 +48,9 @@ export class DinerMenuPage {
 		this.diner = this.firestore.collection('diners').doc(this.uid)
 		this.itemsCollectionRef = this.firestore.collection('diners').doc(this.uid).collection('items')
 		this.items = this.itemsCollectionRef.valueChanges()
+	}
+
+	ionViewWillEnter() { 
 		this.retrieveMenu()
 	}
 
@@ -105,6 +108,7 @@ export class DinerMenuPage {
 	}
 
 	initializeCategories(categories, items) {
+		this.categoryList = []
 		var _items: any[] = []
 		for (var category of categories) {
 			_items = this.getItemsUnderCategory(category, items)

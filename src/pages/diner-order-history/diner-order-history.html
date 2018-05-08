@@ -7,12 +7,39 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>diner-order-history</ion-title>
+    <ion-title>Order History</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+	<ion-list no-lines>
+		<!-- <ion-item *ngFor="let order of ordersList">
+			<ion-avatar item-start>
+				<img src="assets/imgs/samplePP.jpg">
+			</ion-avatar>
+			<h2>{{order.customer_name}}</h2>
+			<ion-badge color="secondary">{{order.order_cost}}</ion-badge>
+			<p>
+				{{itemCount}} items
+				<ion-icon *ngIf="order.order_type == 0" name="cafe"></ion-icon>
+				<ion-icon *ngIf="order.order_type == 1" name="walk"></ion-icon>
+				<ion-icon *ngIf="order.order_type == 2" name="bicycle"></ion-icon>
+			</p>
+		</ion-item> -->
 
+		<!--  [class.hidden]="!correctOrderType(order.order_type)" -->
+		<ion-item *ngFor="let order of ordersList; let i = index" class="order-list" (click)="openOrderDetails(i)">
+			<ion-avatar item-start>
+				<img src="assets/imgs/custAvatar.png">
+			</ion-avatar>
+			<h2>{{order.customer_name}}</h2>
+			<p class="price float-text-right green">{{order.order_cost}}</p>
+			<p class="count blue">{{itemCount}} items</p>
+			<span *ngIf="order.order_type == 0" class="typeIndicator blue"></span>
+			<span *ngIf="order.order_type == 1" class="typeIndicator violet"></span>
+			<span *ngIf="order.order_type == 2" class="typeIndicator red"></span>
+		</ion-item>
+	</ion-list>
 </ion-content>

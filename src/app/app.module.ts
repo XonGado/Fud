@@ -26,7 +26,9 @@ import { DinerCreateMenuPage } from '../pages/diner-create-menu/diner-create-men
 import { DinerMenuPage } from '../pages/diner-menu/diner-menu'
 import { DinerLocatePage } from '../pages/diner-locate/diner-locate'
 import { DinerScanPage } from '../pages/diner-scan/diner-scan'
+import { DinerOrderHistoryPage } from '../pages/diner-order-history/diner-order-history'
 import { HomeDinerPage } from '../pages/home-diner/home-diner'
+import { CustViewOrderPage } from '../pages/cust-view-order/cust-view-order'
 import { MenuPage } from '../pages/menu/menu'
 import { MenusPage } from '../pages/menus/menus'
 import { OrderPage } from '../pages/order/order'
@@ -68,7 +70,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerProfilePage,
     DinerProfileEditPage,
     DinerLocatePage,
+    DinerOrderHistoryPage,
     HomeDinerPage,
+    CustViewOrderPage,
     LoadingPage,
     MenuPage,
     MenusPage,
@@ -109,7 +113,9 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerProfileEditPage,
     DinerProfilePage,
     DinerLocatePage,
+    DinerOrderHistoryPage,  
     HomeDinerPage,
+    CustViewOrderPage,
     LoadingPage,
     MenuPage,
     MenusPage,

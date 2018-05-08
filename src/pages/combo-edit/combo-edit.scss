@@ -4,4 +4,22 @@ page-combo-edit {
 		bottom: 0;
 		left: 0;
 	}
+
+	.list-md:not(:last-of-type){
+		border-bottom: 1px solid #444;
+	}
+
+	.list-header-md{
+		margin-bottom: 0;
+		border-top: 0;
+		border-bottom: 1px solid #444;
+	}
+
+	.quantity{
+		color: $blue;
+	}
+
+	.searchbar-md{
+		padding: 8px 0;
+	}
 }

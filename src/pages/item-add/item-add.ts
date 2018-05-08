@@ -49,8 +49,6 @@ export class ItemAddPage {
       item_type: this.item_type.value,
       item_availability: true,
       item_visibility: true
-    }).then(function (data){
-      console.log("Data: ", data)
     }).catch(function (error){
       console.log("Error: ", error.code)
     })

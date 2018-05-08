@@ -208,7 +208,7 @@ export class OrderPage {
 		let price: number = 0
 
 		this.orderedItemsList.forEach(doc => {
-			price = price + Number(doc.item_price)
+			price = price + Number(doc.item_price * doc.item_ordered)
 		})
 
 		console.log(price)
@@ -233,14 +233,18 @@ export class OrderPage {
 					buttons: [{
 						text: "Okay!",
 						handler: () =>{
-							that.navCtrl.pop()
+							that.popPage()
 						}
 					}]
 				});
-				alert.present()
 				that.loading.dismiss()
+				alert.present()
 			})
 		})
+	}
+
+	popPage(){
+		this.navCtrl.pop()
 	}
 
 	itemPanned(e, item){

@@ -21,63 +21,30 @@
 
 	<ion-list>
 		<ion-item>
-			<ion-label color="light" inline>Name</ion-label>
+			<ion-label color="secondary" stacked text-uppercase>Name</ion-label>
 			<ion-input #item_name></ion-input>
 		</ion-item>
 		<ion-item>
-			<ion-label color="light" inline>Type</ion-label>
+			<ion-label color="secondary" stacked text-uppercase>Type</ion-label>
 			<ion-input #item_type></ion-input>
 		</ion-item>
 		<ion-item>
-			<ion-label color="light" inline>Price</ion-label>
+			<ion-label color="secondary" stacked text-uppercase>Price</ion-label>
 			<ion-input #item_price></ion-input>
 		</ion-item>
 	</ion-list>
 
 	<ion-list no-lines>
 		<ion-item>
-			<ion-label color="light">Description</ion-label>
+			<ion-label color="secondary" text-uppercase stacked>Description <p color="dark" text-lowercase>(Optional)</p></ion-label>
 		</ion-item>
 		<ion-item>
 			<ion-textarea #item_description></ion-textarea>
 		</ion-item>
 	</ion-list>
 
-
-	<!-- <ion-list>
-		<ion-item>
-			<ion-label inline>Visibility</ion-label>
-			<ion-checkbox color="secondary"></ion-checkbox>
-		</ion-item>
-	</ion-list>
-	<ion-list>
-		<ion-item>
-			<ion-label inline>Availability</ion-label>
-			<ion-checkbox color="secondary"></ion-checkbox>
-		</ion-item>
-	</ion-list> -->
-
-	<button ion-button block icon-start color="secondary" (click)="addItem()">
-		<ion-icon name="add"></ion-icon>
-		ADD
+	<button ion-button block round outline icon-start color="secondary" (click)="addItem()">
+		<ion-icon name="add"></ion-icon> ADD
 	</button>
 
-	<!-- <button class="back-button-custom" (click)="closePage()">
-		<ion-icon name="arrow-back"></ion-icon>
-	</button>
-
-	<div class="item-image">
-		<button class="upload-image">Choose another picture<ion-icon name="select"></ion-icon></button>
-		<img src="assets/imgs/1.jpg">
-	</div>
-	<input type="text" class="name" name="item-name" value="Blue Berry Frappe" #item_name>
-	<input type="text" class="type" name="item-type" value="Frappes" #item_type>
-	<input type="text" class="price" name="item-price" value="120" #item_price>
-	<input type="checkbox" class="availability" name="availability" checked>
-	<input type="checkbox" class="visibility" name="visibility" checked>
-	<textarea class="description" #item_description>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-	</textarea>
-	<button type="button" class="add-item-button" (click)="addItem()">
-		Add <ion-icon name="add"></ion-icon>
-	</button> -->
 </ion-content>

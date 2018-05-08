@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-buttons start>
+    <ion-buttons>
       <button icon-only ion-button navPop>
         <ion-icon name="arrow-back"></ion-icon>
       </button>
@@ -30,8 +30,8 @@
       Is this your restaurant's location? 
       <span class="secondary">If not, make sure you are located in your restaurant and set it up later.</span>
     </p>
-		<button ion-button color="secondary" (click)="confirmMapSetting()">
-			<ion-icon name="checkmark" item-left></ion-icon>
+		<button ion-button color="secondary" icon-left (click)="confirmMapSetting()">
+			<ion-icon name="checkmark"></ion-icon>
 			Yes, set location here.
 		</button>
 	</div>

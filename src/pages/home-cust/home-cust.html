@@ -18,6 +18,12 @@
 		    	<ion-icon name="map"></ion-icon>
 		    </button>
 		</ion-buttons> -->
+		<ion-buttons end *ngIf="ordered">
+			<button ion-button icon-left color="secondary" (click)="viewMyOrder()">
+				<ion-icon name="eye"></ion-icon>
+				View order
+			</button>
+		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
 

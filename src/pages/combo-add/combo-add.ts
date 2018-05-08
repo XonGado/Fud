@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { IonicPage, NavController, NavParams, AlertController, ModalController, Events, Platform } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, AlertController, ModalController, ToastController, Events, Platform } from 'ionic-angular'
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
@@ -48,6 +48,7 @@ export class ComboAddPage {
 				public alertCtrl: AlertController, 
 				public events: Events,
 				public modalCtrl: ModalController,
+				public toastCtrl: ToastController,
 				public platform: Platform,
 	      		private fire: AngularFireAuth,
 	     		private firestore: AngularFirestore) {
@@ -161,7 +162,7 @@ export class ComboAddPage {
 			name = "Combo"
 		}
 		this.orderedItemsList.forEach(doc => {
-			cost = cost + Number(doc.item_price)
+			cost += Number(doc.item_price * doc.item_ordered)
 		})
 
 		this.customerDocRef.ref.get()
@@ -174,6 +175,15 @@ export class ComboAddPage {
 				combo_cost: cost,
 				items: that.orderedItemsList
 			})
+
+			var comboAddToast = this.toastCtrl.create({
+				message: "Your combo is added.",
+				dismissOnPageChange: true,
+				position: "top",
+				duration: 3000
+			})
+
+			comboAddToast.present()
 		})
 	}
 
@@ -187,7 +197,7 @@ export class ComboAddPage {
 			item.item_count = 0
 		}
 
-		this.itemIsOrdered(e, item)
+		// this.itemIsOrdered(e, item)
 		item.item_ordered = Math.floor(item.item_count/5)
 		this.totalItemCount = this.totalItemCount + item.item_ordered
 	}
@@ -206,17 +216,17 @@ export class ComboAddPage {
 			item.item_ordered = 0
 		} 
 
-		this.itemIsOrdered(e, item)
+		// this.itemIsOrdered(e, item)
 	}
 
-	itemIsOrdered(e, item){
-		var className = "item item-block item-md"
-		if (item.item_count > 0) {
-			e.target.offsetParent.className = className + " ordered"
-		} else {
-			e.target.offsetParent.className = className
-		}
-	}
+	// itemIsOrdered(e, item){
+	// 	var className = "item item-block item-md"
+	// 	if (item.item_count > 0) {
+	// 		e.target.offsetParent.className = className + " ordered"
+	// 	} else {
+	// 		e.target.offsetParent.className = className
+	// 	}
+	// }
 
 	gatherOrder(){
 		var _list: Item[] = []

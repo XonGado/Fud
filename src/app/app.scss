@@ -20,7 +20,7 @@ $red	: #E91E63;
 $yellow	: #FDD835;
 $green	: #acdc39;
 $blue	: #00BCD4;
-$violet	: #AB47BC;
+$purple	: #AB47BC;
 $dark-yellow	: #facc2e;
 
 // Shadow values
@@ -36,6 +36,10 @@ $regular: 1.3em;
 $medium : 2em;
 $large  : 3em;
 
+// .input-wrapper ion-label{
+// 	text-transform: uppercase;
+// }
+
 ion-spinner {
 	* {
 		stroke: $green!important;
@@ -50,8 +54,57 @@ ion-spinner {
 	}
 }
 
+.empty-message{
+	text-align: center;
+	color: rgba(255,255,255,0.25);
+
+	ion-icon{
+		font-size: 2em;
+		display: block;
+	}
+}
+
+.red,
+.danger{
+	color: $red!important;
+}
+
+.yellow,
+.warning{
+	color: $yellow!important;
+}
+
+.blue{
+	color: $blue!important;
+}
+
+.purple{
+	color: $purple!important;
+}
+
+.green{
+	color: $green!important;
+}
+
+ion-backdrop{
+	opacity: 0.8;
+}
+
+.price:before{
+	content: "₱ ";
+}
+
+.hidden{
+    display: none;
+  }
+
+.action-sheet-group,
+.action-sheet-group .action-sheet-button{
+	text-transform: uppercase!important;
+	letter-spacing: 0.05em;
+}
+
 .bubble-badge{
-	// font-family: "Roboto Light";
 	font-size: 0.6em;
 	border-radius: 50%;
 	height: 2rem!important;
@@ -71,59 +124,16 @@ ion-spinner {
 
 .float-text-right{
 	text-align: right;
-	// width: 2.5em;
 	position: absolute;
 	right: 1em;
 	top: 50%;
 	transform: translate(0, -50%);
-	// color: #32db64;
 	background: linear-gradient(to left, #222, #222, rgba(0,0,0,0));
 }
 
-// $toast-ios-background: $red;
-// $toast-md-background: $red;
-
-// Customized font
-// @font-face {
-// 	font-family: Raleway;
-// 	src: url("../assets/fonts/Raleway-Regular.ttf");
-// }
-
-// *:not(ion-icon){
-// 	font-family: Raleway!important;
-// }
-
-/* width */
 ::-webkit-scrollbar {
     width: 0px;
 }
-
-/* Track */
-// ::-webkit-scrollbar-track {
-//     background: #f1f1f1; 
-// }
-
-/* Handle */
-// ::-webkit-scrollbar-thumb {
-//     background: #888; 
-// }
-
-/* Handle on hover */
-// ::-webkit-scrollbar-thumb:hover {
-//     background: #555; 
-// }
-
-// .input-wrapper,
-// .item-inner,
-// ion-label.label{
-// 	min-height: unset;
-// 	max-height: unset;
-// 	padding: unset;
-// 	margin: unset;
-// 	height: unset;
-// 	width: unset;
-// 	display: unset;
-// }
 
 ion-label.label{
 	margin: 10px 8px 10px 0;
@@ -134,11 +144,6 @@ ion-item-sliding ion-item-options button{
 	width: 62px;
 }
 
-// ion-item-sliding ion-item-options button .button-inner{
-// 	display: inline-flex;
-// 	align-items: center;
-// }
-
 ion-item-sliding ion-item-options ion-icon{
 	font-size: 2em;
 	transform: translate(0, 0.15em);
@@ -148,61 +153,6 @@ img{
     object-fit: cover;
     object-position: center;
 }
-
-// ion-toggle{
-// 	transform: translate(-1em, -1em);
-// }
-
-// .toggle-md{
-// 	contain: unset;
-// }
-
-// .toggle-md .toggle-icon{
-// 	top: -8px;
-// }
-
-
-.search-template{
-	display: flex;
-	background-color: white;
-	box-shadow: $light-shadow;
-}
-
-.search-template > input[type="text"]{
-	font-size: 1.25em;
-	display: block;
-	width: 100%;
-	padding: 0.5em 1em;
-	background-color: transparent;
-	color: #333;
-	border: none;
-}
-
-.search-template > input[type="text"]::placeholder{
-	color: #888;
-}
-
-.search-template > button{
-	font-size: 1.25em;
-	padding: 0.5em 0.75em;
-	color: white;
-	background-color: $red;
-}
-
-.container{
-	// min-height: 50vh;
-}
-
-.container.centered-content{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-}
-
-// ion-navbar{
-// 	background-color: red;
-// }
 
 ion-title{
 	color: white;
@@ -218,122 +168,32 @@ ion-title{
 	background-color: $dark-yellow;
 }
 
-.sidemenu-pp{
-	height: 13.5em;	
-	width: 100%;
-	position: relative;
-	filter: brightness(80%);
-	object-fit: cover;
-	object-position: center;
-	transition: 0.5s; 
-	cursor: pointer;
+page-home-diner,
+page-diner-order-history {
+
+  // triangle
+  .typeIndicator{
+    display: block;
+    position: absolute;
+    transform: rotate(45deg);
+    height: 32px;
+    width: 12px;
+    top: -16px;
+    left: 0;
+  }
+  
+  // line
+  // .typeIndicator{
+  //   display: block;
+  //   position: absolute;
+  //   height: 100%;
+  //   width: 4px;
+  //   top: 50%;
+  //   right: 0;
+  // }
+
+  .typeIndicator.blue{ background-color: $blue; }
+  .typeIndicator.purple{ background-color: $purple; }
+  .typeIndicator.violet{ background-color: $purple; }
+  .typeIndicator.red{ background-color: $red; }
 }
-
-.sidemenu-pp:hover{
-	filter: brightness(100%);
-}
-
-.sidemenu-pp::after{
-	content: "";
-	background-color: black;
-	opacity: 0.7;
-	display: block;
-	height: 9em;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 1;
-}
-
-// #side-menu .email{
-// 	padding-left: 10px;
-// 	color: rgba(0,0,0,0.5);
-// }
-
-// #side-menu button ion-icon{
-// 	color: $red;
-// }
-
-// #side-menu button:hover ion-icon[name="arrow-round-forward"]{
-// 	right: 10px;
-// }
-
-// page-cust-profile{
-
-// }
-
-// Start of main code.
-
-// $break-small: 320px;
-// $break-large: 1200px;
-
-// *{
-// 	box-sizing: border-box!important;
-// }
-
-// body{
-// 	margin: 0;
-// 	padding: 0;
-// }
-
-// img{
-// 	max-width: 100vw;
-// }
-
-// nav{
-// 	background: linear-gradient(rgba(0,0,0,0.7), transparent);
-// 	box-shadow: none;
-// 	top: 0;
-// 	width: 100%;
-// 	position: fixed;
-// 	// height: 2em;
-// 	padding: 0 0.5em;
-// 	display: flex;
-// 	align-items: center;
-// 	margin: 0;
-// 	z-index: 100;
-// }
-
-// nav{
-// 	a:hover{
-// 		color: white;
-// 		text-decoration: none!important;
-// 	}
-
-// 	.center, .right, .left{
-// 		top: -0.5em;
-// 		position: absolute;
-// 	}
-
-// 	.right{
-// 		right: 0.5em;
-// 	}
-
-// 	.left{
-// 		left: 0.5em;
-// 	}
-
-// 	.center{
-// 		position: absolute;
-// 		left: 50%;
-// 		transform: translate(-50%, 0);
-// 		color: white;
-// 		text-decoration: none;
-// 		font-family: "Raleway medium";
-// 		letter-spacing: 0.05em;
-// 	}
-// }
-
-// .container{
-// 	padding: 0!important;
-// 	margin: 0!important;
-// 	min-height: 90vh;
-// 	width: 100%;
-// 	min-width: unset!important;
-// }
-
-
-
-
-

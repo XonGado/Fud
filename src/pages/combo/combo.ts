@@ -35,6 +35,9 @@ export class ComboPage {
               private fire: AngularFireAuth) {
     this.uid = this.fire.auth.currentUser.uid
     this.combosCollectionRef = this.firestore.collection('customers').doc(this.uid).collection('combos')
+  }
+
+  ionViewWillEnter() { 
     this.getCombos()
   }
 
@@ -44,6 +47,8 @@ export class ComboPage {
 
   getCombos() {
     let that = this
+    this.combosList = []
+
     this.combosCollectionRef.ref.get()
     .then(function(querySnapshot) {
       querySnapshot.forEach(doc => {

@@ -29,8 +29,7 @@
 				<!-- <img src="assets/imgs/{{item.item_image}}"> -->
 				<img src="assets/imgs/6.jpg">
 			</ion-avatar>
-			<h2>{{item.item_name}}</h2>
-			<p>{{item.item_ordered}}</p>
+			<h2>{{item.item_name}} <span class="quantity" *ngIf="item.item_ordered > 0">&times; {{item.item_ordered}}</span></h2>
 			<p class="price">{{item.item_price}}</p>
 		</ion-item>
 	</ion-list>

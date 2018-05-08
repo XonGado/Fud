@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, MenuController, ToastController } from 'ionic-angular';
 
 import { RegisterPage } from '../register/register';
 import { HomeDinerPage } from '../home-diner/home-diner';
@@ -30,10 +30,12 @@ export class LoginPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
+    public menu: MenuController,
     private fire: AngularFireAuth, 
     private firestore: AngularFirestore, 
     public loadingCtrl: LoadingController, 
     public toastCtrl: ToastController) {
+    this.menu.enable(true)
   }
 
   openRegisterPage() {

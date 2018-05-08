@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController, Events, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController, ActionSheetController, Events, Platform } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -44,6 +44,7 @@ export class ComboEditPage {
 				public alertCtrl: AlertController, 
 				public events: Events,
 				public modalCtrl: ModalController,
+				public actionSheetCtrl: ActionSheetController,
 				public platform: Platform,
 				private fire: AngularFireAuth,
 				private firestore: AngularFirestore) {
@@ -252,7 +253,26 @@ export class ComboEditPage {
 	clearItem(){
 
 	}
+
+	presentActionSheet() {
+		let actionSheet = this.actionSheetCtrl.create({
+			title: 'More options',
+			buttons: [
+				{
+					cssClass: 'danger',
+					icon: 'close',
+					text: 'Delete',
+					handler: () => {
+						this.deleteCombo()
+					}
+				}
+			]
+		});
+
+		actionSheet.present();
+	}
 }
+
 
 interface Category{
   title: string,

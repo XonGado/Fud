@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, MenuController } from 'ionic-angular';
 import { DinerMenuPage } from'../diner-menu/diner-menu';
 import { DinerScanPage } from '../diner-scan/diner-scan';
 import { DinerProfilePage } from '../diner-profile/diner-profile';
 import { OrderDetailsPage } from '../order-details/order-details';
+import { DinerOrderHistoryPage } from '../diner-order-history/diner-order-history'
 
 import { Order } from '../../models/order.interface'
 import { DinerDetails } from '../../models/dinerdetails.interface'
@@ -33,17 +34,32 @@ export class HomeDinerPage {
   diner: AngularFirestoreDocument<DinerDetails>
   orderFilter: string = "all"
   order_ids: any[] = []
+  user: object = {
+    name: 'sample',
+    email: 'sample'
+  }
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
+              public menu: MenuController,
               public modalCtrl: ModalController, 
               private fire: AngularFireAuth, 
               private firestore: AngularFirestore) {
+    this.menu.enable(true)
     this.uid = this.fire.auth.currentUser.uid
     this.diner = this.firestore.collection('diners').doc(this.uid)
-    this.ordersCollectionRef = this.diner.collection('orders', ref => ref.where("cleared", "==", false))
-    this.getOrders()
+    this.diner.ref.get().then( doc => { 
+      this.user = { 
+        name: doc.data().dine_owner_name, 
+        email: doc.data().dine_email 
+      }
+    })
+    this.ordersCollectionRef = this.diner.collection('orders')
+  }
 
+  ionViewWillEnter() { 
+    this.getOrders()
+    this.menu.enable(true)
   }
 
   ionViewDidLoad() {
@@ -52,13 +68,16 @@ export class HomeDinerPage {
 
   getOrders() {
     let that = this
-    this.ordersCollectionRef.ref.get()
+    this.ordersList = []
+    this.order_ids = []
+
+    this.ordersCollectionRef.ref.where("cleared", "==", false).get()
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
-        if(!doc.data().cleared){
-          that.ordersList.push(doc.data())
-          that.order_ids.push(doc.id)
-        }
+        that.ordersList.push(doc.data())
+        that.order_ids.push(doc.id)
+        console.log(doc.data().customer_name)
+        console.log(doc.id)
       })
       that.getItems()
     })
@@ -115,5 +134,9 @@ export class HomeDinerPage {
     this.navCtrl.push(OrderDetailsPage, {
       data: that.order_ids[index]
     });
+  }
+
+  openOrderHistory(){
+    this.navCtrl.push(DinerOrderHistoryPage)
   }
 }

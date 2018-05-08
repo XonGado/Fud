@@ -27,20 +27,19 @@
 
 </ion-header>
 
-
 <ion-content padding>
-	<ion-list *ngFor="let item of items">
-		<ion-item>
+	<ion-list>
+		<ion-item *ngFor="let item of items">
 			<ion-avatar item-start>
 				<img src="assets/imgs/6.jpg">
 			</ion-avatar>
-			<h2>{{item.item_name}}</h2>
-			<p class="price">{{item.item_price}}</p>
+			<h2><span class="quantity">{{item.item_ordered}} &times;</span> {{item.item_name}}</h2>
+			<p class="price">{{item.item_price * item.item_ordered}}</p>
+		</ion-item>
+		<ion-item>
+			<p ion-text text-right color="secondary">TOTAL: {{order_cost}}</p>
 		</ion-item>
 	</ion-list>
-	<ion-card>
-		<p>TOTAL: {{order_cost}}</p>
-	</ion-card>
 </ion-content>
 
 <ion-footer>

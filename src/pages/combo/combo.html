@@ -24,9 +24,9 @@
 		You don't have any combos. Create one?
 	</p>
 
-	<ion-grid fixed>
+	<ion-grid>
 		<ion-row>
-			<ion-list ion-col col-12 col-sm-12 col-md-6 col-lg-4 *ngFor = "let combo of combosList; let i = index" (click)="openEditComboModal(i)">
+			<ion-list ion-col col-12 col-sm-6 col-md-4 col-lg-4 *ngFor = "let combo of combosList; let i = index" (click)="openEditComboModal(i)">
 				<ion-item class="primary">
 					<ion-avatar item-left>
 						<img src="assets/imgs/6.jpg">

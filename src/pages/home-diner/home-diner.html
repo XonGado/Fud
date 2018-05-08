@@ -20,11 +20,11 @@
 		<ion-title>Orders</ion-title>
 	</ion-toolbar>
 	<ion-toolbar>
-		<ion-segment [(ngModel)]="orderFilter" color="secondary">
+		<ion-segment [(ngModel)]="orderFilter" color="light">
 			<ion-segment-button value="all">All</ion-segment-button>
-			<ion-segment-button value="dine-in" icon-right>Dine-in <ion-icon name="cafe" color="light"></ion-icon></ion-segment-button>
-			<ion-segment-button value="take-out" icon-right>Take-out <ion-icon name="walk" color="light"></ion-icon></ion-segment-button>
-			<ion-segment-button value="delivery" icon-right>Delivery <ion-icon name="bicycle" color="light" ></ion-icon></ion-segment-button>
+			<ion-segment-button value="dine-in" icon-right>Dine-in <ion-icon name="cafe" class="blue"></ion-icon></ion-segment-button>
+			<ion-segment-button value="take-out" icon-right>Take-out <ion-icon name="walk" class="purple"></ion-icon></ion-segment-button>
+			<ion-segment-button value="delivery" icon-right>Delivery <ion-icon name="bicycle" class="red" ></ion-icon></ion-segment-button>
 		</ion-segment>
 	</ion-toolbar>
 </ion-header>
@@ -33,25 +33,29 @@
 	<ion-header no-lines>
 		<ion-item>
 			<ion-avatar item-start>
-				<img src="assets/imgs/samplePP.jpg" (click)="openProfile()">
+				<img src="assets/imgs/dinerAvatar.png" (click)="openProfile()">
 			</ion-avatar>
-			<h2 text-nowrap (click)="openProfile()" color="secondary">Cafe Diem</h2>
-			<p text-nowrap>cafeDiem@gmail.com</p>
+			<h2 text-nowrap (click)="openProfile()" color="secondary">{{user.name}}</h2>
+			<p text-nowrap>{{user.email}}</p>
 		</ion-item>
 	</ion-header>
 	<ion-content>
 		<ion-list>
 			<button ion-item icon-start (click)="openProfile()">
-				<ion-icon name="person" color="fudGreen"></ion-icon> 
+				<ion-icon name="person" class="green"></ion-icon> 
 				Profile
 			</button>
 			<button ion-item icon-start (click)="openMenu()">
-				<ion-icon name="paper" color="fudGreen"></ion-icon> 
+				<ion-icon name="paper" class="yellow"></ion-icon> 
 				Menu
 			</button>
 			<button ion-item icon-start (click)="openScanner()">
-				<ion-icon name="qr-scanner" color="fudGreen"></ion-icon> 
-				QRScan
+				<ion-icon name="qr-scanner" class="blue"></ion-icon> 
+				Scanner
+			</button>
+			<button ion-item icon-start (click)="openOrderHistory()">
+				<ion-icon name="filing" class="purple"></ion-icon>
+				Order History
 			</button>
 			<button ion-item icon-start (click)="logout()">
 				<ion-icon name="log-out" color="danger"></ion-icon> 
@@ -64,22 +68,23 @@
 <ion-nav #content [root]="rootPage"></ion-nav>
 
 <ion-content padding>
-	<ion-list>
+	<ion-list no-lines>
 		<ion-item *ngFor="let order of ordersList; let i = index" class="order-list" (click)="openOrderDetails(i)" [class.hidden]="!correctOrderType(order.order_type)">
 			<ion-avatar item-start>
-				<img src="assets/imgs/samplePP.jpg">
+				<img src="assets/imgs/custAvatar.png">
 			</ion-avatar>
 			<h2>{{order.customer_name}}</h2>
-			<ion-badge color="secondary">{{order.order_cost}}</ion-badge>
-			<p>
-				{{itemCount}} items
-				<ion-icon *ngIf="order.order_type == 0" name="cafe"></ion-icon>
-				<ion-icon *ngIf="order.order_type == 1" name="walk"></ion-icon>
-				<ion-icon *ngIf="order.order_type == 2" name="bicycle"></ion-icon>
-			</p>
+			<p class="price float-text-right green">{{order.order_cost}}</p>
+			<p class="count blue">{{itemCount}} items</p>
+			<span *ngIf="order.order_type == 0" class="typeIndicator blue"></span>
+			<span *ngIf="order.order_type == 1" class="typeIndicator violet"></span>
+			<span *ngIf="order.order_type == 2" class="typeIndicator red"></span>
 		</ion-item>
 	</ion-list>
-	<p *ngIf=" ordersList.length < 1 ">
-		You don't have any orders yet. 
+	<p class="empty-message" *ngIf=" ordersList.length < 1">
+		<span *ngIf="orderFilter == 'all'"><ion-icon name="paper"></ion-icon>You don't have any orders yet.</span>
+		<span *ngIf="orderFilter == 'dine-in'"><ion-icon name="cafe"></ion-icon>You don't have any orders yet.</span>
+		<span *ngIf="orderFilter == 'take-out'"><ion-icon name="walk"></ion-icon>No take-outs to prepare.</span>
+		<span *ngIf="orderFilter == 'delivery'"><ion-icon name="delivery"></ion-icon>No deliveries to</span>
 	</p>
 </ion-content>

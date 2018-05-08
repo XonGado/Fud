@@ -35,9 +35,9 @@ export class OrderDetailsPage {
   	let that = this
   	this.orderDocRef.ref.get()
   	.then(doc => {
-		that.customer_name = doc.data().customer_name
-		that.items = doc.data().items
-		that.order_cost = doc.data().order_cost
+  		that.customer_name = doc.data().customer_name
+  		that.items = doc.data().items
+  		that.order_cost = doc.data().order_cost
   	})
   }
 
