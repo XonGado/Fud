@@ -11,7 +11,6 @@ import { DinerDetails } from '../../models/dinerdetails.interface'
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
-import { Observable } from 'rxjs/Observable'
 
 /**
  * Generated class for the HomeDinerPage page.
@@ -76,8 +75,6 @@ export class HomeDinerPage {
       querySnapshot.forEach(function(doc) {
         that.ordersList.push(doc.data())
         that.order_ids.push(doc.id)
-        console.log(doc.data().customer_name)
-        console.log(doc.id)
       })
       that.getItems()
     })
