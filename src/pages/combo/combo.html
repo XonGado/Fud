@@ -20,8 +20,8 @@
 
 
 <ion-content padding>
-	<p *ngIf=" combosList.length <= 0 ">
-		You don't have any combos. Create one?
+	<p class="empty-message" *ngIf=" combosList.length <= 0 ">
+		<span><ion-icon name="pizza"></ion-icon> You don't have any combos.</span>
 	</p>
 
 	<ion-grid>

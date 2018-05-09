@@ -30,7 +30,6 @@ export class ComboAddPage {
 	@ViewChild('combo_name') combo_name
 
 	totalItemCount: number = 0
-	searchQuery: string = ''
 	itemList: Item[]
 	categoryList: Category[] = []
 	orderedItemsList: any[] = []
@@ -244,6 +243,26 @@ export class ComboAddPage {
 	ionViewDidLoad() {
 		this.getItems()
 		console.log('ionViewDidLoad ComboPage')
+	}
+
+	filter(name, keyword){
+		var _filter = new RegExp(keyword, 'gi');
+		if (_filter.test(name)) {
+			return true
+		}
+		return false
+	}
+
+	isEmpty(items, keyword){
+		var _filter = new RegExp(keyword, 'gi');
+		
+		for (var item of items) {
+			if (_filter.test(item.item_name)) {
+				return false
+			}
+		}
+
+		return true
 	}
 }
 
