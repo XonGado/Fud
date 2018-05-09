@@ -4,5 +4,7 @@ export interface Order {
     order_cost: number,
     items: any[],
     cleared: boolean,
-    order_type: any
+    order_type: any,
+    totalItems: number,
+    orderNumber: number
 }

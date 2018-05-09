@@ -70,7 +70,7 @@ export class HomeDinerPage {
     this.ordersList = []
     this.order_ids = []
 
-    this.ordersCollectionRef.ref.where("cleared", "==", false).get()
+    this.ordersCollectionRef.ref.where("cleared", "==", false).orderBy("orderNumber", "asc").get()
     .then(function(querySnapshot) {
       querySnapshot.forEach(function(doc) {
         that.ordersList.push(doc.data())

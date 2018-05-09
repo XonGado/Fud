@@ -37,9 +37,10 @@ export class OrderPage {
 	ordersCollectionRef: AngularFirestoreCollection<Order>
 	dinerCollectionRef: AngularFirestoreCollection<DinerDetails>
 	customerDocRef: AngularFirestoreDocument<CustomerDetails>
-	itemCount: number
 	orderType: any
 	orderTypeText: string
+	orderNumber: number = 1
+	itemCount: number
 
 	loading = this.loadingCtrl.create({
       dismissOnPageChange: true,
@@ -155,8 +156,6 @@ export class OrderPage {
 	}
 
 	askOrderType(){
-		let that = this
-
 		let alert = this.alertCtrl.create();
 
 		alert.setTitle("Select an option")
@@ -202,16 +201,27 @@ export class OrderPage {
 		// // Saving to database
 		this.loading.present()
 		this.orderedItemsList = this.gatherOrder()
+
 		let customer_name: string
 		let customer_id: string
 		let that = this
 		let price: number = 0
+		let count: number = 0
 
 		this.orderedItemsList.forEach(doc => {
 			price = price + Number(doc.item_price * doc.item_ordered)
+			count = count + Number(doc.item_ordered)
 		})
 
 		console.log(price)
+		console.log(count)
+
+		this.ordersCollectionRef.ref.get()
+		.then(querySnapshot => {
+			querySnapshot.forEach(doc => {
+				that.orderNumber +=1
+			})
+		})
 
 		this.customerDocRef.ref.get()
 		.then(doc => {
@@ -224,7 +234,9 @@ export class OrderPage {
 				order_cost: price,
 				items: that.orderedItemsList,
 				cleared: false,
-				order_type: that.orderType
+				order_type: that.orderType,
+				totalItems: count,
+				orderNumber: that.orderNumber
 			})
 			.then(function(){
 				let alert = that.alertCtrl.create({
