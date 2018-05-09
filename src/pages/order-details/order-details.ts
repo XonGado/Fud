@@ -21,13 +21,17 @@ import { Order } from '../../models/order.interface'
 export class OrderDetailsPage {
   order_id: any
   orderDocRef: AngularFirestoreDocument<Order>
+  orderedItemsColRef: any
   customer_name: string
   items: any[] = []
   order_cost: any
+  ordereditems_id: any[] = []
+  lock: boolean
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private fire: AngularFireAuth, private firestore: AngularFirestore) {
   	this.order_id = this.navParams.get('data')
   	this.orderDocRef = this.firestore.collection('diners').doc(this.fire.auth.currentUser.uid).collection('orders').doc(this.order_id)
+    this.orderedItemsColRef = this.orderDocRef.collection('OrderedItems')
   	this.getOrderDetails()
   }
 
@@ -37,16 +41,17 @@ export class OrderDetailsPage {
   	.then(doc => {
   		that.customer_name = doc.data().customer_name
   		that.order_cost = doc.data().order_cost
+      that.lock = doc.data().lock
     })
-    this.orderDocRef.collection('OrderedItems').ref.get()
+    this.orderedItemsColRef.ref.get()
     .then(querySnapshot => {
       querySnapshot.forEach(doc => {
         that.items.push(doc.data())
+        that.ordereditems_id.push(doc.id)
       })
       for (var i = 0; i < that.items.length; i++) {
         that.items[i].lock = false
       }
-      console.log(that.items)
   	})
   }
 
@@ -62,7 +67,11 @@ export class OrderDetailsPage {
   }
 
   changeLock(index){
-    console.log(index)
+    let ordereditemsid = this.ordereditems_id[index]
+    let that = this
+    this.orderedItemsColRef.doc(ordereditemsid).ref.update({
+      lock: !that.lock
+    })
   }
 
   locksEnabled(){
@@ -73,6 +82,4 @@ export class OrderDetailsPage {
     }
     return true
   }
-
-
 }
