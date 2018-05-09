@@ -15,21 +15,6 @@
 
 <ion-content padding>
 	<ion-list no-lines>
-		<!-- <ion-item *ngFor="let order of ordersList">
-			<ion-avatar item-start>
-				<img src="assets/imgs/samplePP.jpg">
-			</ion-avatar>
-			<h2>{{order.customer_name}}</h2>
-			<ion-badge color="secondary">{{order.order_cost}}</ion-badge>
-			<p>
-				{{itemCount}} items
-				<ion-icon *ngIf="order.order_type == 0" name="cafe"></ion-icon>
-				<ion-icon *ngIf="order.order_type == 1" name="walk"></ion-icon>
-				<ion-icon *ngIf="order.order_type == 2" name="bicycle"></ion-icon>
-			</p>
-		</ion-item> -->
-
-		<!--  [class.hidden]="!correctOrderType(order.order_type)" -->
 		<ion-item *ngFor="let order of ordersList; let i = index" class="order-list" (click)="openOrderDetails(i)">
 			<ion-avatar item-start>
 				<img src="assets/imgs/custAvatar.png">
