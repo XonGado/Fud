@@ -8,5 +8,5 @@ export interface Item{
 	item_ordered: number,
 	item_availability: boolean,
 	item_visibility: boolean,
-	cleared: boolean
+	lock: boolean
 }

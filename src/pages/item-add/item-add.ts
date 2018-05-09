@@ -48,7 +48,8 @@ export class ItemAddPage {
       item_price: this.item_price.value,
       item_type: this.item_type.value,
       item_availability: true,
-      item_visibility: true
+      item_visibility: true,
+      lock: false
     }).catch(function (error){
       console.log("Error: ", error.code)
     })

@@ -37,6 +37,7 @@ export class OrderPage {
 	ordersCollectionRef: AngularFirestoreCollection<Order>
 	dinerCollectionRef: AngularFirestoreCollection<DinerDetails>
 	customerDocRef: AngularFirestoreDocument<CustomerDetails>
+	orderedItemsColRef: AngularFirestoreCollection<Item>
 	orderType: any
 	orderTypeText: string
 	orderNumber: number = 1
@@ -82,10 +83,6 @@ export class OrderPage {
 			title: title,
 			items: items
 		});
-
-		console.log("Created category: " + title);
-		console.log("has the following items: ");
-		console.log(items);
 	}
 
 	confirmQR(){
@@ -204,6 +201,7 @@ export class OrderPage {
 
 		let customer_name: string
 		let customer_id: string
+		let id = this.firestore.createId()
 		let that = this
 		let price: number = 0
 		let count: number = 0
@@ -212,9 +210,6 @@ export class OrderPage {
 			price = price + Number(doc.item_price * doc.item_ordered)
 			count = count + Number(doc.item_ordered)
 		})
-
-		console.log(price)
-		console.log(count)
 
 		this.ordersCollectionRef.ref.get()
 		.then(querySnapshot => {
@@ -227,12 +222,10 @@ export class OrderPage {
 		.then(doc => {
 			customer_name = doc.data().cust_name
 			customer_id = doc.id
-			let id = that.firestore.createId()
 			that.ordersCollectionRef.doc(id).set({
 				customer_id: customer_id,
 				customer_name: customer_name,
 				order_cost: price,
-				items: that.orderedItemsList,
 				cleared: false,
 				order_type: that.orderType,
 				totalItems: count,
@@ -251,6 +244,24 @@ export class OrderPage {
 				});
 				that.loading.dismiss()
 				alert.present()
+			})
+		})
+		.then(doc => {
+			let that = this
+			that.orderedItemsList.forEach(doc => {
+				let ordereditem_id = that.firestore.createId()
+				that.ordersCollectionRef.doc(id).collection('OrderedItems').doc(ordereditem_id).set({
+					item_id: doc.item_id,
+					item_name: doc.item_name,
+					item_description: doc.item_description,
+					item_price: doc.item_price,
+					item_type: doc.item_type,
+					item_count: doc.item_count,
+					item_ordered: doc.item_ordered,
+					item_availability: doc.item_availability,
+					item_visibility: doc.item_visibility,
+					lock: false
+				})
 			})
 		})
 	}

@@ -56,9 +56,8 @@ export class OrderDetailsPage {
   	console.log('ionViewDidLoad OrderDetailsPage');
   }
 
-  changeLock(item){
-    // Property nga items sang orders is i'overwrite current nga this.items nga array.
-    console.log(item)
+  changeLock(index){
+    console.log(index)
   }
 
   locksEnabled(){
