@@ -36,7 +36,11 @@
 					<img src="assets/imgs/6.jpg">
 					<!-- <img src="assets/imgs/{{item.image}}"> -->
 				</ion-avatar>
-				<h2>{{item.item_name}}</h2>
+				<h2>
+					{{item.item_name}}
+					<ion-icon *ngIf="item.item_visibility" name="eye" color="secondary"></ion-icon>
+					<ion-icon *ngIf="item.item_availability" name="checkmark" color="secondary"></ion-icon>
+				</h2>
 				<p class="price float-text-right">{{item.item_price}}</p>
 			</ion-item>
 			<ion-item-options side="left">
