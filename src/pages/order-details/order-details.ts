@@ -56,8 +56,8 @@ export class OrderDetailsPage {
   	console.log('ionViewDidLoad OrderDetailsPage');
   }
 
-  changeLock(item){
-    console.log(item)
+  changeLock(index){
+    console.log(index)
   }
 
   locksEnabled(){
