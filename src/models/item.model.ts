@@ -7,5 +7,6 @@ export interface Item{
 	item_count: number,
 	item_ordered: number,
 	item_availability: boolean,
-	item_visibility: boolean
+	item_visibility: boolean,
+	cleared: boolean
 }

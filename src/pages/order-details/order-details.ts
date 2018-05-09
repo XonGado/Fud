@@ -41,7 +41,6 @@ export class OrderDetailsPage {
 
       for (var i = 0; i < that.items.length; i++) {
         that.items[i].lock = false
-        console.log(that.items[i])
       }
   	})
   }
