@@ -53,7 +53,6 @@ export class OrderDetailsPage {
   }
 
   ionViewDidLoad() {
-  	// this.getOrderDetails()
   	console.log('ionViewDidLoad OrderDetailsPage');
   }
 
@@ -68,4 +67,7 @@ export class OrderDetailsPage {
       }
     }
     return true
-  }}
+  }
+
+
+}

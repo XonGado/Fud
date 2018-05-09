@@ -159,13 +159,7 @@ ion-title{
 }
 
 .warning{
-	background-color: $yellow;
-	color: white;
-}
-
-.warning:hover,
-.warning:focus{
-	background-color: $dark-yellow;
+	border-color: $yellow!important;
 }
 
 page-home-diner,

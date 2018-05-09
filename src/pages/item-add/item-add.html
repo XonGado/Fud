@@ -14,37 +14,41 @@
 
 
 <ion-content padding>
-	<div class="item-image">
-		<button class="upload-image">Choose another picture<ion-icon name="select"></ion-icon></button>
-		<img src="assets/imgs/1.jpg">
-	</div>
+	<ion-row>
+		<ion-col col-12 col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4>
+			<div class="item-image">
+				<button class="upload-image">Choose another picture<ion-icon name="select"></ion-icon></button>
+				<img src="assets/imgs/1.jpg">
+			</div>
 
-	<ion-list>
-		<ion-item>
-			<ion-label color="secondary" stacked text-uppercase>Name</ion-label>
-			<ion-input #item_name></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" stacked text-uppercase>Type</ion-label>
-			<ion-input #item_type></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" stacked text-uppercase>Price</ion-label>
-			<ion-input #item_price></ion-input>
-		</ion-item>
-	</ion-list>
+			<ion-list>
+				<ion-item>
+					<ion-label color="secondary" stacked text-uppercase>Name</ion-label>
+					<ion-input #item_name></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label color="secondary" stacked text-uppercase>Type</ion-label>
+					<ion-input #item_type></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label color="secondary" stacked text-uppercase>Price</ion-label>
+					<ion-input #item_price></ion-input>
+				</ion-item>
+			</ion-list>
 
-	<ion-list no-lines>
-		<ion-item>
-			<ion-label color="secondary" text-uppercase stacked>Description <p color="dark" text-lowercase>(Optional)</p></ion-label>
-		</ion-item>
-		<ion-item>
-			<ion-textarea #item_description></ion-textarea>
-		</ion-item>
-	</ion-list>
+			<ion-list no-lines>
+				<ion-item>
+					<ion-label color="secondary" text-uppercase stacked>Description <p color="dark" text-lowercase>(Optional)</p></ion-label>
+				</ion-item>
+				<ion-item>
+					<ion-textarea #item_description></ion-textarea>
+				</ion-item>
+			</ion-list>
 
-	<button ion-button block round outline icon-start color="secondary" (click)="addItem()">
-		<ion-icon name="add"></ion-icon> ADD
-	</button>
+			<button ion-button block round outline icon-start color="secondary" (click)="addItem()">
+				<ion-icon name="add"></ion-icon> ADD
+			</button>
+		</ion-col>
+	</ion-row>
 
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ActionSheetController, NavParams } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
@@ -27,7 +27,7 @@ export class CustViewOrderPage {
 	items: any[] = []
 	order_cost: any
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private fire: AngularFireAuth, private firestore: AngularFirestore) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private fire: AngularFireAuth, private firestore: AngularFirestore) {
 		this.diner_id = this.navParams.get('dinerID')
 		this.order_id = this.navParams.get('orderID')
 
@@ -50,6 +50,24 @@ export class CustViewOrderPage {
 
 	ionViewDidLoad() {
     	console.log('ionViewDidLoad CustViewOrderPage');
+	}
+
+	moreOptions() {
+		let actionSheet = this.actionSheetCtrl.create({
+			title: 'More options',
+			buttons: [
+				{
+					cssClass: 'danger',
+					icon: 'close',
+					text: 'Cancel Order',
+					handler: () => {
+						// Delete order function here
+					}
+				}
+			]
+		});
+
+		actionSheet.present();
 	}
 
 }
