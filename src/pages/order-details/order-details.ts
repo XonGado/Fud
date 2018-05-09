@@ -38,6 +38,11 @@ export class OrderDetailsPage {
   		that.customer_name = doc.data().customer_name
   		that.items = doc.data().items
   		that.order_cost = doc.data().order_cost
+
+      for (var i = 0; i < that.items.length; i++) {
+        that.items[i].lock = false
+        console.log(that.items[i])
+      }
   	})
   }
 
@@ -49,9 +54,20 @@ export class OrderDetailsPage {
   }
 
   ionViewDidLoad() {
-  	// this.getOrderDet	ails()
+  	// this.getOrderDetails()
   	console.log('ionViewDidLoad OrderDetailsPage');
   }
 
-}
- 
+  changeLock(item){
+    console.log(item)
+  }
+
+  locksEnabled(){
+    for(var item of this.items){
+      if (item.lock == false) {
+        // code...
+        return false
+      }
+    }
+    return true
+  }}
