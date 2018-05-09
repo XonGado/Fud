@@ -14,54 +14,59 @@
 
 
 <ion-content padding>
+	<ion-row>
+		<ion-col col-12 col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4>
 
-	<div class="item-image">
-		<button class="upload-image">Choose another picture<ion-icon name="select"></ion-icon></button>
-		<img src="assets/imgs/1.jpg">
-	</div>
+			<div class="item-image">
+				<button class="upload-image">Choose another picture<ion-icon name="select"></ion-icon></button>
+				<img src="assets/imgs/1.jpg">
+			</div>
 
-	<ion-list>
-		<ion-item>
-			<ion-label color="secondary" inline>Name</ion-label>
-			<ion-input value="{{item_name}}" #name></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" inline>Type</ion-label>
-			<ion-input value="{{item_type}}" #type></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label color="secondary" inline>Price</ion-label>
-			<ion-input value="{{item_price}}" #price></ion-input>
-		</ion-item>
-	</ion-list>
+			<ion-list>
+				<ion-item>
+					<ion-label color="warning" stacked text-uppercase>Name</ion-label>
+					<ion-input value="{{item_name}}" #name></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label color="warning" stacked text-uppercase>Type</ion-label>
+					<ion-input value="{{item_type}}" #type></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label color="warning" stacked text-uppercase>Price</ion-label>
+					<ion-input value="{{item_price}}" #price></ion-input>
+				</ion-item>
+			</ion-list>
 
-	<ion-list no-lines>
-		<ion-item>
-			<ion-label color="secondary">Description</ion-label>
-		</ion-item>
-		<ion-item>
-			<ion-textarea value="{{item_description}}" #description></ion-textarea>
-		</ion-item>
-	</ion-list>
+			<ion-list no-lines>
+				<ion-item>
+					<ion-label color="warning" text-uppercase stacked>Description <p color="dark" text-lowercase>(Optional)</p></ion-label>
+				</ion-item>
+				<ion-item>
+					<ion-textarea value="{{item_description}}" #description></ion-textarea>
+				</ion-item>
+			</ion-list>
 
 
-	<ion-list>
-		<ion-item>
-			<ion-label inline>Visibility</ion-label>
-			<ion-checkbox color="secondary" [(ngModel)]="visibility"></ion-checkbox>
-		</ion-item>
-	</ion-list>
-	<ion-list>
-		<ion-item>
-			<ion-label inline>Availability</ion-label>
-			<ion-checkbox color="secondary" [(ngModel)]="availability"></ion-checkbox>
-		</ion-item>
-	</ion-list>
+			<ion-list>
+				<ion-item>
+					<ion-label inline text-uppercase>Visibility</ion-label>
+					<ion-checkbox color="warning" [(ngModel)]="visibility"></ion-checkbox>
+				</ion-item>
+			</ion-list>
+			<ion-list>
+				<ion-item>
+					<ion-label inline text-uppercase>Availability</ion-label>
+					<ion-checkbox color="warning" [(ngModel)]="availability"></ion-checkbox>
+				</ion-item>
+			</ion-list>
 
-	<button ion-button block icon-start class="warning" (click)="updateItem()">
-		<ion-icon name="check"></ion-icon>
-		Edit
-	</button>
+			<button ion-button block outline round icon-start class="warning" (click)="updateItem()">
+				<ion-icon name="check"></ion-icon>
+				Edit
+			</button>
+
+		</ion-col>
+	</ion-row>
 
 	<!-- <input type="text" class="name" name="item-name" value="Blue Berry Frappe">
 	<input type="text" class="type" name="item-type" value="Frappes">

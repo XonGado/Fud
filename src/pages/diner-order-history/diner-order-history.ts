@@ -8,13 +8,6 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { AngularFireAuth } from 'angularfire2/auth'
 import { Observable } from 'rxjs/Observable'
 
-/**
- * Generated class for the DinerOrderHistoryPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-diner-order-history',
@@ -72,7 +65,12 @@ export class DinerOrderHistoryPage {
 		this.itemCount = count
 	}
 
+	hasHistory(){
+		return this.ordersList.length > 0
+	}
+
 	ionViewDidLoad() {
+		this.getOrders()
 		console.log('ionViewDidLoad DinerOrderHistoryPage');
 	}
 

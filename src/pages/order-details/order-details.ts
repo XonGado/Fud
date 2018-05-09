@@ -54,7 +54,6 @@ export class OrderDetailsPage {
   }
 
   ionViewDidLoad() {
-  	// this.getOrderDetails()
   	console.log('ionViewDidLoad OrderDetailsPage');
   }
 
@@ -65,9 +64,11 @@ export class OrderDetailsPage {
   locksEnabled(){
     for(var item of this.items){
       if (item.lock == false) {
-        // code...
         return false
       }
     }
     return true
-  }}
+  }
+
+
+}

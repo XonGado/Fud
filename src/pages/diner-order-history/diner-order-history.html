@@ -27,4 +27,7 @@
 			<span *ngIf="order.order_type == 2" class="typeIndicator red"></span>
 		</ion-item>
 	</ion-list>
+	<p class="empty-message" *ngIf="!hasHistory()">
+		<span><ion-icon name="paper"></ion-icon>You don't have any archived orders yet.</span>
+	</p> 
 </ion-content>

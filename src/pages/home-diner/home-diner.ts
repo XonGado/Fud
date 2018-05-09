@@ -61,8 +61,9 @@ export class HomeDinerPage {
     this.getOrders()
     this.menu.enable(true)
   }
-
+  
   ionViewDidLoad() {
+    this.menu.enable(true)
     console.log('ionViewDidLoad HomeDinerPage');
   }
 
