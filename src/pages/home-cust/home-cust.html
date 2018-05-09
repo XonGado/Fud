@@ -6,7 +6,7 @@
 -->
 <ion-header>
 	<ion-toolbar>
-		<button ion-button menuToggle icon-only>
+		<button ion-button menuToggle icon-only (click)="menuToggle()">
 			<ion-icon name="menu"></ion-icon>
 		</button>
 		<ion-title>Home</ion-title>
@@ -27,11 +27,11 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-menu id="side-menu" type="overlay" [content]="content">
+<ion-menu id="cust-menu" type="overlay" [content]="custContent">
 	<ion-header no-lines>
 		<ion-item>
 			<ion-avatar item-start>
-				<img src="assets/imgs/samplePP.jpg" (click)="openProfile()">
+				<img src="assets/imgs/custAvatar.png" (click)="openProfile()">
 			</ion-avatar>
 			<h2 text-nowrap (click)="openProfile()" color="secondary">{{name}}</h2>
 			<p text-nowrap>{{email}}</p>
@@ -59,30 +59,35 @@
 	</ion-content>
 </ion-menu>
 
-<ion-nav #content [root]="rootPage"></ion-nav>
+<ion-nav #custContent [root]="HomeCustPage"></ion-nav>
 
-<ion-content padding>
+<ion-content>
+	<ion-row>
+		<ion-col padding col-12 col-sm-12 col-md-6 col-lg-4>
+			<h3 text-uppercase text-center>Diners</h3>
 
-	<ion-list>
-		<ion-item *ngFor="let diner of dinerList; let i = index" (click)="orderHere(i)">
-			<ion-avatar item-left>
-				<img src="assets/imgs/6.jpg">
-			</ion-avatar>
-			<h2>{{diner.dine_name}}</h2>
-			<p>
-				<ion-icon name="map" color="secondary" margin-right></ion-icon>
-				1km
-			</p>
-			<p>
-				<ion-icon name="people" color="secondary" margin-right></ion-icon>
-				20
-			</p>
-		</ion-item>
-	</ion-list>
+			<ion-list>
+				<ion-item *ngFor="let diner of dinerList; let i = index" (click)="orderHere(i)">
+					<ion-avatar item-left (click)="viewDiner(i)">
+						<img src="assets/imgs/6.jpg">
+					</ion-avatar>
+					<h2>{{diner.dine_name}}</h2>
+					<p>
+						<ion-icon name="map" color="secondary" margin-right></ion-icon>
+						1km
+					</p>
+					<p>
+						<ion-icon name="people" color="secondary" margin-right></ion-icon>
+						20
+					</p>
+				</ion-item>
+			</ion-list>
+		</ion-col>
 
+		<div #map id="map" class="col" col-12 col-sm-12 col-md-6 col-lg-8></div>
+	</ion-row>
 
 </ion-content>
 
 <ion-footer>
-	<div #map id="map"></div>
 </ion-footer>

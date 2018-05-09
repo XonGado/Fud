@@ -1,12 +1,11 @@
 page-order {
 	.price{
 		text-align: right;
-		width: 2.5em;
 		position: absolute;
 		right: 1em;
 		top: 50%;
 		transform: translate(0, -50%);
-		color: #32db64;
+		color: $green;
 		background: linear-gradient(to left, #222, #222, rgba(32, 32,32, 0));
 	}
 	

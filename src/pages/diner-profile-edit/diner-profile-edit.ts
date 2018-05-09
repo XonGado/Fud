@@ -234,4 +234,8 @@ export class DinerProfileEditPage {
 		toast.present();
 	}
 
+	getRouterIPAddress(){
+		
+	}
+
 }

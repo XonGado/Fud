@@ -57,6 +57,7 @@ export class OrderDetailsPage {
   }
 
   changeLock(item){
+    // Property nga items sang orders is i'overwrite current nga this.items nga array.
     console.log(item)
   }
 

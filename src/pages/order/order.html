@@ -14,17 +14,15 @@
 
 <ion-content ng-app="order" ng-controller="orderController">
 	<ion-searchbar
-		[(ngModel)]="myInput"
-		[showCancelButton]="shouldShowCancel"
-		(ionInput)="getItems($event)"
-		(ionCancel)="getItems($event)">
+		[(ngModel)]="keyword"
+		[showCancelButton]="shouldShowCancel">
 	</ion-searchbar>
 
 	<ion-list *ngFor="let category of categoryList">
-		<ion-list-header>
+		<ion-list-header [class.hidden]="isEmpty(category.items, keyword)">
 			{{category.title}}
 		</ion-list-header>
-		<ion-item *ngFor="let item of category.items" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)" >
+		<ion-item *ngFor="let item of category.items" [class.hidden]="!filter(item.item_name, keyword)" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)" >
 			<ion-avatar item-start>
 				<!-- <img src="assets/imgs/{{item.item_image}}"> -->
 				<img src="assets/imgs/6.jpg">

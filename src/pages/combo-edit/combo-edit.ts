@@ -264,12 +264,33 @@ export class ComboEditPage {
 					text: 'Delete',
 					handler: () => {
 						this.deleteCombo()
+						this.navCtrl.pop()
 					}
 				}
 			]
 		});
 
 		actionSheet.present();
+	}
+
+	filter(name, keyword){
+		var _filter = new RegExp(keyword, 'gi');
+		if (_filter.test(name)) {
+			return true
+		}
+		return false
+	}
+
+	isEmpty(items, keyword){
+		var _filter = new RegExp(keyword, 'gi');
+		
+		for (var item of items) {
+			if (_filter.test(item.item_name)) {
+				return false
+			}
+		}
+
+		return true
 	}
 }
 

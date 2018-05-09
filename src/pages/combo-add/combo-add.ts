@@ -150,10 +150,8 @@ export class ComboAddPage {
 	}
 
 	createCombo(){
-		// Saving to database
 		this.orderedItemsList = this.gatherOrder()
 		
-		let customer_id: string
 		let that = this
 		let cost: number = 0
 		let name = this.combo_name.value
@@ -196,7 +194,6 @@ export class ComboAddPage {
 			item.item_count = 0
 		}
 
-		// this.itemIsOrdered(e, item)
 		item.item_ordered = Math.floor(item.item_count/5)
 		this.totalItemCount = this.totalItemCount + item.item_ordered
 	}
