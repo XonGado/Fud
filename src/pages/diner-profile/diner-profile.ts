@@ -33,9 +33,6 @@ export class DinerProfilePage {
   uid: string;
   dinerDocRef: AngularFirestoreDocument<DinerDetails>
 
-  marker: any
-
-
   constructor(public navCtrl: NavController, public navParams: NavParams, private fire: AngularFireAuth, private firestore: AngularFirestore) {
     this.uid = this.fire.auth.currentUser.uid
     this.dinerDocRef = this.firestore.collection('diners').doc(this.uid)

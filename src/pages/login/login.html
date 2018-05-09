@@ -9,7 +9,7 @@
   <ion-navbar color="dark">
 		<ion-buttons end>
 			<button ion-button icon-start title="Create Account" (click)="openRegisterPage()">
-				<ion-icon name="person-add" color="fudGreen"></ion-icon>
+				<ion-icon name="person-add" color="secondary"></ion-icon>
 				Sign up
 			</button>
 	    </ion-buttons>
@@ -23,18 +23,18 @@
 	<p class="subheading">Hungry?</p>
 	<ion-list>
 		<ion-item>
-			<ion-label inline color="fudGreen"><ion-icon name="person"></ion-icon></ion-label>
+			<ion-label inline color="secondary"><ion-icon name="person" isActive="false"></ion-icon></ion-label>
 			<!-- <ion-input type="text" placeholder="Email" value="cndelgado@gmail.com" #email></ion-input> -->
 			<ion-input type="text" placeholder="Email" #email></ion-input>
 		</ion-item>	
 		<ion-item>
-			<ion-label inline color="fudGreen"><ion-icon name="lock"></ion-icon></ion-label>
+			<ion-label inline color="secondary"><ion-icon name="lock" isActive="false"></ion-icon></ion-label>
 			<!-- <ion-input type="password" placeholder="Password" value="password1" #password></ion-input> -->
 			<ion-input type="password" placeholder="Password" #password></ion-input>
 		</ion-item>
 	</ion-list>
 
-	<button ion-button block color="fudGreen" (click)="authenticateLogin()" (input)="enableButton()" [disabled]="enabled">Sign in</button>
+	<button ion-button block round outline color="secondary" (click)="authenticateLogin()" (input)="enableButton()" [disabled]="enabled">Sign in</button>
 
 	<ion-list class="users">
 		<ion-item (click)="login('cndelgado@gmail.com', 'password1')">

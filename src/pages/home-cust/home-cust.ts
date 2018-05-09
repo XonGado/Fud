@@ -52,7 +52,6 @@ export class HomeCustPage {
 				private fire: AngularFireAuth, 
 				private firestore: AngularFirestore,
 				public geolocation: Geolocation) {
-		menu.enable(true)
 		let that = this
 		this.uid = fire.auth.currentUser.uid
 		this.firestore.collection('customers').doc(this.uid).ref.get()
@@ -65,13 +64,17 @@ export class HomeCustPage {
 	}
 
 	ionViewWillEnter() { 
-		this.userHasOrdered()
-		this.menu.enable(true) 
-	}
+		this.userHasOrdered()	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage')
+	    this.menu.enable(true)
 		this.loadMap()
+	}
+
+	menuToggle(){
+		this.menu.enable(true)
+		this.menu.toggle()
 	}
 
 	loadMap(){
@@ -89,15 +92,15 @@ export class HomeCustPage {
 			this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
 			let marker = new google.maps.Marker({
-			  	map: this.map,
-			  	animation: google.maps.Animation.DROP,
-			  	position: latLng
-			})
+		        map: this.map,
+		        animation: google.maps.Animation.DROP,
+		        position: latLng
+		    })
 
-			let content = "<h4 style='color:black!important'>Information!</h4>"         
+			let content = "You are here"
+
 			this.addInfoWindow(marker, content)
-
-			marker.setMap(this.map)
+		    marker.setMap(this.map)
 
 			var cityCircle = new google.maps.Circle({
 	            strokeColor: '#00FF00',
@@ -115,20 +118,27 @@ export class HomeCustPage {
 	 
 	}
 
-	// addMarker(){
- 
-	// 	var latLng
+	addDinerMarkers(){
+		console.log(this.dinerList.length)
 
-	// 	this.geolocation.getCurrentPosition().then((position) => {
-	// 		latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-	// 		console.log(latLng)
-			
+		for (var diner of this.dinerList) {
 
-	// 	}, (err) => {
-	// 		console.log(err)
-	// 	})
+			let latLng = new google.maps.LatLng(diner.dine_location.latitude, diner.dine_location.longitude);
 
-	// }
+		    let marker = new google.maps.Marker({
+		        map: this.map,
+		        animation: google.maps.Animation.DROP,
+		        position: latLng
+		    })
+
+			let content = 
+				"<h4>" + diner.dine_name + "</h4>" +
+				"<span>" + diner.dine_address + "</span>"
+
+			this.addInfoWindow(marker, content)
+		    marker.setMap(this.map)
+		}
+	}
 
 	addInfoWindow(marker, content){
  
@@ -153,7 +163,7 @@ export class HomeCustPage {
 			})
 		}).then( _=> {
 			that.userHasOrdered()
-			// console.log(that.ordered)
+			that.addDinerMarkers()
 		})
 		return _diners
 	}

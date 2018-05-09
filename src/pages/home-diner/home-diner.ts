@@ -45,7 +45,6 @@ export class HomeDinerPage {
               public modalCtrl: ModalController, 
               private fire: AngularFireAuth, 
               private firestore: AngularFirestore) {
-    this.menu.enable(true)
     this.uid = this.fire.auth.currentUser.uid
     this.diner = this.firestore.collection('diners').doc(this.uid)
     this.diner.ref.get().then( doc => { 
@@ -59,12 +58,16 @@ export class HomeDinerPage {
 
   ionViewWillEnter() { 
     this.getOrders()
-    this.menu.enable(true)
   }
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomeDinerPage');
     this.menu.enable(true)
+  }
+
+  menuToggle(){
+    this.menu.enable(true)
+    this.menu.toggle()
   }
 
   getOrders() {

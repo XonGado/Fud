@@ -22,10 +22,8 @@
 	<ion-row>
 		<ion-col col-12 col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4>
 			<ion-searchbar
-				[(ngModel)]="myInput"
-				[showCancelButton]="shouldShowCancel"
-				(ionInput)="getItems($event)"
-				(ionCancel)="getItems($event)">
+				[(ngModel)]="keyword"
+				[showCancelButton]="shouldShowCancel">
 			</ion-searchbar>
 
 			<ion-item>
@@ -34,10 +32,10 @@
 			</ion-item>	
 
 			<ion-list *ngFor="let category of categoryList">
-				<ion-list-header>
+				<ion-list-header [class.hidden]="isEmpty(category.items, keyword)">
 					{{category.title}}
 				</ion-list-header>
-				<ion-item *ngFor="let item of category.items" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)" >
+				<ion-item *ngFor="let item of category.items" [class.hidden]="!filter(item.item_name, keyword)" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)" >
 					<ion-avatar item-start>
 						<img src="assets/imgs/6.jpg">
 					</ion-avatar>
