@@ -42,6 +42,8 @@ export class HomeCustPage {
   	dinerID: any
   	orderID: any
   	ordered: boolean
+  	name: string
+  	email: string
 
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
@@ -51,8 +53,13 @@ export class HomeCustPage {
 				private firestore: AngularFirestore,
 				public geolocation: Geolocation) {
 		menu.enable(true)
-
+		let that = this
 		this.uid = fire.auth.currentUser.uid
+		this.firestore.collection('customers').doc(this.uid).ref.get()
+		.then(doc => {
+			that.name = doc.data().cust_name
+			that.email = doc.data().cust_email	
+		})
 		this.dinersCollectionRef = this.firestore.collection('diners')
 		this.dinerList = this.retrieveDiners()
 	}

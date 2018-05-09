@@ -16,13 +16,15 @@
 	</ion-navbar>
 
 	<ion-toolbar>
-		<ion-item no-lines>
-	    	<ion-avatar item-start>
-	    		<img src="assets/imgs/samplePP.jpg">
-	    	</ion-avatar>
-	    	<h2>{{customer_name}}</h2>
-	    	<p color="primary">Table: Aisle 1</p>
-	    </ion-item>
+		<ion-list no-lines>
+			<ion-item>
+		    	<ion-avatar item-start>
+		    		<img src="assets/imgs/custAvatar.png">
+		    	</ion-avatar>
+		    	<h2>{{customer_name}}</h2>
+		    	<p class="blue">Table: Aisle 1</p>
+		    </ion-item>
+		</ion-list>
 	</ion-toolbar>
 
 </ion-header>
@@ -30,14 +32,17 @@
 <ion-content padding>
 	<ion-list>
 		<ion-item *ngFor="let item of items">
+			<ion-checkbox color="secondary" [(ngModel)]="item.lock" (click)="changeLock(item)"></ion-checkbox>
 			<ion-avatar item-start>
 				<img src="assets/imgs/6.jpg">
 			</ion-avatar>
-			<h2><span class="quantity">{{item.item_ordered}} &times;</span> {{item.item_name}}</h2>
-			<p class="price">{{item.item_price * item.item_ordered}}</p>
+			<ion-label inline>
+				<h2><span class="quantity">{{item.item_ordered}} &times;</span> {{item.item_name}}</h2>
+				<p class="price">{{item.item_price * item.item_ordered}}</p>
+			</ion-label>
 		</ion-item>
 		<ion-item>
-			<p ion-text text-right color="secondary">TOTAL : {{order_cost}}</p>
+			<p ion-text text-right class="green">TOTAL: {{order_cost}}</p>
 		</ion-item>
 	</ion-list>
 </ion-content>
@@ -45,7 +50,7 @@
 <ion-footer>
 	<ion-toolbar>
 		<ion-buttons right>
-			<button ion-button icon-start color="secondary" (click)="clearOrder()">
+			<button ion-button icon-start class="green" (click)="clearOrder()" [disabled]="!locksEnabled()"> <!--  -->
 				<ion-icon name="checkmark-circle-outline"></ion-icon>
 				Clear
 			</button>
