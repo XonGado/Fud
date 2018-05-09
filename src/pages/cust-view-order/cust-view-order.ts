@@ -23,18 +23,16 @@ export class CustViewOrderPage {
 	diner_id: any
 	order_id: any
 	orderDocRef: AngularFirestoreDocument<Order>
+	orderedItemsRef: any
 	customer_name: string
 	items: any[] = []
 	order_cost: any
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private fire: AngularFireAuth, private firestore: AngularFirestore) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private firestore: AngularFirestore) {
 		this.diner_id = this.navParams.get('dinerID')
 		this.order_id = this.navParams.get('orderID')
-
-		console.log(this.diner_id)
-		console.log(this.order_id)
-
   		this.orderDocRef = this.firestore.collection('diners').doc(this.diner_id).collection('orders').doc(this.order_id)
+  		this.orderedItemsRef = this.orderDocRef.collection('OrderedItems')
   		this.getOrderDetails()
 	}
 
@@ -43,8 +41,13 @@ export class CustViewOrderPage {
 		this.orderDocRef.ref.get()
 		.then(doc => {
 			that.customer_name = doc.data().customer_name
-			that.items = doc.data().items
 			that.order_cost = doc.data().order_cost
+		})
+		this.orderedItemsRef.ref.get()
+		.then(querySnapshot => {
+			querySnapshot.forEach(function(doc) {
+				that.items.push(doc.data())
+			})
 		})
 	}
 

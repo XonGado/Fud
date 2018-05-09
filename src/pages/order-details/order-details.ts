@@ -36,12 +36,17 @@ export class OrderDetailsPage {
   	this.orderDocRef.ref.get()
   	.then(doc => {
   		that.customer_name = doc.data().customer_name
-  		that.items = doc.data().items
   		that.order_cost = doc.data().order_cost
-
+    })
+    this.orderDocRef.collection('OrderedItems').ref.get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        that.items.push(doc.data())
+      })
       for (var i = 0; i < that.items.length; i++) {
         that.items[i].lock = false
       }
+      console.log(that.items)
   	})
   }
 
