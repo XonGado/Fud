@@ -154,6 +154,7 @@ export class OrderPage {
 
 	askOrderType(){
 		let alert = this.alertCtrl.create();
+		let address: string = ''
 
 		alert.setTitle("Select an option")
 
@@ -184,7 +185,7 @@ export class OrderPage {
 	    	handler: data => {
 	    		this.orderType = data;
 	    		console.log(this.orderType)
-	    		this.placeOrder()
+	    		this.placeOrder(this.orderType)
 	    		// if (this.orderType == 2) {
 	    			// Get location. Tasked to Clyde.
 	    		// }
@@ -194,10 +195,12 @@ export class OrderPage {
 		this.loading.dismiss()
 	}
 
-	placeOrder(){
+	placeOrder(orderType){
 		// // Saving to database
 		this.loading.present()
 		this.orderedItemsList = this.gatherOrder()
+
+		console.log(orderType)
 
 		let customer_name: string
 		let customer_id: string
