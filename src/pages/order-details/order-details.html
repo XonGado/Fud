@@ -32,7 +32,7 @@
 <ion-content padding>
 	<ion-list>
 		<ion-item *ngFor="let item of items; let i = index">
-			<ion-checkbox color="secondary" [(ngModel)]="item.lock" (click)="changeLock(i)"></ion-checkbox>
+			<ion-checkbox color="secondary" [(ngModel)]="item.lock" (click)="changeLock(item, i)" #lock></ion-checkbox>
 			<ion-avatar item-start>
 				<img src="assets/imgs/6.jpg">
 			</ion-avatar>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
@@ -52,6 +52,7 @@ export class OrderDetailsPage {
       for (var i = 0; i < that.items.length; i++) {
         that.items[i].lock = false
       }
+      console.log(that.items)
   	})
   }
 
@@ -66,11 +67,12 @@ export class OrderDetailsPage {
   	console.log('ionViewDidLoad OrderDetailsPage');
   }
 
-  changeLock(index){
+  changeLock(item, index){
+    console.log(item.lock)
     let ordereditemsid = this.ordereditems_id[index]
-    let that = this
+    console.log(ordereditemsid)
     this.orderedItemsColRef.doc(ordereditemsid).ref.update({
-      lock: !that.lock
+      lock: item.lock
     })
   }
 
