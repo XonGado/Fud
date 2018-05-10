@@ -31,7 +31,8 @@ export class OrderPage {
 	categoryList: Category[] = [];
 	orderedItemsList: any[] = [];
 	items: Observable<Item[]>;
-	diner: string;
+	diner: AngularFirestoreDocument<DinerDetails>
+	diner_name: string;
 	diner_id: string;
 	itemCollectionRef: AngularFirestoreCollection<Item>
 	ordersCollectionRef: AngularFirestoreCollection<Order>
@@ -60,8 +61,10 @@ export class OrderPage {
 		this.diner_id = this.navParams.get('data')
 		this.dinerCollectionRef = this.firestore.collection('diners')
 		this.itemCollectionRef = this.dinerCollectionRef.doc(this.diner_id).collection('items')
+		this.diner = this.dinerCollectionRef.doc(this.diner_id)
 		this.ordersCollectionRef = this.dinerCollectionRef.doc(this.diner_id).collection('orders')
 		this.customerDocRef = this.firestore.collection('customers').doc(this.fire.auth.currentUser.uid)
+		this.diner.ref.get().then(doc => { this.diner_name = doc.data().dine_name })
 	}
 
 	getCategoryList(){

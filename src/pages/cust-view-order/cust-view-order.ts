@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ActionSheetController, NavParams } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
-import { AngularFireAuth } from 'angularfire2/auth'
 
 import { Order } from '../../models/order.interface'
 
@@ -27,6 +26,7 @@ export class CustViewOrderPage {
 	customer_name: string
 	items: any[] = []
 	order_cost: any
+	ordereditems_ids: any[] = []
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private firestore: AngularFirestore) {
 		this.diner_id = this.navParams.get('dinerID')
@@ -47,30 +47,60 @@ export class CustViewOrderPage {
 		.then(querySnapshot => {
 			querySnapshot.forEach(function(doc) {
 				that.items.push(doc.data())
+				that.ordereditems_ids.push(doc.id)
 			})
 		})
+	}
+
+	deleteOrderedItem(item, i){
+		let ordereditem_id = this.ordereditems_ids[i]
+		if (this.items[i].lock == false){
+			this.orderedItemsRef.doc(ordereditem_id).delete()
+			.then(function() {
+				console.log("Ordered items successfully deleted.")
+			})
+			.catch(function(error) {
+				console.log("Some error occured.")
+			})
+		}else{
+			console.log("The ordered item cannot be deleted because it is being processed now.")
+		}
+	}
+
+	moreOptions() {
+		let flag: boolean = false
+		this.items.forEach(function(item) {
+			if (item.lock == true){
+				flag = true
+			}
+		})
+		if (flag == false){
+			let actionSheet = this.actionSheetCtrl.create({
+				title: 'More options',
+				buttons: [
+					{
+						cssClass: 'danger',
+						icon: 'close',
+						text: 'Cancel Order',
+						handler: () => {
+							this.orderDocRef.delete()
+							.then(function() {
+								console.log("Order successfully cancelled.")
+							})
+							.catch(function(error) {
+								console.log("Some error occured.")
+							})
+						}
+					}
+				]
+			});
+			actionSheet.present();
+		}else{
+			console.log("You cannot cancel your order anymore.")
+		}
 	}
 
 	ionViewDidLoad() {
     	console.log('ionViewDidLoad CustViewOrderPage');
 	}
-
-	moreOptions() {
-		let actionSheet = this.actionSheetCtrl.create({
-			title: 'More options',
-			buttons: [
-				{
-					cssClass: 'danger',
-					icon: 'close',
-					text: 'Cancel Order',
-					handler: () => {
-						// Delete order function here
-					}
-				}
-			]
-		});
-
-		actionSheet.present();
-	}
-
 }

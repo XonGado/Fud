@@ -182,6 +182,7 @@ export class ComboAddPage {
 
 			comboAddToast.present()
 		})
+
 	}
 
 	itemPanned(e, item){

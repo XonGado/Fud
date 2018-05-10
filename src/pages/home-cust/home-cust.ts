@@ -39,11 +39,13 @@ export class HomeCustPage {
 	dinerList: Diner[]
   	dinersCollectionRef: AngularFirestoreCollection<Diner>
   	diner_ids: any[] = []
+  	order_ids: any[] = []
   	dinerID: any
   	orderID: any
   	ordered: boolean
   	name: string
   	email: string
+  	customerCount: any[] = []
 
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
@@ -68,6 +70,7 @@ export class HomeCustPage {
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage')
+		this.getCount()
 	    this.menu.enable(true)
 		this.loadMap()
 	}
@@ -113,13 +116,28 @@ export class HomeCustPage {
 	        })
 
 		}, (err) => {
-			console.log(err)
+			console.log("Error!")
 	    })
 	 
 	}
 
+	getCount() {
+		let that = this
+		this.dinersCollectionRef.ref.get()
+		.then(querySnapshot => {
+			querySnapshot.forEach(doc => {
+				that.diner_ids.push(doc.id)
+			})
+			that.diner_ids.forEach(function(id) {
+				that.dinersCollectionRef.doc(id).collection('orders').ref.where("cleared", "==", false).get()
+				.then(function(querySnapshot) {
+					that.customerCount.push(querySnapshot.size)
+				})
+			})
+		})
+	}
+
 	addDinerMarkers(){
-		console.log(this.dinerList.length)
 
 		for (var diner of this.dinerList) {
 
@@ -159,9 +177,9 @@ export class HomeCustPage {
 		.then(function(querySnapshot){
 			querySnapshot.forEach(function(doc){
 				_diners.push(doc.data())
-				that.diner_ids.push(doc.id)
 			})
-		}).then( _=> {
+		})
+		.then( function() {
 			that.userHasOrdered()
 			that.addDinerMarkers()
 		})
@@ -178,13 +196,11 @@ export class HomeCustPage {
 			this.firestore.collection('diners').doc(id).collection('orders').ref.where("customer_id", "==", that.uid).where("cleared", "==", false).get()
 			.then( querySnapshot => {
 				querySnapshot.forEach( doc => {
-					// console.log(doc.data())
 					order.push(doc.data())
 					that.dinerID = id
 					that.orderID = doc.id
 				})
 			}).then( _ => {
-				// console.log(order.length)
 				that.ordered = order.length >= 1
 			})
 		}

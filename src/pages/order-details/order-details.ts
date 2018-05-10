@@ -52,7 +52,6 @@ export class OrderDetailsPage {
       for (var i = 0; i < that.items.length; i++) {
         that.items[i].lock = false
       }
-      console.log(that.items)
   	})
   }
 
@@ -68,9 +67,7 @@ export class OrderDetailsPage {
   }
 
   changeLock(item, index){
-    console.log(item.lock)
     let ordereditemsid = this.ordereditems_id[index]
-    console.log(ordereditemsid)
     this.orderedItemsColRef.doc(ordereditemsid).ref.update({
       lock: item.lock
     })

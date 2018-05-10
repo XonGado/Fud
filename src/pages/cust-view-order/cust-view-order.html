@@ -20,7 +20,7 @@
 
 <ion-content padding>
 	<ion-list>
-		<ion-item-sliding *ngFor="let item of items">
+		<ion-item-sliding *ngFor="let item of items; let i = index">
 			<ion-item>
 				<ion-avatar item-start>
 					<img src="assets/imgs/6.jpg">
@@ -29,7 +29,7 @@
 				<p class="price">{{item.item_price * item.item_ordered}}</p>
 			</ion-item>
 			<ion-item-options side="right">
-				<button ion-button color="danger">
+				<button ion-button color="danger" (click)="deleteOrderedItem(item, i)">
 					<ion-icon name="close"></ion-icon>
 				</button>
 			</ion-item-options>

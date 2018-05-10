@@ -48,13 +48,11 @@ export class ComboPage {
   getCombos() {
     let that = this
     this.combosList = []
-
     this.combosCollectionRef.ref.get()
     .then(function(querySnapshot) {
       querySnapshot.forEach(doc => {
         that.combosList.push(doc.data())
       })
-      console.log(that.combosList)
       that.getItems()
     })
   }
