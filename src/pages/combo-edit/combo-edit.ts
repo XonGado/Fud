@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController, ActionSheetController, Events, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController, ActionSheetController, LoadingController, Events, Platform } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -45,6 +45,7 @@ export class ComboEditPage {
 				public events: Events,
 				public modalCtrl: ModalController,
 				public actionSheetCtrl: ActionSheetController,
+				public loadingCtrl: LoadingController,
 				public platform: Platform,
 				private fire: AngularFireAuth,
 				private firestore: AngularFirestore) {
@@ -75,6 +76,9 @@ export class ComboEditPage {
 	}
 
 	updateCombo(){
+		let loading = this.loadingCtrl.create({content: `<ion-spinner name="cresent"></ion-spinner>`})
+		loading.present()
+
 		// Saving to database
 		this.orderedItemsList = this.gatherOrder()
 		
@@ -98,6 +102,23 @@ export class ComboEditPage {
 			combo_cost: cost,
 			items: that.orderedItemsList
 		})
+		.then(_=>{
+			let alert = this.alertCtrl.create({
+				title: "Combo Changed!",
+				message: "Let's try this combination you made.",
+				buttons: [{
+					text: "Alright!",	
+					handler: _=>{ this.navCtrl.pop() }
+				}]
+			})
+
+			loading.dismiss()
+			alert.present()
+		})
+		.catch(error=>{
+			loading.dismiss()
+			that.errorAlert(error)
+		})
 	}
 
 	getCategoryList(){
@@ -119,10 +140,6 @@ export class ComboEditPage {
 			title: title,
 			items: items
 		});
-	}
-
-	confirmQR(){
-		console.log("Open confirm modal.");
 	}
 
 	getItems() {
@@ -291,6 +308,25 @@ export class ComboEditPage {
 		}
 
 		return true
+	}
+
+	errorAlert(error){
+		console.log(error.message)
+
+		let errorAlert = this.alertCtrl.create({
+			title: "ERROR",
+			message: error.message,
+			buttons: [
+				{
+					text: "Oops",
+					handler: _=>{
+						console.log("Error alert closed.")
+					}
+				}
+			]
+		})
+
+		errorAlert.present()
 	}
 }
 

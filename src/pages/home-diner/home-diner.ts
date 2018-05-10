@@ -27,6 +27,7 @@ import { AngularFireAuth } from 'angularfire2/auth'
 export class HomeDinerPage {
   uid: string
   ordersCollectionRef: AngularFirestoreCollection<Order>
+  orderedItemsColRef: any
   ordersList: any[] = []
   itemsList: any[] = []
   itemCount: number
@@ -80,7 +81,6 @@ export class HomeDinerPage {
         that.ordersList.push(doc.data())
         that.order_ids.push(doc.id)
       })
-      that.getItems()
     })
   }
 
@@ -100,18 +100,6 @@ export class HomeDinerPage {
     } else if (type == 2) {
       return "delivery"
     }
-  }
-
-  getItems() {
-    let that = this
-    let count: number = 0
-    this.ordersList.forEach(doc => {
-      that.itemsList = doc.items
-    })
-    this.itemsList.forEach(doc => {
-      count = count + Number(doc.item_ordered)
-    })
-    this.itemCount = count
   }
 
   logout(){

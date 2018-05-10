@@ -45,7 +45,6 @@ export class LoginPage {
   authenticateLogin() {
 
     let loading = this.loadingCtrl.create({
-      dismissOnPageChange: true,
       content: `<ion-spinner name="cresent"></ion-spinner>`
     });
 
