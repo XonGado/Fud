@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -35,7 +35,12 @@ export class ItemEditPage {
 	@ViewChild('price') price;
 	@ViewChild('description') description;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private firestore: AngularFirestore, private fire: AngularFireAuth) {
+	constructor(public navCtrl: NavController, 
+		public loadingCtrl: LoadingController,
+		public alertCtrl: AlertController,
+		public navParams: NavParams, 
+		private firestore: AngularFirestore, 
+		private fire: AngularFireAuth) {
 		this.item_id = navParams.get('data');
 		this.itemsCollectionRef = this.firestore.collection('diners').doc(this.fire.auth.currentUser.uid).collection('items')
 	}
@@ -67,9 +72,9 @@ export class ItemEditPage {
 	}
 
 	updateItem(){
-		console.log("Updating data:")
-		console.log("Visibility: " + this.visibility)
-		console.log("Availability: " + this.availability)
+		let that = this
+		let loading = this.loadingCtrl.create({content: `<ion-spinner name="cresent"></ion-spinner>`})
+		loading.present()
 
 		this.itemsCollectionRef.doc(this.item_id).update({
 			item_id: this.item_id,
@@ -80,9 +85,39 @@ export class ItemEditPage {
 			item_visibility: this.visibility,
 			item_availability: this.availability
 		})
+		.then(_=>{
+			let alert = this.alertCtrl.create({
+				title: "Changed Item!",
+				message: "We'll see if the customers like it!",
+				buttons: [{
+					text: "Okay!",
+					handler: _=>{
+						that.navCtrl.pop()
+					}
+				}]
+			})
+
+			loading.dismiss()
+			alert.present()
+		})
+		.catch(error=>{ 
+			loading.dismiss()
+			that.errorAlert(error) 
+		})
 	}
 
-	closePage(){
-		this.navCtrl.pop();
+	errorAlert(error){
+		console.log(error.message)
+
+		let errorAlert = this.alertCtrl.create({
+			title: "ERROR",
+			message: error.message,
+			buttons: [{
+				text: "Oops",
+				handler: _=>{ console.log("Error alert closed.") }
+			}]
+		})
+
+		errorAlert.present()
 	}
 }
