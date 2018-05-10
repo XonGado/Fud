@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 
 import { Item } from '../../models/item.model';
 
@@ -29,7 +29,12 @@ export class ItemAddPage {
   itemsCollectionRef: AngularFirestoreCollection<Item>;
   uid: string
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private firestore: AngularFirestore, private fire: AngularFireAuth){
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
+    private firestore: AngularFirestore, 
+    private fire: AngularFireAuth){
     this.uid = this.fire.auth.currentUser.uid
     this.itemsCollectionRef = this.firestore.collection('diners').doc(this.uid).collection('items')
     this.items = this.itemsCollectionRef.valueChanges()
@@ -40,6 +45,10 @@ export class ItemAddPage {
   }
 
   addItem(){
+    let that = this
+    let loading = this.loadingCtrl.create({content: `<ion-spinner name="cresent"></ion-spinner>`})
+    loading.present()
+
     let id = this.firestore.createId()
     this.itemsCollectionRef.doc(id).set({
       item_id: id,
@@ -50,9 +59,22 @@ export class ItemAddPage {
       item_availability: true,
       item_visibility: true,
       lock: false
-    }).catch(function (error){
+    })
+    .then(_=>{
+      let alert = that.alertCtrl.create({
+        title: "Food added!",
+        message: "The customers can't wait to try this out.",
+        buttons: [{
+          text: "Nice!",
+          handler: _=>{ that.navCtrl.pop() }
+        }]
+      })
+
+      loading.dismiss()
+      alert.present()
+    })
+    .catch(function (error){
       console.log("Error: ", error.code)
     })
-    this.navCtrl.pop()
   }
 }

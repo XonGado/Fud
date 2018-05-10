@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core'
-import { IonicPage, NavController, NavParams, AlertController, ModalController, ToastController, Events, Platform } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, AlertController, ModalController, ToastController, LoadingController, Events, Platform } from 'ionic-angular'
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
@@ -48,6 +48,7 @@ export class ComboAddPage {
 				public events: Events,
 				public modalCtrl: ModalController,
 				public toastCtrl: ToastController,
+				public loadingCtrl: LoadingController,
 				public platform: Platform,
 	      		private fire: AngularFireAuth,
 	     		private firestore: AngularFirestore) {
@@ -152,6 +153,9 @@ export class ComboAddPage {
 	createCombo(){
 		this.orderedItemsList = this.gatherOrder()
 		
+		let loading = this.loadingCtrl.create({content: `<ion-spinner name="cresent"></ion-spinner>`})
+		loading.present()
+
 		let that = this
 		let cost: number = 0
 		let name = this.combo_name.value
@@ -172,17 +176,46 @@ export class ComboAddPage {
 				combo_cost: cost,
 				items: that.orderedItemsList
 			})
+			.then(_=>{
+				let alert = this.alertCtrl.create({
+					title: "Combo Added!",
+					message: "You can now try ordering you new combo.",
+					buttons: [{
+						text: "Sweet!",	
+						handler: _=>{ this.navCtrl.pop() }
+					}]
+				})
 
-			var comboAddToast = this.toastCtrl.create({
-				message: "Your combo is added.",
-				dismissOnPageChange: true,
-				position: "top",
-				duration: 3000
+				loading.dismiss()
+				alert.present()
 			})
-
-			comboAddToast.present()
+			.catch(error=>{
+				loading.dismiss()
+				that.errorAlert(error)
+			})
 		})
+		.catch(error=>{
+			loading.dismiss()
+			that.errorAlert(error)
+		})
+	}
 
+	errorAlert(error){
+		console.log(error.message)
+
+		let errorAlert = this.alertCtrl.create({
+			title: "ERROR",
+			message: error.message,
+			buttons: [
+				{
+					text: "Oops",
+					handler: _=>{
+						console.log("Error alert closed.")
+					}
+				}
+			]
+		})
+		errorAlert.present()
 	}
 
 	itemPanned(e, item){

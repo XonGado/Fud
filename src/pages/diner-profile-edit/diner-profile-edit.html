@@ -17,6 +17,23 @@
 	<ion-row>
 		<ion-col offset-lg-4 col-lg-4>
 			<ion-list>
+				<ion-item>
+					<button ion-button icon-only block color="dark" (click)="takePhoto()"><ion-icon name="image"></ion-icon></button>
+				</ion-item>
+				<ion-item>
+				    <p>{{imageURI}}</p>
+				    <button ion-button color="secondary" (click)="getImage()">Get Image</button>
+				</ion-item>
+				<ion-item>
+					<h4>Image Preview</h4>
+					<img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />
+				</ion-item>
+				<ion-item>
+					<button ion-button (click)="uploadFile()">Upload</button>
+				</ion-item>
+			</ion-list>
+
+			<ion-list>
 				<h5 text-uppercase>
 					<ion-icon name="contact" color="secondary" item-left></ion-icon>
 					Owner 
@@ -40,20 +57,6 @@
 					<ion-icon name="restaurant" color="secondary" item-left></ion-icon>
 					Diner 
 				</h5>
-				<!-- <ion-item>
-					<button ion-button icon-only block color="dark" (click)="takePhoto()"><ion-icon name="image"></ion-icon></button>
-				</ion-item>
-				<ion-item>
-				    <p>{{imageURI}}</p>
-				    <button ion-button color="secondary" (click)="getImage()">Get Image</button>
-				</ion-item>
-				<ion-item>
-					<h4>Image Preview</h4>
-					<img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />
-				</ion-item>
-				<ion-item>
-					<button ion-button (click)="uploadFile()">Upload</button>
-				</ion-item> -->
 				<ion-item>
 					<ion-label color="secondary" stacked>Diner Name</ion-label>
 					<ion-input type="text" value="{{name}}" #dine_name></ion-input>
