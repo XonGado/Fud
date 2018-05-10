@@ -28,23 +28,23 @@
 		<ion-list>
 			<ion-item>
 				<ion-label color="secondary" stacked>Name</ion-label>
-				<ion-input type="text" color="secondary" value="Relyn Dela Cruz" #cust_name></ion-input>
+				<ion-input type="text" color="secondary" #cust_name></ion-input>
 			</ion-item>	
 			<ion-item>
 				<ion-label color="secondary" stacked>Username</ion-label>
-				<ion-input type="text" color="secondary" value="relyn" #cust_username></ion-input>
-			</ion-item>	
+				<ion-input type="text" color="secondary" #cust_username></ion-input>
+			</ion-item>
 			<ion-item>
 				<ion-label color="secondary" stacked>Email</ion-label>
-				<ion-input type="email" color="secondary" value="rbdc13@gmail.com" #cust_email></ion-input>
+				<ion-input type="email" color="secondary" #cust_email></ion-input>
 			</ion-item>	
 			<ion-item>
 				<ion-label color="secondary" stacked>Password</ion-label>
-				<ion-input type="password" color="secondary" value="qweqwe12" #cust_password></ion-input>
+				<ion-input type="password" color="secondary" #cust_password></ion-input>
 			</ion-item>	
 			<ion-item>
 				<ion-label color="secondary" stacked>Retype Password</ion-label>
-				<ion-input type="password" color="secondary" value="qweqwe12" #cust_retypePassword></ion-input>
+				<ion-input type="password" color="secondary" #cust_retypePassword></ion-input>
 			</ion-item>	
 		</ion-list>
 		<button ion-button block color="secondary" (click)="createCustomer(customerDetails)">Create!</button>
