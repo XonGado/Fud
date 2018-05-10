@@ -5,6 +5,5 @@ export interface Order {
     cleared: boolean,
     order_type: any,
     totalItems: number,
-    orderNumber: number,
-    address: string
+    orderNumber: number
 }

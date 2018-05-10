@@ -1,12 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController, ActionSheetController, Events, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController, ActionSheetController, Events, Platform, LoadingController } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 
 import { Item } from '../../models/item.model'
+import { Order } from '../../models/order.interface'
 import { Combo } from '../../models/combo.interface'
+import { CustomerDetails } from '../../models/customerdetails.interface'
 
 import { BasketPage } from '../basket/basket'
 
@@ -36,8 +38,18 @@ export class ComboEditPage {
 	combo_id: string;
 	diner_id: string;
 	itemsCollectionRef: AngularFirestoreCollection<Item>
+	ordersCollectionRef: AngularFirestoreCollection<Order>
 	combosCollectionRef: AngularFirestoreCollection<Combo>
+	customerDocRef: AngularFirestoreDocument<CustomerDetails>
+	orderedItemsColRef: any
+	orderNumber: number
+	orderType: any
 	comboItems: any[] = []
+
+	loading = this.loadingCtrl.create({
+      dismissOnPageChange: true,
+      content: `<ion-spinner name="cresent"></ion-spinner>`
+    });
 
 	constructor(public navCtrl: NavController,
 				public navParams: NavParams, 
@@ -46,21 +58,26 @@ export class ComboEditPage {
 				public modalCtrl: ModalController,
 				public actionSheetCtrl: ActionSheetController,
 				public platform: Platform,
+				public loadingCtrl: LoadingController,
 				private fire: AngularFireAuth,
 				private firestore: AngularFirestore) {
 
 		this.combo_data = this.navParams.get('data')
+		this.combo_id = this.combo_data.combo_id
 		this.comboItems = this.combo_data.items
 		this.diner_id = this.combo_data.diner_id
 		this.itemsCollectionRef = this.firestore.collection('diners').doc(this.diner_id).collection('items')
+		this.ordersCollectionRef = this.firestore.collection('diners').doc(this.diner_id).collection('orders')
+		this.orderedItemsColRef = this.ordersCollectionRef.doc(this.combo_id).collection('OrderedItems')
 		this.customer = this.fire.auth.currentUser.uid
+		this.customerDocRef = this.firestore.collection('customers').doc(this.customer)
 		this.combosCollectionRef = this.firestore.collection('customers').doc(this.customer).collection('combos')
 	}
 
 	ionViewDidLoad() {
 		console.log(this.combo_data)
 		this.getItems()
-		console.log('ionViewDidLoad ComboAddPage');
+		console.log('ionViewDidLoad ComboEditPage');
 	}
 
 	deleteCombo() {
@@ -123,6 +140,124 @@ export class ComboEditPage {
 
 	confirmQR(){
 		console.log("Open confirm modal.");
+	}
+
+	askOrderType(){
+		let alert = this.alertCtrl.create();
+		let address: string = ''
+
+		alert.setTitle("Select an option")
+
+	    alert.addInput({
+	    	type: 'radio',
+	    	label: "I'll dine in",
+	    	value: "0",
+	    	checked: true
+	    });
+
+	    alert.addInput({
+	    	type: 'radio',
+	    	label: "I'll take it out",
+	    	value: "1",
+	    	checked: false
+	    });
+
+	    alert.addInput({
+	    	type: 'radio',
+	    	label: "Deliver it to me",
+	    	value: "2",
+	    	checked: false
+	    });
+
+	    alert.addButton('Cancel');
+	    alert.addButton({
+	    	text: "Confirm",
+	    	handler: data => {
+	    		this.orderType = data;
+	    		console.log(this.orderType)
+	    		this.placeOrder(this.orderType)
+	    		// if (this.orderType == 2) {
+	    			// Get location. Tasked to Clyde.
+	    		// }
+	    	}
+	    });
+	    alert.present();
+		this.loading.dismiss()
+	}
+
+	placeOrder(orderType){
+		// // Saving to database
+		this.orderedItemsList = this.gatherOrder()
+
+		let customer_name: string
+		let customer_id: string
+		let id = this.firestore.createId()
+		let that = this
+		let price: number = 0
+		let count: number = 0
+
+		this.orderedItemsList.forEach(doc => {
+			price = price + Number(doc.item_price * doc.item_ordered)
+			count = count + Number(doc.item_ordered)
+		})
+
+		this.ordersCollectionRef.ref.get()
+		.then(querySnapshot => {
+			querySnapshot.forEach(doc => {
+				that.orderNumber +=1
+			})
+		})
+
+		this.customerDocRef.ref.get()
+		.then(doc => {
+			customer_name = doc.data().cust_name
+			customer_id = doc.id
+			that.ordersCollectionRef.doc(id).set({
+				customer_id: customer_id,
+				customer_name: customer_name,
+				order_cost: price,
+				cleared: false,
+				order_type: that.orderType,
+				totalItems: count,
+				orderNumber: that.orderNumber
+			})
+			.then(function(){
+				let alert = that.alertCtrl.create({
+					title: "Order Placed!",
+					subTitle: "We'll be preparing your food.",
+					buttons: [{
+						text: "Okay!",
+						handler: () =>{
+							that.popPage()
+						}
+					}]
+				});
+				that.loading.dismiss()
+				alert.present()
+			})
+		})
+		.then(doc => {
+			let that = this
+			that.orderedItemsList.forEach(doc => {
+				let ordereditem_id = that.firestore.createId()
+				that.ordersCollectionRef.doc(id).collection('OrderedItems').doc(ordereditem_id).set({
+					item_id: doc.item_id,
+					item_name: doc.item_name,
+					item_description: doc.item_description,
+					item_price: doc.item_price,
+					item_type: doc.item_type,
+					item_count: doc.item_count,
+					item_ordered: doc.item_ordered,
+					item_availability: doc.item_availability,
+					item_visibility: doc.item_visibility,
+					lock: false
+				})
+			})
+		})
+	}
+
+	popPage(){
+		this.navCtrl.pop()
 	}
 
 	getItems() {
@@ -250,10 +385,6 @@ export class ComboEditPage {
 		return _list
 	}
 
-	clearItem(){
-
-	}
-
 	presentActionSheet() {
 		let actionSheet = this.actionSheetCtrl.create({
 			title: 'More options',
@@ -289,7 +420,6 @@ export class ComboEditPage {
 				return false
 			}
 		}
-
 		return true
 	}
 }

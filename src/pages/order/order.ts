@@ -200,8 +200,6 @@ export class OrderPage {
 		this.loading.present()
 		this.orderedItemsList = this.gatherOrder()
 
-		console.log(orderType)
-
 		let customer_name: string
 		let customer_id: string
 		let id = this.firestore.createId()
