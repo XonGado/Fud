@@ -15,13 +15,6 @@ import { Diner } from '../../models/diner.model'
 
 import { Geolocation } from '@ionic-native/geolocation'
 
-/**
- * Generated class for the HomeCustPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 declare var google
 
 @IonicPage()
@@ -66,13 +59,15 @@ export class HomeCustPage {
 	}
 
 	ionViewWillEnter() { 
-		this.userHasOrdered()	}
+		this.userHasOrdered()	
+	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage')
 		this.getCount()
 	    this.menu.enable(true)
 		this.loadMap()
+		this.userHasOrdered()	
 	}
 
 	menuToggle(){
@@ -208,6 +203,8 @@ export class HomeCustPage {
 
 	orderHere(index){
 		if (this.ordered == undefined) {
+			this.userHasOrdered()
+			
 			var orderedMsg = this.toastCtrl.create({
 				message: "Give us a second.",
 				dismissOnPageChange: true,

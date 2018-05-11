@@ -5,13 +5,13 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs/Observable';
 
-
 import { DinerDetails } from '../../models/dinerdetails.interface'
 import { CustomerDetails } from '../../models/customerdetails.interface'
 import { Item } from '../../models/item.model'
 import { Order } from '../../models/order.interface'
 
 import { BasketPage } from '../basket/basket';
+import { CustLocatePage } from '../cust-locate/cust-locate'
 
 /**
  * Generated class for the OrderPage page.
@@ -187,11 +187,13 @@ export class OrderPage {
 	    	text: "Confirm",
 	    	handler: data => {
 	    		this.orderType = data;
-	    		console.log(this.orderType)
-	    		this.placeOrder(this.orderType)
-	    		// if (this.orderType == 2) {
-	    			// Get location. Tasked to Clyde.
-	    		// }
+	    		
+	    		if (this.orderType == 2) {
+	    			var locate = this.modalCtrl.create(CustLocatePage, { order: this.gatherOrder(), dinerID: this.diner_id } )
+	    			locate.present()
+	    		} else {
+		    		this.placeOrder(this.orderType)
+	    		}
 	    	}
 	    });
 	    alert.present();

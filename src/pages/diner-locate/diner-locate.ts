@@ -8,15 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation'
 
 import { DinerDetails } from '../../models/dinerdetails.interface'
 
-/**
- * Generated class for the DinerLocatePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 declare var google
-
 
 @IonicPage()
 @Component({
@@ -28,9 +20,7 @@ export class DinerLocatePage {
 	@ViewChild('map') mapElement: ElementRef
 	map: any
 	uid: string
-
 	marker: any
-
 	dinerDocRef: AngularFirestoreDocument<DinerDetails>
 
 	constructor(public navCtrl: NavController, 

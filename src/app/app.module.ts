@@ -29,6 +29,7 @@ import { DinerScanPage } from '../pages/diner-scan/diner-scan'
 import { DinerOrderHistoryPage } from '../pages/diner-order-history/diner-order-history'
 import { HomeDinerPage } from '../pages/home-diner/home-diner'
 import { CustViewOrderPage } from '../pages/cust-view-order/cust-view-order'
+import { CustLocatePage } from '../pages/cust-locate/cust-locate'
 import { MenuPage } from '../pages/menu/menu'
 import { MenusPage } from '../pages/menus/menus'
 import { OrderPage } from '../pages/order/order'
@@ -74,6 +75,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerOrderHistoryPage,
     HomeDinerPage,
     CustViewOrderPage,
+    CustLocatePage,
     LoadingPage,
     MenuPage,
     MenusPage,
@@ -118,6 +120,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerOrderHistoryPage,  
     HomeDinerPage,
     CustViewOrderPage,
+    CustLocatePage,
     LoadingPage,
     MenuPage,
     MenusPage,

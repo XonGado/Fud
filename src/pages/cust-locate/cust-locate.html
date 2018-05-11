@@ -7,12 +7,35 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>cust-locate</ion-title>
+    <ion-buttons>
+      <button icon-only ion-button navPop>
+        <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title text-center>Locate</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+	<ion-row>
+	    <ion-col>
+	      <ion-list>
+	        <ion-item>
+	        	<div #map id="map"></div>
+	        </ion-item>
+	      </ion-list>
+	    </ion-col>
+	</ion-row>
+	<div id="confirm-location-div">
+		<p>
+      Is this your restaurant's location? 
+      <span class="secondary">If not, make sure you are located in your restaurant and set it up later.</span>
+    </p>
+		<button ion-button color="secondary" icon-left (click)="confirmLocation()">
+			<ion-icon name="checkmark"></ion-icon>
+			Yes, set location here.
+		</button>
+	</div>
 </ion-content>

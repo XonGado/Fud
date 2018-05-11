@@ -10,9 +10,9 @@ page-home-cust {
 
 	#map {
 		float: right;
-		min-height: calc(100vh - 56px);
+		min-height: 50vh;
 		width: 100%;
-		height: 100vh;
+		height: 50vh;
 
 		@media screen and (max-width: 576px) {
 			position: absolute;
