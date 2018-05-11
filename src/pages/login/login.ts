@@ -7,6 +7,7 @@ import { HomeCustPage } from '../home-cust/home-cust';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore'
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 /**
  * Generated class for the LoginPage page.
@@ -32,10 +33,10 @@ export class LoginPage {
     public navParams: NavParams, 
     public menu: MenuController,
     private fire: AngularFireAuth, 
-    private firestore: AngularFirestore, 
+    private firestore: AngularFirestore,
     public loadingCtrl: LoadingController, 
     public toastCtrl: ToastController) {
-    this.menu.enable(true)
+    // this.retrieveFudAvatar()    
   }
 
   openRegisterPage() {
@@ -126,6 +127,31 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('Loaded LoginPage');
   }
+
+  // retrieveFudAvatar(){
+  //   let that = this
+  //   var storageRef = this.firestore.
+    
+  //   storageRef.child('custAvatar.png').getDownloadURL().then(function(url) {
+  //     // `url` is the download URL for 'images/stars.jpg'
+
+  //     // This can be downloaded directly:
+  //     var xhr = new XMLHttpRequest();
+  //     xhr.responseType = 'blob';
+  //     xhr.onload = function(event) {
+  //       var blob = xhr.response;
+  //     };
+  //     xhr.open('GET', url);
+  //     xhr.send();
+
+  //     console.log(xhr.open('GET', url))
+
+  //     // Or inserted into an <img> element:
+
+  //   }).catch(function(error) {
+  //     // Handle any errors
+  //   });
+  // }
 }
 
 

@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController, AlertController, 
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
-import { storage, initializeApp } from 'firebase'
+import { storage } from 'firebase'
 import { Camera, CameraOptions } from '@ionic-native/camera'
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer'
 
