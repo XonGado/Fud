@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
+import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+// import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner'
 
 @IonicPage()
@@ -16,7 +16,7 @@ export class DinerScanPage {
 
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
-				private qrScanner: QRScanner,
+				public alertCtrl: AlertController,
 				private barcodeScanner: BarcodeScanner) {
 	}
 
@@ -30,42 +30,66 @@ export class DinerScanPage {
 		})
 	}
 
+	// scanCode(){
+	// 	let that = this
+
+	// 	this.qrScanner.prepare() // show the prompt
+	// 	.then(status => {
+	// 		if (status.authorized) {
+	// 			// Start a scan. Scanning will continue until something is detected or
+	// 			// `QRScanner.cancelScan()` is called.
+	// 			that.scanQRCode()
+	// 		} else if (status.denied) {
+	// 		// The video preview will remain black, and scanning is disabled. We can
+	// 		// try to ask the user to change their mind, but we'll have to send them
+	// 		// to their device settings with `QRScanner.openSettings()`.
+	// 		} else {
+	// 		// we didn't get permission, but we didn't get permanently denied. (On
+	// 		// Android, a denial isn't permanent unless the user checks the "Don't
+	// 		// ask again" box.) We can ask again at the next relevant opportunity.
+	// 		}
+	// 	})
+	// 	.catch(error => {
+	// 		this.errorAlert(error)
+	// 	})
+	// }
+
+	// scanQRCode(){
+	// 	this.qrScanner.scan().subscribe((text: string) => {
+	// 		let alert = this.alertCtrl.create({
+	// 			title: 'Scanned something!',
+	// 			message: 'content: ' + text,
+	// 			buttons: [{
+	// 				text: "Nice! Hooray!",
+	// 				handler: _=>{}
+	// 			}]
+	// 		})
+					
+	// 		alert.present()
+	// 	})
+
+	// 	// Make the webview transparent so the video preview is visible behind it.
+	// 	// Be sure to make any opaque HTML elements transparent here to avoid
+	// 	// covering the video.
+	// 	window.document.querySelector('ion-app').classList.add('transparentBody');
+	// 	this.qrScanner.show();
+	// }
+
+	errorAlert(error){
+		let errorAlert = this.alertCtrl.create({
+			title: "ERROR",
+			message: error.message,
+			buttons: [{
+				text: "Okay",
+				handler: _=>{
+					console.log("Hay nako.")
+				}
+			}]
+		})
+	}
+
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad DinerScanPage');
-
-		// Optionally request the permission early
-		// this.qrScanner.prepare()
-		// .then((status: QRScannerStatus) => {
-		// 	if (status.authorized) {
-		// 		console.log("You have access to the camera.");
-		// 		// camera permission was granted
-
-
-		// 		// start scanning
-		// 		let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-		// 			console.log('Scanned something', text);
-
-		// 			this.qrScanner.hide(); // hide camera preview
-		// 			scanSub.unsubscribe(); // stop scanning
-		// 		});
-
-		// 		// show camera preview
-		// 		this.qrScanner.show();
-		// 		window.document.querySelector('ion-app').classList.add('transparent-body');
-
-		// 		// wait for user to scan something, then the observable callback will be called
-
-		// 	} else if (status.denied) {
-		// 		console.log("You will no longer be able to access camera.")
-		// 		// camera permission was permanently denied
-		// 		// you must use QRScanner.openSettings() method to guide the user to the settings page
-		// 		// then they can grant the permission from there
-		// 	} else {
-		// 		console.log("Permission denied. Ask again later.")
-		// 		// permission was denied, but not permanently. You can ask for permission again at a later time.
-		// 	}
-		// })
-		// .catch((e: any) => console.log('Error is', e));
 	}
 
 }
