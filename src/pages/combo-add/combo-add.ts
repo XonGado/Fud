@@ -215,7 +215,6 @@ export class ComboAddPage {
 				}
 			]
 		})
-
 		errorAlert.present()
 	}
 
