@@ -33,7 +33,7 @@
 	<ion-header no-lines>
 		<ion-item>
 			<ion-avatar item-start>
-				<img src="assets/imgs/dinerAvatar.png" (click)="openProfile()">
+				<img src="assets/imgs/DinerAvatar.png" (click)="openProfile()">
 			</ion-avatar>
 			<h2 text-nowrap (click)="openProfile()" color="secondary">{{user.name}}</h2>
 			<p text-nowrap>{{user.email}}</p>
@@ -71,7 +71,7 @@
 	<ion-list no-lines>
 		<ion-item *ngFor="let order of ordersList; let i = index" class="order-list" (click)="openOrderDetails(i)" [class.hidden]="!correctOrderType(order.order_type)">
 			<ion-avatar item-start>
-				<img src="assets/imgs/custAvatar.png">
+				<img src="assets/imgs/CustAvatar.png">
 			</ion-avatar>
 			<h2>{{order.customer_name}}</h2>
 			<p class="price float-text-right green">{{order.order_cost}}</p>
