@@ -63,6 +63,7 @@ export class HomeCustPage {
 		})
 		this.dinersCollectionRef = this.firestore.collection('diners')
 		this.dinerList = this.retrieveDiners()
+		this.customerCount = this.getCount()
 	}
 
 	ionViewWillEnter() { 
@@ -70,7 +71,6 @@ export class HomeCustPage {
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage')
-		this.getCount()
 	    this.menu.enable(true)
 		this.loadMap()
 	}
@@ -123,18 +123,17 @@ export class HomeCustPage {
 
 	getCount() {
 		let that = this
+		let counter: any[] = []
 		this.dinersCollectionRef.ref.get()
 		.then(querySnapshot => {
-			querySnapshot.forEach(doc => {
-				that.diner_ids.push(doc.id)
-			})
 			that.diner_ids.forEach(function(id) {
 				that.dinersCollectionRef.doc(id).collection('orders').ref.where("cleared", "==", false).get()
 				.then(function(querySnapshot) {
-					that.customerCount.push(querySnapshot.size)
+					counter.push(querySnapshot.size)
 				})
 			})
 		})
+		return counter
 	}
 
 	addDinerMarkers(){
@@ -177,8 +176,8 @@ export class HomeCustPage {
 		.then(function(querySnapshot){
 			querySnapshot.forEach(function(doc){
 				_diners.push(doc.data())
+				that.diner_ids.push(doc.id)
 			})
-			console.log("Diners: ", _diners)
 		})
 		.then( function() {
 			that.userHasOrdered()
@@ -188,34 +187,26 @@ export class HomeCustPage {
 	}
 
 	userHasOrdered(){
-		console.log("userHasOrdered")
 		let that = this
 		let order: any[] = []
-		console.log("A")
-		console.log(this.diner_ids.length)
+
 		for (var i = 0; i < this.diner_ids.length; i++) {
-			console.log("B")
 			let id = this.diner_ids[i]
 
 			this.dinersCollectionRef.doc(id).collection('orders').ref.where("customer_id", "==", that.uid).where("cleared", "==", false).get()
 			.then( querySnapshot => {
-				console.log("C")
 				querySnapshot.forEach( doc => {
 					order.push(doc.data())
 					that.dinerID = id
 					that.orderID = doc.id
-					console.log("D")
 				})
-				console.log("Order: ",order)
 			}).then( _ => {
 				that.ordered = order.length >= 1
-				console.log("Ordered: ", that.ordered)
 			})
 		}
 	}
 
 	orderHere(index){
-		console.log(this.ordered)
 		if (this.ordered == undefined) {
 			var orderedMsg = this.toastCtrl.create({
 				message: "Give us a second.",
@@ -265,5 +256,4 @@ export class HomeCustPage {
 	logout(){
 		this.fire.auth.signOut()
 	}
-
 }
