@@ -25,7 +25,7 @@ export class CustViewOrderPage {
 	orderedItemsRef: any
 	customer_name: string
 	items: any[] = []
-	order_cost: any
+	order_cost: number = 0
 	ordereditems_ids: any[] = []
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private firestore: AngularFirestore) {
@@ -54,6 +54,8 @@ export class CustViewOrderPage {
 
 	deleteOrderedItem(item, i){
 		let ordereditem_id = this.ordereditems_ids[i]
+		let price: number = 0
+		let that = this
 		if (this.items[i].lock == false){
 			this.orderedItemsRef.doc(ordereditem_id).delete()
 			.then(function() {
@@ -61,6 +63,17 @@ export class CustViewOrderPage {
 			})
 			.catch(function(error) {
 				console.log("Some error occured.")
+			})
+			this.orderedItemsRef.ref.get()
+			.then(querySnapshot => {
+				querySnapshot.forEach(function(doc) {
+					console.log(doc.data())
+					price = price + (Number(doc.data().item_price) * Number(doc.data().item_ordered))
+				})
+				that.order_cost = price
+				that.orderDocRef.update({
+					order_cost: that.order_cost
+				})
 			})
 		}else{
 			console.log("The ordered item cannot be deleted because it is being processed now.")
