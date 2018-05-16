@@ -25,6 +25,7 @@
 		    	<p class="blue">Table: Aisle 1</p>
 		    </ion-item>
 		</ion-list>
+		<div #map id="map"></div>
 	</ion-toolbar>
 
 </ion-header>
@@ -34,7 +35,7 @@
 		<ion-item *ngFor="let item of items; let i = index">
 			<ion-checkbox color="secondary" [(ngModel)]="item.lock" (click)="changeLock(item, i)" #lock></ion-checkbox>
 			<ion-avatar item-start>
-				<img src="assets/imgs/6.jpg">
+				<img src="assets/imgs/One.jpg">
 			</ion-avatar>
 			<ion-label inline>
 				<h2><span class="quantity">{{item.item_ordered}} &times;</span> {{item.item_name}}</h2>

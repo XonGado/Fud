@@ -1,11 +1,12 @@
 import { Component, ViewChild, ElementRef } from '@angular/core'
-import { IonicPage, NavController, NavParams, MenuController, ToastController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, MenuController, ToastController, Slides } from 'ionic-angular'
 
 import { CustProfilePage } from '../cust-profile/cust-profile'
 import { MenusPage } from '../menus/menus'
 import { OrderPage } from '../order/order'
 import { ComboPage } from '../combo/combo'
 import { CustViewOrderPage } from '../cust-view-order/cust-view-order'
+import { CustViewDinerPage } from '../cust-view-diner/cust-view-diner'
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
@@ -25,6 +26,7 @@ declare var google
 
 export class HomeCustPage {
 
+	@ViewChild(Slides) slides: Slides
 	@ViewChild('map') mapElement: ElementRef
 	map: any
 
@@ -39,6 +41,10 @@ export class HomeCustPage {
   	name: string
   	email: string
   	customerCount: any[] = []
+  	view: string
+
+  	userLocation: any
+  	dinerDistances: any[] = []
 
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
@@ -48,6 +54,7 @@ export class HomeCustPage {
 				private firestore: AngularFirestore,
 				public geolocation: Geolocation) {
 		let that = this
+		this.view = "diner"
 		this.uid = fire.auth.currentUser.uid
 		this.firestore.collection('customers').doc(this.uid).ref.get()
 		.then(doc => {
@@ -61,13 +68,45 @@ export class HomeCustPage {
 
 	ionViewWillEnter() { 
 		this.userHasOrdered()	
+		this.loadMap()
 	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage')
 	    this.menu.enable(true)
-		this.loadMap()
 		this.userHasOrdered()	
+		this.setupSlides()
+	}
+
+	setupSlides(){
+		this.slides.centeredSlides = false
+		this.slides.lockSwipes(false)	
+		// this.slides.direction = "vertical"
+	}
+
+	slide(index){
+		this.slides.slideTo(index)
+
+		if (index == 0){
+			this.view = "diner"
+			this.slides.lockSwipes(false)
+		} else {
+			this.view = "map"
+			this.slides.lockSwipes(true)
+		}
+	}
+
+	ionSlideDidChange(){
+		console.log("Swiped!")
+		let index = this.slides.getActiveIndex()
+
+		if (index == 0){
+			this.view = "diner"
+			this.slides.lockSwipes(false)
+		} else {
+			this.view = "map"
+			this.slides.lockSwipes(true)
+		}
 	}
 
 	menuToggle(){
@@ -75,11 +114,31 @@ export class HomeCustPage {
 		this.menu.toggle()
 	}
 
+	rad (x) {
+		return x * Math.PI / 180;
+	}
+
+	getDistance (p1, p2) {
+		var R = 6378137; // Earth’s mean radius in meter
+		var dLat = this.rad(p2.lat() - p1.lat())
+		var dLong = this.rad(p2.lng() - p1.lng())
+		var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+				Math.cos(this.rad(p1.lat())) * Math.cos(this.rad(p2.lat())) *
+				Math.sin(dLong / 2) * Math.sin(dLong / 2)
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+		var d = R * c
+
+
+		return (d/1000).toFixed(1) // returns the distance in meter
+	}
+
 	loadMap(){
+		let that = this
  
 	    this.geolocation.getCurrentPosition().then((position) => {
  
 			let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+			that.userLocation = latLng
 
 			let mapOptions = {
 				center: latLng,
@@ -136,6 +195,9 @@ export class HomeCustPage {
 		for (var diner of this.dinerList) {
 
 			let latLng = new google.maps.LatLng(diner.dine_location.latitude, diner.dine_location.longitude);
+			console.log(latLng)
+			console.log(this.userLocation)
+			this.dinerDistances.push(this.getDistance(this.userLocation, latLng))
 
 		    let marker = new google.maps.Marker({
 		        map: this.map,
@@ -150,6 +212,8 @@ export class HomeCustPage {
 			this.addInfoWindow(marker, content)
 		    marker.setMap(this.map)
 		}
+
+		console.log(this.dinerDistances)
 	}
 
 	addInfoWindow(marker, content){
@@ -234,6 +298,12 @@ export class HomeCustPage {
 		this.navCtrl.push(CustViewOrderPage, {
 			dinerID: this.dinerID,
 			orderID: this.orderID
+		})
+	}
+
+	viewDiner(index){
+		this.navCtrl.push(CustViewDinerPage, {
+			dinerID: this.diner_ids[index]
 		})
 	}
 

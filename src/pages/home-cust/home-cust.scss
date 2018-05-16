@@ -9,15 +9,26 @@ page-home-cust {
 	}
 
 	#map {
-		position: absolute;
-		bottom: 0;
-		left: 0;
 		width: 100%;
-		height: 50vh;
+		height: 100vh;
 	}
 
 	ion-content{
 		// background: linear-gradient($red, $blue)!important;
+	}
+
+	.auto-scroll{
+		overflow-y: auto;
+		min-height: 80vh;
+	}
+
+	.name, .distance, .crowd{
+		margin-top: 8px!important;
+		float: left;
+	}
+
+	.distance, .crowd{
+		margin-left: 1em;
 	}
 
 	#diner-container{
@@ -31,7 +42,6 @@ page-home-cust {
 			margin-right: 10px;
 			background-color: white;
 			box-shadow: $light-shadow;
-			// grid-template-areas: "";
 			color: #555;
 
 			.display-image{

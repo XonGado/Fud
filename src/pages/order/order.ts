@@ -95,7 +95,7 @@ export class OrderPage {
 	getItems() {
 		let that = this
 		let items: any[] = []
-		this.itemCollectionRef.ref.get()
+		this.itemCollectionRef.ref.where("item_visibility", "==", true).get()
 		.then(function(querySnapshot) {
 		  querySnapshot.forEach(function(doc) {
 			var _item = doc.data()

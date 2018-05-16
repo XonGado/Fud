@@ -29,14 +29,14 @@
 			<ion-list ion-col col-12 col-sm-6 col-md-4 col-lg-4 *ngFor = "let combo of combosList; let i = index" (click)="openEditComboModal(i)">
 				<ion-item class="primary">
 					<ion-avatar item-left>
-						<img src="assets/imgs/6.jpg">
+						<img src="assets/imgs/One.jpg">
 					</ion-avatar>
 					<h2>{{combo.combo_name}} <span class="combo-item-count">{{itemCount}} items</span></h2>
 					<p class="price">{{combo.combo_cost}}</p>
 				</ion-item>
 				<ion-item class="secondary" *ngFor = "let item of combo.items">
 					<ion-avatar item-left>
-						<img src="assets/imgs/6.jpg">
+						<img src="assets/imgs/One.jpg">
 					</ion-avatar>
 					<h2><span class="quantity">{{item.item_ordered}} &times;</span> {{item.item_name}}</h2>
 					<p class="price">{{item.item_price}}</p>

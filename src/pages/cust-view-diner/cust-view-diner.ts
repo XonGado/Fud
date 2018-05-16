@@ -21,18 +21,25 @@ export class CustViewDinerPage {
 	map: any
 
 	dinerRef: AngularFirestoreDocument<DinerDetails>
-	diner: DinerDetails
+
+	name: any
+	email: any
+	address: any
+	number: any
+	location: any
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private fire: AngularFireAuth, private firestore: AngularFirestore) {
+		let that = this
 		this.dinerRef = this.firestore.collection('diners').doc(this.navParams.get('dinerID'))
 		this.dinerRef.ref.get().then( doc => {
-			this.diner.dine_name = doc.data().dine_name
-			this.diner.dine_email= doc.data().dine_email
-			this.diner.dine_address = doc.data().dine_address
-			this.diner.dine_number = doc.data().dine_number
-			this.diner.dine_location = doc.data().dine_location
+			console.log(doc.data())
+			that.name = doc.data().dine_name
+			that.email= doc.data().dine_email
+			that.address = doc.data().dine_address
+			that.number = doc.data().dine_number
+			that.location = doc.data().dine_location
 		}).then( _=> {
-			this.loadMap(this.diner.dine_location)
+			that.loadMap(that.location)
 		})
 	}
 
@@ -65,6 +72,8 @@ export class CustViewDinerPage {
 
 	    console.log("Map loaded.")
 	   
-	  }
+	}
+
+	follow(){}
 
 }

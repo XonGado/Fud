@@ -25,6 +25,12 @@
 			</button>
 		</ion-buttons>
 	</ion-toolbar>
+	<ion-toolbar>
+		<ion-segment [(ngModel)]="view" color="secondary">
+			<ion-segment-button value="diner" (click)="slide(0)" selected>Diners</ion-segment-button>
+			<ion-segment-button value="map" (click)="slide(1)">Map</ion-segment-button>
+		</ion-segment>
+	</ion-toolbar>
 </ion-header>
 
 <ion-menu id="cust-menu" type="overlay" [content]="custContent">
@@ -61,35 +67,35 @@
 
 <ion-nav #custContent [root]="HomeCustPage"></ion-nav>
 
-<ion-content>
-	<ion-row>
-		<ion-col padding col-12 col-sm-12 col-md-6 col-lg-4>
-			<h3 text-uppercase text-center>Diners</h3>
-
-			<ion-list>
-				<ion-item *ngFor="let diner of dinerList; let i = index;" (click)="orderHere(i)">
-					<ion-avatar item-left (click)="viewDiner(i)">
-						<img src="assets/imgs/6.jpg">
-					</ion-avatar>
-					<h2>{{diner.dine_name}}</h2>
-					<p>
-						<ion-icon name="map" color="secondary" margin-right></ion-icon>
-						1km
-						<!-- get the location of the diner -->
-					</p>
-					<p>
-						<ion-icon name="people" color="secondary" margin-right></ion-icon>
-						{{customerCount[i]}}
-						<!-- get the number of orders sa diner -->
-					</p>
-				</ion-item>
-			</ion-list>
-		</ion-col>
-
-	</ion-row>
-
+<ion-content padding>
+	<ion-slides>
+		<ion-slide>
+			<div class="auto-scroll">
+				<!-- <h3 text-uppercase text-center>Diners</h3> -->
+				<ion-list>
+					<ion-item *ngFor="let diner of dinerList; let i = index;">
+						<ion-avatar item-left (click)="viewDiner(i)">
+							<img src="assets/imgs/DinerAvatar.png">
+						</ion-avatar>
+						<h2 class="name">{{diner.dine_name}}</h2>
+						<p class="distance">
+							<ion-icon name="map" color="secondary"></ion-icon>
+							{{dinerDistances[i]}} km
+							<!-- get the location of the diner -->
+						</p>
+						<p class="crowd">
+							<ion-icon name="people" color="secondary"></ion-icon>
+							{{customerCount[i]}}
+						</p>
+						<button ion-button float-right round outline color="secondary" (click)="orderHere(i)">
+							Order here
+						</button>
+					</ion-item>
+				</ion-list>
+			</div>
+		</ion-slide>
+		<ion-slide>
+			<div #map id="map"></div>
+		</ion-slide>
+	</ion-slides>
 </ion-content>
-
-<ion-footer>
-	<div #map id="map"></div>
-</ion-footer>

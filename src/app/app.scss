@@ -54,6 +54,38 @@ ion-spinner {
 	}
 }
 
+page-diner-profile,
+page-cust-profile,
+page-cust-view-diner{
+	.profile-header{
+		display: grid;
+		grid-template-areas: "img"
+							 "name"
+							 "email";
+		padding: 1em;
+		background-color: rgba(255,255,255,0.05);
+
+		img{
+			grid-area: img;
+			border-radius: 15px;
+			width: 7.5em;
+			height: 7.5em;
+			display: inline-block;
+			margin: 0 auto 10px auto;
+		}
+
+		h3{
+			grid-area: name;
+			margin: 0 1rem;
+		}
+
+		h4{
+			grid-area: email;
+			margin: 0 1rem;
+		}
+	}
+}
+
 .empty-message{
 	text-align: center;
 	color: rgba(255,255,255,0.25);

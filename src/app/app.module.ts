@@ -12,14 +12,22 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner'
 
 import { MyApp } from './app.component'
 import { HomePage } from '../pages/home/home'
-import { LoginPage } from '../pages/login/login'
 import { RegisterPage } from '../pages/register/register'
+import { LoadingPage } from '../pages/loading/loading'
+import { LoginPage } from '../pages/login/login'
+
 import { HomeCustPage } from '../pages/home-cust/home-cust' 
+import { CustProfilePage } from '../pages/cust-profile/cust-profile'
+import { CustViewOrderPage } from '../pages/cust-view-order/cust-view-order'
+import { CustViewDinerPage } from '../pages/cust-view-diner/cust-view-diner'
+import { CustLocatePage } from '../pages/cust-locate/cust-locate'
 import { ComboPage } from '../pages/combo/combo'
 import { ComboAddPage } from '../pages/combo-add/combo-add'
 import { ComboEditPage } from '../pages/combo-edit/combo-edit'
 import { ComboSelectDinerPage } from '../pages/combo-select-diner/combo-select-diner'
-import { CustProfilePage } from '../pages/cust-profile/cust-profile'
+import { OrderPage } from '../pages/order/order'
+
+import { HomeDinerPage } from '../pages/home-diner/home-diner'
 import { DinerProfilePage } from '../pages/diner-profile/diner-profile'
 import { DinerProfileEditPage } from '../pages/diner-profile-edit/diner-profile-edit'
 import { DinerCreateMenuPage } from '../pages/diner-create-menu/diner-create-menu'
@@ -27,19 +35,14 @@ import { DinerMenuPage } from '../pages/diner-menu/diner-menu'
 import { DinerLocatePage } from '../pages/diner-locate/diner-locate'
 import { DinerScanPage } from '../pages/diner-scan/diner-scan'
 import { DinerOrderHistoryPage } from '../pages/diner-order-history/diner-order-history'
-import { HomeDinerPage } from '../pages/home-diner/home-diner'
-import { CustViewOrderPage } from '../pages/cust-view-order/cust-view-order'
-import { CustLocatePage } from '../pages/cust-locate/cust-locate'
 import { MenuPage } from '../pages/menu/menu'
 import { MenusPage } from '../pages/menus/menus'
-import { OrderPage } from '../pages/order/order'
 import { BasketPage } from '../pages/basket/basket'
 import { ItemPage } from '../pages/item/item'
 import { ItemEditPage } from '../pages/item-edit/item-edit'
 import { ItemAddPage } from '../pages/item-add/item-add'
 import { MenuCreatePage } from '../pages/menu-create/menu-create'
 import { OrderDetailsPage } from '../pages/order-details/order-details'
-import { LoadingPage } from '../pages/loading/loading'
 
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer'
 import { File } from '@ionic-native/file'
@@ -75,6 +78,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerOrderHistoryPage,
     HomeDinerPage,
     CustViewOrderPage,
+    CustViewDinerPage,
     CustLocatePage,
     LoadingPage,
     MenuPage,
@@ -120,6 +124,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerOrderHistoryPage,  
     HomeDinerPage,
     CustViewOrderPage,
+    CustViewDinerPage,
     CustLocatePage,
     LoadingPage,
     MenuPage,

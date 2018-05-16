@@ -37,7 +37,7 @@
 				</ion-list-header>
 				<ion-item *ngFor="let item of category.items" [class.hidden]="!filter(item.item_name, keyword)" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)" >
 					<ion-avatar item-start>
-						<img src="assets/imgs/6.jpg">
+						<img src="assets/imgs/One.jpg">
 					</ion-avatar>
 					<h2>{{item.item_name}} <span class="quantity" *ngIf="item.item_ordered > 0">&times; {{item.item_ordered}}</span></h2>
 					<p class="price float-text-right" ion-text color="secondary">{{item.item_price}}</p>

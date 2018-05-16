@@ -6,9 +6,8 @@
 -->
 <ion-header>
 
-  <!-- <ion-navbar>
-    <ion-title>cust-view-cafe</ion-title>
-  </ion-navbar> -->
+  <ion-navbar>
+  </ion-navbar>
 
 </ion-header>
 
@@ -17,19 +16,19 @@
 	<ion-row>
 		<ion-col col-12 col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4>
 			<div class="profile-header">
-				<img src="assets/imgs/6.jpg">
-				<h3 ion-text text-uppercase text-center color="secondary">{{diner.dine_name}}</h3>
-				<h4 ion-text text-center><small>{{diner.dine_email}}</small></h4>
+				<img src="assets/imgs/DinerAvatar.png">
+				<h3 ion-text text-uppercase text-center color="secondary">{{name}}</h3>
+				<h4 ion-text text-center><small>{{email}}</small></h4>
 			</div>
 			
 			<ion-list>
 				<ion-item icon-left>
 					<ion-icon name="map" color="secondary"></ion-icon>
-					{{diner.dine_address}}
+					{{address}}
 				</ion-item>
 				<ion-item icon-left>
 					<ion-icon name="call" color="secondary"></ion-icon>
-					{{diner.dine_number}}
+					{{number}}
 				</ion-item>
 				<ion-item icon-left>
 					<ion-icon name="locate" color="secondary"></ion-icon>
