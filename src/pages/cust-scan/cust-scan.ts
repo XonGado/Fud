@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner'
 
 @IonicPage()
 @Component({
-  selector: 'page-diner-scan',
-  templateUrl: 'diner-scan.html',
+  selector: 'page-cust-scan',
+  templateUrl: 'cust-scan.html',
 })
-export class DinerScanPage {
+export class CustScanPage {
 
 	qrData = null
 	createdCode = null
 	scannedCode = null
 
 	constructor(public navCtrl: NavController, 
-				public navParams: NavParams, 
-				public alertCtrl: AlertController,
-				private barcodeScanner: BarcodeScanner) {
+		public navParams: NavParams,
+		public alertCtrl: AlertController,
+		private barcodeScanner: BarcodeScanner) {
 	}
 
-	createCode(){
+  	createCode(){
 		this.createdCode = this.qrData
 	}
 

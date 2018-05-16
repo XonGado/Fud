@@ -7,6 +7,7 @@ import { OrderPage } from '../order/order'
 import { ComboPage } from '../combo/combo'
 import { CustViewOrderPage } from '../cust-view-order/cust-view-order'
 import { CustViewDinerPage } from '../cust-view-diner/cust-view-diner'
+import { CustScanPage } from '../cust-scan/cust-scan'
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
@@ -88,27 +89,27 @@ export class HomeCustPage {
 	slide(index){
 		this.slides.slideTo(index)
 
-		if (index == 0){
-			this.view = "diner"
-			this.slides.lockSwipes(false)
-		} else {
-			this.view = "map"
-			this.slides.lockSwipes(true)
-		}
+		// if (index == 0){
+		// 	this.view = "diner"
+		// 	this.slides.lockSwipes(false)
+		// } else {
+		// 	this.view = "map"
+		// 	this.slides.lockSwipes(true)
+		// }
 	}
 
-	ionSlideDidChange(){
-		console.log("Swiped!")
-		let index = this.slides.getActiveIndex()
+	// ionSlideDidChange(){
+	// 	console.log("Swiped!")
+	// 	let index = this.slides.getActiveIndex()
 
-		if (index == 0){
-			this.view = "diner"
-			this.slides.lockSwipes(false)
-		} else {
-			this.view = "map"
-			this.slides.lockSwipes(true)
-		}
-	}
+	// 	if (index == 0){
+	// 		this.view = "diner"
+	// 		this.slides.lockSwipes(false)
+	// 	} else {
+	// 		this.view = "map"
+	// 		this.slides.lockSwipes(true)
+	// 	}
+	// }
 
 	menuToggle(){
 		this.menu.enable(true)
@@ -316,6 +317,9 @@ export class HomeCustPage {
 		this.navCtrl.push(ComboPage)
 	}
 
+	openScanner(){
+		this.navCtrl.push(CustScanPage);
+	}
 
 	openMenus(){
 		this.navCtrl.push(MenusPage)

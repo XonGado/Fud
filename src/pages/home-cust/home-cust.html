@@ -45,20 +45,20 @@
 	</ion-header>
 	<ion-content>
 		<ion-list>
-			<button ion-item (click)="openProfile()">
-				<ion-icon class="blue" name="person" item-start></ion-icon> 
+			<button ion-item icon-start (click)="openProfile()">
+				<ion-icon class="green" name="person"></ion-icon> 
 				Profile
 			</button>
-			<button ion-item (click)="openCombo()">
-				<ion-icon class="yellow" name="pizza" item-start></ion-icon> 
+			<button ion-item icon-start (click)="openCombo()">
+				<ion-icon class="yellow" name="pizza"></ion-icon> 
 				Combo
 			</button>
-			<!-- <button ion-item (click)="openMenus()">
-				<ion-icon color="fudGreen" name="paper" item-start></ion-icon> 
-				Menus
-			</button> -->
-			<button ion-item (click)="logout()">
-				<ion-icon color="danger" name="log-out" item-start></ion-icon> 
+			<button ion-item icon-start (click)="openScanner()">
+				<ion-icon class="blue" name="qr-scanner"></ion-icon> 
+				Scanner
+			</button>
+			<button ion-item icon-start (click)="logout()">
+				<ion-icon color="danger" name="log-out"></ion-icon> 
 				Logout
 			</button>
 		</ion-list>

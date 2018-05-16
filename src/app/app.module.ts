@@ -21,6 +21,7 @@ import { CustProfilePage } from '../pages/cust-profile/cust-profile'
 import { CustViewOrderPage } from '../pages/cust-view-order/cust-view-order'
 import { CustViewDinerPage } from '../pages/cust-view-diner/cust-view-diner'
 import { CustLocatePage } from '../pages/cust-locate/cust-locate'
+import { CustScanPage } from '../pages/cust-scan/cust-scan'
 import { ComboPage } from '../pages/combo/combo'
 import { ComboAddPage } from '../pages/combo-add/combo-add'
 import { ComboEditPage } from '../pages/combo-edit/combo-edit'
@@ -80,6 +81,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     CustViewOrderPage,
     CustViewDinerPage,
     CustLocatePage,
+    CustScanPage,
     LoadingPage,
     MenuPage,
     MenusPage,
@@ -126,6 +128,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     CustViewOrderPage,
     CustViewDinerPage,
     CustLocatePage,
+    CustScanPage,
     LoadingPage,
     MenuPage,
     MenusPage,
