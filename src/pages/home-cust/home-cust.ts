@@ -67,6 +67,7 @@ export class HomeCustPage {
 	}
 
 	ionViewWillEnter() { 
+		this.dinerList = this.retrieveDiners()
 		this.userHasOrdered()	
 		this.loadMap()
 	}

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController, ActionSheetController, LoadingController, Events, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController, ActionSheetController, LoadingController, Events, Platform, ToastController } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -45,6 +45,13 @@ export class ComboEditPage {
 	orderNumber: number
 	orderType: any
 	comboItems: any[] = []
+	diner_ids: any[] = []
+	dinerID: string
+	orderID: string
+	ordered: boolean
+	uid: string
+	dinerList: any[] = []
+	customerCount: any[] = []
 
 	loading = this.loadingCtrl.create({
       dismissOnPageChange: true,
@@ -60,8 +67,9 @@ export class ComboEditPage {
 				public platform: Platform,
 				public loadingCtrl: LoadingController,
 				private fire: AngularFireAuth,
-				private firestore: AngularFirestore) {
-
+				private firestore: AngularFirestore,
+				public toastCtrl: ToastController) {
+		this.uid = fire.auth.currentUser.uid
 		this.combo_data = this.navParams.get('data')
 		this.combo_id = this.combo_data.combo_id
 		this.comboItems = this.combo_data.items
@@ -72,12 +80,49 @@ export class ComboEditPage {
 		this.customer = this.fire.auth.currentUser.uid
 		this.customerDocRef = this.firestore.collection('customers').doc(this.customer)
 		this.combosCollectionRef = this.firestore.collection('customers').doc(this.customer).collection('combos')
+		this.dinerList = this.retrieveDiners()
 	}
 
 	ionViewDidLoad() {
 		console.log(this.combo_data)
 		this.getItems()
 		console.log('ionViewDidLoad ComboEditPage');
+	}
+
+	userHasOrdered(){
+		let that = this
+		let order: any[] = []
+
+		for (var i = 0; i < this.diner_ids.length; i++) {
+			let id = this.diner_ids[i]
+
+			this.firestore.collection('diners').doc(id).collection('orders').ref.where("customer_id", "==", that.uid).where("cleared", "==", false).get()
+			.then( querySnapshot => {
+				querySnapshot.forEach( doc => {
+					order.push(doc.data())
+					that.dinerID = id
+					that.orderID = doc.id
+				})
+			}).then( _ => {
+				that.ordered = order.length >= 1
+			})
+		}
+	}
+
+	retrieveDiners(){
+		let _diners: any[] = []
+		let that = this
+		this.firestore.collection('diners').ref.get()
+		.then(function(querySnapshot){
+			querySnapshot.forEach(function(doc){
+				_diners.push(doc.data())
+				that.diner_ids.push(doc.id)
+			})
+		})
+		.then( function() {
+			that.userHasOrdered()
+		})
+		return _diners
 	}
 
 	deleteCombo() {
@@ -163,46 +208,68 @@ export class ComboEditPage {
 	}
 
 	askOrderType(){
-		let alert = this.alertCtrl.create();
-		let address: string = ''
+			if (this.ordered == undefined) {
+			this.userHasOrdered()
+			
+			var orderedMsg = this.toastCtrl.create({
+				message: "Give us a second.",
+				dismissOnPageChange: true,
+				position: "bottom",
+				duration: 3000
+			})
 
-		alert.setTitle("Select an option")
+			orderedMsg.present()
+		} else if (!this.ordered) {
+			let alert = this.alertCtrl.create();
+			let address: string = ''
 
-	    alert.addInput({
-	    	type: 'radio',
-	    	label: "I'll dine in",
-	    	value: "0",
-	    	checked: true
-	    });
+			alert.setTitle("Select an option")
 
-	    alert.addInput({
-	    	type: 'radio',
-	    	label: "I'll take it out",
-	    	value: "1",
-	    	checked: false
-	    });
+		    alert.addInput({
+		    	type: 'radio',
+		    	label: "I'll dine in",
+		    	value: "0",
+		    	checked: true
+		    });
 
-	    alert.addInput({
-	    	type: 'radio',
-	    	label: "Deliver it to me",
-	    	value: "2",
-	    	checked: false
-	    });
+		    alert.addInput({
+		    	type: 'radio',
+		    	label: "I'll take it out",
+		    	value: "1",
+		    	checked: false
+		    });
 
-	    alert.addButton('Cancel');
-	    alert.addButton({
-	    	text: "Confirm",
-	    	handler: data => {
-	    		this.orderType = data;
-	    		console.log(this.orderType)
-	    		this.placeOrder(this.orderType)
-	    		// if (this.orderType == 2) {
-	    			// Get location. Tasked to Clyde.
-	    		// }
-	    	}
-	    });
-	    alert.present();
-		this.loading.dismiss()
+		    alert.addInput({
+		    	type: 'radio',
+		    	label: "Deliver it to me",
+		    	value: "2",
+		    	checked: false
+		    });
+
+		    alert.addButton('Cancel');
+		    alert.addButton({
+		    	text: "Confirm",
+		    	handler: data => {
+		    		this.orderType = data;
+		    		console.log(this.orderType)
+		    		this.placeOrder(this.orderType)
+		    		// if (this.orderType == 2) {
+		    			// Get location. Tasked to Clyde.
+		    		// }
+		    	}
+		    });
+		    alert.present();
+			this.loading.dismiss()
+		} else {
+			var orderedMsg = this.toastCtrl.create({
+				message: "You can't order again! You still have ongoing orders.",
+				dismissOnPageChange: true,
+				position: "bottom",
+				duration: 3000
+			})
+
+			orderedMsg.present()
+		}
 	}
 
 	placeOrder(orderType){
