@@ -45,6 +45,7 @@ export class CustScanPage {
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad DinerScanPage');
+		this.scanCode()
 	}
 
 }

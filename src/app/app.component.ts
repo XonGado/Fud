@@ -5,8 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoadingPage } from '../pages/loading/loading'
 import { LoginPage } from '../pages/login/login'
-import { HomeDinerPage } from '../pages/home-diner/home-diner'
-import { HomeCustPage } from '../pages/home-cust/home-cust'
+import { DinerHomePage } from '../pages/diner-home/diner-home'
+import { CustHomePage } from '../pages/cust-home/cust-home'
 
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AngularFirestore } from 'angularfire2/firestore'
@@ -45,9 +45,9 @@ export class MyApp {
     this.firestore.collection('users').doc(uid).ref.get()
     .then(doc => {
       if (doc.data().type == 'diners'){
-        that.rootPage = HomeDinerPage
+        that.rootPage = DinerHomePage
       }else{
-        that.rootPage = HomeCustPage
+        that.rootPage = CustHomePage
       }
     })
   }

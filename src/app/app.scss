@@ -15,6 +15,18 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+
 // Color values
 $red	: #E91E63;
 $yellow	: #FDD835;
@@ -63,7 +75,7 @@ page-cust-view-diner{
 							 "name"
 							 "email";
 		padding: 1em;
-		background-color: rgba(255,255,255,0.05);
+		// background-color: rgba(255,255,255,0.05);
 
 		img{
 			grid-area: img;

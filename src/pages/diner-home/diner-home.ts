@@ -21,10 +21,10 @@ import { AngularFireAuth } from 'angularfire2/auth'
 
 @IonicPage()
 @Component({
-  selector: 'page-home-diner',
-  templateUrl: 'home-diner.html',
+  selector: 'page-diner-home',
+  templateUrl: 'diner-home.html',
 })
-export class HomeDinerPage {
+export class DinerHomePage {
   uid: string
   ordersCollectionRef: AngularFirestoreCollection<Order>
   orderedItemsColRef: any
@@ -114,7 +114,7 @@ export class HomeDinerPage {
   	this.navCtrl.push(DinerMenuPage);
   }
 
-  openScanner(){
+  openGenerator(){
   	this.navCtrl.push(DinerScanPage);
   }
 

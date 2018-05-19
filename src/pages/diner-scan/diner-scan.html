@@ -7,36 +7,39 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Scan</ion-title>
+    <ion-title>Table codes</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding offset-lg-4 col-lg-4>
+<ion-content padding offset-md-3 col-md-6 offset-lg-4 col-lg-4>
 	<ion-item>
-		<ion-input type="text" placeholder="QR data" [(ngModel)]="qrData"></ion-input>
+		<ion-input type="text" placeholder="Table Name" [(ngModel)]="qrData"></ion-input>
 	</ion-item>
 
-	<button ion-button full icon-left (click)="createCode()">
-		<ion-icon name="barcode"></ion-icon>Create Code
-	</button>
 
-	<button ion-button full icon-left (click)="scanCode()">
+	<!-- <button ion-button full icon-left (click)="scanCode()">
 		<ion-icon name="qr-scanner"></ion-icon>Scan Code
-	</button>
+	</button> -->
 
 	<ion-card *ngIf="createdCode">
 		<ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
-		<ion-card-content>
-			 <p>Value: {{ createdCode }}</p>
-		</ion-card-content>
 	</ion-card>
+	<!-- <ion-item *ngIf="createdCode">
+		 <p>{{ createdCode }}</p>
+	</ion-item> -->
 
 	<ion-card *ngIf="scannedCode">
-		<ion-card-content>
-			Result from Scan: {{ scannedCode }}
-		</ion-card-content>
+		<ion-item>
+			<p>{{ scannedCode }}</p>
+		</ion-item>
 	</ion-card>
 
 </ion-content>
+
+<ion-footer padding>
+	<button ion-button outline round icon-left (click)="createCode()">
+		<ion-icon name="barcode"></ion-icon>Create Code
+	</button>
+</ion-footer>

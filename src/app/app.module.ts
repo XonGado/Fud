@@ -16,7 +16,7 @@ import { RegisterPage } from '../pages/register/register'
 import { LoadingPage } from '../pages/loading/loading'
 import { LoginPage } from '../pages/login/login'
 
-import { HomeCustPage } from '../pages/home-cust/home-cust' 
+import { CustHomePage } from '../pages/cust-home/cust-home' 
 import { CustProfilePage } from '../pages/cust-profile/cust-profile'
 import { CustViewOrderPage } from '../pages/cust-view-order/cust-view-order'
 import { CustViewDinerPage } from '../pages/cust-view-diner/cust-view-diner'
@@ -28,7 +28,7 @@ import { ComboEditPage } from '../pages/combo-edit/combo-edit'
 import { ComboSelectDinerPage } from '../pages/combo-select-diner/combo-select-diner'
 import { OrderPage } from '../pages/order/order'
 
-import { HomeDinerPage } from '../pages/home-diner/home-diner'
+import { DinerHomePage } from '../pages/diner-home/diner-home'
 import { DinerProfilePage } from '../pages/diner-profile/diner-profile'
 import { DinerProfileEditPage } from '../pages/diner-profile-edit/diner-profile-edit'
 import { DinerCreateMenuPage } from '../pages/diner-create-menu/diner-create-menu'
@@ -65,19 +65,19 @@ import { Geolocation } from '@ionic-native/geolocation';
     HomePage,
     LoginPage,
     RegisterPage,
-    HomeCustPage,
+    CustHomePage,
     ComboPage,
     ComboAddPage,
     ComboEditPage,
     ComboSelectDinerPage,
     CustProfilePage,
+    DinerHomePage,
     DinerCreateMenuPage,
     DinerMenuPage,
     DinerProfilePage,
     DinerProfileEditPage,
     DinerLocatePage,
     DinerOrderHistoryPage,
-    HomeDinerPage,
     CustViewOrderPage,
     CustViewDinerPage,
     CustLocatePage,
@@ -112,19 +112,19 @@ import { Geolocation } from '@ionic-native/geolocation';
     HomePage,
     LoginPage,
     RegisterPage,
-    HomeCustPage,
+    CustHomePage,
     ComboPage,
     ComboAddPage,
     ComboEditPage,
     ComboSelectDinerPage,
     CustProfilePage,
+    DinerHomePage,
     DinerCreateMenuPage,
     DinerMenuPage,
     DinerProfileEditPage,
     DinerProfilePage,
     DinerLocatePage,
     DinerOrderHistoryPage,  
-    HomeDinerPage,
     CustViewOrderPage,
     CustViewDinerPage,
     CustLocatePage,

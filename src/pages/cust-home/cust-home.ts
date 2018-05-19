@@ -21,11 +21,11 @@ declare var google
 
 @IonicPage()
 @Component({
-  selector: 'page-home-cust',
-  templateUrl: 'home-cust.html',
+  selector: 'page-cust-home',
+  templateUrl: 'cust-home.html',
 })
 
-export class HomeCustPage {
+export class CustHomePage {
 
 	@ViewChild(Slides) slides: Slides
 	@ViewChild('map') mapElement: ElementRef
