@@ -42,6 +42,12 @@
 			<h2 text-nowrap (click)="openProfile()" color="secondary">{{name}}</h2>
 			<p text-nowrap>{{email}}</p>
 		</ion-item>
+		<ion-item>
+			<p text-nowrap class="yellow">
+				<ion-icon name="star"></ion-icon> 
+				Favorites: {{favorites}}
+			</p>
+		</ion-item>
 	</ion-header>
 	<ion-content>
 		<ion-list>

@@ -41,6 +41,7 @@ export class CustHomePage {
   	ordered: boolean
   	name: string
   	email: string
+  	favorites: any
   	customerCount: any[] = []
   	view: string
 
@@ -61,6 +62,7 @@ export class CustHomePage {
 		.then(doc => {
 			that.name = doc.data().cust_name
 			that.email = doc.data().cust_email	
+			that.favorites = doc.data().favorites.length
 		})
 		this.dinersCollectionRef = this.firestore.collection('diners')
 		this.dinerList = this.retrieveDiners()

@@ -6,21 +6,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { HomeCustPage } from './home-cust';
+import { CustHomePage } from './cust-home';
 var HomeCustPageModule = /** @class */ (function () {
     function HomeCustPageModule() {
     }
     HomeCustPageModule = __decorate([
         NgModule({
             declarations: [
-                HomeCustPage,
+                CustHomePage,
             ],
             imports: [
-                IonicPageModule.forChild(HomeCustPage),
+                IonicPageModule.forChild(CustHomePage),
             ],
         })
     ], HomeCustPageModule);
     return HomeCustPageModule;
 }());
 export { HomeCustPageModule };
-//# sourceMappingURL=home-cust.module.js.map
+//# sourceMappingURL=cust-home.module.js.map

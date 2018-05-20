@@ -9,6 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ComboSelectDinerPage } from '../combo-select-diner/combo-select-diner';
+import { ComboEditPage } from '../combo-edit/combo-edit';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireAuth } from 'angularfire2/auth';
 /**
  * Generated class for the ComboPage page.
  *
@@ -16,18 +20,53 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 var ComboPage = /** @class */ (function () {
-    function ComboPage(navCtrl, navParams) {
+    function ComboPage(navCtrl, navParams, firestore, fire) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.firestore = firestore;
+        this.fire = fire;
+        this.combosList = [];
+        this.itemsList = [];
+        this.uid = this.fire.auth.currentUser.uid;
+        this.combosCollectionRef = this.firestore.collection('customers').doc(this.uid).collection('combos');
     }
+    ComboPage.prototype.ionViewWillEnter = function () {
+        this.getCombos();
+    };
     ComboPage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad ComboPage');
     };
-    ComboPage.prototype.closePage = function () {
-        this.navCtrl.pop();
+    ComboPage.prototype.getCombos = function () {
+        var that = this;
+        this.combosList = [];
+        this.combosCollectionRef.ref.get()
+            .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+                that.combosList.push(doc.data());
+            });
+            that.getItems();
+        });
+    };
+    ComboPage.prototype.getItems = function () {
+        var that = this;
+        var count = 0;
+        this.combosList.forEach(function (doc) {
+            that.itemsList = doc.items;
+        });
+        this.itemsList.forEach(function (doc) {
+            count = count + Number(doc.item_ordered);
+        });
+        this.itemCount = count;
     };
     ComboPage.prototype.openAddComboModal = function () {
-        console.log("Oppening add combo modal.");
+        this.navCtrl.push(ComboSelectDinerPage);
+        console.log("Opening add combo modal.");
+    };
+    ComboPage.prototype.openEditComboModal = function (i) {
+        var combosList = this.combosList;
+        this.navCtrl.push(ComboEditPage, {
+            data: combosList[i]
+        });
     };
     ComboPage = __decorate([
         IonicPage(),
@@ -35,7 +74,10 @@ var ComboPage = /** @class */ (function () {
             selector: 'page-combo',
             templateUrl: 'combo.html',
         }),
-        __metadata("design:paramtypes", [NavController, NavParams])
+        __metadata("design:paramtypes", [NavController,
+            NavParams,
+            AngularFirestore,
+            AngularFireAuth])
     ], ComboPage);
     return ComboPage;
 }());

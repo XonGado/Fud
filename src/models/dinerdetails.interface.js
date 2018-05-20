@@ -1,1 +1,1 @@
-//# sourceMappingURL=registerdiner.interface.js.map
+//# sourceMappingURL=dinerdetails.interface.js.map

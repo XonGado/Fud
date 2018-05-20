@@ -1,1 +1,1 @@
-//# sourceMappingURL=registercustomer.interface.js.map
+//# sourceMappingURL=customerdetails.interface.js.map

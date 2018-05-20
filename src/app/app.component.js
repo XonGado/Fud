@@ -11,22 +11,57 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { LoadingPage } from '../pages/loading/loading';
 import { LoginPage } from '../pages/login/login';
+import { DinerHomePage } from '../pages/diner-home/diner-home';
+import { CustHomePage } from '../pages/cust-home/cust-home';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore } from 'angularfire2/firestore';
 var MyApp = /** @class */ (function () {
-    function MyApp(platform, statusBar, splashScreen) {
-        this.rootPage = LoginPage;
+    function MyApp(platform, statusBar, splashScreen, fire, firestore) {
+        this.platform = platform;
+        this.statusBar = statusBar;
+        this.splashScreen = splashScreen;
+        this.fire = fire;
+        this.firestore = firestore;
+        this.rootPage = LoadingPage;
         platform.ready().then(function () {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             statusBar.styleDefault();
             splashScreen.hide();
         });
+        var that = this;
+        this.fire.auth.onAuthStateChanged(function (user) {
+            if (user) {
+                that.redirectUser(user.uid);
+            }
+            else {
+                that.rootPage = LoginPage;
+            }
+        });
     }
+    MyApp.prototype.redirectUser = function (uid) {
+        var that = this;
+        this.firestore.collection('users').doc(uid).ref.get()
+            .then(function (doc) {
+            if (doc.data().type == 'diners') {
+                that.rootPage = DinerHomePage;
+            }
+            else {
+                that.rootPage = CustHomePage;
+            }
+        });
+    };
     MyApp = __decorate([
         Component({
             templateUrl: 'app.html'
         }),
-        __metadata("design:paramtypes", [Platform, StatusBar, SplashScreen])
+        __metadata("design:paramtypes", [Platform,
+            StatusBar,
+            SplashScreen,
+            AngularFireAuth,
+            AngularFirestore])
     ], MyApp);
     return MyApp;
 }());
