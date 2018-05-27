@@ -8,6 +8,7 @@ import { ComboPage } from '../combo/combo'
 import { CustViewOrderPage } from '../cust-view-order/cust-view-order'
 import { CustViewDinerPage } from '../cust-view-diner/cust-view-diner'
 import { CustScanPage } from '../cust-scan/cust-scan'
+import { CustNotificationPage } from '../cust-notification/cust-notification'
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
@@ -67,6 +68,9 @@ export class CustHomePage {
 		this.dinersCollectionRef = this.firestore.collection('diners')
 		this.dinerList = this.retrieveDiners()
 		this.customerCount = this.getCount()
+
+		var date = new Date()
+		console.log(date)
 	}
 
 	ionViewWillEnter() { 
@@ -198,7 +202,7 @@ export class CustHomePage {
 
 		for (var diner of this.dinerList) {
 
-			let latLng = new google.maps.LatLng(diner.dine_location.latitude, diner.dine_location.longitude);
+			let latLng = new google.maps.LatLng(diner.location.latitude, diner.location.longitude);
 			console.log(latLng)
 			console.log(this.userLocation)
 			this.dinerDistances.push(this.getDistance(this.userLocation, latLng))
@@ -210,8 +214,8 @@ export class CustHomePage {
 		    })
 
 			let content = 
-				"<h4>" + diner.dine_name + "</h4>" +
-				"<span>" + diner.dine_address + "</span>"
+				"<h4>" + diner.name + "</h4>" +
+				"<span>" + diner.address + "</span>"
 
 			this.addInfoWindow(marker, content)
 		    marker.setMap(this.map)
@@ -273,28 +277,24 @@ export class CustHomePage {
 		if (this.ordered == undefined) {
 			this.userHasOrdered()
 			
-			var orderedMsg = this.toastCtrl.create({
+			this.toastCtrl.create({
 				message: "Give us a second.",
 				dismissOnPageChange: true,
 				position: "bottom",
 				duration: 3000
-			})
-
-			orderedMsg.present()
+			}).present()
 		} else if (!this.ordered) {
 			let that = this
 			this.navCtrl.push(OrderPage, {
 				data: that.diner_ids[index]
 			})
 		} else {
-			var orderedMsg = this.toastCtrl.create({
+			this.toastCtrl.create({
 				message: "You can't order again! You still have ongoing orders.",
 				dismissOnPageChange: true,
 				position: "bottom",
 				duration: 3000
-			})
-
-			orderedMsg.present()
+			}).present()
 		}
 	}
 
@@ -313,6 +313,10 @@ export class CustHomePage {
 
 	openProfile(){
 		this.navCtrl.push(CustProfilePage)
+	}
+
+	openNotifications(){
+		this.navCtrl.push(CustNotificationPage)
 	}
 
 	openCombo(){

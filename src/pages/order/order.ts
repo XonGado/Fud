@@ -226,14 +226,12 @@ export class OrderPage {
 
 		this.customerDocRef.ref.get()
 		.then(doc => {
-			customer_name = doc.data().cust_name
 			customer_id = doc.id
 			that.ordersCollectionRef.doc(id).set({
-				customer_id: customer_id,
-				customer_name: customer_name,
-				order_cost: price,
+				customer: customer_id,
+				cost: price,
 				cleared: false,
-				order_type: that.orderType,
+				type: that.orderType,
 				totalItems: count,
 				orderNumber: that.orderNumber
 			})

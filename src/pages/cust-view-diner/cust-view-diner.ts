@@ -22,6 +22,7 @@ export class CustViewDinerPage {
 
 	dinerRef: AngularFirestoreDocument<DinerDetails>
 
+	// Diner's credentials
 	name: any
 	email: any
 	address: any
@@ -77,63 +78,48 @@ export class CustViewDinerPage {
 	favorite(){
 		let that = this
 		let dinerID = this.navParams.get("dinerID")
-		let userID = this.fire.auth.currentUser.uid
-		let user = this.firestore.collection("customers").doc(userID)
-		var _favorites = []
-		var exists = false
+		let exists = null
 
-		user.ref.get().then( doc => {
-			let retrievedFaves = doc.data().favorites 
-			console.log(retrievedFaves)
+		let favorite = this.firestore.collection("customers").doc(this.fire.auth.currentUser.uid).collection("favorites").doc(dinerID)
+		favorite.ref.get().then(doc => {
+			console.log(doc.exists)
+			exists = doc.exists
+			if (!exists) {
+				favorite.ref.set({
+					id: dinerID,
+					timestamp: new Date()
+				}).catch(error => {
+					that.alertCtrl.create({
+						title: "Error",
+						message: error.message,
+						buttons: [{ text: "Got it" }]
+					}).present()
+				})
 
-			if (retrievedFaves != undefined) {
-				_favorites = retrievedFaves
-			}
-		}).then( _ => {
-			console.log(!_favorites.includes(dinerID))
-
-			if (!_favorites.includes(dinerID)) {
-				console.log("Diner id is added in your favorites.")
-				_favorites.push(dinerID)
-			} else {
-				exists = true
-			}
-		}).then( _ =>{
-			this.firestore.collection("customers").doc(userID).update({
-				favorites: _favorites
-			}).then( _ =>{
-				let alert = that.alertCtrl.create({
+				that.alertCtrl.create({
 					title: "Favorite",
 					message: "You will now be updated about " + that.name + ".",
 					buttons: [{
 						text: "Great!",
-						handler: _=>{
+						handler: _ => {
 							console.log("Should update button.")
 						}
 					}]
-				})
-
-				let favoriteAlert = that.alertCtrl.create({
+				}).present()
+			} else {
+				that.alertCtrl.create({
 					title: "Oops",
 					message: that.name + " is already one of your favorites.",
 					buttons: [{
 						text: "Okay",
-						handler: _=>{
+						handler: _ => {
 							console.log("Should update button.")
 						}
 					}]
-				})
-
-				if (exists) {
-					favoriteAlert.present()
-				} else {
-					alert.present()
-				}
-			})
-			.catch( error => {
-				console.log(error.message)
-			})
+				}).present()
+			}
 		})
+
 	}
 
 }

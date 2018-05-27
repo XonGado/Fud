@@ -29,8 +29,10 @@
 
 // Color values
 $red	: #E91E63;
+$orange	: #FFB300;
 $yellow	: #FDD835;
 $green	: #acdc39;
+$cyan	: #00ACC1;
 $blue	: #00BCD4;
 $purple	: #AB47BC;
 $dark-yellow	: #facc2e;
@@ -113,9 +115,21 @@ page-cust-view-diner{
 	color: $red!important;
 }
 
+.orange{
+	color: $orange!important;
+}
+
 .yellow,
 .warning{
 	color: $yellow!important;
+}
+
+.green{
+	color: $green!important;
+}
+
+.cyan{
+	color: $cyan!important;
 }
 
 .blue{
@@ -126,9 +140,6 @@ page-cust-view-diner{
 	color: $purple!important;
 }
 
-.green{
-	color: $green!important;
-}
 
 ion-backdrop{
 	opacity: 0.8;
@@ -234,4 +245,20 @@ page-diner-order-history {
   .typeIndicator.purple{ background-color: $purple; }
   .typeIndicator.violet{ background-color: $purple; }
   .typeIndicator.red{ background-color: $red; }
+}
+
+#diner-menu .list-md,
+#cust-menu .list-md{
+	margin-bottom: 0; 
+}
+
+#diner-menu .list-md .icon-md,
+#cust-menu .list-md .icon-md{
+	transform: translate(0, 3px);
+}
+
+#diner-menu .footer-md,
+#cust-menu .footer-md{
+	display: flex;
+	justify-content: center;
 }

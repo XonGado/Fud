@@ -5,14 +5,7 @@ import { AngularFirestore, AngularFirestoreModule, AngularFirestoreCollection } 
 import { AngularFireAuth } from 'angularfire2/auth'
 import { Observable } from 'rxjs/Observable'
 
-import { Customer } from '../../models/customer.model'
-
-/**
- * Generated class for the CustProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Customer } from '../../models/customer.interface'
 
 @IonicPage()
 @Component({
@@ -44,9 +37,9 @@ export class CustProfilePage {
 			that.firestore.collection('customers').doc(that.uid).ref.get()
 			.then(function(doc){
 				if (doc.exists) {
-					that.user.cust_name = doc.data().cust_name
-					that.user.cust_email = doc.data().cust_email
-					that.user.cust_username = doc.data().cust_username
+					that.user.name = doc.data().cust_name
+					that.user.email = doc.data().cust_email
+					that.user.username = doc.data().cust_username
 					console.log(that.user)
 					loading.dismiss();
 				} else {

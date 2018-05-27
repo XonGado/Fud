@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, MenuController } from 'ionic-angular';
-import { DinerMenuPage } from'../diner-menu/diner-menu';
-import { DinerScanPage } from '../diner-scan/diner-scan';
-import { DinerProfilePage } from '../diner-profile/diner-profile';
-import { OrderDetailsPage } from '../order-details/order-details';
+import { Component } from '@angular/core'
+import { IonicPage, NavController, NavParams, ModalController, MenuController } from 'ionic-angular'
+import { DinerMenuPage } from'../diner-menu/diner-menu'
+import { DinerScanPage } from '../diner-scan/diner-scan'
+import { DinerProfilePage } from '../diner-profile/diner-profile'
+import { OrderDetailsPage } from '../order-details/order-details'
 import { DinerOrderHistoryPage } from '../diner-order-history/diner-order-history'
+import { DinerNotificationPage } from '../diner-notification/diner-notification'
 
 import { Order } from '../../models/order.interface'
 import { DinerDetails } from '../../models/dinerdetails.interface'
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
+import { Observable } from 'rxjs/Observable'
 
 /**
  * Generated class for the HomeDinerPage page.
@@ -27,6 +29,7 @@ import { AngularFireAuth } from 'angularfire2/auth'
 export class DinerHomePage {
   uid: string
   ordersCollectionRef: AngularFirestoreCollection<Order>
+  ordersCollectionRef$: Observable<Order[]>
   orderedItemsColRef: any
   ordersList: any[] = []
   itemsList: any[] = []
@@ -45,6 +48,8 @@ export class DinerHomePage {
               public modalCtrl: ModalController, 
               private fire: AngularFireAuth, 
               private firestore: AngularFirestore) {
+    let that = this
+
     this.uid = this.fire.auth.currentUser.uid
     this.diner = this.firestore.collection('diners').doc(this.uid)
     this.diner.ref.get().then( doc => { 
@@ -54,10 +59,29 @@ export class DinerHomePage {
       }
     })
     this.ordersCollectionRef = this.diner.collection('orders')
-  }
+    this.ordersCollectionRef$ = this.ordersCollectionRef.valueChanges()
+    this.ordersCollectionRef$.subscribe( collection => {
+      this.ordersCollectionRef.ref.where("cleared", "==", false).orderBy("orderNumber", "asc").get()
+      .then( orders=> {
+        let list = []
 
-  ionViewWillEnter() { 
-    this.getOrders()
+        orders.forEach( order=> {
+          let details = { id: "", customer: "", cost: 0, cleared: true, type: 0, totalItems: 0, orderNumber: 0 }
+
+          details.id = order.id
+          details.type = order.data().type
+          details.cost = order.data().cost
+          details.cleared = order.data().cleared
+          details.totalItems = order.data().totalItems
+          details.orderNumber = order.data().orderNumber
+          that.firestore.collection("customers").doc(order.data().customer).ref.get().then( doc=> { details.customer = doc.data().cust_name}).then( _=> {
+            list.push(details)
+          })
+        })
+
+        that.ordersList = list
+      })
+    })
   }
   
   ionViewDidLoad() {
@@ -68,20 +92,6 @@ export class DinerHomePage {
   menuToggle(){
     this.menu.enable(true)
     this.menu.toggle()
-  }
-
-  getOrders() {
-    let that = this
-    this.ordersList = []
-    this.order_ids = []
-
-    this.ordersCollectionRef.ref.where("cleared", "==", false).orderBy("orderNumber", "asc").get()
-    .then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
-        that.ordersList.push(doc.data())
-        that.order_ids.push(doc.id)
-      })
-    })
   }
 
   correctOrderType(type){
@@ -107,7 +117,11 @@ export class DinerHomePage {
   }
 
   openProfile(){
-  	this.navCtrl.push(DinerProfilePage);
+  	this.navCtrl.push(DinerProfilePage)
+  }
+
+  openNotifications(){
+    this.navCtrl.push(DinerNotificationPage)
   }
 
   openMenu(){
@@ -118,11 +132,8 @@ export class DinerHomePage {
   	this.navCtrl.push(DinerScanPage);
   }
 
-  openOrderDetails(index){
-    let that = this
-    this.navCtrl.push(OrderDetailsPage, {
-      data: that.order_ids[index]
-    });
+  openOrderDetails(id){
+    this.navCtrl.push(OrderDetailsPage, { data: id })
   }
 
   openOrderHistory(){

@@ -1,9 +1,9 @@
 export interface Order {
-    customer_id: string,
-    customer_name: string,
-    order_cost: number,
+	id: string,
+    customer: string,
+    cost: number,
     cleared: boolean,
-    order_type: any,
+    type: any,
     totalItems: number,
     orderNumber: number
 }
