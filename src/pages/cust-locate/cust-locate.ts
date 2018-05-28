@@ -184,7 +184,7 @@ export class CustLocatePage {
 				from: that.fire.auth.currentUser.uid,
 				type: 1,
 				new: true,
-				seen: true,
+				seen: false,
 				cleared: false,
 				timestamp: new Date()
 			})

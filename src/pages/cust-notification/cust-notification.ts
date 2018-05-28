@@ -62,9 +62,8 @@ export class CustNotificationPage {
         this.notificationsCol = this.customerDoc.collection("notifications")
         this.notificationsCol.ref.where("cleared", "==", false).get().then( collection => {
             collection.forEach( notification => {
-                notification.ref.update({ seen: true })
 
-                let details: Notification = {id: "", type: 0, from: "", new: true, seen: false, cleared: false, timestamp: ""}
+                let details: any = {id: "", type: 0, from: "", new: true, seen: false, cleared: false, timestamp: ""}
 
                 this.firestore.collection("diners").doc(notification.data().from).ref.get().then( doc=> { details.from = doc.data().dine_name }) 
                 details.id = notification.id
@@ -72,8 +71,9 @@ export class CustNotificationPage {
                 details.type = notification.data().type
                 details.seen = notification.data().seen
                 details.cleared = notification.data().cleared
-                details.timestamp = notification.data().timestamp
+                details.timestamp = that.dateParser(notification.data().timestamp)
 
+                notification.ref.update({ seen: true })
                 notifications.push(details)
             })
         })
@@ -84,6 +84,37 @@ export class CustNotificationPage {
     clear(id, index){
         this.firestore.collection("customers").doc(this.fire.auth.currentUser.uid).collection("notifications").doc(id).ref.update({ cleared: true })
         this.notifications[index].cleared = true
+    }
+
+    dateParser(timestamp){
+        console.log(timestamp.toString())
+        var elements = timestamp.toString().split(" ")
+        let time = elements[4].split(":")
+        let day: any = []
+
+        time.pop()
+
+        if (time[0] > 12){
+            time[0] -= 12
+            time = time.join(":")
+            time += " PM"
+        } else if (time[0] == 0){
+            time[0] = 12
+            time = time.join(":")
+            time += " AM"
+        } else {
+            time = time.join(":")
+            time += " AM"
+        }
+
+        day.push(elements[2])
+        day.push(elements[1])
+        day = day.join(" ")
+
+        // Mon May 28 2018 
+        console.log(elements)
+
+        return {day: day, time: time}
     }
 
     ionViewDidLoad() {

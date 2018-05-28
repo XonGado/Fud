@@ -1,11 +1,12 @@
 import { Component } from '@angular/core'
-import { IonicPage, NavController, NavParams, ModalController, MenuController } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, ModalController, MenuController, ToastController } from 'ionic-angular'
 import { DinerMenuPage } from'../diner-menu/diner-menu'
 import { DinerScanPage } from '../diner-scan/diner-scan'
 import { DinerProfilePage } from '../diner-profile/diner-profile'
 import { OrderDetailsPage } from '../order-details/order-details'
 import { DinerOrderHistoryPage } from '../diner-order-history/diner-order-history'
 import { DinerNotificationPage } from '../diner-notification/diner-notification'
+import { DinerFanbasePage } from '../diner-fanbase/diner-fanbase'
 
 import { Order } from '../../models/order.interface'
 import { DinerDetails } from '../../models/dinerdetails.interface'
@@ -14,14 +15,6 @@ import { Notification } from '../../models/notification.interface'
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { Observable } from 'rxjs/Observable'
-
-
-/**
- * Generated class for the HomeDinerPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -34,10 +27,13 @@ export class DinerHomePage {
   ordersCollectionRef$: Observable<Order[]>
   notifsCollectionRef: AngularFirestoreCollection<Notification>
   notifsCollectionRef$: Observable<Notification[]>
-  newNotificationCount: any = ""
+  fansCollectionRef: AngularFirestoreCollection<any>
+  fansCollectionRef$: Observable<any[]>
   diner: AngularFirestoreDocument<DinerDetails>
-  ordersList: any[] = []
+  newNotificationCount: number = 0
   orderFilter: string = "all"
+  ordersList: any[] = []
+  fans: number = 0
   user: object = {
     name: 'sample',
     email: 'sample'
@@ -47,6 +43,7 @@ export class DinerHomePage {
               public navParams: NavParams, 
               public menu: MenuController,
               public modalCtrl: ModalController, 
+              public toastCtrl: ToastController,
               private fire: AngularFireAuth, 
               private firestore: AngularFirestore) {
     let that = this
@@ -67,7 +64,7 @@ export class DinerHomePage {
         let list = []
 
         orders.forEach( order=> {
-          let details = { id: "", customer: "", cost: 0, cleared: true, type: 0, totalItems: 0, orderNumber: 0 }
+          let details = { id: "", customer: "", cost: 0, cleared: true, type: 0, totalItems: 0, orderNumber: 0 , timestamp: {}}
 
           details.id = order.id
           details.type = order.data().type
@@ -75,6 +72,7 @@ export class DinerHomePage {
           details.cleared = order.data().cleared
           details.totalItems = order.data().totalItems
           details.orderNumber = order.data().orderNumber
+          details.timestamp = that.dateParser(order.data().timestamp)
           that.firestore.collection("customers").doc(order.data().customer).ref.get().then( doc => { details.customer = doc.data().cust_name}).then( _=> {
             list.push(details)
           })
@@ -87,7 +85,26 @@ export class DinerHomePage {
     this.notifsCollectionRef = this.diner.collection('notifications')
     this.notifsCollectionRef$ = this.notifsCollectionRef.valueChanges()
     this.notifsCollectionRef$.subscribe( collection => {
-      this.newNotificationCount = collection.length
+      this.notifsCollectionRef.ref.where("seen", "==", false).get().then( newNotifications => {
+        console.log(newNotifications.size)
+        that.newNotificationCount = newNotifications.size
+        if (newNotifications.size > 0) {
+          that.toastCtrl.create({
+            message: "New notification!",
+            duration: 3000,
+            position: "bottom",
+            showCloseButton: true
+          }).present()
+        }
+      })
+    })
+
+    this.fansCollectionRef = this.diner.collection('fans')
+    this.fansCollectionRef$ = this.fansCollectionRef.valueChanges()
+    this.fansCollectionRef$.subscribe( fans => {
+      if (fans != undefined) {
+        that.fans = fans.length
+      }
     })
   }
   
@@ -119,12 +136,47 @@ export class DinerHomePage {
     }
   }
 
+  dateParser(timestamp){
+    console.log(timestamp.toString())
+    var elements = timestamp.toString().split(" ")
+    let time = elements[4].split(":")
+    let day: any = []
+
+    time.pop()
+
+    if (time[0] > 12){
+        time[0] -= 12
+        time = time.join(":")
+        time += " PM"
+    } else if (time[0] == 0){
+        time[0] = 12
+        time = time.join(":")
+        time += " AM"
+    } else {
+        time = time.join(":")
+        time += " AM"
+    }
+
+    day.push(elements[2])
+    day.push(elements[1])
+    day = day.join(" ")
+
+    // Mon May 28 2018 
+    console.log(elements)
+
+    return {day: day, time: time}
+  }
+
   logout(){
     this.fire.auth.signOut();
   }
 
   openProfile(){
   	this.navCtrl.push(DinerProfilePage)
+  }
+
+  openFanbase(){
+    this.navCtrl.push(DinerFanbasePage)
   }
 
   openNotifications(){

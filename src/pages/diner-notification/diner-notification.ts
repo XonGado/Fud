@@ -61,23 +61,54 @@ export class DinerNotificationPage {
         this.notificationsCol = this.dinerDoc.collection("notifications")
         this.notificationsCol.ref.where("cleared", "==", false).get().then( collection => {
             collection.forEach( notification => {
-                notification.ref.update({ seen: true })
 
-                let details: Notification = {id: "", type: 0, from: "", new: true, seen: false, cleared: false, timestamp: ""}
+                let details: any = {id: "", type: 0, from: "", new: true, seen: false, cleared: false, timestamp: {}}
 
                 this.firestore.collection("customers").doc(notification.data().from).ref.get().then( doc=> { details.from = doc.data().cust_name }) 
-                details.id = notification.id
-                details.new = notification.data().new
-                details.type = notification.data().type
-                details.seen = notification.data().seen
-                details.cleared = notification.data().cleared
-                details.timestamp = notification.data().timestamp
+                    details.id = notification.id
+                    details.new = notification.data().new
+                    details.type = notification.data().type
+                    details.seen = notification.data().seen
+                    details.cleared = notification.data().cleared
+                    details.timestamp = that.dateParser(notification.data().timestamp)
 
-                notifications.push(details)
+                    notification.ref.update({ seen: true })
+                    notifications.push(details)
             })
         })
 
         return notifications
+    }
+
+    dateParser(timestamp){
+        console.log(timestamp.toString())
+        var elements = timestamp.toString().split(" ")
+        let time = elements[4].split(":")
+        let day: any = []
+
+        time.pop()
+
+        if (time[0] > 12){
+            time[0] -= 12
+            time = time.join(":")
+            time += " PM"
+        } else if (time[0] == 0){
+            time[0] = 12
+            time = time.join(":")
+            time += " AM"
+        } else {
+            time = time.join(":")
+            time += " AM"
+        }
+
+        day.push(elements[2])
+        day.push(elements[1])
+        day = day.join(" ")
+
+        // Mon May 28 2018 
+        console.log(elements)
+
+        return {day: day, time: time}
     }
 
     clear(id, index){

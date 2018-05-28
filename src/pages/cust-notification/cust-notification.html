@@ -23,6 +23,24 @@
 			<p *ngIf="notification.type == 0" class="notif-message">
 				Your order from {{ notification.from }} is now cleared.
 			</p>
+			<p *ngIf="notification.type == 1" class="notif-message">
+				There is new item in {{ notification.from }}'s menu!
+			</p>
+			<p *ngIf="notification.type == 2" class="notif-message">
+				An item is out of stock in {{ notification.from }}'s menu.
+			</p>
+			<p *ngIf="notification.type == 3" class="notif-message">
+				An item is no longer in {{ notification.from }}'s menu.
+			</p>
+			<p *ngIf="notification.type == 4" class="notif-message">
+				An item has increased in price on {{ notification.from }}'s menu.
+			</p>
+			<p *ngIf="notification.type == 5" class="notif-message">
+				An item has decrease in price on {{ notification.from }}'s menu.
+			</p>
+			<p class="time-date">
+				{{ notification.timestamp.time }} {{ notification.timestamp.day }} 
+			</p>
 		</ion-item>
 	</ion-list>
 </ion-content>

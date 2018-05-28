@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 
 import { Item } from '../../models/item.model';
+import { Customer } from '../../models/customer.interface';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -27,6 +28,8 @@ export class ItemAddPage {
 
   items: Observable<Item[]>;
   itemsCollectionRef: AngularFirestoreCollection<Item>;
+  customers: AngularFirestoreCollection<Customer>
+  customer: AngularFirestoreCollection<Customer>
   uid: string
 
   constructor(public navCtrl: NavController, 
@@ -73,6 +76,28 @@ export class ItemAddPage {
       loading.dismiss()
       alert.present()
     })
+
+    this.firestore.collection("diners").doc(this.uid).collection("fans").ref.get().then( fans => {
+      fans.forEach( fan => {
+        let notificationID = that.firestore.createId()
+        that.firestore.collection("customers").doc(fan.id).collection("notifications").doc(notificationID).set({
+          id: notificationID,
+          from: that.uid,
+          type: 1,
+          new: true,
+          seen: false,
+          cleared: false,
+          timestamp: new Date()
+        }).catch(error => {
+          that.alertCtrl.create({
+            title: "Error",
+            message: error.message,
+            buttons: [{ text: "Got it" }]
+          }).present()
+        })
+      })
+    })
+
     .catch(function (error){
       console.log("Error: ", error.code)
     })

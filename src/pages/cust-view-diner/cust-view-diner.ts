@@ -92,8 +92,38 @@ export class CustViewDinerPage {
 			favorite.ref.get().then(doc => {
 				exists = doc.exists
 				if (!exists) {
+					let userID = that.fire.auth.currentUser.uid
+					let notificationID = that.firestore.createId()
+
 					favorite.set({
 						id: dinerID,
+						timestamp: new Date()
+					}).catch(error => {
+						that.alertCtrl.create({
+							title: "Error",
+							message: error.message,
+							buttons: [{ text: "Got it" }]
+						}).present()
+					})
+
+					that.dinerRef.collection("fans").doc(userID).set({
+						id: userID,
+						timestamp: new Date()
+					}).catch(error => {
+						that.alertCtrl.create({
+							title: "Error",
+							message: error.message,
+							buttons: [{ text: "Got it" }]
+						}).present()
+					})
+
+					that.dinerRef.collection("notifications").doc(notificationID).set({
+						id: notificationID,
+						from: userID,
+						type: 2,
+						new: true,
+						seen: false,
+						cleared: false,
 						timestamp: new Date()
 					}).catch(error => {
 						that.alertCtrl.create({
@@ -136,6 +166,7 @@ export class CustViewDinerPage {
 		})
 
 		loading.present().then( _=> {
+			that.dinerRef.collection("fans").doc(that.fire.auth.currentUser.uid).delete()
 			that.firestore.collection("customers").doc(that.fire.auth.currentUser.uid).collection("favorites").doc(that.navParams.get("dinerID")).delete()
 			.then( _=> {
 				that.alertCtrl.create({
