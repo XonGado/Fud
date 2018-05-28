@@ -10,19 +10,8 @@
 			<ion-icon name="menu"></ion-icon>
 		</button>
 		<ion-title>Home</ion-title>
-		<!-- <ion-buttons end>
-			<button ion-button icon-only>
-		        <ion-icon name="search"></ion-icon>
-		    </button>
-		    <button ion-button icon-only (click)="loadMap()">
-		    	<ion-icon name="map"></ion-icon>
-		    </button>
-		</ion-buttons> -->
-		<ion-buttons end *ngIf="ordered">
-			<button ion-button icon-left color="secondary" (click)="viewMyOrder()">
-				<ion-icon name="eye"></ion-icon>
-				View order
-			</button>
+		<ion-buttons end>
+			
 		</ion-buttons>
 	</ion-toolbar>
 	<ion-toolbar>
@@ -45,7 +34,7 @@
 					{{email}}
 				</p>
 			</ion-item>
-			<ion-item>
+			<ion-item (click)="openFavorites()">
 				<p text-nowrap icon-start>
 					<ion-icon name="heart" class="red"></ion-icon> 
 					Favorites: {{favorites}}
@@ -87,21 +76,28 @@
 			<div class="auto-scroll">
 				<!-- <h3 text-uppercase text-center>Diners</h3> -->
 				<ion-list>
-					<ion-item *ngFor="let diner of dinerList; let i = index;">
-						<ion-avatar item-left (click)="viewDiner(i)">
+					<ion-item *ngIf="ordered" icon-left (click)="viewMyOrder()">
+						<ion-icon name="eye" item-left color="secondary"></ion-icon>
+						View order from {{dinerID}}
+						Your id: {{uid}}
+					</ion-item>
+					<ion-item *ngFor="let diner of dinerList">
+						<ion-avatar item-left (click)="viewDiner(diner.id)">
 							<img src="assets/imgs/DinerAvatar.png">
 						</ion-avatar>
-						<h2 class="name">{{diner.dine_name}}</h2>
-						<p class="distance">
-							<ion-icon name="pin" color="danger"></ion-icon>
-							{{dinerDistances[i]}} km
-							<!-- get the location of the diner -->
-						</p>
-						<p class="crowd">
-							<ion-icon name="people" color="secondary"></ion-icon>
-							{{customerCount[i]}}
-						</p>
-						<button ion-button float-right round outline color="secondary" (click)="orderHere(i)">
+						<h2 class="name">{{diner.name}}</h2>
+						<div>
+							<p class="distance">
+								<ion-icon name="pin" color="danger"></ion-icon>
+								{{diner.distance}} km
+							</p>
+							<p class="crowd">
+								<ion-icon name="people" color="secondary"></ion-icon>
+								{{diner.customers}}
+							</p>
+
+						</div>
+						<button *ngIf="!ordered" ion-button float-right round outline color="secondary" (click)="orderHere(diner.id)">
 							Order here
 						</button>
 					</ion-item>

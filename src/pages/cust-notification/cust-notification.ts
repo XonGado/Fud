@@ -71,13 +71,15 @@ export class CustNotificationPage {
             collection.forEach( notification => {
                 notification.ref.update({ seen: true })
 
-                let details: Notification = {id: "", type: 0, from: "", seen: false, cleared: false}
+                let details: Notification = {id: "", type: 0, from: "", new: true, seen: false, cleared: false, timestamp: ""}
 
                 this.firestore.collection("diners").doc(notification.data().from).ref.get().then( doc=> { details.from = doc.data().dine_name }) 
                 details.id = notification.id
+                details.new = notification.data().new
                 details.type = notification.data().type
                 details.seen = notification.data().seen
                 details.cleared = notification.data().cleared
+                details.timestamp = notification.data().timestamp
 
                 notifications.push(details)
             })

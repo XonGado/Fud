@@ -19,65 +19,63 @@ import { Order } from '../../models/order.interface'
 })
 export class CustViewOrderPage {
 
-	diner_id: any
-	order_id: any
 	orderDocRef: AngularFirestoreDocument<Order>
 	orderedItemsRef: any
 	customer_name: string
 	items: any[] = []
-	order_cost: number = 0
+	cost: number = 0
 	ordereditems_ids: any[] = []
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private firestore: AngularFirestore) {
-		this.diner_id = this.navParams.get('dinerID')
-		this.order_id = this.navParams.get('orderID')
-  		this.orderDocRef = this.firestore.collection('diners').doc(this.diner_id).collection('orders').doc(this.order_id)
-  		this.orderedItemsRef = this.orderDocRef.collection('OrderedItems')
+  		this.orderDocRef = this.firestore.collection('diners').doc(this.navParams.get('dinerID')).collection('orders').doc(this.navParams.get('orderID'))
+  		this.orderedItemsRef = this.orderDocRef.collection('orderedItems')
   		this.getOrderDetails()
 	}
 
 	getOrderDetails() {
 		let that = this
-		this.orderDocRef.ref.get()
-		.then(doc => {
-			that.customer_name = doc.data().customer_name
-			that.order_cost = doc.data().order_cost
-		})
+		this.orderDocRef.ref.get().then( order => { that.cost = order.data().cost })
 		this.orderedItemsRef.ref.get()
-		.then(querySnapshot => {
-			querySnapshot.forEach(function(doc) {
-				that.items.push(doc.data())
-				that.ordereditems_ids.push(doc.id)
+		.then( items => {
+			items.forEach( item => {
+				console.log(item.data())
+				let details = {id: "", name: "", price: 0, ordered: 0 }
+
+				details.id = item.id
+				details.name = item.data().item_name
+				details.price = item.data().item_price
+				details.ordered = item.data().item_ordered
+
+				console.log(details)
+				that.items.push(details)
+				that.ordereditems_ids.push(item.id)
 			})
 		})
 	}
 
-	deleteOrderedItem(item, i){
-		let ordereditem_id = this.ordereditems_ids[i]
+	deleteOrderedItem(item){
 		let price: number = 0
 		let that = this
-		if (this.items[i].lock == false){
-			this.orderedItemsRef.doc(ordereditem_id).delete()
-			.then(function() {
-				console.log("Ordered items successfully deleted.")
-			})
-			.catch(function(error) {
-				console.log("Some error occured.")
-			})
-			this.orderedItemsRef.ref.get()
-			.then(querySnapshot => {
-				querySnapshot.forEach(function(doc) {
-					console.log(doc.data())
-					price = price + (Number(doc.data().item_price) * Number(doc.data().item_ordered))
+
+		this.orderedItemsRef.doc(item.id).ref.get().then( item => {
+			if (item.data().lock == false){
+				this.orderedItemsRef.doc(item.id).delete()
+				.then( _=> {
+					console.log("Ordered items successfully deleted.")
 				})
-				that.order_cost = price
-				that.orderDocRef.update({
-					order_cost: that.order_cost
+				.catch( error => {
+					console.log("Some error occured.")
 				})
-			})
-		}else{
-			console.log("The ordered item cannot be deleted because it is being processed now.")
-		}
+				this.orderedItemsRef.ref.get()
+				.then( items => {
+					items.forEach( item => { price += (Number(item.data().item_price) * Number(item.data().item_ordered)) })
+					that.cost = price
+					that.orderDocRef.update({ cost: that.cost })
+				})
+			}else{
+				console.log("The ordered item cannot be deleted because it is being processed now.")
+			}
+		})
 	}
 
 	moreOptions() {

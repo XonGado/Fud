@@ -20,8 +20,9 @@
 				<h3 ion-text text-uppercase text-center color="secondary">{{name}}</h3>
 				<h4 ion-text text-center><small>{{email}}</small></h4>
 			</div>
-			<div col-4 offset-4>
-				<button ion-button outline icon-left round color="warning" (click)="favorite()"><ion-icon name="star"></ion-icon> Favorite</button>
+			<div class="center-buttons">
+				<button [class.hidden]="isFavorite" ion-button outline icon-left round color="warning" (click)="favorite()"><ion-icon name="star"></ion-icon> Favorite</button>
+				<button [class.hidden]="!isFavorite" ion-button outline icon-left round color="light" (click)="unfavorite()"><ion-icon name="star"></ion-icon> Unfavorite</button>
 			</div>
 			<ion-list>
 				<ion-item icon-left>

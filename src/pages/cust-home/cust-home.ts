@@ -9,6 +9,7 @@ import { CustViewOrderPage } from '../cust-view-order/cust-view-order'
 import { CustViewDinerPage } from '../cust-view-diner/cust-view-diner'
 import { CustScanPage } from '../cust-scan/cust-scan'
 import { CustNotificationPage } from '../cust-notification/cust-notification'
+import { CustFavoritesPage } from '../cust-favorites/cust-favorites'
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
@@ -33,17 +34,15 @@ export class CustHomePage {
 	map: any
 
 	uid: string
-	dinerList: Diner[]
+	dinerList: any[]
   	dinersCollectionRef: AngularFirestoreCollection<Diner>
-  	diner_ids: any[] = []
   	order_ids: any[] = []
   	dinerID: any
   	orderID: any
-  	ordered: boolean
+  	ordered: boolean = false
   	name: string
   	email: string
   	favorites: any
-  	customerCount: any[] = []
   	view: string
 
   	userLocation: any
@@ -63,18 +62,23 @@ export class CustHomePage {
 		.then(doc => {
 			that.name = doc.data().cust_name
 			that.email = doc.data().cust_email	
-			that.favorites = doc.data().favorites.length
+
+			doc.ref.collection("favorites").get().then( collection => {
+				that.favorites = collection.size			
+			})
 		})
 		this.dinersCollectionRef = this.firestore.collection('diners')
-		this.dinerList = this.retrieveDiners()
-		this.customerCount = this.getCount()
+		
+		this.geolocation.getCurrentPosition().then( position => {
+			console.log(position.coords.latitude)
+			console.log(position.coords.longitude)
+		})
 
-		var date = new Date()
-		console.log(date)
+		this.dinerList = this.retrieveDiners()
+		// this.customerCount = this.getCount()
 	}
 
 	ionViewWillEnter() { 
-		this.dinerList = this.retrieveDiners()
 		this.userHasOrdered()	
 		this.loadMap()
 	}
@@ -143,7 +147,7 @@ export class CustHomePage {
 	loadMap(){
 		let that = this
  
-	    this.geolocation.getCurrentPosition().then((position) => {
+	    this.geolocation.getCurrentPosition().then( position => {
  
 			let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
 			that.userLocation = latLng
@@ -183,29 +187,26 @@ export class CustHomePage {
 	 
 	}
 
-	getCount() {
-		let that = this
-		let counter: any[] = []
-		this.dinersCollectionRef.ref.get()
-		.then(querySnapshot => {
-			that.diner_ids.forEach(function(id) {
-				that.dinersCollectionRef.doc(id).collection('orders').ref.where("cleared", "==", false).get()
-				.then(function(querySnapshot) {
-					counter.push(querySnapshot.size)
-				})
-			})
-		})
-		return counter
-	}
+	// getCount() {
+	// 	let that = this
+	// 	let counter: any[] = []
+	// 	this.dinersCollectionRef.ref.get()
+	// 	.then(querySnapshot => {
+	// 		that.diner_ids.forEach(function(id) {
+	// 			that.dinersCollectionRef.doc(id).collection('orders').ref.where("cleared", "==", false).get()
+	// 			.then(function(querySnapshot) {
+	// 				counter.push(querySnapshot.size)
+	// 			})
+	// 		})
+	// 	})
+	// 	return counter
+	// }
 
 	addDinerMarkers(){
 
 		for (var diner of this.dinerList) {
 
-			let latLng = new google.maps.LatLng(diner.location.latitude, diner.location.longitude);
-			console.log(latLng)
-			console.log(this.userLocation)
-			this.dinerDistances.push(this.getDistance(this.userLocation, latLng))
+			let latLng = new google.maps.LatLng(diner.location.latitude, diner.location.longitude)
 
 		    let marker = new google.maps.Marker({
 		        map: this.map,
@@ -237,16 +238,25 @@ export class CustHomePage {
 	}
 
 	retrieveDiners(){
-		let _diners: any[] = []
 		let that = this
-		this.dinersCollectionRef.ref.get()
-		.then(function(querySnapshot){
-			querySnapshot.forEach(function(doc){
-				_diners.push(doc.data())
-				that.diner_ids.push(doc.id)
+		let _diners: any[] = []
+
+		this.dinersCollectionRef.ref.get().then( diners => {
+			diners.forEach( diner => {
+				console.log(diner.data())
+				let details = {id: "", name: "", location: { latitude: 0, longitude: 0 }, distance: "0", customers: 0}
+				let latLng = new google.maps.LatLng(diner.data().dine_location.latitude, diner.data().dine_location.longitude)
+				that.dinersCollectionRef.doc(diner.id).collection('orders').ref.where("cleared", "==", false).get().then( pending => { details.customers = pending.size })
+
+				details.id = diner.id
+				details.name = diner.data().dine_name
+				details.location = diner.data().dine_location
+				details.distance = that.getDistance(that.userLocation, latLng)
+
+				_diners.push(details)
 			})
 		})
-		.then( function() {
+		.then( _=> {
 			that.userHasOrdered()
 			that.addDinerMarkers()
 		})
@@ -255,25 +265,20 @@ export class CustHomePage {
 
 	userHasOrdered(){
 		let that = this
-		let order: any[] = []
 
-		for (var i = 0; i < this.diner_ids.length; i++) {
-			let id = this.diner_ids[i]
-
-			this.dinersCollectionRef.doc(id).collection('orders').ref.where("customer_id", "==", that.uid).where("cleared", "==", false).get()
-			.then( querySnapshot => {
-				querySnapshot.forEach( doc => {
-					order.push(doc.data())
-					that.dinerID = id
-					that.orderID = doc.id
-				})
-			}).then( _ => {
-				that.ordered = order.length >= 1
+		this.dinerList.forEach( diner => {
+			that.dinersCollectionRef.doc(diner.id).collection('orders').ref.where("customer", "==", that.uid).where("cleared", "==", false).get()
+			.then( orders => {
+				orders.forEach( order =>{
+					that.ordered = orders.size >= 1 
+					that.orderID = order.id
+					that.dinerID = diner.id
+				}) 
 			})
-		}
+		})
 	}
 
-	orderHere(index){
+	orderHere(id){
 		if (this.ordered == undefined) {
 			this.userHasOrdered()
 			
@@ -286,7 +291,7 @@ export class CustHomePage {
 		} else if (!this.ordered) {
 			let that = this
 			this.navCtrl.push(OrderPage, {
-				data: that.diner_ids[index]
+				data: id
 			})
 		} else {
 			this.toastCtrl.create({
@@ -305,14 +310,18 @@ export class CustHomePage {
 		})
 	}
 
-	viewDiner(index){
+	viewDiner(id){
 		this.navCtrl.push(CustViewDinerPage, {
-			dinerID: this.diner_ids[index]
+			dinerID: id
 		})
 	}
 
 	openProfile(){
 		this.navCtrl.push(CustProfilePage)
+	}
+
+	openFavorites(){
+		this.navCtrl.push(CustFavoritesPage)
 	}
 
 	openNotifications(){

@@ -18,6 +18,7 @@ import { LoginPage } from '../pages/login/login'
 
 import { CustHomePage } from '../pages/cust-home/cust-home' 
 import { CustProfilePage } from '../pages/cust-profile/cust-profile'
+import { CustFavoritesPage } from '../pages/cust-favorites/cust-favorites'
 import { CustNotificationPage } from '../pages/cust-notification/cust-notification' 
 import { CustViewOrderPage } from '../pages/cust-view-order/cust-view-order'
 import { CustViewDinerPage } from '../pages/cust-view-diner/cust-view-diner'
@@ -86,6 +87,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     CustLocatePage,
     CustScanPage,
     CustNotificationPage,
+    CustFavoritesPage,
     LoadingPage,
     MenuPage,
     MenusPage,
@@ -135,6 +137,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     CustLocatePage,
     CustScanPage,
     CustNotificationPage,
+    CustFavoritesPage,
     LoadingPage,
     MenuPage,
     MenusPage,

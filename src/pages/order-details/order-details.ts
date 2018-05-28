@@ -52,37 +52,47 @@ export class OrderDetailsPage {
   getOrderDetails() {
   	let that = this
   	this.orderDocRef.ref.get()
-  	.then(doc => {
-  		that.customer_name = doc.data().customer_name
-  		that.order_cost = doc.data().order_cost
-      that.lock = doc.data().lock
-      that.orderType = doc.data().order_type
+  	.then(order => {
+      that.firestore.collection("customers").doc(order.data().customer).ref.get().then( doc=> that.customer_name = doc.data().cust_name)
+  		that.order_cost = order.data().order_cost
+      that.lock = order.data().lock
+      that.orderType = order.data().order_type
 
-      if (doc.data().order_type == 2) {
-        console.log(that.orderType)
-        that.orderLocation = doc.data().location
+      if (order.data().type == 2) {
+        that.orderLocation = order.data().location
         that.loadMap()
-      } else {
-        // Hide map here
       }
     })
     this.orderedItemsColRef.ref.get()
-    .then(querySnapshot => {
-      querySnapshot.forEach(doc => {
-        that.items.push(doc.data())
-        that.ordereditems_id.push(doc.id)
+    .then(items => {
+      items.forEach(item => {
+        that.items.push(item.data())
+        that.ordereditems_id.push(item.id)
       })
-      for (var i = 0; i < that.items.length; i++) {
-        that.items[i].lock = false
-      }
   	})
   }
 
   clearOrder() {
+    let that = this
+
   	this.orderDocRef.ref.update({
   		cleared: true
-  	})
-  	this.navCtrl.pop()
+  	}).then( _=> {
+      let id: string
+
+      that.orderDocRef.ref.get().then( order=> id = order.data().customer ).then( _=> {
+        that.firestore.collection("customers").doc(id).collection("notifications").add({
+          from: that.fire.auth.currentUser.uid,
+          type: 0,
+          new: true,
+          seen: false,
+          cleared: false,
+          timestamp: new Date() 
+        })
+      })
+
+    	that.navCtrl.pop()
+    })
   }
 
   ionViewDidLoad() {

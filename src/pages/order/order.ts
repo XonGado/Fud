@@ -254,7 +254,7 @@ export class OrderPage {
 			let that = this
 			that.orderedItemsList.forEach(doc => {
 				let ordereditem_id = that.firestore.createId()
-				that.ordersCollectionRef.doc(id).collection('OrderedItems').doc(ordereditem_id).set({
+				that.ordersCollectionRef.doc(id).collection('orderedItems').doc(ordereditem_id).set({
 					item_id: doc.item_id,
 					item_name: doc.item_name,
 					item_description: doc.item_description,

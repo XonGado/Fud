@@ -21,7 +21,7 @@
 			</ion-avatar>
 			<button ion-button float-right clear icon-only color="danger" (click)="clear(notification.id, i)"><ion-icon name="close"></ion-icon></button>
 			<p *ngIf="notification.type == 0" class="notif-message">
-				{{ notification.from }} has started preparing your order. Still comfy while we prepare your food.
+				Your order from {{ notification.from }} is now cleared.
 			</p>
 		</ion-item>
 	</ion-list>
