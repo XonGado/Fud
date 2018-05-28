@@ -14,3 +14,224 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://example.com/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'),
+    url(https://example.com/MaterialIcons-Regular.woff) format('woff'),
+    url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+// Color values
+$red	: #E91E63;
+$yellow	: #FDD835;
+$green	: #acdc39;
+$blue	: #00BCD4;
+$purple	: #AB47BC;
+$dark-yellow	: #facc2e;
+
+// Shadow values
+$light-shadow: 0 1px 5px rgba(0,0,0,0.25);
+$dark-shadow: 0 1px 10px rgba(0,0,0,0.4);
+
+$gradient-background: linear-gradient(to right, $red, $blue);
+$gradient-background-primary: linear-gradient(to bottom right, $red, $blue);
+$gradient-background-secondary: linear-gradient(to left, $red, $blue);
+
+// Text size values
+$regular: 1.3em;
+$medium : 2em;
+$large  : 3em;
+
+// .input-wrapper ion-label{
+// 	text-transform: uppercase;
+// }
+
+ion-spinner {
+	* {
+		stroke: $green!important;
+		height: 50px!important;
+		width: 50px!important;
+	}
+
+	&.spinner-circles circle,
+	&.spinner-bubbles circle,
+	&.spinner-dots circle {
+		fill: $green!important;
+	}
+}
+
+page-diner-profile,
+page-cust-profile,
+page-cust-view-diner{
+	.profile-header{
+		display: grid;
+		grid-template-areas: "img"
+							 "name"
+							 "email";
+		padding: 1em;
+		// background-color: rgba(255,255,255,0.05);
+
+		img{
+			grid-area: img;
+			border-radius: 15px;
+			width: 7.5em;
+			height: 7.5em;
+			display: inline-block;
+			margin: 0 auto 10px auto;
+		}
+
+		h3{
+			grid-area: name;
+			margin: 0 1rem;
+		}
+
+		h4{
+			grid-area: email;
+			margin: 0 1rem;
+		}
+	}
+}
+
+.empty-message{
+	text-align: center;
+	color: rgba(255,255,255,0.25);
+
+	ion-icon{
+		font-size: 2em;
+		display: block;
+	}
+}
+
+.red,
+.danger{
+	color: $red!important;
+}
+
+.yellow,
+.warning{
+	color: $yellow!important;
+}
+
+.blue{
+	color: $blue!important;
+}
+
+.purple{
+	color: $purple!important;
+}
+
+.green{
+	color: $green!important;
+}
+
+ion-backdrop{
+	opacity: 0.8;
+}
+
+.price:before{
+	content: "₱ ";
+}
+
+.hidden{
+    display: none;
+  }
+
+.action-sheet-group,
+.action-sheet-group .action-sheet-button{
+	text-transform: uppercase!important;
+	letter-spacing: 0.05em;
+}
+
+.bubble-badge{
+	font-size: 0.6em;
+	border-radius: 50%;
+	height: 2rem!important;
+	width: 2rem!important;
+	border: 2px solid #222;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.text-md-dark{
+	color: #888;
+}
+
+.float-text-right{
+	text-align: right;
+	position: absolute;
+	right: 1em;
+	top: 50%;
+	transform: translate(0, -50%);
+	background: linear-gradient(to left, #222, #222, rgba(0,0,0,0));
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+ion-label.label{
+	margin: 10px 8px 10px 0;
+}
+
+ion-item-sliding ion-item-options button{
+	min-width: 62px;	
+	width: 62px;
+}
+
+ion-item-sliding ion-item-options ion-icon{
+	font-size: 2em;
+	transform: translate(0, 0.15em);
+}
+
+img{
+    object-fit: cover;
+    object-position: center;
+}
+
+ion-title{
+	color: white;
+}
+
+.warning{
+	border-color: $yellow!important;
+}
+
+page-home-diner,
+page-diner-order-history {
+
+  // triangle
+  .typeIndicator{
+    display: block;
+    position: absolute;
+    transform: rotate(45deg);
+    height: 32px;
+    width: 12px;
+    top: -16px;
+    left: 0;
+  }
+  
+  // line
+  // .typeIndicator{
+  //   display: block;
+  //   position: absolute;
+  //   height: 100%;
+  //   width: 4px;
+  //   top: 50%;
+  //   right: 0;
+  // }
+
+  .typeIndicator.blue{ background-color: $blue; }
+  .typeIndicator.purple{ background-color: $purple; }
+  .typeIndicator.violet{ background-color: $purple; }
+  .typeIndicator.red{ background-color: $red; }
+}

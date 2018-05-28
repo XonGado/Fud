@@ -1,0 +1,63 @@
+page-combo {
+    .price{
+        text-align: right;
+        position: absolute;
+        right: 1em;
+        top: 50%;
+        transform: translate(0, -50%);
+        color: $green;
+        background: linear-gradient(to left, #222, #222, rgba(0,0,0,0));
+    }
+
+    .combo-item-count{
+        color: $blue;
+        font-size: 0.8em;
+
+    }
+
+    .quantity{
+        color: $blue;
+    }
+
+    .secondary.item-block{
+        min-height: unset;
+    }
+
+    .secondary{
+        padding-left: 72px;
+
+        h2{
+            font-size: 1.2rem;
+            margin-top: 0!important;
+            color: #AAA;
+        }
+
+        p{
+            font-size: 1.2rem;
+        }
+    }
+
+    .secondary ion-avatar{
+        min-height: unset;
+        min-width: unset;
+    }
+
+    .secondary ion-avatar[item-left]{
+        margin: 4px 8px 4px 0;
+    }
+
+    .secondary ion-label.label{
+        margin: 4px 0;
+        
+    }
+    
+    .secondary img{
+        height: 20px;
+        width: 20px;
+    }
+
+    .list-md{
+        margin-bottom: 0;
+    }
+
+}

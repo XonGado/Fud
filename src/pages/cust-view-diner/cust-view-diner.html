@@ -1,0 +1,45 @@
+<!--
+  Generated template for the CustViewCafePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-row>
+		<ion-col col-12 col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4>
+			<div class="profile-header">
+				<img src="assets/imgs/DinerAvatar.png">
+				<h3 ion-text text-uppercase text-center color="secondary">{{name}}</h3>
+				<h4 ion-text text-center><small>{{email}}</small></h4>
+			</div>
+			<div col-4 offset-4>
+				<button ion-button outline icon-left round color="warning" (click)="favorite()"><ion-icon name="star"></ion-icon> Favorite</button>
+			</div>
+			<ion-list>
+				<ion-item icon-left>
+					<ion-icon name="map" color="secondary"></ion-icon>
+					{{address}}
+				</ion-item>
+				<ion-item icon-left>
+					<ion-icon name="call" color="secondary"></ion-icon>
+					{{number}}
+				</ion-item>
+				<ion-item icon-left>
+					<ion-icon name="locate" color="secondary"></ion-icon>
+					LOCATION
+				</ion-item>
+				<ion-item>
+					<div #map id="map"></div>
+				</ion-item>
+			</ion-list>
+		</ion-col>
+	</ion-row>
+</ion-content>

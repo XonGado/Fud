@@ -1,0 +1,18 @@
+page-diner-menu {
+	.price{
+		width: 3em;
+		color: $green;
+	}
+	
+	ion-navbar .bar-button-md[icon-only] ion-icon{
+		font-size: 2em;
+	}
+
+	.list-header-md{
+		margin-bottom: 0;
+	}
+
+	.hidden{
+		display: none;
+	}
+}

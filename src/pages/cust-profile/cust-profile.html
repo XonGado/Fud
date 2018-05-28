@@ -1,0 +1,63 @@
+<!--
+  Generated template for the CustProfilePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+    	<ion-icon icon-start name="person"></ion-icon>
+    	Profile
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<div class="profile-header">
+		<img src="assets/imgs/CustAvatar.png">
+		<h3 ion-text text-center text-nowrap >{{user?.cust_name}}</h3>
+		<h4 ion-text text-center text-nowrap color="secondary">{{user?.cust_username}}</h4>
+		<p ion-text text-center text-nowrap color="dark">{{user?.cust_email}}</p>
+	</div>
+
+	<!-- <div class="container">
+		<button class="back-button-custom" (click)="closePage()">
+			<ion-icon name="arrow-back"></ion-icon>
+		</button>
+		<div class="image onebyone rounded small display-image"><img src="assets/imgs/samplePP.jpg"></div>
+		<div class="details">
+			<h1 class="username">Clyde Joshua Delgado</h1>
+			<span class="email">cndelgado@up.edu.ph</span>
+			<div class="milestones">
+				<span class="loyalty"><span class="count">3</span><ion-icon name="medal"></ion-icon></span>
+				<span class="visited"><span class="count">10</span><ion-icon name="cafe"></ion-icon></span>
+			</div>
+			<div class="reach">
+				<span class="address"><ion-icon name="flag"></ion-icon> San Pedro, San Jose, Antique</span>
+				<span class="number"><ion-icon name="call"></ion-icon> 09177027628</span>
+			</div>
+			<h2 class="header"><ion-icon padding-right name="walk"></ion-icon> I was here recently</h2>
+			<ul>
+				<li><span class="image"></span><span class="name truncate">Cafe Diem</span></li>
+				<li><span class="image"></span><span class="name truncate">Vineyard</span></li>
+				<li><span class="image"></span><span class="name truncate">HUB</span></li>
+				<li><span class="image"></span><span class="name truncate">Zipzap</span></li>
+				<li><span class="image"></span><span class="name truncate">Blandina</span></li>
+				<li><span class="image"></span><span class="name truncate">Hablon</span></li>
+			</ul>
+			<h2 class="header"><ion-icon padding-right name="flag"></ion-icon> I've Been here</h2>
+			<ul>
+				<li><span class="image"></span><span class="name truncate">Cafe Diem</span></li>
+				<li><span class="image"></span><span class="name truncate">Hablon</span></li>
+				<li><span class="image"></span><span class="name truncate">Vineyard</span></li>
+				<li><span class="image"></span><span class="name truncate">Blandina</span></li>
+				<li><span class="image"></span><span class="name truncate">Zipzap</span></li>
+				<li><span class="image"></span><span class="name truncate">HUB</span></li>
+			</ul>
+		</div>
+	</div> -->
+</ion-content>

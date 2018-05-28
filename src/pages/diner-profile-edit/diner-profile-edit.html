@@ -1,0 +1,113 @@
+<!--
+  Generated template for the DinerProfileEditPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Edit Profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-row>
+		<ion-col offset-lg-4 col-lg-4>
+			<ion-list>
+				<ion-item>
+					<button ion-button icon-only block color="dark" (click)="takePhoto()"><ion-icon name="image"></ion-icon></button>
+				</ion-item>
+				<ion-item>
+				    <p>{{imageURI}}</p>
+				    <button ion-button color="secondary" (click)="getImage()">Get Image</button>
+				</ion-item>
+				<ion-item>
+					<h4>Image Preview</h4>
+					<img src="{{imageFileName}}" *ngIf="imageFileName" alt="Ionic File" width="300" />
+				</ion-item>
+				<ion-item>
+					<button ion-button (click)="uploadFile()">Upload</button>
+				</ion-item>
+			</ion-list>
+
+			<ion-list>
+				<h5 text-uppercase>
+					<ion-icon name="contact" color="secondary" item-left></ion-icon>
+					Owner 
+				</h5>
+				<ion-item>
+					<ion-label color="secondary" stacked>Owner Name</ion-label>
+					<ion-input type="text" value={{owner_name}} #dine_owner_name></ion-input>				
+				</ion-item>
+				<ion-item>
+					<ion-label color="secondary" stacked>Username</ion-label>
+					<ion-input type="text" value="{{username}}" #dine_username></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label color="secondary" stacked>Email</ion-label>
+					<ion-input type="email" value="{{email}}" #dine_email></ion-input>
+				</ion-item>
+			</ion-list>
+
+			<ion-list>
+				<h5 text-uppercase>
+					<ion-icon name="restaurant" color="secondary" item-left></ion-icon>
+					Diner 
+				</h5>
+				<ion-item>
+					<ion-label color="secondary" stacked>Diner Name</ion-label>
+					<ion-input type="text" value="{{name}}" #dine_name></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label color="secondary" stacked>Address</ion-label>
+					<ion-input type="text" value="{{address}}" #dine_address></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label color="secondary" stacked>Delivery Number</ion-label>
+					<ion-input type="text" value="{{number}}" #dine_number></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label color="secondary" stacked>Website</ion-label>
+					<ion-input type="text" value="{{weblink}}" #dine_weblink></ion-input>
+				</ion-item>
+			</ion-list>
+
+			<ion-list>
+				<h5 text-uppercase>
+					<ion-icon name="locate" color="secondary" item-left></ion-icon>
+					Location
+				</h5>
+				<ion-item (click)="mapSettingsModal()">
+					<ion-label color="secondary">Set</ion-label>
+					<ion-icon name="locate" item-left></ion-icon>
+				</ion-item>
+				<div #map id="map"></div>
+			</ion-list>
+
+			<ion-list>
+				<h5 text-uppercase>
+					<ion-icon name="lock" color="secondary" item-left></ion-icon>
+					Change Password
+				</h5>
+				<ion-item>
+					<ion-label color="secondary" stacked>Previous Password</ion-label>
+					<ion-input type="password" #dine_password></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label color="secondary" stacked>New Password</ion-label>
+					<ion-input type="password" #dine_new_password></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label color="secondary" stacked>Retype Password</ion-label>
+					<ion-input type="password" #dine_retypePassword></ion-input>
+				</ion-item>
+			</ion-list>
+
+
+			<button ion-button block color="secondary" (click)="editCustomer()">Edit Profile</button>
+		</ion-col>
+	</ion-row>
+</ion-content>

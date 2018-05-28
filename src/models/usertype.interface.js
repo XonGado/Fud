@@ -1,0 +1,1 @@
+//# sourceMappingURL=usertype.interface.js.map

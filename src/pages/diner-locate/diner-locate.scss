@@ -1,0 +1,27 @@
+page-diner-locate {
+	.ios, .md {
+		.scroll {
+			height: 100%
+		}
+
+		#map {
+			height: 100vh!important;
+		}
+	}
+	
+	#map{
+		height: 100vh!important;
+	} 
+
+	#confirm-location-div{
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		background-color: rgba(0,0,0,0.8);
+		padding: 0.75em 1em; 
+	}
+
+	p .secondary{
+		color: rgba(255,255,255,0.75);
+	}
+}

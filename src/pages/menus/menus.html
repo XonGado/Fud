@@ -1,0 +1,55 @@
+<!--
+  Generated template for the MenusPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>menus</ion-title>
+  </ion-navbar>
+
+</ion-header>
+ -->
+
+<ion-content>
+	<div class="container">
+		<div id="toolbar">
+			<button class="back-button-custom" (click)="closePage()">
+				<ion-icon name="arrow-back"></ion-icon>
+			</button>
+			<h2 class="page_name">Menus</h2>
+			<button class="add-button" (click)="openAddComboModal()">
+				<ion-icon name="add"></ion-icon>
+			</button>
+		</div>
+		<!-- <h1 class="page_name">Menus Saved</h1> -->
+		<ul class="menus">
+			<li class="menu_container">
+				<a class="menu_link" href="menu_sample.html">
+					<span class="menu_name">Everyday Menu</span>
+					<span class="diner_name">Cafe Diem</span>
+				</a>
+			</li>
+			<li class="menu_container">
+				<a class="menu_link" href="menu_sample.html">
+					<span class="menu_name">Japanese Menu</span>
+					<span class="diner_name">Sulu Garden</span>
+				</a>
+			</li>
+			<li class="menu_container">
+				<a class="menu_link" href="menu_sample.html">
+					<span class="menu_name">Pizza pozza</span>
+					<span class="diner_name">Lanz Pizza</span>
+				</a>
+			</li>
+			<li class="menu_container">
+				<a class="menu_link" href="menu_sample.html">
+					<span class="menu_name">Talaba and Seafood</span>
+					<span class="diner_name">Chill Zone</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</ion-content>

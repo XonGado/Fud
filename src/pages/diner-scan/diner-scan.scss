@@ -1,0 +1,33 @@
+page-diner-scan {
+	.transparentBody {
+		background: none transparent !important;
+		opacity: 0 !important;
+		background-color: none;
+	}
+
+	.qrcode img{
+		max-width: 116px;
+		filter: invert(87.5%);
+		display: block;
+		margin: auto;
+	}
+
+	p{
+		color: white!important;
+		text-align: center;
+	}
+
+	.footer{
+		display: flex;
+		justify-content: center;
+	}
+
+	.item-md{
+		padding-left: 0!important;
+	}
+
+	.card-md{
+		max-width: 116px;
+		margin: 16px auto;
+	}
+}

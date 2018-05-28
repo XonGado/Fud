@@ -1,0 +1,139 @@
+page-menus {
+	.modal #buttons a{
+  display: block; 
+  /*margin: 0.5em;*/
+  margin: 10px auto;
+  font-size: 1em;
+  padding: 0px;
+}  
+#confirmlogout{
+  height: 197px;
+}
+#header{
+  // font-size: 1.5em;
+  text-align: center;
+}
+
+  .container .username {
+    text-align: center;
+    font-size: 1.25em;
+    margin-top: 0.5em;
+    margin-bottom: 0.25em;
+    font-weight: 500; }
+  .container .email {
+    text-align: center;
+    color: #888;
+    font-size: 1.1em;
+    font-style: italic;
+    display: block; }
+  .container .details.overflow-auto{
+    padding-top: 3.5em;
+  }
+/*   .container .menus {
+    color: #DDD;
+    font-size: 2em;
+    font-weight: 500; 
+    vertical-align: bottom;
+  } */
+  .container .header {
+    color: #DDD;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    margin-bottom: 0.5em; }
+    .container .header + ul, .container .header + ol {
+      color: #888;
+      display: flex;
+      flex-wrap: wrap; }
+      .container .header + ul li, .container .header + ol li {
+        padding-top: calc(31% - 1em);
+        width: 48%;
+        margin: 1%;
+        background-color: #333;
+        text-align: center;
+        border-radius: 4px;}
+      .container .details .header a{
+        position: relative;
+        padding: 0.25em;
+        font-size: 1.25em;
+        margin-left: 85%;
+      }
+.reach {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+  color: #555;
+  border: 1px solid #222;
+  border-width: 1px 0 1px 0;
+  padding: 0.5em 0em 0.3em 0em; }
+  .reach ul.header {
+      width: 100%;
+      color: #999; }
+    .reach ul.header li.title{
+      width: 90%;
+    }
+
+.details {
+  padding: 1em;
+}
+
+.truncate{
+  overflow-wrap: break-word;
+}
+
+.menus{
+  padding: 0 0.5rem;
+  padding-left: 0.5rem!important;
+}
+
+.menu_container{
+  padding: 0.5rem 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.menu_link{
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: "m_name d_name";
+  padding: 0 0.5em;
+}
+
+.menu_name{ grid-area: m_name; }
+.diner_name{ grid-area: d_name; }
+
+.menu_name{
+  font-weight: bold;
+}
+
+.diner_name{
+  color: rgba(0, 0, 0, 0.5);
+  font-style: italic;
+  text-align: right;
+}
+
+#food-items{
+  padding: 0 0.5rem;
+}
+
+.page_name{
+  font-size: 1.75em;
+  display: flex;
+  align-items: center;
+  justify-content: ce
+}
+
+.diner_name_heading{
+  padding: 0 0.5rem 0 2.75rem;
+  margin: 0 0 0.5em 0;
+  font-size: 1.5em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+
+
+/*# sourceMappingURL=profile.css.map */
+
+}
