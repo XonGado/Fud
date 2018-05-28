@@ -29,7 +29,7 @@
 				<p class="time-date">
 					{{ notification.timestamp.time }} {{ notification.timestamp.day }} 
 				</p>
-				<ion-badge *ngIf="notification.new" item-end>New!</ion-badge>
+				<ion-badge *ngIf="!notification.seen" item-end>New!</ion-badge>
 			</ion-item>
 			<ion-item-options side="right">
 				<button ion-button float-right clear icon-only color="danger" (click)="clear(notification.id, i)">

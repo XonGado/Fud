@@ -67,14 +67,6 @@ export class CustHomePage {
 			customer.ref.collection("favorites").get().then( collection => { that.favorites = collection.size })
 		})
 		this.dinersCollectionRef = this.firestore.collection('diners')
-
-		var position = this.geolocation.getCurrentPosition()
-
-		this.geolocation.getCurrentPosition().then( position => {
-			console.log(position.coords.latitude)
-			console.log(position.coords.longitude)
-		})
-
 		this.dinerList = this.retrieveDiners()
 	}
 

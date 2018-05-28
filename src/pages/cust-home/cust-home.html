@@ -78,7 +78,7 @@
 				<ion-list>
 					<ion-item *ngIf="ordered" icon-left (click)="viewMyOrder()">
 						<ion-icon name="eye" item-left color="secondary"></ion-icon>
-						View your current order
+						View your order
 					</ion-item>
 					<ion-item *ngFor="let diner of dinerList">
 						<ion-avatar item-left (click)="viewDiner(diner.id)">

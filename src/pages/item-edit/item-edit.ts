@@ -114,49 +114,95 @@ export class ItemEditPage {
 		})
 
 		if (this.previous_availability != this.availability) {
-			this.firestore.collection("diners").doc(this.fire.auth.currentUser.uid).collection("fans").ref.get().then( fans => {
-		      fans.forEach( fan => {
-		        let notificationID = that.firestore.createId()
-		        that.firestore.collection("customers").doc(fan.id).collection("notifications").doc(notificationID).set({
-		          id: notificationID,
-		          from: that.fire.auth.currentUser.uid,
-		          type: 2,
-		          new: true,
-		          seen: false,
-		          cleared: false,
-		          timestamp: new Date()
+			if (this.availability) {
+				this.firestore.collection("diners").doc(this.fire.auth.currentUser.uid).collection("fans").ref.get().then( fans => {
+			      fans.forEach( fan => {
+			        let notificationID = that.firestore.createId()
+			        that.firestore.collection("customers").doc(fan.id).collection("notifications").doc(notificationID).set({
+			          id: notificationID,
+			          from: that.fire.auth.currentUser.uid,
+			          type: 6,
+			          new: true,
+			          seen: false,
+			          cleared: false,
+			          timestamp: new Date()
+			        })
+			      })
+			    }).catch(error => {
+		          that.alertCtrl.create({
+		            title: "Error",
+		            message: error.message,
+		            buttons: [{ text: "Got it" }]
+		          }).present()
 		        })
-		      })
-		    }).catch(error => {
-	          that.alertCtrl.create({
-	            title: "Error",
-	            message: error.message,
-	            buttons: [{ text: "Got it" }]
-	          }).present()
-	        })
+			} else {
+				this.firestore.collection("diners").doc(this.fire.auth.currentUser.uid).collection("fans").ref.get().then( fans => {
+			      fans.forEach( fan => {
+			        let notificationID = that.firestore.createId()
+			        that.firestore.collection("customers").doc(fan.id).collection("notifications").doc(notificationID).set({
+			          id: notificationID,
+			          from: that.fire.auth.currentUser.uid,
+			          type: 3,
+			          new: true,
+			          seen: false,
+			          cleared: false,
+			          timestamp: new Date()
+			        })
+			      })
+			    }).catch(error => {
+		          that.alertCtrl.create({
+		            title: "Error",
+		            message: error.message,
+		            buttons: [{ text: "Got it" }]
+		          }).present()
+		        })
+			}
 		}
 
 		if (this.previous_visibility != this.visibility) {
-			this.firestore.collection("diners").doc(this.fire.auth.currentUser.uid).collection("fans").ref.get().then( fans => {
-		      fans.forEach( fan => {
-		        let notificationID = that.firestore.createId()
-		        that.firestore.collection("customers").doc(fan.id).collection("notifications").doc(notificationID).set({
-		          id: notificationID,
-		          from: that.fire.auth.currentUser.uid,
-		          type: 3,
-		          new: true,
-		          seen: false,
-		          cleared: false,
-		          timestamp: new Date()
+			if (this.visibility) {
+				this.firestore.collection("diners").doc(this.fire.auth.currentUser.uid).collection("fans").ref.get().then( fans => {
+			      fans.forEach( fan => {
+			        let notificationID = that.firestore.createId()
+			        that.firestore.collection("customers").doc(fan.id).collection("notifications").doc(notificationID).set({
+			          id: notificationID,
+			          from: that.fire.auth.currentUser.uid,
+			          type: 7,
+			          new: true,
+			          seen: false,
+			          cleared: false,
+			          timestamp: new Date()
+			        })
+			      })
+			    }).catch(error => {
+		          that.alertCtrl.create({
+		            title: "Error",
+		            message: error.message,
+		            buttons: [{ text: "Got it" }]
+		          }).present()
 		        })
-		      })
-		    }).catch(error => {
-	          that.alertCtrl.create({
-	            title: "Error",
-	            message: error.message,
-	            buttons: [{ text: "Got it" }]
-	          }).present()
-	        })
+			} else {
+				this.firestore.collection("diners").doc(this.fire.auth.currentUser.uid).collection("fans").ref.get().then( fans => {
+			      fans.forEach( fan => {
+			        let notificationID = that.firestore.createId()
+			        that.firestore.collection("customers").doc(fan.id).collection("notifications").doc(notificationID).set({
+			          id: notificationID,
+			          from: that.fire.auth.currentUser.uid,
+			          type: 3,
+			          new: true,
+			          seen: false,
+			          cleared: false,
+			          timestamp: new Date()
+			        })
+			      })
+			    }).catch(error => {
+		          that.alertCtrl.create({
+		            title: "Error",
+		            message: error.message,
+		            buttons: [{ text: "Got it" }]
+		          }).present()
+		        })
+			}
 		}
 
 		if (this.previous_price > this.price.value) {
