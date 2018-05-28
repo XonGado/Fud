@@ -9,13 +9,6 @@ import { Notification } from '../../models/notification.interface'
 import { Customer } from '../../models/customer.interface'
 import { Diner } from '../../models/diner.interface'
 
-/**
- * Generated class for the CustNotificationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-cust-notification',

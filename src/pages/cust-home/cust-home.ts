@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core'
-import { IonicPage, NavController, NavParams, MenuController, ToastController, Slides } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, MenuController, ToastController, Slides, Platform } from 'ionic-angular'
 
 import { CustProfilePage } from '../cust-profile/cust-profile'
 import { MenusPage } from '../menus/menus'
@@ -45,7 +45,8 @@ export class CustHomePage {
   	favorites: any
   	view: string
 
-  	userLocation: any
+  	location: any
+  	position: any
   	dinerDistances: any[] = []
 
 	constructor(public navCtrl: NavController, 
@@ -54,28 +55,27 @@ export class CustHomePage {
 				public toastCtrl: ToastController,
 				private fire: AngularFireAuth, 
 				private firestore: AngularFirestore,
+				public platform: Platform,
 				public geolocation: Geolocation) {
 		let that = this
 		this.view = "diner"
 		this.uid = fire.auth.currentUser.uid
 		this.firestore.collection('customers').doc(this.uid).ref.get()
-		.then(doc => {
-			that.name = doc.data().cust_name
-			that.email = doc.data().cust_email	
-
-			doc.ref.collection("favorites").get().then( collection => {
-				that.favorites = collection.size			
-			})
+		.then(customer => {
+			that.name = customer.data().cust_name
+			that.email = customer.data().cust_email	
+			customer.ref.collection("favorites").get().then( collection => { that.favorites = collection.size })
 		})
 		this.dinersCollectionRef = this.firestore.collection('diners')
-		
+
+		var position = this.geolocation.getCurrentPosition()
+
 		this.geolocation.getCurrentPosition().then( position => {
 			console.log(position.coords.latitude)
 			console.log(position.coords.longitude)
 		})
 
 		this.dinerList = this.retrieveDiners()
-		// this.customerCount = this.getCount()
 	}
 
 	ionViewWillEnter() { 
@@ -92,34 +92,12 @@ export class CustHomePage {
 
 	setupSlides(){
 		this.slides.centeredSlides = false
-		this.slides.lockSwipes(false)	
-		// this.slides.direction = "vertical"
+		this.slides.lockSwipes(false)
 	}
 
 	slide(index){
 		this.slides.slideTo(index)
-
-		// if (index == 0){
-		// 	this.view = "diner"
-		// 	this.slides.lockSwipes(false)
-		// } else {
-		// 	this.view = "map"
-		// 	this.slides.lockSwipes(true)
-		// }
 	}
-
-	// ionSlideDidChange(){
-	// 	console.log("Swiped!")
-	// 	let index = this.slides.getActiveIndex()
-
-	// 	if (index == 0){
-	// 		this.view = "diner"
-	// 		this.slides.lockSwipes(false)
-	// 	} else {
-	// 		this.view = "map"
-	// 		this.slides.lockSwipes(true)
-	// 	}
-	// }
 
 	menuToggle(){
 		this.menu.enable(true)
@@ -131,7 +109,7 @@ export class CustHomePage {
 	}
 
 	getDistance (p1, p2) {
-		var R = 6378137; // Earth’s mean radius in meter
+		var R = 6378137
 		var dLat = this.rad(p2.lat() - p1.lat())
 		var dLong = this.rad(p2.lng() - p1.lng())
 		var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -141,69 +119,60 @@ export class CustHomePage {
 		var d = R * c
 
 
-		return (d/1000).toFixed(1) // returns the distance in meter
+		return (d/1000).toFixed(1)
 	}
 
 	loadMap(){
 		let that = this
  
-	    this.geolocation.getCurrentPosition().then( position => {
- 
-			let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-			that.userLocation = latLng
+	    this.geolocation.getCurrentPosition().then( 
+	    	position => {
+				let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+				that.location = latLng
+				that.position = position
+			}, error => {
+				console.log(error.message)
+			}
+	    ).then( _=>{
+	    	console.log(that.location)
+	    	console.log(that.position.coords.latitude)
+	    	console.log(that.position.coords.longitude)
 
-			let mapOptions = {
-				center: latLng,
-				zoom: 15,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+	    	let mapOptions = {
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				center: that.location,
+				zoom: 15
 			}
 
-			this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
+			that.map = new google.maps.Map(that.mapElement.nativeElement, mapOptions)
 
 			let marker = new google.maps.Marker({
-		        map: this.map,
-		        animation: google.maps.Animation.DROP,
-		        position: latLng
-		    })
+			       map: that.map,
+			       animation: google.maps.Animation.DROP,
+			       position: that.location
+			   })
 
 			let content = "You are here"
 
-			this.addInfoWindow(marker, content)
-		    marker.setMap(this.map)
+			that.addInfoWindow(marker, content)
+			   marker.setMap(that.map)
 
 			var cityCircle = new google.maps.Circle({
-	            strokeColor: '#00FF00',
-	            strokeOpacity: 0.8,
-	            strokeWeight: 2,
-	            fillColor: 'transparent',
-	            map: this.map,
-	            center: latLng,
-	            radius: 1500
-	        })
-
-		}, (err) => {
-			console.log("Error!")
+			          strokeColor: '#00FF00',
+			          strokeOpacity: 0.8,
+			          strokeWeight: 2,
+			          fillColor: 'transparent',
+			          map: that.map,
+			          center: that.location,
+			          radius: 1500
+			      })
+	    }).catch( error => {
+	    	console.log(error.message)
 	    })
 	 
 	}
 
-	// getCount() {
-	// 	let that = this
-	// 	let counter: any[] = []
-	// 	this.dinersCollectionRef.ref.get()
-	// 	.then(querySnapshot => {
-	// 		that.diner_ids.forEach(function(id) {
-	// 			that.dinersCollectionRef.doc(id).collection('orders').ref.where("cleared", "==", false).get()
-	// 			.then(function(querySnapshot) {
-	// 				counter.push(querySnapshot.size)
-	// 			})
-	// 		})
-	// 	})
-	// 	return counter
-	// }
-
 	addDinerMarkers(){
-
 		for (var diner of this.dinerList) {
 
 			let latLng = new google.maps.LatLng(diner.location.latitude, diner.location.longitude)
@@ -221,8 +190,6 @@ export class CustHomePage {
 			this.addInfoWindow(marker, content)
 		    marker.setMap(this.map)
 		}
-
-		console.log(this.dinerDistances)
 	}
 
 	addInfoWindow(marker, content){
@@ -243,7 +210,6 @@ export class CustHomePage {
 
 		this.dinersCollectionRef.ref.get().then( diners => {
 			diners.forEach( diner => {
-				console.log(diner.data())
 				let details = {id: "", name: "", location: { latitude: 0, longitude: 0 }, distance: "0", customers: 0}
 				let latLng = new google.maps.LatLng(diner.data().dine_location.latitude, diner.data().dine_location.longitude)
 				that.dinersCollectionRef.doc(diner.id).collection('orders').ref.where("cleared", "==", false).get().then( pending => { details.customers = pending.size })
@@ -251,7 +217,7 @@ export class CustHomePage {
 				details.id = diner.id
 				details.name = diner.data().dine_name
 				details.location = diner.data().dine_location
-				details.distance = that.getDistance(that.userLocation, latLng)
+				details.distance = that.getDistance(that.location, latLng)
 
 				_diners.push(details)
 			})
@@ -304,16 +270,11 @@ export class CustHomePage {
 	}
 
 	viewMyOrder(){
-		this.navCtrl.push(CustViewOrderPage, {
-			dinerID: this.dinerID,
-			orderID: this.orderID
-		})
+		this.navCtrl.push(CustViewOrderPage, { dinerID: this.dinerID, orderID: this.orderID })
 	}
 
 	viewDiner(id){
-		this.navCtrl.push(CustViewDinerPage, {
-			dinerID: id
-		})
+		this.navCtrl.push(CustViewDinerPage, { dinerID: id })
 	}
 
 	openProfile(){

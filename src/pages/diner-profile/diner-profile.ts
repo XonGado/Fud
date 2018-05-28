@@ -70,8 +70,8 @@ export class DinerProfilePage {
     console.log("Loading map...")
     console.log(this.location.latitude + " " + this.location.longitude)
 
-    var latLng = new google.maps.LatLng(this.location.latitude, this.location.longitude);
- 
+    var latLng = new google.maps.LatLng(this.location.latitude, this.location.longitude)
+
     let mapOptions = {
       center: latLng,
       zoom: 15,

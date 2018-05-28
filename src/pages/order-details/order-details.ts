@@ -45,7 +45,7 @@ export class OrderDetailsPage {
     private firestore: AngularFirestore) {
   	this.order_id = this.navParams.get('data')
   	this.orderDocRef = this.firestore.collection('diners').doc(this.fire.auth.currentUser.uid).collection('orders').doc(this.order_id)
-    this.orderedItemsColRef = this.orderDocRef.collection('OrderedItems')
+    this.orderedItemsColRef = this.orderDocRef.collection('orderedItems')
   	this.getOrderDetails()
   }
 

@@ -267,6 +267,17 @@ export class OrderPage {
 					lock: false
 				})
 			})
+
+			let notificationID = that.firestore.createId()
+			that.diner.collection("notifications").doc(notificationID).set({
+				id: notificationID,
+				from: that.fire.auth.currentUser.uid,
+				type: 1,
+				new: true,
+				seen: true,
+				cleared: false,
+				timestamp: new Date()
+			})
 		})
 	}
 
