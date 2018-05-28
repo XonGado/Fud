@@ -8,8 +8,8 @@ import { Geolocation } from '@ionic-native/geolocation'
 
 import { DinerDetails } from '../../models/dinerdetails.interface'
 import { Customer } from '../../models/customer.interface'
-import { Item } from '../../models/item.model'
 import { Order } from '../../models/order.interface'
+import { Item } from '../../models/item.model'
 
 declare var google
 
@@ -27,10 +27,16 @@ export class CustLocatePage {
 	order: any
 	location: any
 	diner_id: any
+	diner: AngularFirestoreDocument<any>
 	customerDocRef: AngularFirestoreDocument<Customer>
 	orderedItemsColRef: AngularFirestoreCollection<Item>
 	ordersCollectionRef: AngularFirestoreCollection<Order>
 	dinerCollectionRef: AngularFirestoreCollection<DinerDetails>
+
+	loading = this.loadingCtrl.create({
+      dismissOnPageChange: true,
+      content: `<ion-spinner name="cresent"></ion-spinner>`
+    })
 
 	constructor(public navCtrl: NavController, 
 		public navParams: NavParams, 
@@ -46,7 +52,8 @@ export class CustLocatePage {
 		this.uid = this.fire.auth.currentUser.uid
 	    this.dinerCollectionRef = this.firestore.collection('diners')
 	    this.customerDocRef = this.firestore.collection('customers').doc(this.uid)
-	    this.ordersCollectionRef = this.dinerCollectionRef.doc(this.diner_id).collection('orders')
+	    this.diner = this.dinerCollectionRef.doc(this.diner_id)
+	    this.ordersCollectionRef = this.diner.collection('orders')
 		this.loadMap()
 	}
 
@@ -124,25 +131,19 @@ export class CustLocatePage {
 		})
 
 		this.ordersCollectionRef.ref.get()
-		.then(querySnapshot => {
-			querySnapshot.forEach(doc => {
-				orderNumber +=1
-			})
-		})
+		.then(orders => { orderNumber == orders.size })
 
 		this.customerDocRef.ref.get()
 		.then(doc => {
-			customer_name = doc.data().cust_name
 			customer_id = doc.id
 			that.ordersCollectionRef.doc(id).set({
-				customer_id: customer_id,
-				customer_name: customer_name,
-				order_cost: price,
+				cost: price,
 				cleared: false,
-				order_type: 2,
 				totalItems: count,
+				type: 2,
+				timestamp: new Date(),
+				customer: customer_id,
 				orderNumber: orderNumber,
-				location: that.location
 			})
 			.then(function(){
 				let alert = that.alertCtrl.create({
@@ -151,11 +152,11 @@ export class CustLocatePage {
 					buttons: [{
 						text: "Okay!",
 						handler: () =>{
-							that.navCtrl.popToRoot()
+							that.popPage()
 						}
 					}]
 				});
-				loading.dismiss()
+				that.loading.dismiss()
 				alert.present()
 			})
 		})
@@ -163,7 +164,7 @@ export class CustLocatePage {
 			let that = this
 			that.order.forEach(doc => {
 				let ordereditem_id = that.firestore.createId()
-				that.ordersCollectionRef.doc(id).collection('OrderedItems').doc(ordereditem_id).set({
+				that.ordersCollectionRef.doc(id).collection('orderedItems').doc(ordereditem_id).set({
 					item_id: doc.item_id,
 					item_name: doc.item_name,
 					item_description: doc.item_description,
@@ -176,7 +177,22 @@ export class CustLocatePage {
 					lock: false
 				})
 			})
+
+			let notificationID = that.firestore.createId()
+			that.diner.collection("notifications").doc(notificationID).set({
+				id: notificationID,
+				from: that.fire.auth.currentUser.uid,
+				type: 1,
+				new: true,
+				seen: true,
+				cleared: false,
+				timestamp: new Date()
+			})
 		})
+	}
+
+	popPage(){
+		this.navCtrl.pop()
 	}
 
 	ionViewDidLoad() {

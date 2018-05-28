@@ -12,12 +12,7 @@
         <ion-icon name="arrow-back"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title text-center>Locate</ion-title>
-    <ion-buttons end>
-    	<button icon-only ion-button (click)="checkMarkerLocation()">
-    		<ion-icon name="locate"></ion-icon>
-    	</button>
-    </ion-buttons>
+    <ion-title>Locate</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -25,6 +20,7 @@
 
 <ion-content>
   <div id="confirm-location-div">
+  	<div #map id="map"></div>
     <p>
       Is this your restaurant's location? 
       <span class="secondary">If not, make sure you are located in your restaurant and set it up later.</span>
@@ -35,7 +31,3 @@
     </button>
   </div>
 </ion-content>
-
-<ion-footer>
-	<div #map id="map"></div>
-</ion-footer>

@@ -14,14 +14,16 @@ import { Observable } from 'rxjs/Observable'
   templateUrl: 'diner-order-history.html',
 })
 export class DinerOrderHistoryPage {
-	uid: string
+
   	ordersCollectionRef: AngularFirestoreCollection<Order>
-  	ordersList: any[] = []
-  	itemsList: any[] = []
-  	itemCount: number
+	ordersCollectionRef$: Observable<Order[]>
   	diner: AngularFirestoreDocument<DinerDetails>
   	orderFilter: string = "all"
+  	ordersList: any[] = []
+  	itemsList: any[] = []
   	order_ids: any[] = []
+  	itemCount: number
+	uid: string
 
   	constructor(public navCtrl: NavController, 
         public navParams: NavParams,
@@ -50,6 +52,31 @@ export class DinerOrderHistoryPage {
 		    console.log(doc.id)
 		  })
 		  that.getItems()
+		})
+
+		this.ordersCollectionRef = this.diner.collection('orders')
+		this.ordersCollectionRef$ = this.ordersCollectionRef.valueChanges()
+		this.ordersCollectionRef$.subscribe( collection => {
+			this.ordersCollectionRef.ref.orderBy("orderNumber", "asc").get()
+			.then( orders=> {
+				let list = []
+
+				orders.forEach( order=> {
+					let details = { id: "", customer: "", cost: 0, cleared: true, type: 0, totalItems: 0, orderNumber: 0 }
+
+					details.id = order.id
+					details.type = order.data().type
+					details.cost = order.data().cost
+					details.cleared = order.data().cleared
+					details.totalItems = order.data().totalItems
+					details.orderNumber = order.data().orderNumber
+					that.firestore.collection("customers").doc(order.data().customer).ref.get().then( doc => { details.customer = doc.data().cust_name}).then( _=> {
+						list.push(details)
+					})
+				})
+
+				that.ordersList = list
+			})
 		})
 	}
 

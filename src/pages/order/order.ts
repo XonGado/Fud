@@ -228,12 +228,13 @@ export class OrderPage {
 		.then(doc => {
 			customer_id = doc.id
 			that.ordersCollectionRef.doc(id).set({
-				customer: customer_id,
 				cost: price,
 				cleared: false,
-				type: that.orderType,
 				totalItems: count,
-				orderNumber: that.orderNumber
+				type: that.orderType,
+				timestamp: new Date(),
+				customer: customer_id,
+				orderNumber: that.orderNumber,
 			})
 			.then(function(){
 				let alert = that.alertCtrl.create({

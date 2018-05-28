@@ -9,10 +9,12 @@ import { DinerNotificationPage } from '../diner-notification/diner-notification'
 
 import { Order } from '../../models/order.interface'
 import { DinerDetails } from '../../models/dinerdetails.interface'
+import { Notification } from '../../models/notification.interface'
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
 import { Observable } from 'rxjs/Observable'
+
 
 /**
  * Generated class for the HomeDinerPage page.
@@ -30,13 +32,12 @@ export class DinerHomePage {
   uid: string
   ordersCollectionRef: AngularFirestoreCollection<Order>
   ordersCollectionRef$: Observable<Order[]>
-  orderedItemsColRef: any
-  ordersList: any[] = []
-  itemsList: any[] = []
-  itemCount: number
+  notifsCollectionRef: AngularFirestoreCollection<Notification>
+  notifsCollectionRef$: Observable<Notification[]>
+  newNotificationCount: any = ""
   diner: AngularFirestoreDocument<DinerDetails>
+  ordersList: any[] = []
   orderFilter: string = "all"
-  order_ids: any[] = []
   user: object = {
     name: 'sample',
     email: 'sample'
@@ -74,13 +75,19 @@ export class DinerHomePage {
           details.cleared = order.data().cleared
           details.totalItems = order.data().totalItems
           details.orderNumber = order.data().orderNumber
-          that.firestore.collection("customers").doc(order.data().customer).ref.get().then( doc=> { details.customer = doc.data().cust_name}).then( _=> {
+          that.firestore.collection("customers").doc(order.data().customer).ref.get().then( doc => { details.customer = doc.data().cust_name}).then( _=> {
             list.push(details)
           })
         })
 
         that.ordersList = list
       })
+    })
+
+    this.notifsCollectionRef = this.diner.collection('notifications')
+    this.notifsCollectionRef$ = this.notifsCollectionRef.valueChanges()
+    this.notifsCollectionRef$.subscribe( collection => {
+      this.newNotificationCount = collection.length
     })
   }
   
