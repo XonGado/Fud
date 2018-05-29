@@ -15,8 +15,8 @@
 
 <ion-content padding>
 	<ion-list>
-		<ion-item-sliding>
-			<ion-item *ngFor="let notification of notifications; let i = index" [class.unseen]="!notification.seen" [class.hidden]="notification.cleared">
+		<ion-item-sliding *ngFor="let notification of notifications; let i = index" [class.unseen]="!notification.seen" [class.hidden]="notification.cleared">
+			<ion-item>
 				<ion-avatar item-left>
 					<img src="assets/imgs/DinerAvatar.png">
 				</ion-avatar>
@@ -58,4 +58,7 @@
 			</ion-item-options>
 		</ion-item-sliding>
 	</ion-list>
+	<p class="empty-message" *ngIf=" notifications.length < 1">
+		<span><ion-icon name="notifications"></ion-icon>You don't have any notifications yet.</span>
+	</p>
 </ion-content>

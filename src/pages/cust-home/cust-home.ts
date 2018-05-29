@@ -81,7 +81,6 @@ export class CustHomePage {
 	}
 
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad HomeCustPage')
 		this.loadMap()
 	    this.menu.enable(true)
 		this.userHasOrdered()	
@@ -205,8 +204,6 @@ export class CustHomePage {
 				details.name = diner.data().dine_name
 				details.location = diner.data().dine_location
 				details.distance = that.getDistance(that.location, latLng)
-				console.log("DinerID",diner.id)
-				console.log(that.location)
 
 				_diners.push(details)
 			})
@@ -254,7 +251,6 @@ export class CustHomePage {
 				duration: 3000
 			}).present()
 		} else if (!this.ordered) {
-			let that = this
 			this.navCtrl.push(OrderPage, {
 				diner_id: id
 			})

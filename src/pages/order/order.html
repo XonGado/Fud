@@ -20,23 +20,22 @@
 
 	<ion-list *ngFor="let category of categoryList">
 		<ion-list-header [class.hidden]="isEmpty(category.items, keyword)">
-			{{category.title}}
+			{{ category.title }}
 		</ion-list-header>
-		<ion-item *ngFor="let item of category.items" [class.hidden]="!filter(item.item_name, keyword)" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)" >
+		<ion-item *ngFor="let item of category.items" [class.ordered]="item.item_ordered > 0" [class.disabled]="!item.item_availability" [class.hidden]="!filter(item.item_name, keyword)" (pan)="itemPanned($event, item)" (tap)="itemTapped($event, item)" >
 			<ion-avatar item-start>
-				<!-- <img src="assets/imgs/{{item.item_image}}"> -->
 				<img src="assets/imgs/One.jpg">
 			</ion-avatar>
-			<h2>{{item.item_name}} <span class="quantity" *ngIf="item.item_ordered > 0">&times; {{item.item_ordered}}</span></h2>
-			<p class="price">{{item.item_price}}</p>
+			<h2>{{ item.item_name }} <span class="quantity" *ngIf="item.item_ordered > 0">&times; {{ item.item_ordered }}</span></h2>
+			<p class="price">{{ item.item_price }}</p>
 		</ion-item>
 	</ion-list>
 </ion-content>
 
 <ion-footer>
-	<button ion-button icon-only float-left color="dark" (click)="viewItems()">
+	<button ion-button icon-only float-left clear (click)="viewItems()">
 		<ion-icon item-start name="basket"></ion-icon>
-		<ion-badge class="bubble-badge"></ion-badge>
+		<ion-badge item-end [class.hidden]="basketBadge < 1">{{ basketBadge }}</ion-badge>
 	</button>
 	<button ion-button icon-start float-right color="secondary" (click)="askOrderType()">
 		<ion-icon name="checkmark"></ion-icon>

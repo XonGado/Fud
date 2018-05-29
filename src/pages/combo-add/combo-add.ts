@@ -52,7 +52,7 @@ export class ComboAddPage {
 				public platform: Platform,
 	      		private fire: AngularFireAuth,
 	     		private firestore: AngularFirestore) {
-		this.diner_id = this.navParams.get('data')
+		this.diner_id = this.navParams.get('dinerID')
 		this.dinerCollectionRef = this.firestore.collection('diners')
 		this.itemCollectionRef = this.dinerCollectionRef.doc(this.diner_id).collection('items')
 		this.customerDocRef = this.firestore.collection('customers').doc(this.fire.auth.currentUser.uid)

@@ -14,13 +14,12 @@
 
 <ion-content padding>
 	<ion-list>
-		<ion-item *ngFor="let item of itemList">
+		<ion-item *ngFor="let item of itemList" >
 			<ion-avatar item-start>
 				<img src="assets/imgs/One.jpg">
 			</ion-avatar>
-			<h2>{{item.item_name}}</h2>
-			<p class="price">{{item.item_price}}</p>
-			<p>{{item.item_ordered}}</p>
+			<h2>{{ item.item_name }} <span class="quantity">&times; {{ item.item_ordered }}</span></h2>
+			<p class="price">{{ item.item_price }}</p>
 		</ion-item>
 	</ion-list>
 </ion-content>

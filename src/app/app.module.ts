@@ -8,8 +8,6 @@ import { QRScanner } from '@ionic-native/qr-scanner'
 import { NgxQRCodeModule } from 'ngx-qrcode2'
 import { BarcodeScanner } from '@ionic-native/barcode-scanner'
 
-// import { Materialize } from '../assets/css/materialize'
-
 import { MyApp } from './app.component'
 import { HomePage } from '../pages/home/home'
 import { RegisterPage } from '../pages/register/register'
@@ -48,6 +46,7 @@ import { MenuCreatePage } from '../pages/menu-create/menu-create'
 import { OrderDetailsPage } from '../pages/order-details/order-details'
 import { DinerNotificationPage } from '../pages/diner-notification/diner-notification' 
 import { DinerFanbasePage } from '../pages/diner-fanbase/diner-fanbase'
+import { DinerViewOrderPage } from '../pages/diner-view-order/diner-view-order'
 
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer'
 import { File } from '@ionic-native/file'
@@ -84,6 +83,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerOrderHistoryPage,
     DinerNotificationPage,
     DinerFanbasePage,
+    DinerViewOrderPage,
     CustViewOrderPage,
     CustViewDinerPage,
     CustLocatePage,
@@ -135,6 +135,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerOrderHistoryPage,  
     DinerNotificationPage,
     DinerFanbasePage,
+    DinerViewOrderPage,
     CustViewOrderPage,
     CustViewDinerPage,
     CustLocatePage,

@@ -1,0 +1,28 @@
+page-diner-view-order {
+	.price{
+		text-align: right;
+		position: absolute;
+		right: 1em;
+		top: 50%;
+		transform: translate(0, -50%);
+		color: $green;
+		background: linear-gradient(to left, #222, #222, rgba(0,0,0,0));
+	}
+
+	.quantity{
+        color: $blue;
+    }
+
+    .item.item-md .checkbox-md{
+    	margin-right: 16px;
+    }
+
+    #map{
+    	min-height: 10em;
+    	width: 100%;
+    }
+
+    .list-md{
+    	margin-bottom: 0;
+    }
+}

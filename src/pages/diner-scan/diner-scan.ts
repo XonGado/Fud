@@ -34,23 +34,19 @@ export class DinerScanPage {
 	}
 
 	scanCode(){
+		let that = this
 		let id = this.fire.auth.currentUser.uid
 
 		this.barcodeScanner.scan().then(barcodedData =>{
 			this.scannedCode = id + ";1;" + barcodedData.text
-		})
-	}
-
-	errorAlert(error){
-		let errorAlert = this.alertCtrl.create({
-			title: "ERROR",
-			message: error.message,
-			buttons: [{
-				text: "Okay",
-				handler: _=>{
-					console.log("Hay nako.")
-				}
-			}]
+		}).catch( error => {
+			that.alertCtrl.create({
+				title: "Something went wrong",
+				message: error.message,
+				buttons:[{
+					text: "Okay"
+				}]
+			})
 		})
 	}
 
