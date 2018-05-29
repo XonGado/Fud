@@ -37,7 +37,7 @@ export class DinerScanPage {
 		let id = this.fire.auth.currentUser.uid
 
 		this.barcodeScanner.scan().then(barcodedData =>{
-			this.scannedCode = id + ";1;" + barcodedData.text 
+			this.scannedCode = id + ";1;" + barcodedData.text
 		})
 	}
 

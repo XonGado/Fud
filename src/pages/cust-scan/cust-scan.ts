@@ -5,8 +5,6 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { AngularFireAuth } from 'angularfire2/auth'
 import { BarcodeScanner } from '@ionic-native/barcode-scanner'
 
-import { OrderPage } from '../order/order'
-
 @IonicPage()
 @Component({
   selector: 'page-cust-scan',
