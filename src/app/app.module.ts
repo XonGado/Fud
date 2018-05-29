@@ -47,6 +47,7 @@ import { OrderDetailsPage } from '../pages/order-details/order-details'
 import { DinerNotificationPage } from '../pages/diner-notification/diner-notification' 
 import { DinerFanbasePage } from '../pages/diner-fanbase/diner-fanbase'
 import { DinerViewOrderPage } from '../pages/diner-view-order/diner-view-order'
+import { DinerStatisticsPage } from '../pages/diner-statistics/diner-statistics'
 
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer'
 import { File } from '@ionic-native/file'
@@ -84,6 +85,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerNotificationPage,
     DinerFanbasePage,
     DinerViewOrderPage,
+    DinerStatisticsPage,
     CustViewOrderPage,
     CustViewDinerPage,
     CustLocatePage,
@@ -136,6 +138,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     DinerNotificationPage,
     DinerFanbasePage,
     DinerViewOrderPage,
+    DinerStatisticsPage,
     CustViewOrderPage,
     CustViewDinerPage,
     CustLocatePage,

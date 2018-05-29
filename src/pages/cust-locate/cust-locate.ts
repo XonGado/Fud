@@ -112,9 +112,9 @@ export class CustLocatePage {
 
 	placeOrder(){
 		// Saving to database
-
 		let loading = this.loadingCtrl.create({
-			content: "<ion-spinner name='cresent'></ion-spinner>"
+			content: "<ion-spinner name='cresent'></ion-spinner>",
+			dismissOnPageChange: true
 		})
 		loading.present()
 		let customer_name: string
@@ -144,6 +144,7 @@ export class CustLocatePage {
 				timestamp: new Date(),
 				customer: customer_id,
 				orderNumber: orderNumber,
+				location: that.location
 			})
 			.then(function(){
 				let alert = that.alertCtrl.create({
@@ -152,7 +153,7 @@ export class CustLocatePage {
 					buttons: [{
 						text: "Okay!",
 						handler: () =>{
-							that.popPage()
+							that.navCtrl.popToRoot()
 						}
 					}]
 				});
@@ -189,10 +190,6 @@ export class CustLocatePage {
 				timestamp: new Date()
 			})
 		})
-	}
-
-	popPage(){
-		this.navCtrl.pop()
 	}
 
 	ionViewDidLoad() {

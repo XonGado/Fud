@@ -30,24 +30,9 @@ export class DinerScanPage {
 	}
 
 	createCode(){
-		this.createdCode = this.qrData
-	}
-
-	scanCode(){
-		let that = this
 		let id = this.fire.auth.currentUser.uid
-
-		this.barcodeScanner.scan().then(barcodedData =>{
-			this.scannedCode = id + ";1;" + barcodedData.text
-		}).catch( error => {
-			that.alertCtrl.create({
-				title: "Something went wrong",
-				message: error.message,
-				buttons:[{
-					text: "Okay"
-				}]
-			})
-		})
+		this.createdCode = id + ";1;" + this.qrData
+		console.log(this.createdCode)
 	}
 
 	ionViewDidLoad() {

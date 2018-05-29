@@ -7,6 +7,7 @@ import { OrderDetailsPage } from '../order-details/order-details'
 import { DinerOrderHistoryPage } from '../diner-order-history/diner-order-history'
 import { DinerNotificationPage } from '../diner-notification/diner-notification'
 import { DinerFanbasePage } from '../diner-fanbase/diner-fanbase'
+import { DinerStatisticsPage } from '../diner-statistics/diner-statistics'
 
 import { Order } from '../../models/order.interface'
 import { DinerDetails } from '../../models/dinerdetails.interface'
@@ -184,18 +185,23 @@ export class DinerHomePage {
   }
 
   openMenu(){
-  	this.navCtrl.push(DinerMenuPage);
+    this.navCtrl.push(DinerMenuPage);
   }
 
   openGenerator(){
-  	this.navCtrl.push(DinerScanPage);
+    this.navCtrl.push(DinerScanPage);
   }
 
   openOrderDetails(id){
     this.navCtrl.push(OrderDetailsPage, { data: id })
   }
 
+  openAnalytics(){
+    this.navCtrl.push(DinerStatisticsPage)
+  }
+
   openOrderHistory(){
     this.navCtrl.push(DinerOrderHistoryPage)
   }
+
 }
