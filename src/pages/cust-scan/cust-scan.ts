@@ -17,6 +17,11 @@ export class CustScanPage {
 	scannedCode = null
 	orderedItemsList:any = []
 
+
+	orderType: any
+
+	id: any = ""
+	diner_id: any
 	order: any
 
 	constructor(public navCtrl: NavController, 
@@ -27,11 +32,14 @@ export class CustScanPage {
 		private fire: AngularFireAuth,
 		private firestore: AngularFirestore) {
 
-		this.order = navParams.get('data')
+		this.order = navParams.get('order')
+		this.diner_id = navParams.get('dinerID')
+		this.orderType = navParams.get('orderType')
 		this.scannedCode = this.scanCode()
 	}
 
 	scanCode(){
+		let that = this
 		this.barcodeScanner.scan().then(barcodedData =>{
 			this.scannedCode = barcodedData.text
 			this.doAction(this.scannedCode)
@@ -44,7 +52,7 @@ export class CustScanPage {
 		if (splitCode[1] == 0) {
 			this.favorite(splitCode[0])
 		} else if (splitCode[1] == 1){
-			this.placeOrder(splitCode[0], splitCode[2], 0)
+			this.placeOrder(splitCode[0], splitCode[2], this.orderType)
 		} 
 	}
 
@@ -209,7 +217,7 @@ export class CustScanPage {
 		})
 	}
 
-	
+
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad DinerScanPage');

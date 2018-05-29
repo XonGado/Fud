@@ -76,6 +76,7 @@
 			<div class="auto-scroll">
 				<ion-list>
 					<ion-item *ngIf="ordered" icon-left (click)="viewMyOrder()">
+						
 						<ion-icon name="eye" item-left color="secondary"></ion-icon>
 					</ion-item>
 					<ion-item *ngFor="let diner of dinerList" [class.hidden]="diner.distance > 1.5">
