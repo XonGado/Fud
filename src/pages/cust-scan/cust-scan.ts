@@ -17,6 +17,8 @@ export class CustScanPage {
 	scannedCode = null
 	orderedItemsList:any = []
 
+	order: any
+
 	constructor(public navCtrl: NavController, 
 		public navParams: NavParams,
 		public alertCtrl: AlertController,
@@ -24,10 +26,9 @@ export class CustScanPage {
 		private barcodeScanner: BarcodeScanner,
 		private fire: AngularFireAuth,
 		private firestore: AngularFirestore) {
-	}
 
-  	createCode(){
-		this.createdCode = this.qrData
+		this.order = navParams.get('data')
+		this.scannedCode = this.scanCode()
 	}
 
 	scanCode(){
@@ -140,7 +141,7 @@ export class CustScanPage {
 		let price: number = 0
 		let count: number = 0
 
-		this.orderedItemsList.forEach(doc => {
+		this.order.forEach(doc => {
 			price = price + Number(doc.item_price * doc.item_ordered)
 			count = count + Number(doc.item_ordered)
 		})
@@ -179,7 +180,7 @@ export class CustScanPage {
 		})
 		.then(doc => {
 			let that = this
-			that.orderedItemsList.forEach(doc => {
+			that.order.forEach(doc => {
 				let ordereditem_id = that.firestore.createId()
 				ordersCollectionRef.doc(orderId).collection('orderedItems').doc(ordereditem_id).set({
 					item_id: doc.item_id,
@@ -208,18 +209,7 @@ export class CustScanPage {
 		})
 	}
 
-	errorAlert(error){
-		let errorAlert = this.alertCtrl.create({
-			title: "ERROR",
-			message: error.message,
-			buttons: [{
-				text: "Okay",
-				handler: _=>{
-					console.log("Hay nako.")
-				}
-			}]
-		})
-	}
+	
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad DinerScanPage');

@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core'
-import { IonicPage, NavController, NavParams, MenuController, ToastController, Slides, Platform } from 'ionic-angular'
+import { IonicPage, NavController, NavParams, MenuController, AlertController, ToastController, Slides, Platform } from 'ionic-angular'
 
 import { CustProfilePage } from '../cust-profile/cust-profile'
 import { MenusPage } from '../menus/menus'
@@ -31,6 +31,7 @@ export class CustHomePage {
 
 	@ViewChild(Slides) slides: Slides
 	@ViewChild('map') mapElement: ElementRef
+
 	map: any
 
 	uid: string
@@ -45,19 +46,22 @@ export class CustHomePage {
   	favorites: any
   	view: string
 
-  	location: any
+  	location: any = 0
   	position: any
+
   	dinerDistances: any[] = []
 
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
 				public menu: MenuController,
 				public toastCtrl: ToastController,
+				public alertCtrl: AlertController,
 				private fire: AngularFireAuth, 
 				private firestore: AngularFirestore,
 				public platform: Platform,
 				public geolocation: Geolocation) {
 		let that = this
+		this.location = new google.maps.LatLng(10.64071874033119, 122.22745867523122)
 		this.view = "diner"
 		this.uid = fire.auth.currentUser.uid
 		this.firestore.collection('customers').doc(this.uid).ref.get()
@@ -66,17 +70,19 @@ export class CustHomePage {
 			that.email = customer.data().cust_email	
 			customer.ref.collection("favorites").get().then( collection => { that.favorites = collection.size })
 		})
+		this.loadMap()
 		this.dinersCollectionRef = this.firestore.collection('diners')
 		this.dinerList = this.retrieveDiners()
 	}
 
 	ionViewWillEnter() { 
-		this.userHasOrdered()	
 		this.loadMap()
+		this.userHasOrdered()	
 	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad HomeCustPage')
+		this.loadMap()
 	    this.menu.enable(true)
 		this.userHasOrdered()	
 		this.setupSlides()
@@ -101,11 +107,6 @@ export class CustHomePage {
 	}
 
 	getDistance (p1, p2) {
-		console.log(p1.lat())
-		console.log(p1.lng())
-		console.log(p2.lat())
-		console.log(p2.lng())
-
 		var R = 6378137
 		var dLat = this.rad(p2.lat() - p1.lat())
 		var dLong = this.rad(p2.lng() - p1.lng())
@@ -114,8 +115,6 @@ export class CustHomePage {
 				Math.sin(dLong / 2) * Math.sin(dLong / 2)
 		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 		var d = R * c
-
-
 		return (d/1000).toFixed(1)
 	}
 
@@ -126,15 +125,10 @@ export class CustHomePage {
 	    	position => {
 				let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
 				that.location = latLng
-				that.position = position
 			}, error => {
 				console.log(error.message)
 			}
 	    ).then( _=>{
-	    	console.log(that.location)
-	    	console.log(that.position.coords.latitude)
-	    	console.log(that.position.coords.longitude)
-
 	    	let mapOptions = {
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
 				center: that.location,
@@ -166,14 +160,11 @@ export class CustHomePage {
 	    }).catch( error => {
 	    	console.log(error.message)
 	    })
-	 
 	}
 
 	addDinerMarkers(){
 		for (var diner of this.dinerList) {
-
 			let latLng = new google.maps.LatLng(diner.location.latitude, diner.location.longitude)
-
 		    let marker = new google.maps.Marker({
 		        map: this.map,
 		        animation: google.maps.Animation.DROP,
@@ -183,7 +174,6 @@ export class CustHomePage {
 			let content = 
 				"<h4>" + diner.name + "</h4>" +
 				"<span>" + diner.address + "</span>"
-
 			this.addInfoWindow(marker, content)
 		    marker.setMap(this.map)
 		}
@@ -216,12 +206,23 @@ export class CustHomePage {
 				details.location = diner.data().dine_location
 				details.distance = that.getDistance(that.location, latLng)
 
+				console.log(that.location)
+
 				_diners.push(details)
 			})
 		})
 		.then( _=> {
 			that.userHasOrdered()
 			that.addDinerMarkers()
+		})
+		.catch( error => {
+			that.alertCtrl.create({
+				title: "Error",
+				message: error.message,
+				buttons: [{
+					text: "Got it!"
+				}]
+			}).present()
 		})
 		return _diners
 	}

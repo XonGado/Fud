@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
-
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
 
@@ -21,8 +20,6 @@ export class CustViewDinerPage {
 	map: any
 
 	dinerRef: AngularFirestoreDocument<DinerDetails>
-
-	// Diner's credentials
 	name: any
 	email: any
 	address: any
@@ -51,6 +48,7 @@ export class CustViewDinerPage {
 	}
 
 	loadMap(location){
+
 	    var latLng = new google.maps.LatLng(location.latitude, location.longitude);
 	 
 	    let mapOptions = {
@@ -198,7 +196,5 @@ export class CustViewDinerPage {
 				}).present()
 			})
 		})
-
 	}
-
 }

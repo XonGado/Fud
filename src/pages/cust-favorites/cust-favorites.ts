@@ -16,7 +16,6 @@ import { Customer } from '../../models/customer.interface'
   templateUrl: 'cust-favorites.html',
 })
 export class CustFavoritesPage {
-
 	favorites: AngularFirestoreCollection<Diner>
 	user: AngularFirestoreDocument<Customer>
 	diners: any[] = []
@@ -45,6 +44,5 @@ export class CustFavoritesPage {
 
 	ionViewDidLoad() {
 		console.log('Here are your favorites');
-	}	
-
+	}
 }

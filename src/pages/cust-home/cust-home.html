@@ -78,7 +78,8 @@
 				<ion-list>
 					<ion-item *ngIf="ordered" icon-left (click)="viewMyOrder()">
 						<ion-icon name="eye" item-left color="secondary"></ion-icon>
-						View your order
+						<!-- View order from {{dinerID}}
+						Your id: {{uid}} -->
 					</ion-item>
 					<ion-item *ngFor="let diner of dinerList" [class.hidden]="diner.distance > 1.5">
 						<ion-avatar item-left (click)="viewDiner(diner.id)">

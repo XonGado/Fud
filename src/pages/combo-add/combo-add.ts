@@ -246,7 +246,6 @@ export class ComboAddPage {
 			item.item_ordered = 0
 		} 
 	}
-
 	gatherOrder(){
 		var _list: Item[] = []
 		for (var category of this.categoryList) {

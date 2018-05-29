@@ -39,6 +39,7 @@
 				<ion-avatar item-start>
 					<img src="assets/imgs/One.jpg">
 				</ion-avatar>
+
 				<h2><span class="quantity">{{ item.ordered }} &times;</span> {{ item.name }}</h2>
 				<p class="price">{{ item.price * item.ordered }}</p>
 			</ion-item>
@@ -50,10 +51,7 @@
 		</ion-item-sliding>
 		<ion-item>
 			<p ion-text text-right class="green">TOTAL: ₱ {{cost}}</p>
+
 		</ion-item>
 	</ion-list>
-	<!-- <button ion-button block text-uppercase outline round icon-left color="secondary">
-		<ion-icon name="add"></ion-icon>
-		Add to order
-	</button> -->
 </ion-content>

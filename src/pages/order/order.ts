@@ -12,6 +12,7 @@ import { Order } from '../../models/order.interface'
 
 import { BasketPage } from '../basket/basket';
 import { CustLocatePage } from '../cust-locate/cust-locate'
+import { CustScanPage } from '../cust-scan/cust-scan'
 
 /**
  * Generated class for the OrderPage page.
@@ -192,7 +193,9 @@ export class OrderPage {
 	    			var locate = this.modalCtrl.create(CustLocatePage, { order: this.gatherOrder(), dinerID: this.diner_id } )
 	    			locate.present()
 	    		} else {
-		    		this.placeOrder(this.orderType)
+	    			let orders = this.gatherOrder()
+		    		let modal = this.modalCtrl.create(CustScanPage, { order: orders, dinerID: this.diner_id })
+		    		modal.present()
 	    		}
 	    	}
 	    });
@@ -268,7 +271,6 @@ export class OrderPage {
 					lock: false
 				})
 			})
-
 			let notificationID = that.firestore.createId()
 			that.diner.collection("notifications").doc(notificationID).set({
 				id: notificationID,
