@@ -38,11 +38,11 @@
 			<ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
 		</ion-card>
 
-		<ion-card *ngIf="scannedCode">
+		<!-- <ion-card *ngIf="scannedCode">
 			<ion-item>
 				<p>{{ scannedCode }}</p>
 			</ion-item>
-		</ion-card>
+		</ion-card> -->
 	<ion-footer padding>
 		<button ion-button outline round icon-left (click)="createCode()">
 			<ion-icon name="barcode"></ion-icon>Create Code

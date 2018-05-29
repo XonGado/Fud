@@ -240,6 +240,7 @@ export class CustHomePage {
 	}
 
 	orderHere(id){
+		console.log(id)
 		if (this.ordered == undefined) {
 			this.userHasOrdered()
 			
@@ -251,7 +252,7 @@ export class CustHomePage {
 			}).present()
 		} else if (!this.ordered) {
 			this.navCtrl.push(OrderPage, {
-				data: id
+				diner_id: id
 			})
 		} else {
 			this.toastCtrl.create({

@@ -34,7 +34,7 @@ export class OrderPage {
 	items: Observable<Item[]>;
 	diner: AngularFirestoreDocument<DinerDetails>
 	diner_name: string;
-	diner_id: string;
+	diner_id: any;
 	itemCollectionRef: AngularFirestoreCollection<Item>
 	ordersCollectionRef: AngularFirestoreCollection<Order>
 	dinerCollectionRef: AngularFirestoreCollection<DinerDetails>
@@ -60,7 +60,7 @@ export class OrderPage {
 				public platform: Platform,
 	      		private fire: AngularFireAuth,
 	     		private firestore: AngularFirestore) {
-		this.diner_id = this.navParams.get('data')
+		this.diner_id = this.navParams.get('diner_id')
 		this.dinerCollectionRef = this.firestore.collection('diners')
 		this.itemCollectionRef = this.dinerCollectionRef.doc(this.diner_id).collection('items')
 		this.diner = this.dinerCollectionRef.doc(this.diner_id)
@@ -195,7 +195,7 @@ export class OrderPage {
 	    			locate.present()
 	    		} else {
 	    			let orders = this.gatherOrder()
-		    		let modal = this.modalCtrl.create(CustScanPage, { order: orders, dinerID: this.diner_id })
+		    		let modal = this.modalCtrl.create(CustScanPage, { order: orders, dinerID: this.diner_id, orderType: this.orderType })
 		    		modal.present()
 	    		}
 	    	}
