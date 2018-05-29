@@ -44,6 +44,7 @@ export class OrderPage {
 	orderTypeText: string
 	orderNumber: number = 1
 	itemCount: number
+	code: any
 
 	loading = this.loadingCtrl.create({
       dismissOnPageChange: true,
@@ -59,7 +60,8 @@ export class OrderPage {
 				public platform: Platform,
 	      		private fire: AngularFireAuth,
 	     		private firestore: AngularFirestore) {
-		this.diner_id = this.navParams.get('data')
+		this.diner_id = this.navParams.get('data.id')
+		this.code = this.navParams.get('data.code')
 		this.diner = this.firestore.collection('diners').doc(this.diner_id)
 		this.itemCollectionRef = this.diner.collection('items')
 		this.ordersCollectionRef = this.diner.collection('orders')

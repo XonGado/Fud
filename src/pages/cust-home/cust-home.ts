@@ -256,7 +256,7 @@ export class CustHomePage {
 			}).present()
 		} else if (!this.ordered) {
 			let that = this
-			this.navCtrl.push(OrderPage, {
+			this.navCtrl.push(CustScanPage, {
 				data: id
 			})
 		} else {
