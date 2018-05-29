@@ -37,14 +37,13 @@ export class OrderPage {
 	diner_id: string;
 	itemCollectionRef: AngularFirestoreCollection<Item>
 	ordersCollectionRef: AngularFirestoreCollection<Order>
-	customer: AngularFirestoreDocument<CustomerDetails>
+	dinerCollectionRef: AngularFirestoreCollection<DinerDetails>
+	customerDocRef: AngularFirestoreDocument<CustomerDetails>
 	orderedItemsColRef: AngularFirestoreCollection<Item>
-	combos: any[] = []
 	orderType: any
 	orderTypeText: string
 	orderNumber: number = 1
 	itemCount: number
-	code: any
 
 	loading = this.loadingCtrl.create({
       dismissOnPageChange: true,
@@ -60,13 +59,12 @@ export class OrderPage {
 				public platform: Platform,
 	      		private fire: AngularFireAuth,
 	     		private firestore: AngularFirestore) {
-		this.diner_id = this.navParams.get('data.id')
-		this.code = this.navParams.get('data.code')
-		this.diner = this.firestore.collection('diners').doc(this.diner_id)
-		this.itemCollectionRef = this.diner.collection('items')
-		this.ordersCollectionRef = this.diner.collection('orders')
-		this.customer = this.firestore.collection('customers').doc(this.fire.auth.currentUser.uid)
-		// this.customer.collection('combos').ref.where("")
+		this.diner_id = this.navParams.get('data')
+		this.dinerCollectionRef = this.firestore.collection('diners')
+		this.itemCollectionRef = this.dinerCollectionRef.doc(this.diner_id).collection('items')
+		this.diner = this.dinerCollectionRef.doc(this.diner_id)
+		this.ordersCollectionRef = this.dinerCollectionRef.doc(this.diner_id).collection('orders')
+		this.customerDocRef = this.firestore.collection('customers').doc(this.fire.auth.currentUser.uid)
 		this.diner.ref.get().then(doc => { this.diner_name = doc.data().dine_name })
 	}
 
@@ -196,7 +194,7 @@ export class OrderPage {
 	    			locate.present()
 	    		} else {
 	    			let orders = this.gatherOrder()
-		    		let modal = this.modalCtrl.create(CustScanPage, { order: orders, dinerID: this.diner_id, type: this.orderType })
+		    		let modal = this.modalCtrl.create(CustScanPage, { order: orders, dinerID: this.diner_id })
 		    		modal.present()
 	    		}
 	    	}
@@ -229,17 +227,16 @@ export class OrderPage {
 			})
 		})
 
-		this.customer.ref.get()
+		this.customerDocRef.ref.get()
 		.then(doc => {
 			customer_id = doc.id
 			that.ordersCollectionRef.doc(id).set({
+				customer: customer_id,
 				cost: price,
 				cleared: false,
-				totalItems: count,
 				type: that.orderType,
-				timestamp: new Date(),
-				customer: customer_id,
-				orderNumber: that.orderNumber,
+				totalItems: count,
+				orderNumber: that.orderNumber
 			})
 			.then(function(){
 				let alert = that.alertCtrl.create({
@@ -279,7 +276,7 @@ export class OrderPage {
 				from: that.fire.auth.currentUser.uid,
 				type: 1,
 				new: true,
-				seen: false,
+				seen: true,
 				cleared: false,
 				timestamp: new Date()
 			})
