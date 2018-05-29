@@ -107,8 +107,6 @@ export class CustHomePage {
 	}
 
 	getDistance (p1, p2) {
-		console.log("P1", p1.lat())
-		console.log("P2", p2.lat())
 		var R = 6378137
 		var dLat = this.rad(p2.lat() - p1.lat())
 		var dLong = this.rad(p2.lng() - p1.lng())
@@ -256,7 +254,7 @@ export class CustHomePage {
 			}).present()
 		} else if (!this.ordered) {
 			let that = this
-			this.navCtrl.push(CustScanPage, {
+			this.navCtrl.push(OrderPage, {
 				data: id
 			})
 		} else {

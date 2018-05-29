@@ -6,40 +6,48 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Table codes</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<ion-title>Table codes</ion-title>
+	</ion-navbar>
+  	<ion-toolbar>
+	  <ion-segment [(ngModel)]="codeType" color="primary">
+			<ion-segment-button value="favorite">Favorite</ion-segment-button>
+			<ion-segment-button value="table">Table</ion-segment-button>
+		</ion-segment>
+	</ion-toolbar>
 
 </ion-header>
 
-
-<ion-content padding offset-md-3 col-md-6 offset-lg-4 col-lg-4>
-	<ion-item>
-		<ion-input type="text" placeholder="Table Name" [(ngModel)]="qrData"></ion-input>
-	</ion-item>
-
-
-	<!-- <button ion-button full icon-left (click)="scanCode()">
-		<ion-icon name="qr-scanner"></ion-icon>Scan Code
-	</button> -->
-
-	<ion-card *ngIf="createdCode">
-		<ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
-	</ion-card>
-	<!-- <ion-item *ngIf="createdCode">
-		 <p>{{ createdCode }}</p>
-	</ion-item> -->
-
-	<ion-card *ngIf="scannedCode">
+<ion-content [ngSwitch]="codeType" padding offset-md-3 col-md-6 offset-lg-4 col-lg-4>
+	<ion-content *ngSwitchCase="'favorite'">
+		<ion-card *ngIf="dinerCode">
+			<ngx-qrcode [qrc-value]="dinerCode"></ngx-qrcode>
+		</ion-card>
+		<ion-card *ngIf="dinerCode">
+			<ion-item>
+				<p>Let customers scan this code so your diner would be one of their favorites.</p>
+			</ion-item>
+		</ion-card>
+	</ion-content>
+	<ion-content *ngSwitchCase="'table'">
 		<ion-item>
-			<p>{{ scannedCode }}</p>
+			<ion-input type="text" placeholder="Table Name" [(ngModel)]="qrData"></ion-input>
 		</ion-item>
-	</ion-card>
 
+		<ion-card *ngIf="createdCode">
+			<ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
+		</ion-card>
+
+		<ion-card *ngIf="scannedCode">
+			<ion-item>
+				<p>{{ scannedCode }}</p>
+			</ion-item>
+		</ion-card>
+	<ion-footer padding>
+		<button ion-button outline round icon-left (click)="createCode()">
+			<ion-icon name="barcode"></ion-icon>Create Code
+		</button>
+	</ion-footer>
+	</ion-content>
 </ion-content>
 
-<ion-footer padding>
-	<button ion-button outline round icon-left (click)="createCode()">
-		<ion-icon name="barcode"></ion-icon>Create Code
-	</button>
-</ion-footer>
