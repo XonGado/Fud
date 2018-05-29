@@ -62,7 +62,6 @@ import { FIREBASE_CONFIG } from './firebase.config'
 
 // Google Map API
 import { Geolocation } from '@ionic-native/geolocation';
-import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [
@@ -164,7 +163,6 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     FileTransferObject,
     BarcodeScanner,
     AngularFirestore,
-    GoogleMaps,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
