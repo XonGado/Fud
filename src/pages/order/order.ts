@@ -44,6 +44,7 @@ export class OrderPage {
 	orderTypeText: string
 	orderNumber: number = 1
 	itemCount: number
+	basketBadge: any
 
 	loading = this.loadingCtrl.create({
       dismissOnPageChange: true,
@@ -288,6 +289,10 @@ export class OrderPage {
 	}
 
 	itemPanned(e, item){
+		if (!item.item_availability) {
+			return false
+		}
+
 		if (e.additionalEvent == "panright"){
 			item.item_count++;
 		} else if (e.additionalEvent == "panleft"){
@@ -296,12 +301,15 @@ export class OrderPage {
 		if (item.item_count < 0) {
 			item.item_count = 0;
 		}
-
-		this.itemIsOrdered(e, item)
 		item.item_ordered = Math.floor(item.item_count/5);
+		this.basketBadge = this.totalItems(this.gatherOrder()) 
 	}
 
 	itemTapped(e, item){
+		if (!item.item_availability) {
+			return false
+		}
+
 		var width = this.platform.width();
 		if (e.center.x >= width/2) {
 			item.item_count += 5;
@@ -314,18 +322,7 @@ export class OrderPage {
 		if (item.item_ordered < 0) {
 			item.item_ordered = 0;
 		} 
-
-		this.itemIsOrdered(e, item)
-	}
-
-	itemIsOrdered(e, item){
-		var className = "item item-block item-md"
-
-		if (item.item_count > 0) {
-			e.target.offsetParent.className = className + " ordered"
-		} else {
-			e.target.offsetParent.className = className
-		}
+		this.basketBadge = this.totalItems(this.gatherOrder()) 
 	}
 
 	gatherOrder(){
@@ -340,8 +337,14 @@ export class OrderPage {
 		return _list
 	}
 
-	clearItem(){
+	totalItems(list){
+		let ordered = 0
 
+		for (var i = list.length - 1; i >= 0; i--) {
+			ordered += list[i].item_ordered
+		}
+
+		return ordered
 	}
 
 	filter(name, keyword){
@@ -366,7 +369,7 @@ export class OrderPage {
 
 	ionViewDidLoad() {
 		this.getItems()
-		console.log('ionViewDidLoad OrderPage');
+		console.log('You can now start ordering.');
 	}
 
 }

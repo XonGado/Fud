@@ -23,7 +23,6 @@ export class ComboSelectDinerPage {
 	uid: string
 	dinerList: Diner[];
   	dinersCollectionRef: AngularFirestoreCollection<Diner>
-  	diner_ids: any[] = []
 
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams,
@@ -39,23 +38,25 @@ export class ComboSelectDinerPage {
 	}
 
 	retrieveDiners(){
-		let _diners: any[] = []
+		let diners: any[] = []
 		let that = this
-		this.dinersCollectionRef.ref.get()
-		.then(function(querySnapshot){
-			querySnapshot.forEach(function(doc){
-				_diners.push(doc.data())
-				that.diner_ids.push(doc.id)
+
+		this.firestore.collection("customers").doc(this.fire.auth.currentUser.uid).collection("favorites").ref.get()
+		.then( favorites => {
+			favorites.forEach( favorite => {
+				this.dinersCollectionRef.doc(favorite.id).ref.get().then( diner => {
+					let details = { id: "", name: ""}
+					details.id = diner.id
+					details.name = diner.data().dine_name
+					diners.push(details)
+				})
 			})
 		})
-		return _diners
+		return diners
 	}
 
-	loadDinerMenu(index){
-		let that = this
-		this.navCtrl.push(ComboAddPage, {
-			data: that.diner_ids[index]
-		})
+	loadDinerMenu(id){
+		this.navCtrl.push(ComboAddPage, { dinerID: id })
 	}
 
 }

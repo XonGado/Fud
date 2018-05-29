@@ -38,4 +38,7 @@
 			</ion-item-options>
 		</ion-item-sliding>
 	</ion-list>
+	<p class="empty-message" *ngIf=" notifications.length < 1">
+		<span><ion-icon name="notifications"></ion-icon>You don't have any notifications yet.</span>
+	</p>
 </ion-content>

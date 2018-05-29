@@ -59,7 +59,7 @@ export class DinerNotificationPage {
 
         this.dinerDoc = this.firestore.collection("diners").doc(id)
         this.notificationsCol = this.dinerDoc.collection("notifications")
-        this.notificationsCol.ref.where("cleared", "==", false).get().then( collection => {
+        this.notificationsCol.ref.where("cleared", "==", false).orderBy("timestamp", "asc").get().then( collection => {
             collection.forEach( notification => {
 
                 let details: any = {id: "", type: 0, from: "", new: true, seen: false, cleared: false, timestamp: {}}

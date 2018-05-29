@@ -21,4 +21,8 @@ page-order {
 		color: $blue;
 	}
 
+	.disabled{
+		filter: brightness(75%);
+	}
+
 }

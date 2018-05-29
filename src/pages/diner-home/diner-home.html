@@ -71,12 +71,14 @@
 				<ion-icon name="filing" class="purple"></ion-icon>
 				Order History
 			</button>
-			<button ion-item icon-start (click)="logout()">
-				<ion-icon name="log-out" color="danger"></ion-icon> 
-				Logout
-			</button>
 		</ion-list>
 	</ion-content>
+	<ion-footer padding>
+		<button ion-button outline round icon-start color="danger" (click)="logout()">
+			<ion-icon color="danger" name="log-out"></ion-icon> 
+			Logout
+		</button>
+	</ion-footer>
 </ion-menu>
 
 <ion-nav #dineContent [root]="HomeDinerPage"></ion-nav>
