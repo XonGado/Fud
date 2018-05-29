@@ -17,6 +17,7 @@ export class DinerScanPage {
 	scannedCode = null
 	dinerCode = null
 	codeType: string = "favorite"
+	id: any
 
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
@@ -24,30 +25,13 @@ export class DinerScanPage {
 				private barcodeScanner: BarcodeScanner,
 				private fire: AngularFireAuth,
 				private firestore: AngularFirestore) {
-		let id = this.fire.auth.currentUser.uid
-		this.dinerCode = id + ";0"
+		this.id = this.fire.auth.currentUser.uid
+		this.dinerCode = this.id + ";0"
 	  	this.codeType = "favorite"
 	}
 
 	createCode(){
-		this.createdCode = this.qrData
-	}
-
-	scanCode(){
-		let that = this
-		let id = this.fire.auth.currentUser.uid
-
-		this.barcodeScanner.scan().then(barcodedData =>{
-			this.scannedCode = id + ";1;" + barcodedData.text
-		}).catch( error => {
-			that.alertCtrl.create({
-				title: "Something went wrong",
-				message: error.message,
-				buttons:[{
-					text: "Okay"
-				}]
-			})
-		})
+		this.createdCode = this.id + ";1;" + this.qrData
 	}
 
 	ionViewDidLoad() {

@@ -195,7 +195,7 @@ export class OrderPage {
 	    			locate.present()
 	    		} else {
 	    			let orders = this.gatherOrder()
-		    		let modal = this.modalCtrl.create(CustScanPage, { order: orders, dinerID: this.diner_id })
+		    		let modal = this.modalCtrl.create(CustScanPage, { order: orders, dinerID: this.diner_id, orderType: this.orderType })
 		    		modal.present()
 	    		}
 	    	}

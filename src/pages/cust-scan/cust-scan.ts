@@ -49,9 +49,17 @@ export class CustScanPage {
 	doAction(code){
 		var splitCode = code.split(";")
 
+		// this.alertCtrl.create({
+		// 	message: splitCode
+		// }).present()
+
+
 		if (splitCode[1] == 0) {
 			this.favorite(splitCode[0])
-		} else if (splitCode[1] == 1){
+		} else if (splitCode[1] == "1"){
+			// this.alertCtrl.create({
+			// 	message: "Order"
+			// }).present()
 			this.placeOrder(splitCode[0], splitCode[2], this.orderType)
 		} 
 	}
@@ -114,7 +122,10 @@ export class CustScanPage {
 						title: "Favorite",
 						message: "You will now be updated about " + name + ".",
 						buttons: [{
-							text: "Great!"
+							text: "Great!",
+							handler: _=>{
+								that.navCtrl.popToRoot()
+							}
 						}]
 					}).present().then( _=> {
 						loading.dismiss()
@@ -124,7 +135,10 @@ export class CustScanPage {
 						title: "Oops",
 						message: name + " is already one of your favorites.",
 						buttons: [{
-							text: "Okay"
+							text: "Okay",
+							handler: _=>{
+								that.navCtrl.popToRoot()
+							}
 						}]
 					}).present().then( _=> {
 						loading.dismiss()
@@ -134,7 +148,11 @@ export class CustScanPage {
 		})
 	}
 
-	placeOrder(id, tableName, orderType){
+	placeOrder(id, table, orderType){
+		// this.alertCtrl.create({
+		// 	message: id + " " + table + " " + orderType
+		// }).present()
+
 		let orderNumber = 0
 		let customer = this.firestore.collection("customers").doc(this.fire.auth.currentUser.uid)
 		let diner = this.firestore.collection("diners").doc(id)
@@ -157,7 +175,7 @@ export class CustScanPage {
 		ordersCollectionRef.ref.get()
 		.then( orders => {
 			orderNumber = orders.size + 1
-		})
+		}).catch( error => { that.alertCtrl.create({message: error.message}).present() })
 
 		customer.ref.get()
 		.then(doc => {
@@ -170,6 +188,7 @@ export class CustScanPage {
 				timestamp: new Date(),
 				customer: customer_id,
 				orderNumber: orderNumber,
+				table: table
 			})
 			.then(function(){
 				let alert = that.alertCtrl.create({
@@ -178,7 +197,7 @@ export class CustScanPage {
 					buttons: [{
 						text: "Okay!",
 						handler: () =>{
-							that.navCtrl.pop()
+							that.navCtrl.popToRoot()
 						}
 					}]
 				});
@@ -214,7 +233,8 @@ export class CustScanPage {
 				cleared: false,
 				timestamp: new Date()
 			})
-		})
+		}).catch( error => { that.alertCtrl.create({message: error.message}).present() })
+
 	}
 
 
