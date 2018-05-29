@@ -18,6 +18,8 @@ import { LoginPage } from '../pages/login/login'
 
 import { CustHomePage } from '../pages/cust-home/cust-home' 
 import { CustProfilePage } from '../pages/cust-profile/cust-profile'
+import { CustFavoritesPage } from '../pages/cust-favorites/cust-favorites'
+import { CustNotificationPage } from '../pages/cust-notification/cust-notification'
 import { CustViewOrderPage } from '../pages/cust-view-order/cust-view-order'
 import { CustViewDinerPage } from '../pages/cust-view-diner/cust-view-diner'
 import { CustLocatePage } from '../pages/cust-locate/cust-locate'
@@ -44,6 +46,7 @@ import { ItemEditPage } from '../pages/item-edit/item-edit'
 import { ItemAddPage } from '../pages/item-add/item-add'
 import { MenuCreatePage } from '../pages/menu-create/menu-create'
 import { OrderDetailsPage } from '../pages/order-details/order-details'
+import { DinerNotificationPage } from '../pages/diner-notification/diner-notification' 
 
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer'
 import { File } from '@ionic-native/file'
@@ -59,7 +62,6 @@ import { FIREBASE_CONFIG } from './firebase.config'
 // Google Map API
 import { Geolocation } from '@ionic-native/geolocation';
 import { GoogleMaps } from '@ionic-native/google-maps';
-
 
 @NgModule({
   declarations: [
@@ -80,10 +82,13 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     DinerProfileEditPage,
     DinerLocatePage,
     DinerOrderHistoryPage,
+    DinerNotificationPage,
     CustViewOrderPage,
     CustViewDinerPage,
     CustLocatePage,
     CustScanPage,
+    CustNotificationPage,
+    CustFavoritesPage,
     LoadingPage,
     MenuPage,
     MenusPage,
@@ -127,10 +132,13 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     DinerProfilePage,
     DinerLocatePage,
     DinerOrderHistoryPage,  
+    DinerNotificationPage,
     CustViewOrderPage,
     CustViewDinerPage,
     CustLocatePage,
     CustScanPage,
+    CustNotificationPage,
+    CustFavoritesPage,
     LoadingPage,
     MenuPage,
     MenusPage,

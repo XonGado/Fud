@@ -245,19 +245,7 @@ export class ComboAddPage {
 		if (item.item_ordered < 0) {
 			item.item_ordered = 0
 		} 
-
-		// this.itemIsOrdered(e, item)
 	}
-
-	// itemIsOrdered(e, item){
-	// 	var className = "item item-block item-md"
-	// 	if (item.item_count > 0) {
-	// 		e.target.offsetParent.className = className + " ordered"
-	// 	} else {
-	// 		e.target.offsetParent.className = className
-	// 	}
-	// }
-
 	gatherOrder(){
 		var _list: Item[] = []
 		for (var category of this.categoryList) {

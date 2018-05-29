@@ -7,7 +7,7 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 import { Geolocation } from '@ionic-native/geolocation'
 
 import { DinerDetails } from '../../models/dinerdetails.interface'
-import { Customer } from '../../models/customer.model'
+import { Customer } from '../../models/customer.interface'
 import { Item } from '../../models/item.model'
 import { Order } from '../../models/order.interface'
 

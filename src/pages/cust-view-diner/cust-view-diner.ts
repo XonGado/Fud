@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-
+import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
 
@@ -21,14 +20,14 @@ export class CustViewDinerPage {
 	map: any
 
 	dinerRef: AngularFirestoreDocument<DinerDetails>
-
 	name: any
 	email: any
 	address: any
 	number: any
 	location: any
+	isFavorite: boolean = false
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private fire: AngularFireAuth, private firestore: AngularFirestore) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private fire: AngularFireAuth, private firestore: AngularFirestore) {
 		let that = this
 		this.dinerRef = this.firestore.collection('diners').doc(this.navParams.get('dinerID'))
 		this.dinerRef.ref.get().then( doc => {
@@ -41,16 +40,14 @@ export class CustViewDinerPage {
 		}).then( _=> {
 			that.loadMap(that.location)
 		})
+		this.checkFavorite()
 	}
 
 	ionViewDidLoad() {
-		console.log('ionViewDidLoad CustViewCafePage');
+		console.log("You are now viewing " + this.name + ".")
 	}
 
 	loadMap(location){
-
-	    console.log("Loading map...")
-	    console.log(location.latitude + " " + location.longitude)
 
 	    var latLng = new google.maps.LatLng(location.latitude, location.longitude);
 	 
@@ -69,71 +66,104 @@ export class CustViewDinerPage {
 	    })
 
 	    marker.setMap(this.map)
+	}
 
-	    console.log("Map loaded.")
-	   
+	checkFavorite(){
+		let that = this
+		let exists = false
+		this.firestore.collection("customers").doc(this.fire.auth.currentUser.uid).collection("favorites").doc(this.navParams.get("dinerID")).ref.get().then( doc=> {
+			exists = doc.exists
+		}).then( _=> {
+			console.log(exists)
+			that.isFavorite = exists 
+		})
 	}
 
 	favorite(){
 		let that = this
 		let dinerID = this.navParams.get("dinerID")
-		let userID = this.fire.auth.currentUser.uid
-		let user = this.firestore.collection("customers").doc(userID)
-		var _favorites = []
-		var exists = false
+		let exists = null
+		let loading = this.loadingCtrl.create({ content: `<ion-spinner name="cresent"></ion-spinner>` })
+		let favorite = this.firestore.collection("customers").doc(this.fire.auth.currentUser.uid).collection("favorites").doc(dinerID)
 
-		user.ref.get().then( doc => {
-			let retrievedFaves = doc.data().favorites 
-			console.log(retrievedFaves)
+		loading.present().then( _=> {
+			favorite.ref.get().then(doc => {
+				exists = doc.exists
+				if (!exists) {
+					favorite.set({
+						id: dinerID,
+						timestamp: new Date()
+					}).catch(error => {
+						that.alertCtrl.create({
+							title: "Error",
+							message: error.message,
+							buttons: [{ text: "Got it" }]
+						}).present()
+					})
 
-			if (retrievedFaves != undefined) {
-				_favorites = retrievedFaves
-			}
-		}).then( _ => {
-			console.log(!_favorites.includes(dinerID))
+					that.checkFavorite()
 
-			if (!_favorites.includes(dinerID)) {
-				console.log("Diner id is added in your favorites.")
-				_favorites.push(dinerID)
-			} else {
-				exists = true
-			}
-		}).then( _ =>{
-			this.firestore.collection("customers").doc(userID).update({
-				favorites: _favorites
-			}).then( _ =>{
-				let alert = that.alertCtrl.create({
-					title: "Favorite",
-					message: "You will now be updated about " + that.name + ".",
-					buttons: [{
-						text: "Great!",
-						handler: _=>{
-							console.log("Should update button.")
-						}
-					}]
-				})
-
-				let favoriteAlert = that.alertCtrl.create({
-					title: "Oops",
-					message: that.name + " is already one of your favorites.",
-					buttons: [{
-						text: "Okay",
-						handler: _=>{
-							console.log("Should update button.")
-						}
-					}]
-				})
-
-				if (exists) {
-					favoriteAlert.present()
+					that.alertCtrl.create({
+						title: "Favorite",
+						message: "You will now be updated about " + that.name + ".",
+						buttons: [{
+							text: "Great!"
+						}]
+					}).present().then( _=> {
+						loading.dismiss()
+					})
 				} else {
-					alert.present()
+					that.alertCtrl.create({
+						title: "Oops",
+						message: that.name + " is already one of your favorites.",
+						buttons: [{
+							text: "Okay"
+						}]
+					}).present().then( _=> {
+						loading.dismiss()
+					})
 				}
-			})
-			.catch( error => {
-				console.log(error.message)
 			})
 		})
 	}
 
+	unfavorite(){
+		let that = this
+		let loading = this.loadingCtrl.create({
+			content: `<ion-spinner name="cresent"></ion-spinner>`
+		})
+
+		loading.present().then( _=> {
+			that.firestore.collection("customers").doc(that.fire.auth.currentUser.uid).collection("favorites").doc(that.navParams.get("dinerID")).delete()
+			.then( _=> {
+				that.alertCtrl.create({
+					title: "Unfavorite",
+					message: that.name + " is no longer one of your favorites",
+					buttons: [{
+						text: "Okay"
+					}]
+				}).present().then( _=> {
+					that.checkFavorite()	
+					loading.dismiss()
+				})
+			})
+			.catch( error=> {
+				that.alertCtrl.create({
+					title: "Oops",
+					message: "Something went wrong on unfavoriting " + that.name,
+					buttons: [
+						{
+							text: "Try again",
+							handler: _=>{
+								that.unfavorite()
+							}
+						},
+						{
+							text: "Cancel"
+						}
+					]
+				}).present()
+			})
+		})
+	}
 }

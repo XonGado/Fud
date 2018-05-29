@@ -12,6 +12,7 @@ import { Order } from '../../models/order.interface'
 
 import { BasketPage } from '../basket/basket';
 import { CustLocatePage } from '../cust-locate/cust-locate'
+import { CustScanPage } from '../cust-scan/cust-scan'
 
 /**
  * Generated class for the OrderPage page.
@@ -192,7 +193,9 @@ export class OrderPage {
 	    			var locate = this.modalCtrl.create(CustLocatePage, { order: this.gatherOrder(), dinerID: this.diner_id } )
 	    			locate.present()
 	    		} else {
-		    		this.placeOrder(this.orderType)
+	    			let orders = this.gatherOrder()
+		    		let modal = this.modalCtrl.create(CustScanPage, { order: orders, dinerID: this.diner_id })
+		    		modal.present()
 	    		}
 	    	}
 	    });
@@ -226,14 +229,12 @@ export class OrderPage {
 
 		this.customerDocRef.ref.get()
 		.then(doc => {
-			customer_name = doc.data().cust_name
 			customer_id = doc.id
 			that.ordersCollectionRef.doc(id).set({
-				customer_id: customer_id,
-				customer_name: customer_name,
-				order_cost: price,
+				customer: customer_id,
+				cost: price,
 				cleared: false,
-				order_type: that.orderType,
+				type: that.orderType,
 				totalItems: count,
 				orderNumber: that.orderNumber
 			})
@@ -256,7 +257,7 @@ export class OrderPage {
 			let that = this
 			that.orderedItemsList.forEach(doc => {
 				let ordereditem_id = that.firestore.createId()
-				that.ordersCollectionRef.doc(id).collection('OrderedItems').doc(ordereditem_id).set({
+				that.ordersCollectionRef.doc(id).collection('orderedItems').doc(ordereditem_id).set({
 					item_id: doc.item_id,
 					item_name: doc.item_name,
 					item_description: doc.item_description,
@@ -268,6 +269,16 @@ export class OrderPage {
 					item_visibility: doc.item_visibility,
 					lock: false
 				})
+			})
+			let notificationID = that.firestore.createId()
+			that.diner.collection("notifications").doc(notificationID).set({
+				id: notificationID,
+				from: that.fire.auth.currentUser.uid,
+				type: 1,
+				new: true,
+				seen: true,
+				cleared: false,
+				timestamp: new Date()
 			})
 		})
 	}

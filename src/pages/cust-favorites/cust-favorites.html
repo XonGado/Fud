@@ -7,12 +7,17 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>cust-favorites</ion-title>
+    <ion-title><ion-icon name="heart" color="yellow"></ion-icon> Your Favorites</ion-title>
   </ion-navbar>
 
 </ion-header>
-
-
 <ion-content padding>
-
+	<ion-list>
+		<ion-item *ngFor="let diner of diners" (click)="viewDiner(diner.id)">
+			<ion-avatar item-left>
+				<img src="assets/imgs/DinerAvatar.png">
+			</ion-avatar>
+			<h2>{{ diner.name }}</h2>
+		</ion-item>
+	</ion-list>
 </ion-content>
