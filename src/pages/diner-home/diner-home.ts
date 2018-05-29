@@ -166,11 +166,6 @@ export class DinerHomePage {
 
     return {day: day, time: time}
   }
-
-  logout(){
-    this.fire.auth.signOut();
-  }
-
   openProfile(){
   	this.navCtrl.push(DinerProfilePage)
   }
@@ -197,5 +192,9 @@ export class DinerHomePage {
 
   openOrderHistory(){
     this.navCtrl.push(DinerOrderHistoryPage)
+  }
+
+  logout(){
+    this.fire.auth.signOut();
   }
 }
