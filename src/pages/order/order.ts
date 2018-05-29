@@ -37,9 +37,9 @@ export class OrderPage {
 	diner_id: string;
 	itemCollectionRef: AngularFirestoreCollection<Item>
 	ordersCollectionRef: AngularFirestoreCollection<Order>
-	dinerCollectionRef: AngularFirestoreCollection<DinerDetails>
-	customerDocRef: AngularFirestoreDocument<CustomerDetails>
+	customer: AngularFirestoreDocument<CustomerDetails>
 	orderedItemsColRef: AngularFirestoreCollection<Item>
+	combos: any[] = []
 	orderType: any
 	orderTypeText: string
 	orderNumber: number = 1
@@ -60,11 +60,11 @@ export class OrderPage {
 	      		private fire: AngularFireAuth,
 	     		private firestore: AngularFirestore) {
 		this.diner_id = this.navParams.get('data')
-		this.dinerCollectionRef = this.firestore.collection('diners')
-		this.itemCollectionRef = this.dinerCollectionRef.doc(this.diner_id).collection('items')
-		this.diner = this.dinerCollectionRef.doc(this.diner_id)
-		this.ordersCollectionRef = this.dinerCollectionRef.doc(this.diner_id).collection('orders')
-		this.customerDocRef = this.firestore.collection('customers').doc(this.fire.auth.currentUser.uid)
+		this.diner = this.firestore.collection('diners').doc(this.diner_id)
+		this.itemCollectionRef = this.diner.collection('items')
+		this.ordersCollectionRef = this.diner.collection('orders')
+		this.customer = this.firestore.collection('customers').doc(this.fire.auth.currentUser.uid)
+		// this.customer.collection('combos').ref.where("")
 		this.diner.ref.get().then(doc => { this.diner_name = doc.data().dine_name })
 	}
 
@@ -227,16 +227,17 @@ export class OrderPage {
 			})
 		})
 
-		this.customerDocRef.ref.get()
+		this.customer.ref.get()
 		.then(doc => {
 			customer_id = doc.id
 			that.ordersCollectionRef.doc(id).set({
-				customer: customer_id,
 				cost: price,
 				cleared: false,
-				type: that.orderType,
 				totalItems: count,
-				orderNumber: that.orderNumber
+				type: that.orderType,
+				timestamp: new Date(),
+				customer: customer_id,
+				orderNumber: that.orderNumber,
 			})
 			.then(function(){
 				let alert = that.alertCtrl.create({
@@ -276,7 +277,7 @@ export class OrderPage {
 				from: that.fire.auth.currentUser.uid,
 				type: 1,
 				new: true,
-				seen: true,
+				seen: false,
 				cleared: false,
 				timestamp: new Date()
 			})

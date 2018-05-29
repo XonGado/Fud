@@ -28,8 +28,7 @@ export class OrderDetailsPage {
   orderedItemsColRef: any
   customer_name: string
   items: any[] = []
-  order_cost: any
-  ordereditems_id: any[] = []
+  cost: any
   orderLocation: any = null
   orderType: any
   lock: boolean
@@ -54,9 +53,8 @@ export class OrderDetailsPage {
   	this.orderDocRef.ref.get()
   	.then(order => {
       that.firestore.collection("customers").doc(order.data().customer).ref.get().then( doc=> that.customer_name = doc.data().cust_name)
-  		that.order_cost = order.data().order_cost
-      that.lock = order.data().lock
-      that.orderType = order.data().order_type
+  		that.cost = order.data().cost
+      that.orderType = order.data().type
 
       if (order.data().type == 2) {
         that.orderLocation = order.data().location
@@ -66,8 +64,15 @@ export class OrderDetailsPage {
     this.orderedItemsColRef.ref.get()
     .then(items => {
       items.forEach(item => {
-        that.items.push(item.data())
-        that.ordereditems_id.push(item.id)
+        let details = {id: "", name: "", price: 0, ordered: 0, lock: false}
+
+        details.id = item.id
+        details.name = item.data().item_name
+        details.price = item.data().item_price
+        details.ordered = item.data().item_ordered
+        details.lock = item.data().lock
+
+        that.items.push(details)
       })
   	})
   }
@@ -99,11 +104,8 @@ export class OrderDetailsPage {
   	console.log('ionViewDidLoad OrderDetailsPage');
   }
 
-  changeLock(item, index){
-    let ordereditemsid = this.ordereditems_id[index]
-    this.orderedItemsColRef.doc(ordereditemsid).ref.update({
-      lock: item.lock
-    })
+  changeLock(item){
+    this.orderedItemsColRef.doc(item.id).ref.update({ lock: item.lock })
   }
 
   loadMap(){

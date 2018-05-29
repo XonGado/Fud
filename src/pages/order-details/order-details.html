@@ -32,18 +32,18 @@
 
 <ion-content padding>
 	<ion-list>
-		<ion-item *ngFor="let item of items; let i = index">
-			<ion-checkbox color="secondary" [(ngModel)]="item.lock" (click)="changeLock(item, i)" #lock></ion-checkbox>
+		<ion-item *ngFor="let item of items">
+			<ion-checkbox color="secondary" [(ngModel)]="item.lock" (click)="changeLock(item)" #lock></ion-checkbox>
 			<ion-avatar item-start>
 				<img src="assets/imgs/One.jpg">
 			</ion-avatar>
 			<ion-label inline>
-				<h2><span class="quantity">{{item.item_ordered}} &times;</span> {{item.item_name}}</h2>
-				<p class="price">{{item.item_price * item.item_ordered}}</p>
+				<h2><span class="quantity">{{ item.ordered }} &times;</span> {{ item.name }}</h2>
+				<p class="price">{{ item.price * item.ordered }}</p>
 			</ion-label>
 		</ion-item>
 		<ion-item>
-			<p ion-text text-right class="green">TOTAL: {{order_cost}}</p>
+			<p ion-text text-right class="green">TOTAL: {{ cost }}</p>
 		</ion-item>
 	</ion-list>
 </ion-content>

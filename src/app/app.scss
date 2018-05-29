@@ -100,6 +100,21 @@ page-cust-view-diner{
 	}
 }
 
+.typeIndicator{
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 2em;
+	width: 1em;
+	background-color: white;
+	transform: rotate(45deg) translate(-1em, 0);
+}
+
+.typeIndicator.blue{ background-color: $blue }
+.typeIndicator.green{ background-color: $green }
+.typeIndicator.purple{ background-color: $purple }
+
 .empty-message{
 	text-align: center;
 	color: rgba(255,255,255,0.25);

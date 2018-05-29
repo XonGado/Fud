@@ -15,10 +15,24 @@
     </ion-buttons>
   </ion-navbar>
 
+  <ion-toolbar>
+		<ion-list no-lines>
+			<ion-item>
+		    	<ion-avatar item-start>
+		    		<img src="assets/imgs/DinerAvatar.png">
+		    	</ion-avatar>
+		    	<h2>{{diner_name}}</h2>
+		    	<p class="blue">Your Table: Aisle 1</p>
+		    </ion-item>
+		</ion-list>
+		<div #map id="map" [class.hidden]="orderType != 2"></div>
+	</ion-toolbar>
+
 </ion-header>
 
 
 <ion-content padding>
+
 	<ion-list>
 		<ion-item-sliding *ngFor="let item of items">
 			<ion-item>

@@ -30,16 +30,24 @@
 </ion-header>
 
 <ion-menu id="diner-menu" type="overlay" [content]="dineContent">
-	<ion-header no-lines>
-		<ion-item>
-			<ion-avatar item-start>
-				<img src="assets/imgs/DinerAvatar.png" (click)="openProfile()">
-			</ion-avatar>
-			<h2 text-nowrap (click)="openProfile()" color="secondary">{{user.name}}</h2>
-			<p text-nowrap>{{user.email}}</p>
-		</ion-item>
-	</ion-header>
 	<ion-content>
+		<ion-list no-lines>
+			<ion-item>
+				<ion-avatar item-start>
+					<img src="assets/imgs/DinerAvatar.png" (click)="openProfile()">
+				</ion-avatar>
+				<h2 text-nowrap (click)="openProfile()" color="secondary">{{user.name}}</h2>
+				<p text-nowrap icon-start>
+					{{user.email}}
+				</p>
+			</ion-item>
+			<ion-item (click)="openFanbase()">
+				<p text-nowrap icon-start>
+					<ion-icon name="contacts" class="yellow"></ion-icon> 
+					Fans: {{fans}}
+				</p>
+			</ion-item>
+		</ion-list>
 		<ion-list>
 			<button ion-item icon-start (click)="openProfile()">
 				<ion-icon name="person" class="green"></ion-icon> 
@@ -49,6 +57,7 @@
 			<button ion-item icon-start (click)="openNotifications()">
 				<ion-icon name="notifications" class="red"></ion-icon>
 				Notifications
+				<ion-badge *ngIf="newNotificationCount > 0" item-end>{{ newNotificationCount }}</ion-badge>
 			</button>
 			<button ion-item icon-start (click)="openMenu()">
 				<ion-icon name="paper" class="yellow"></ion-icon> 

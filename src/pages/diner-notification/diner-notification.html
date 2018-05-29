@@ -15,14 +15,27 @@
 
 <ion-content padding>
 	<ion-list>
-		<ion-item *ngFor="let notification of notifications; let i = index" [class.unseen]="!notification.seen" [class.hidden]="notification.cleared">
-			<ion-avatar item-left>
-				<img src="assets/imgs/CustAvatar.png">
-			</ion-avatar>
-			<button ion-button float-right clear icon-only color="danger" (click)="clear(notification.id, i)"><ion-icon name="close"></ion-icon></button>
-			<p *ngIf="notification.type == 1" class="notif-message">
-				{{ notification.from }} ordered from your menu.
-			</p>
-		</ion-item>
+		<ion-item-sliding>
+			<ion-item *ngFor="let notification of notifications; let i = index" [class.unseen]="!notification.seen" [class.hidden]="notification.cleared">
+				<ion-avatar item-left>
+					<img src="assets/imgs/CustAvatar.png">
+				</ion-avatar>
+				<p *ngIf="notification.type == 1" class="notif-message">
+					{{ notification.from }} ordered from your menu.
+				</p>
+				<p *ngIf="notification.type == 2" class="notif-message">
+					Your cafe is now one of {{ notification.from }}'s favorite!
+				</p>
+				<p class="time-date">
+					{{ notification.timestamp.time }} {{ notification.timestamp.day }} 
+				</p>
+				<ion-badge *ngIf="!notification.seen" item-end>New!</ion-badge>
+			</ion-item>
+			<ion-item-options side="right">
+				<button ion-button float-right clear icon-only color="danger" (click)="clear(notification.id, i)">
+					<ion-icon name="close"></ion-icon>
+				</button>
+			</ion-item-options>
+		</ion-item-sliding>
 	</ion-list>
 </ion-content>

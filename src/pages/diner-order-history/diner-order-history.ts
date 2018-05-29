@@ -14,44 +14,50 @@ import { Observable } from 'rxjs/Observable'
   templateUrl: 'diner-order-history.html',
 })
 export class DinerOrderHistoryPage {
-	uid: string
+
   	ordersCollectionRef: AngularFirestoreCollection<Order>
-  	ordersList: any[] = []
-  	itemsList: any[] = []
-  	itemCount: number
+	ordersCollectionRef$: Observable<Order[]>
   	diner: AngularFirestoreDocument<DinerDetails>
   	orderFilter: string = "all"
+  	ordersList: any[] = []
+  	itemsList: any[] = []
   	order_ids: any[] = []
+  	itemCount: number
+	uid: string
 
   	constructor(public navCtrl: NavController, 
         public navParams: NavParams,
         private fire: AngularFireAuth, 
         private firestore: AngularFirestore) {
+  		let that = this
     	this.uid = this.fire.auth.currentUser.uid
     	this.diner = this.firestore.collection('diners').doc(this.uid)
     	this.ordersCollectionRef = this.diner.collection('orders')
+	    this.ordersCollectionRef$ = this.ordersCollectionRef.valueChanges()
+	    this.ordersCollectionRef$.subscribe( collection => {
+	      this.ordersCollectionRef.ref.where("cleared", "==", true).orderBy("timestamp", "asc").get()
+	      .then( orders=> {
+	        let list = []
+
+	        orders.forEach( order=> {
+	          let details = { id: "", customer: "", cost: 0, cleared: true, type: 0, totalItems: 0, orderNumber: 0 , timestamp: {}}
+
+	          details.id = order.id
+	          details.type = order.data().type
+	          details.cost = order.data().cost
+	          details.cleared = order.data().cleared
+	          details.totalItems = order.data().totalItems
+	          details.orderNumber = order.data().orderNumber
+	          details.timestamp = that.dateParser(order.data().timestamp)
+	          that.firestore.collection("customers").doc(order.data().customer).ref.get().then( doc => { details.customer = doc.data().cust_name}).then( _=> {
+	            list.push(details)
+	          })
+	        })
+
+	        that.ordersList = list
+	      })
+	    })
   	}
-
-  	ionViewWillEnter() { 
-		this.getOrders()
-	}
-
-  	getOrders() {
-		let that = this
-		this.ordersList = []
-		this.order_ids = []
-
-		this.ordersCollectionRef.ref.where("cleared", "==", true).get()
-		.then(function(querySnapshot) {
-		  querySnapshot.forEach(function(doc) {
-		    that.ordersList.push(doc.data())
-		    that.order_ids.push(doc.id)
-		    console.log(doc.data().customer_name)
-		    console.log(doc.id)
-		  })
-		  that.getItems()
-		})
-	}
 
 	getItems() {
 		let that = this
@@ -69,8 +75,38 @@ export class DinerOrderHistoryPage {
 		return this.ordersList.length > 0
 	}
 
+	dateParser(timestamp){
+		console.log(timestamp.toString())
+		var elements = timestamp.toString().split(" ")
+		let time = elements[4].split(":")
+		let day: any = []
+
+		time.pop()
+
+		if (time[0] > 12){
+		    time[0] -= 12
+		    time = time.join(":")
+		    time += " PM"
+		} else if (time[0] == 0){
+		    time[0] = 12
+		    time = time.join(":")
+		    time += " AM"
+		} else {
+		    time = time.join(":")
+		    time += " AM"
+		}
+
+		day.push(elements[2])
+		day.push(elements[1])
+		day = day.join(" ")
+
+		// Mon May 28 2018 
+		console.log(elements)
+
+		return {day: day, time: time}
+	}
+
 	ionViewDidLoad() {
-		this.getOrders()
 		console.log('ionViewDidLoad DinerOrderHistoryPage');
 	}
 

@@ -20,14 +20,17 @@ import { Order } from '../../models/order.interface'
 export class CustViewOrderPage {
 
 	orderDocRef: AngularFirestoreDocument<Order>
-	orderedItemsRef: any
+	dinerDocRef: AngularFirestoreDocument<any>
 	customer_name: string
+	orderedItemsRef: any
+	diner_name: string
 	items: any[] = []
 	cost: number = 0
-	ordereditems_ids: any[] = []
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, private firestore: AngularFirestore) {
-  		this.orderDocRef = this.firestore.collection('diners').doc(this.navParams.get('dinerID')).collection('orders').doc(this.navParams.get('orderID'))
+		this.dinerDocRef = this.firestore.collection('diners').doc(this.navParams.get('dinerID'))
+  		this.orderDocRef = this.dinerDocRef.collection('orders').doc(this.navParams.get('orderID'))
+  		this.dinerDocRef.ref.get().then( diner => { this.diner_name = diner.data().dine_name })
   		this.orderedItemsRef = this.orderDocRef.collection('orderedItems')
   		this.getOrderDetails()
 	}
@@ -39,16 +42,16 @@ export class CustViewOrderPage {
 		.then( items => {
 			items.forEach( item => {
 				console.log(item.data())
-				let details = {id: "", name: "", price: 0, ordered: 0 }
+				let details = {id: "", name: "", price: 0, ordered: 0, lock: false}
 
 				details.id = item.id
 				details.name = item.data().item_name
 				details.price = item.data().item_price
 				details.ordered = item.data().item_ordered
+				details.lock = item.data().lock
 
 				console.log(details)
 				that.items.push(details)
-				that.ordereditems_ids.push(item.id)
 			})
 		})
 	}
