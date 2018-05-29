@@ -205,7 +205,7 @@ export class CustHomePage {
 				details.name = diner.data().dine_name
 				details.location = diner.data().dine_location
 				details.distance = that.getDistance(that.location, latLng)
-
+				console.log("DinerID",diner.id)
 				console.log(that.location)
 
 				_diners.push(details)
