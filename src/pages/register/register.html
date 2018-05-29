@@ -21,7 +21,7 @@
 
 
 <ion-content [ngSwitch]="acctype">
-	<ion-content *ngSwitchCase="'customer'">
+	<ion-content *ngSwitchCase="'customer'" ion-col offset-3-m3 col-m-6 offset-lg-4 col-lg-4>
 		<img src="assets/imgs/CustAvatar.png" height="75" width="75">
 		<h5>Customer</h5>
 		<p>Eat eat eat. We'll show you more food after you register. Know if things are in the menu!</p>
@@ -49,7 +49,7 @@
 		</ion-list>
 		<button ion-button block color="secondary" (click)="createCustomer(customerDetails)">Create!</button>
 	</ion-content>	
-	<ion-content *ngSwitchCase="'diner'">
+	<ion-content *ngSwitchCase="'diner'" ion-col offset-3-m3 col-m-6 offset-lg-4 col-lg-4>
 		<img src="assets/imgs/DinerAvatar.png" height="75" width="75">
 		<h5>Diner</h5>
 		<p>Happy when serving food? Then this form will help your advocacy in serving food to the hungry foodies.</p>
