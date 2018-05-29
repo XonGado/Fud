@@ -101,6 +101,11 @@ export class CustHomePage {
 	}
 
 	getDistance (p1, p2) {
+		console.log(p1.lat())
+		console.log(p1.lng())
+		console.log(p2.lat())
+		console.log(p2.lng())
+
 		var R = 6378137
 		var dLat = this.rad(p2.lat() - p1.lat())
 		var dLong = this.rad(p2.lng() - p1.lng())
