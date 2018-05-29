@@ -15,8 +15,8 @@
 
 <ion-content padding>
 	<ion-list>
-		<ion-item-sliding>
-			<ion-item *ngFor="let notification of notifications; let i = index" [class.unseen]="!notification.seen" [class.hidden]="notification.cleared">
+		<ion-item-sliding *ngFor="let notification of notifications; let i = index" [class.unseen]="!notification.seen" [class.hidden]="notification.cleared">
+			<ion-item>
 				<ion-avatar item-left>
 					<img src="assets/imgs/DinerAvatar.png">
 				</ion-avatar>

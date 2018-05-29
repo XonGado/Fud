@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Order } from '../../models/order.interface'
 import { DinerDetails } from '../../models/dinerdetails.interface'
+import { DinerViewOrderPage } from '../diner-view-order/diner-view-order'
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
@@ -35,23 +36,27 @@ export class DinerOrderHistoryPage {
     	this.ordersCollectionRef = this.diner.collection('orders')
 	    this.ordersCollectionRef$ = this.ordersCollectionRef.valueChanges()
 	    this.ordersCollectionRef$.subscribe( collection => {
-	      this.ordersCollectionRef.ref.where("cleared", "==", true).orderBy("timestamp", "asc").get()
+	      this.ordersCollectionRef.ref.where("cleared", "==", true).get()
 	      .then( orders=> {
 	        let list = []
 
 	        orders.forEach( order=> {
-	          let details = { id: "", customer: "", cost: 0, cleared: true, type: 0, totalItems: 0, orderNumber: 0 , timestamp: {}}
 
-	          details.id = order.id
-	          details.type = order.data().type
-	          details.cost = order.data().cost
-	          details.cleared = order.data().cleared
-	          details.totalItems = order.data().totalItems
-	          details.orderNumber = order.data().orderNumber
-	          details.timestamp = that.dateParser(order.data().timestamp)
-	          that.firestore.collection("customers").doc(order.data().customer).ref.get().then( doc => { details.customer = doc.data().cust_name}).then( _=> {
-	            list.push(details)
-	          })
+				let details = { id: "", customer: "", cost: 0, cleared: true, type: 0, totalItems: 0, orderNumber: 0 , timestamp: {}}
+
+				details.id = order.id
+				details.type = order.data().type
+				details.cost = order.data().cost
+				details.cleared = order.data().cleared
+				details.totalItems = order.data().totalItems
+				details.orderNumber = order.data().orderNumber
+				details.timestamp = that.dateParser(order.data().timestamp)
+				that.firestore.collection("customers").doc(order.data().customer).ref.get().then( doc => { 
+					details.customer = doc.data().cust_name
+				}).then( _=> {
+					console.log(details)
+					list.push(details)
+				})
 	        })
 
 	        that.ordersList = list
@@ -73,6 +78,10 @@ export class DinerOrderHistoryPage {
 
 	hasHistory(){
 		return this.ordersList.length > 0
+	}
+
+	orderDetails(id){
+		this.navCtrl.push(DinerViewOrderPage, { orderID: id })
 	}
 
 	dateParser(timestamp){

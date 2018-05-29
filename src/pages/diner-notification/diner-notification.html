@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title><ion-icon name="notifications" color="purple"></ion-icon> Notifications</ion-title>
+    <ion-title><ion-icon name="notifications" class="purple"></ion-icon> Notifications</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,8 +15,8 @@
 
 <ion-content padding>
 	<ion-list>
-		<ion-item-sliding>
-			<ion-item *ngFor="let notification of notifications; let i = index" [class.unseen]="!notification.seen" [class.hidden]="notification.cleared">
+		<ion-item-sliding *ngFor="let notification of notifications; let i = index" [class.unseen]="!notification.seen" [class.hidden]="notification.cleared">
+			<ion-item>
 				<ion-avatar item-left>
 					<img src="assets/imgs/CustAvatar.png">
 				</ion-avatar>

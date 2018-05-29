@@ -15,16 +15,16 @@
 
 <ion-content padding>
 	<ion-list no-lines>
-		<ion-item *ngFor="let order of ordersList" class="order-list" (click)="openOrderDetails(order.id)">
+		<ion-item *ngFor="let order of ordersList" class="order-list" (click)="orderDetails(order.id)">
 			<ion-avatar item-start>
 				<img src="assets/imgs/CustAvatar.png">
 			</ion-avatar>
-			<h2>{{ order.name }}</h2>
+			<h2>{{ order.customer }}</h2>
 			<p class="price float-text-right green">{{ order.cost }}</p>
-			<p class="count blue">{{ order.totalitems }} items</p>
-			<span *ngIf="order.order_type == 0" class="typeIndicator blue"></span>
-			<span *ngIf="order.order_type == 1" class="typeIndicator violet"></span>
-			<span *ngIf="order.order_type == 2" class="typeIndicator red"></span>
+			<p class="count blue">{{ order.totalItems }} items</p>
+			<span *ngIf="order.type == 0" class="typeIndicator blue"></span>
+			<span *ngIf="order.type == 1" class="typeIndicator violet"></span>
+			<span *ngIf="order.type == 2" class="typeIndicator red"></span>
 		</ion-item>
 	</ion-list>
 	<p class="empty-message" *ngIf="!hasHistory()">

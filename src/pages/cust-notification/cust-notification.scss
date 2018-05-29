@@ -1,5 +1,9 @@
 page-cust-notification {
+	.unseen{
+		filter: brightness(120%);
+	}
 	.notif-message{
-		color: #AAA;
+		word-wrap: wrap!important;
+		color: #AAA!important;
 	}
 }
