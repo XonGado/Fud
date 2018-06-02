@@ -36,7 +36,6 @@
 					<ion-item>
 						<ion-avatar item-start>
 							<img src="assets/imgs/One.jpg">
-							<!-- <img src="assets/imgs/{{item.image}}"> -->
 						</ion-avatar>
 						<h2>
 							{{item.item_name}}
@@ -46,12 +45,12 @@
 						<p class="price float-text-right">{{item.item_price}}</p>
 					</ion-item>
 					<ion-item-options side="left">
-						<button ion-button color="dark" (click)="editItem(item.item_id)">
+						<button ion-button color="dark" clear (click)="editItem(item.item_id)">
 							<ion-icon name="reorder"></ion-icon>
 						</button>
 					</ion-item-options>
 					<ion-item-options side="right">
-						<button ion-button color="danger" (click)="deleteItem(item.item_id)">
+						<button ion-button color="danger" clear (click)="deleteItem(item.item_id)">
 							<ion-icon name="trash"></ion-icon>
 						</button>
 					</ion-item-options>

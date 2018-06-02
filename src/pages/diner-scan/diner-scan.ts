@@ -3,7 +3,6 @@ import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angu
 
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore'
 import { AngularFireAuth } from 'angularfire2/auth'
-import { BarcodeScanner } from '@ionic-native/barcode-scanner'
 
 @IonicPage()
 @Component({
@@ -22,7 +21,6 @@ export class DinerScanPage {
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
 				public alertCtrl: AlertController,
-				private barcodeScanner: BarcodeScanner,
 				private fire: AngularFireAuth,
 				private firestore: AngularFirestore) {
 		this.id = this.fire.auth.currentUser.uid

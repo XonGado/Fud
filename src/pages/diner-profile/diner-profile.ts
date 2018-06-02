@@ -1,21 +1,10 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { IonicPage, NavController} from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth'
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore'
-
 import { DinerProfileEditPage } from '../diner-profile-edit/diner-profile-edit'
-
 import { DinerDetails } from '../../models/dinerdetails.interface'
-
 import { Geolocation } from '@ionic-native/geolocation'
-
-/**
- * Generated class for the DinerProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 declare var google
 
@@ -30,17 +19,14 @@ export class DinerProfilePage {
   map: any
 
   name: string; owner_name: string; username: string; email: string; weblink: string; number: string; address: string; location: any
-  uid: string;
   dinerDocRef: AngularFirestoreDocument<DinerDetails>
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private fire: AngularFireAuth, private firestore: AngularFirestore) {
-    this.uid = this.fire.auth.currentUser.uid
-    this.dinerDocRef = this.firestore.collection('diners').doc(this.uid)
+  constructor(public navCtrl: NavController, private fire: AngularFireAuth, private firestore: AngularFirestore) { 
+    this.dinerDocRef = this.firestore.collection('diners').doc(this.fire.auth.currentUser.uid)
   }
 
   ionViewDidLoad() {
     this.fetchData()
-    console.log('ionViewDidLoad DinerProfilePage');
   }
 
   fetchData() {
@@ -66,10 +52,6 @@ export class DinerProfilePage {
   }
 
   loadMap(){
-
-    console.log("Loading map...")
-    console.log(this.location.latitude + " " + this.location.longitude)
-
     var latLng = new google.maps.LatLng(this.location.latitude, this.location.longitude)
 
     let mapOptions = {
@@ -87,9 +69,6 @@ export class DinerProfilePage {
     })
 
     marker.setMap(this.map)
-
-    console.log("Map loaded.")
-   
   }
 
 }

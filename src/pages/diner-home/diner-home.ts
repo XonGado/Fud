@@ -87,7 +87,6 @@ export class DinerHomePage {
     this.notifsCollectionRef$ = this.notifsCollectionRef.valueChanges()
     this.notifsCollectionRef$.subscribe( collection => {
       this.notifsCollectionRef.ref.where("seen", "==", false).get().then( newNotifications => {
-        console.log(newNotifications.size)
         that.newNotificationCount = newNotifications.size
         if (newNotifications.size > 0) {
           that.toastCtrl.create({
@@ -110,7 +109,6 @@ export class DinerHomePage {
   }
   
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HomeDinerPage');
     this.menu.enable(true)
   }
 
@@ -138,7 +136,6 @@ export class DinerHomePage {
   }
 
   dateParser(timestamp){
-    console.log(timestamp.toString())
     var elements = timestamp.toString().split(" ")
     let time = elements[4].split(":")
     let day: any = []
@@ -161,9 +158,6 @@ export class DinerHomePage {
     day.push(elements[2])
     day.push(elements[1])
     day = day.join(" ")
-
-    // Mon May 28 2018 
-    console.log(elements)
 
     return {day: day, time: time}
   }
@@ -199,10 +193,7 @@ export class DinerHomePage {
     this.navCtrl.push(DinerOrderHistoryPage)
   }
 
-<<<<<<< HEAD
-=======
   logout(){
     this.fire.auth.signOut();
   }
->>>>>>> 3e9a261c8b0fc26f9bf6c0e8b5326d7fa436f076
 }

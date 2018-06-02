@@ -6,10 +6,13 @@
 -->
 <ion-header>
 
-	<ion-navbar color="dark">
+	<ion-navbar>
 		<ion-title>Order Details</ion-title>
 	</ion-navbar>
 
+</ion-header>
+
+<ion-content padding>
 	<ion-toolbar>
 		<ion-list no-lines>
 			<ion-item>
@@ -22,10 +25,6 @@
 		</ion-list>
 		<div #map id="map" [class.hidden]="orderType != 2"></div>
 	</ion-toolbar>
-
-</ion-header>
-
-<ion-content padding>
 	<ion-list>
 		<ion-item *ngFor="let item of items">
 			<ion-avatar item-start>

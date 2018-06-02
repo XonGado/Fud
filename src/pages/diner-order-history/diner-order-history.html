@@ -21,7 +21,7 @@
 			</ion-avatar>
 			<h2>{{ order.customer }}</h2>
 			<p class="price float-text-right green">{{ order.cost }}</p>
-			<p class="count blue">{{ order.totalItems }} items</p>
+			<p class="count"><span class="blue">{{ order.totalItems }} items</span> {{ order.timestamp.time }} {{ order.timestamp.day }}</p>
 			<span *ngIf="order.type == 0" class="typeIndicator blue"></span>
 			<span *ngIf="order.type == 1" class="typeIndicator violet"></span>
 			<span *ngIf="order.type == 2" class="typeIndicator red"></span>

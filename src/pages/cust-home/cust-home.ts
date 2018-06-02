@@ -16,6 +16,7 @@ import { AngularFireAuth } from 'angularfire2/auth'
 import { Observable } from 'rxjs/Observable'
 
 import { Diner } from '../../models/diner.model'
+import { Notification } from '../../models/notification.interface'
 
 import { Geolocation } from '@ionic-native/geolocation'
 
@@ -34,9 +35,12 @@ export class CustHomePage {
 
 	map: any
 
-	uid: string
+	uid: any
 	dinerList: any[]
   	dinersCollectionRef: AngularFirestoreCollection<Diner>
+  	notifsCollectionRef: AngularFirestoreCollection<Notification>
+	notifsCollectionRef$: Observable<Notification[]>
+	newNotificationCount: number = 0
   	order_ids: any[] = []
   	dinerID: any
   	orderID: any
@@ -44,12 +48,10 @@ export class CustHomePage {
   	name: string
   	email: string
   	favorites: any
-  	view: string
+  	view: string = "diner"
 
   	location: any = 0
   	position: any
-
-  	dinerDistances: any[] = []
 
 	constructor(public navCtrl: NavController, 
 				public navParams: NavParams, 
@@ -61,29 +63,51 @@ export class CustHomePage {
 				public platform: Platform,
 				public geolocation: Geolocation) {
 		let that = this
-		this.location = new google.maps.LatLng(10.64071874033119, 122.22745867523122)
-		this.view = "diner"
 		this.uid = fire.auth.currentUser.uid
-		this.firestore.collection('customers').doc(this.uid).ref.get()
-		.then(customer => {
+		this.location = new google.maps.LatLng(10.64071874033119, 122.22745867523122)
+		var user = this.firestore.collection('customers').doc(this.uid)
+		user.ref.get()
+		.then( customer => {
 			that.name = customer.data().cust_name
-			that.email = customer.data().cust_email	
+			that.email = customer.data().cust_email
 			customer.ref.collection("favorites").get().then( collection => { that.favorites = collection.size })
 		})
-		this.loadMap()
 		this.dinersCollectionRef = this.firestore.collection('diners')
 		this.dinerList = this.retrieveDiners()
+		this.geolocation.getCurrentPosition().then(
+	    	position => {
+				let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
+				that.location = latLng
+			}, error => {
+				console.log(error.message)
+			}
+	    ).then( _ => {
+	    	this.loadMap()
+			this.userHasOrdered()	
+	    })
+
+	    this.notifsCollectionRef = user.collection('notifications')
+		this.notifsCollectionRef$ = this.notifsCollectionRef.valueChanges()
+		this.notifsCollectionRef$.subscribe( collection => {
+			this.notifsCollectionRef.ref.where("seen", "==", false).get().then( newNotifications => {
+				that.newNotificationCount = newNotifications.size
+				if (newNotifications.size > 0) {
+				  that.toastCtrl.create({
+				    message: "New notification!",
+				    duration: 3000,
+				    position: "bottom",
+				    showCloseButton: true
+				  }).present()
+				}
+			})
+		})
 	}
 
-	ionViewWillEnter() { 
-		this.loadMap()
-		this.userHasOrdered()	
+	ionViewWillEnter() {
 	}
 
 	ionViewDidLoad() {
-		this.loadMap()
 	    this.menu.enable(true)
-		this.userHasOrdered()	
 		this.setupSlides()
 	}
 
@@ -118,48 +142,37 @@ export class CustHomePage {
 	}
 
 	loadMap(){
-		let that = this
- 
-	    this.geolocation.getCurrentPosition().then( 
-	    	position => {
-				let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude)
-				that.location = latLng
-			}, error => {
-				console.log(error.message)
-			}
-	    ).then( _=>{
-	    	let mapOptions = {
-				mapTypeId: google.maps.MapTypeId.ROADMAP,
-				center: that.location,
-				zoom: 15
-			}
 
-			that.map = new google.maps.Map(that.mapElement.nativeElement, mapOptions)
+    	let mapOptions = {
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+			center: this.location,
+			zoom: 15
+		}
 
-			let marker = new google.maps.Marker({
-			       map: that.map,
-			       animation: google.maps.Animation.DROP,
-			       position: that.location
-			   })
+		this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions)
 
-			let content = "You are here"
+		let marker = new google.maps.Marker({
+			map: this.map,
+			animation: google.maps.Animation.DROP,
+			position: this.location
+		})
 
-			that.addInfoWindow(marker, content)
-			   marker.setMap(that.map)
+		let content = "You are here"
 
-			var cityCircle = new google.maps.Circle({
-			          strokeColor: '#00FF00',
-			          strokeOpacity: 0.8,
-			          strokeWeight: 2,
-			          fillColor: 'transparent',
-			          map: that.map,
-			          center: that.location,
-			          radius: 1500
-			      })
-	    }).catch( error => {
-	    	console.log(error.message)
-	    })
+		this.addInfoWindow(marker, content)
+		marker.setMap(this.map)
+
 	}
+
+	// var cityCircle = new google.maps.Circle({
+	// 	strokeColor: '#00FF00',
+	// 	strokeOpacity: 0.8,
+	// 	strokeWeight: 2,
+	// 	fillColor: 'transparent',
+	// 	map: that.map,
+	// 	center: that.location,
+	// 	radius: 1500
+	// })
 
 	addDinerMarkers(){
 		for (var diner of this.dinerList) {
@@ -240,7 +253,6 @@ export class CustHomePage {
 	}
 
 	orderHere(id){
-		console.log(id)
 		if (this.ordered == undefined) {
 			this.userHasOrdered()
 			
@@ -289,7 +301,7 @@ export class CustHomePage {
 	}
 
 	openScanner(){
-		this.navCtrl.push(CustScanPage);
+		this.navCtrl.push(CustScanPage)
 	}
 
 	openMenus(){

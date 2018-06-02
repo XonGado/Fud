@@ -10,13 +10,6 @@ import { Order } from '../../models/order.interface'
 
 declare var google
 
-/**
- * Generated class for the OrderDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-order-details',
@@ -32,6 +25,7 @@ export class OrderDetailsPage {
   orderLocation: any = null
   orderType: any
   lock: boolean
+  timestamp: any = {time: "", day: ""}
 
   @ViewChild('map') mapElement: ElementRef
   map: any
@@ -55,6 +49,7 @@ export class OrderDetailsPage {
       that.firestore.collection("customers").doc(order.data().customer).ref.get().then( doc=> that.customer_name = doc.data().cust_name)
   		that.cost = order.data().cost
       that.orderType = order.data().type
+      that.timestamp = that.dateParser(order.data().timestamp)
 
       if (order.data().type == 2) {
         that.orderLocation = order.data().location
@@ -75,6 +70,33 @@ export class OrderDetailsPage {
         that.items.push(details)
       })
   	})
+  }
+
+  dateParser(timestamp){
+    var elements = timestamp.toString().split(" ")
+    let time = elements[4].split(":")
+    let day: any = []
+
+    time.pop()
+
+    if (time[0] > 12){
+        time[0] -= 12
+        time = time.join(":")
+        time += " PM"
+    } else if (time[0] == 0){
+        time[0] = 12
+        time = time.join(":")
+        time += " AM"
+    } else {
+        time = time.join(":")
+        time += " AM"
+    }
+
+    day.push(elements[2])
+    day.push(elements[1])
+    day = day.join(" ")
+
+    return {day: day, time: time}
   }
 
   clearOrder() {
@@ -100,10 +122,6 @@ export class OrderDetailsPage {
     })
   }
 
-  ionViewDidLoad() {
-  	console.log('ionViewDidLoad OrderDetailsPage');
-  }
-
   changeLock(item){
     this.orderedItemsColRef.doc(item.id).ref.update({ lock: item.lock })
   }
@@ -127,16 +145,9 @@ export class OrderDetailsPage {
       })
 
       this.marker.setMap(this.map)
-
-      console.log("map is set")
   }
 
-  locksEnabled(){
-    for(var item of this.items){
-      if (item.lock == false) {
-        return false
-      }
-    }
-    return true
+  ionViewDidLoad() {
+    console.log('Order details.');
   }
 }

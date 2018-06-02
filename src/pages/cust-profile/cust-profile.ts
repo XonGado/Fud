@@ -40,7 +40,6 @@ export class CustProfilePage {
 					that.user.name = doc.data().cust_name
 					that.user.email = doc.data().cust_email
 					that.user.username = doc.data().cust_username
-					console.log(that.user)
 					loading.dismiss();
 				} else {
 					console.log("No such user with this ID.")
@@ -48,7 +47,6 @@ export class CustProfilePage {
 				}
 			})
 			.catch(error => {
-				console.log(error.code)
 				console.log(error.message)
 				loading.dismiss();
 			})

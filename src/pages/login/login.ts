@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, MenuController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, MenuController, ToastController } from 'ionic-angular';
 
 import { RegisterPage } from '../register/register';
 import { DinerHomePage } from '../diner-home/diner-home';
@@ -8,13 +8,6 @@ import { CustHomePage } from '../cust-home/cust-home';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore'
 import { AngularFireStorageModule } from 'angularfire2/storage';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -25,85 +18,82 @@ export class LoginPage {
 	@ViewChild('email') email;
 	@ViewChild('password') password;
 
-  uid: string
-  enabled: boolean = false
+	uid: string
+	enabled: boolean = false
+	user: any
 
-  constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
-    public menu: MenuController,
-    private fire: AngularFireAuth, 
-    private firestore: AngularFirestore,
-    public loadingCtrl: LoadingController, 
-    public toastCtrl: ToastController) {
-    // this.retrieveFudAvatar()    
-  }
+	constructor(
+		public navCtrl: NavController,
+		public menu: MenuController,
+		private fire: AngularFireAuth, 
+		private firestore: AngularFirestore,
+		public loadingCtrl: LoadingController, 
+		public toastCtrl: ToastController) { 
+		this.user = this.fire.auth.currentUser
+	}
 
-  openRegisterPage() {
-    this.navCtrl.push(RegisterPage)
-  }
+	authenticateLogin() {
 
-  authenticateLogin() {
+		let loading = this.loadingCtrl.create({
+			content: `<ion-spinner name="cresent"></ion-spinner>`,
+			dismissOnPageChange: true
+		})
 
-    let loading = this.loadingCtrl.create({
-      content: `<ion-spinner name="cresent"></ion-spinner>`,
-      dismissOnPageChange: true
-    });
+		loading.present()
 
-    loading.present();
+		var email = this.email.value
+		var password = this.password.value
 
-    var email = this.email.value; 
-    var password = this.password.value;
+		if (email != '' && password != '') {
+			let that = this
+			this.fire.auth.signInAndRetrieveDataWithEmailAndPassword(this.email.value, this.password.value)
+			.then( data => {
+				console.log(data)
 
-    if (email != '' && password != '') {
-      let that = this
-      this.fire.auth.signInAndRetrieveDataWithEmailAndPassword(this.email.value, this.password.value)
-      .then(function (data){
-        that.uid = that.fire.auth.currentUser.uid
-        that.firestore.collection('users').doc(that.uid).ref.get()
-        .then(doc => {
-          if(doc.data().type == 'diners'){
-            that.navCtrl.push(DinerHomePage)
-          }else{
-            that.navCtrl.push(CustHomePage)
-          }
-        })
-        .catch(error => {
-          that.showError(error.message);
-          loading.dismiss();
-        })
-      })
-      .catch(function (error){
-        that.showError(error.message);
-        loading.dismiss();
-      })
-    } else if (email == '' && password != '') {
-      this.showError("Please enter your email.");
-      loading.dismiss();
-    } else if (email != '' && password == '') {
-      this.showError("Please enter you password.");
-      loading.dismiss();
-    } else {
-      this.showError("Enter your credentials first.");
-      loading.dismiss();
-    }
-
-  }
+				that.uid = that.fire.auth.currentUser.uid
+				that.firestore.collection('users').doc(that.uid).ref.get()
+				.then( user => {
+					if(user.data().type == 'diners'){
+						that.navCtrl.push(DinerHomePage)
+					} else {
+						that.navCtrl.push(CustHomePage)
+					}
+				})
+				.catch( error => {
+					that.showError(error.message);
+					loading.dismiss();
+				})
+			})
+			.catch( error => {
+				that.showError(error.message);
+				loading.dismiss();
+			})
+		} else if (email == '' && password != '') {
+			this.showError("Please enter your email.");
+			loading.dismiss();
+		} else if (email != '' && password == '') {
+			this.showError("Please enter you password.");
+			loading.dismiss();
+		} else {
+			this.showError("Enter your credentials first.");
+			loading.dismiss();
+		}
+	}
 
   showError(message) {
     let toast = this.toastCtrl.create({
-      message: message,
-      duration: 5000,
-      position: 'top',
-      cssClass: 'danger',
-      showCloseButton: true,
-      closeButtonText: 'X',
-      dismissOnPageChange: true
-    });
+    	message: message,
+    	duration: 5000,
+    	position: 'top',
+    	cssClass: 'danger',
+    	showCloseButton: true,
+    	closeButtonText: 'X',
+    	dismissOnPageChange: true
+    })
 
     toast.onDidDismiss(() => {
-      console.log('Dismissed error');
-    });
+    	console.log('Dismissed error');
+    })
 
     toast.present();
   }
@@ -124,34 +114,13 @@ export class LoginPage {
     this.authenticateLogin();
   }
 
-  ionViewDidLoad() {
-    console.log('Loaded LoginPage');
+  openRegisterPage() {
+    this.navCtrl.push(RegisterPage)
   }
 
-  // retrieveFudAvatar(){
-  //   let that = this
-  //   var storageRef = this.firestore.
-    
-  //   storageRef.child('custAvatar.png').getDownloadURL().then(function(url) {
-  //     // `url` is the download URL for 'images/stars.jpg'
-
-  //     // This can be downloaded directly:
-  //     var xhr = new XMLHttpRequest();
-  //     xhr.responseType = 'blob';
-  //     xhr.onload = function(event) {
-  //       var blob = xhr.response;
-  //     };
-  //     xhr.open('GET', url);
-  //     xhr.send();
-
-  //     console.log(xhr.open('GET', url))
-
-  //     // Or inserted into an <img> element:
-
-  //   }).catch(function(error) {
-  //     // Handle any errors
-  //   });
-  // }
+  ionViewDidLoad() {
+    console.log('Welcome to the login page.');
+  }
 }
 
 

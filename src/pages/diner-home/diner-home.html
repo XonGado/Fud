@@ -55,30 +55,30 @@
 			</button>
 
 			<button ion-item icon-start (click)="openNotifications()">
-				<ion-icon name="notifications" class="red"></ion-icon>
+				<ion-icon name="notifications" class="blue"></ion-icon>
 				Notifications
 				<ion-badge *ngIf="newNotificationCount > 0" item-end>{{ newNotificationCount }}</ion-badge>
 			</button>
 			<button ion-item icon-start (click)="openMenu()">
-				<ion-icon name="paper" class="yellow"></ion-icon> 
+				<ion-icon name="paper" class="purple"></ion-icon> 
 				Menu
 			</button>
 			<button ion-item icon-start (click)="openGenerator()">
-				<ion-icon name="qr-scanner" class="blue"></ion-icon> 
+				<ion-icon name="qr-scanner" class="red"></ion-icon> 
 				Generate
 			</button>
 			<button ion-item icon-start (click)="openOrderHistory()">
-				<ion-icon name="filing" class="purple"></ion-icon>
+				<ion-icon name="filing" class="orange"></ion-icon>
 				Order History
 			</button>
-			<button ion-item icon-start (click)="openAnalytics()">
-				<ion-icon name="analytics" class="green"></ion-icon>
+			<!-- <button ion-item icon-start (click)="openAnalytics()">
+				<ion-icon name="analytics" class="yellow"></ion-icon>
 				Analytics
-			</button>
+			</button> -->
 		</ion-list>
 	</ion-content>
 	<ion-footer padding>
-		<button ion-button outline round icon-start color="danger" (click)="logout()">
+		<button ion-button block outline round icon-start color="danger" (click)="logout()">
 			<ion-icon color="danger" name="log-out"></ion-icon> 
 			Logout
 		</button>
@@ -95,7 +95,7 @@
 			</ion-avatar>
 			<h2>{{order.customer}}</h2>
 			<p class="price float-text-right green">{{order.cost}}</p>
-			<p class="count blue"> {{order.totalItems}} items</p>
+			<p class="count"><span class="blue">{{order.totalItems}} items</span> {{ order.timestamp.time }} {{ order.timestamp.day }}</p>
 			<span *ngIf="order.type == 0" class="typeIndicator blue"></span>
 			<span *ngIf="order.type == 1" class="typeIndicator violet"></span>
 			<span *ngIf="order.type == 2" class="typeIndicator red"></span>

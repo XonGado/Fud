@@ -1,24 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
-import { CustomerDetails } from '../../models/customerdetails.interface';
-import { DinerDetails } from '../../models/dinerdetails.interface';
-import { UserType } from '../../models/usertype.interface';
-import { Item } from '../../models/item.model';
-
 import { AngularFireAuth } from 'angularfire2/auth';
-
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
-
-import * as firebase from 'firebase';
-
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @IonicPage()
 @Component({

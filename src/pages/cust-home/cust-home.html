@@ -8,6 +8,7 @@
 	<ion-toolbar>
 		<button ion-button menuToggle icon-only (click)="menuToggle()">
 			<ion-icon name="menu"></ion-icon>
+			<ion-badge *ngIf="newNotificationCount > 0" item-end>{{ newNotificationCount }}</ion-badge>
 		</button>
 		<ion-title>Home</ion-title>
 		<ion-buttons end>
@@ -29,10 +30,8 @@
 				<ion-avatar item-start>
 					<img src="assets/imgs/CustAvatar.png" (click)="openProfile()">
 				</ion-avatar>
-				<h2 text-nowrap (click)="openProfile()" color="secondary">{{name}}</h2>
-				<p text-nowrap icon-start>
-					{{email}}
-				</p>
+				<h2 text-nowrap (click)="openProfile()" color="secondary" (click)="openProfile()">{{name}}</h2>
+				<p text-nowrap icon-start (click)="openProfile()"> {{email}} </p>
 			</ion-item>
 			<ion-item (click)="openFavorites()">
 				<p text-nowrap icon-start>
@@ -43,15 +42,16 @@
 		</ion-list>
 		<ion-list>
 			<button ion-item icon-start (click)="openProfile()">
-				<ion-icon class="green" name="person"></ion-icon> 
+				<ion-icon class="orange" name="person"></ion-icon> 
 				Profile
 			</button>
 			<button ion-item icon-start (click)="openNotifications()">
-				<ion-icon class="purple" name="notifications"></ion-icon>
+				<ion-icon class="yellow" name="notifications"></ion-icon>
 				Notifications
+				<ion-badge *ngIf="newNotificationCount > 0" item-end>{{ newNotificationCount }}</ion-badge>
 			</button>
 			<button ion-item icon-start (click)="openCombo()">
-				<ion-icon class="yellow" name="pizza"></ion-icon> 
+				<ion-icon class="green" name="pizza"></ion-icon> 
 				Combo
 			</button>
 			<button ion-item icon-start (click)="openScanner()">
@@ -61,7 +61,7 @@
 		</ion-list>
 	</ion-content>
 	<ion-footer padding>
-		<button ion-button outline round icon-start color="danger" (click)="logout()">
+		<button ion-button block outline round icon-start color="danger" (click)="logout()">
 			<ion-icon color="danger" name="log-out"></ion-icon> 
 			Logout
 		</button>
@@ -74,27 +74,23 @@
 	<ion-slides>
 		<ion-slide>
 			<div class="auto-scroll">
-				<ion-list>
+				<ion-list no-lines>
 					<ion-item *ngIf="ordered" icon-left (click)="viewMyOrder()">
 						<ion-icon name="eye" item-left color="secondary"></ion-icon>
 						View your order
 					</ion-item>
-					<ion-item *ngFor="let diner of dinerList" [class.hidden]="diner.distance > 1.5">
+					<ion-item *ngFor="let diner of dinerList">
 						<ion-avatar item-left (click)="viewDiner(diner.id)">
 							<img src="assets/imgs/DinerAvatar.png">
 						</ion-avatar>
-						<h2 class="name">{{diner.name}}</h2>
-						<div>
-							<p class="distance">
-								<ion-icon name="pin" color="danger"></ion-icon>
-								{{diner.distance}} km
-							</p>
-							<p class="crowd">
-								<ion-icon name="people" color="secondary"></ion-icon>
-								{{diner.customers}}
-							</p>
-						</div>
-						<button *ngIf="!ordered" ion-button float-right round outline color="secondary" (click)="orderHere(diner.id)">
+						<h2>{{diner.name}}</h2>
+						<p>
+							<ion-icon name="pin" color="danger"></ion-icon>
+							{{diner.distance}} km
+							<ion-icon name="people" color="secondary"></ion-icon>
+							{{diner.customers}}
+						</p>
+						<button *ngIf="!ordered" ion-button item-right round outline color="secondary" (click)="orderHere(diner.id)">
 							Order here
 						</button>
 					</ion-item>
