@@ -5,15 +5,23 @@ page-diner-scan {
 		background-color: none;
 	}
 
+	h2{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		font-weight: normal;
+		text-align: center;
+	}
+
 	.qrcode img{
-		max-width: 116px;
+		width: 80%;
 		filter: invert(87.5%);
 		display: block;
 		margin: auto;
 	}
 
 	p{
-		color: white!important;
+		color: #BBB!important;
 		text-align: center;
 	}
 
@@ -27,7 +35,15 @@ page-diner-scan {
 	}
 
 	.card-md{
-		max-width: 116px;
 		margin: 16px auto;
+	}
+
+	.item-md,
+	.card-md{
+		background-color: transparent;
+	}
+
+	ion-label{
+		white-space: normal;
 	}
 }

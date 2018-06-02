@@ -20,29 +20,35 @@
 
 <ion-content [ngSwitch]="codeType" padding offset-md-3 col-md-6 offset-lg-4 col-lg-4>
 	<ion-content *ngSwitchCase="'favorite'">
-		<ion-card *ngIf="dinerCode">
-			<ngx-qrcode [qrc-value]="dinerCode"></ngx-qrcode>
-		</ion-card>
+		<h2>
+			<ion-icon name="heart" class="red"></ion-icon>
+			Favorite!
+		</h2>
 		<ion-card *ngIf="dinerCode">
 			<ion-item>
 				<p>Let customers scan this code so your diner would be one of their favorites.</p>
 			</ion-item>
 		</ion-card>
+		<ion-card *ngIf="dinerCode">
+			<ngx-qrcode [qrc-value]="dinerCode"></ngx-qrcode>
+		</ion-card>
 	</ion-content>
 	<ion-content *ngSwitchCase="'table'">
+		<h2>
+			<ion-icon name="add" class="green"></ion-icon>
+			Table!
+		</h2>
+		<ion-card *ngIf="dinerCode">
+			<ion-item>
+				<p>Generate table codes by entering the table's name below and generate the code.</p>
+			</ion-item>
+		</ion-card>
 		<ion-item>
 			<ion-input type="text" placeholder="Table Name" [(ngModel)]="qrData"></ion-input>
 		</ion-item>
-
 		<ion-card *ngIf="createdCode">
 			<ngx-qrcode [qrc-value]="createdCode"></ngx-qrcode>
 		</ion-card>
-
-		<!-- <ion-card *ngIf="scannedCode">
-			<ion-item>
-				<p>{{ scannedCode }}</p>
-			</ion-item>
-		</ion-card> -->
 	<ion-footer padding>
 		<button ion-button outline round icon-left (click)="createCode()">
 			<ion-icon name="barcode"></ion-icon>Create Code
