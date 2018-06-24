@@ -19,20 +19,11 @@
 
 
 <ion-content padding>
-	<ion-row>
-	    <ion-col>
-	      <ion-list>
-	        <ion-item>
-	        	<div #map id="map"></div>
-	        </ion-item>
-	      </ion-list>
-	    </ion-col>
-	</ion-row>
+	<div #map id="map"></div>
 	<div id="confirm-location-div">
-	<p>
-      Is this your location? 
-      <!-- <span class="secondary"></span> -->
-    </p>
+		<p>
+	      Is this your location?
+	    </p>
 		<button ion-button color="secondary" icon-left (click)="confirmLocation()">
 			<ion-icon name="checkmark"></ion-icon>
 			Yes, set location here.

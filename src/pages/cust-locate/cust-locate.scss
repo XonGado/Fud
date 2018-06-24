@@ -2,6 +2,18 @@ page-cust-locate {
 	#map{
 		height: 100%;
 		width: 100%;
-		min-height: 30vh;
+		min-height: 100vh;
+	}
+
+	#confirm-location-div{
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		background-color: rgba(0,0,0,0.8);
+		padding: 0.75em 1em; 
+	}
+
+	p .secondary{
+		color: rgba(255,255,255,0.75);
 	}
 }
